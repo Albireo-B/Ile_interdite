@@ -16,9 +16,9 @@ public class Plongeur extends Aventurier{
     
         
     @Override
-    public ArrayList<Tuile> calculDeplacable(Grille g){
+    public ArrayList<Tuile> calculDeplacement(Grille g){
         Tuile t=getPosition();
-        return g.casesSèchesAdjacentes(t);
+        return g.TuilesSèchesAdjacentes(t);
     }
     
 }

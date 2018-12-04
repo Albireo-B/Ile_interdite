@@ -15,9 +15,9 @@ public class Ingenieur extends Aventurier {
     
     
     
-      public ArrayList<Tuile> calculAssechable(Grille g){
+      public ArrayList<Tuile> calculAssechement(Grille g){
         Tuile t=getPosition();
-        return g.casesAdjacentes(t);
+        return g.TuilesAdjacentes(t);
         
     }
 }

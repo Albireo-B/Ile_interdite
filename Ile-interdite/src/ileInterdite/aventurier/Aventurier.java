@@ -22,15 +22,15 @@ public abstract class Aventurier {
     
       
     
-    public ArrayList<Tuile> calculDeplacable(Grille g){
+    public ArrayList<Tuile> calculDeplacement(Grille g){
         Tuile t=getPosition();
-        return g.casesAdjacentes(t);
+        return g.TuilesAdjacentes(t);
         
     }
     
-    public ArrayList<Tuile> calculAssechable(Grille g){
+    public ArrayList<Tuile> calculAssechement(Grille g){
         Tuile t=getPosition();
-        return g.casesAdjacentes(t);
+        return g.TuilesAdjacentes(t);
         
     }
     
