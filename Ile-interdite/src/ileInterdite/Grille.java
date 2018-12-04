@@ -5,6 +5,8 @@
  */
 package ileInterdite;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author grosa
@@ -59,5 +61,9 @@ public class Grille {
         return tuilesAdjacentes;
     }
     
-    public ArrayList<Tuile> casesSeches
+    //TODO: Remplir
+    public ArrayList<Tuile> casesSeches() {
+        ArrayList<Tuile> tuilesSeches = new ArrayList();
+        return tuilesSeches;
+    }
 }
