@@ -18,17 +18,22 @@ public class Controleur {
     private VueGrille vueGrille;
     private HashMap<Integer,Aventurier> joueurs;
     private Grille grille;
+    public Aventurier aventurierCourant;
     
     
     public void gererDeplacement(){
-    Grille g=getGrille();
-    this.calculDeplacable(g);
+
+    this.proposerTuiles(aventurierCourant.calculDeplacement(getGrille()));
     }
 
-    public void gereAssechement(){
-    Grille g=getGrille();
-    this.calculAssechable(g);  
+    public void gererAssechement(){
+ 
+    this.proposerTuiles(aventurierCourant.calculAssechement(getGrille()));
     }
+    
+    public void proposerTuiles(ArrayList<Tuile> ct){
+          
+    }   
     
     public void aventurierSuivant(){
         

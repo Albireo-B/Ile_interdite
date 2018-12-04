@@ -17,9 +17,9 @@ public class Pilote extends Aventurier {
     
         
     @Override
-    public ArrayList<Tuile> calculDeplacable(Grille g){
+    public ArrayList<Tuile> calculDeplacement(Grille g){
         Tuile t=getPosition();
-        return g.casesEmmergées(t);
+        return g.TuilesEmmergées(t);
     }
     
 }
