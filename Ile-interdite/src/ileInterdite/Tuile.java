@@ -6,22 +6,27 @@
 package ileInterdite;
 
 import java.util.ArrayList;
+import ileInterdite.aventurier.*;
 
 /**
  *
  * @author grosa
  */
 public class Tuile {
-    private EtatCase etat = EtatCase.SECHE;
+    private EtatTuile etat = EtatTuile.SECHE;
     private ArrayList<Aventurier> aventuriers;
     public Position position;
     
-    public Tuile() {
-        
+    public Tuile(Position pos) {
+        this.position = pos;
     }
     
-    public void setEtat(EtatCase etat) {
+    public void setEtat(EtatTuile etat) {
         this.etat = etat;
+    }
+    
+    public EtatTuile getEtat() {
+        return etat;
     }
     
     public void addAventurier(Aventurier av) {
@@ -30,5 +35,9 @@ public class Tuile {
     
     public void removeAventurier(Aventurier av) {
         aventuriers.remove(av);
+    }
+    
+    public Position getPosition() {
+        return this.position;
     }
 }

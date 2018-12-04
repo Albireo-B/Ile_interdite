@@ -9,8 +9,6 @@ package ileInterdite;
  *
  * @author grosa
  */
-public abstract class Aventurier {
-    public Aventurier() {
-        
-    }
+public enum EtatTuile {
+    SECHE,INONDEE,COULEE;
 }
