@@ -16,40 +16,37 @@ public abstract class Aventurier {
     private Tuile position;
 
     public Aventurier(int nbAction,Tuile position){
-        setNbAction(nbAction);
+       this.nbAction=nbAction;
         setPosition(position);        
     }
     
       
     
     public ArrayList<Tuile> calculDeplacement(Grille g){
-        Tuile t=getPosition();
-        return g.TuilesAdjacentes(t);
+
+        return g.TuilesAdjacentes(getPosition());
         
     }
     
     public ArrayList<Tuile> calculAssechement(Grille g){
-        Tuile t=getPosition();
-        return g.TuilesAdjacentes(t);
+
+        return g.TuilesAdjacentes(getPosition());
         
     }
     
     
-    /**
-     * @return the nbAction
-     */
-    public int getNbAction() {
-        return nbAction;
-    }
-
-    /**
-     * @param nbAction the nbAction to set
-     */
-    public void setNbAction(int nbAction) {
-        this.nbAction = nbAction;
+    public void decremente(){
+        this.nbAction=getNbAction()-1);
     }
     
-    public void decremente(){
-        setNbAction(getNbAction()-1);
+    
+    public Tuile getPosition(){
+        return position;
+    }
+    public void setPosition(Tuile position){
+        this.position=position;
+    }
+    public int getNbAction() {
+        return nbAction;
     }
 }
