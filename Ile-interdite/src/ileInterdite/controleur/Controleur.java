@@ -5,6 +5,8 @@
  */
 package ileInterdite.controleur;
 
+import ileInterdite.Grille;
+import ileInterdite.Tuile;
 import ileInterdite.aventurier.Aventurier;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,14 +37,18 @@ public class Controleur {
     
     /* affiche les cases possibles en les rendant cliquables*/
     public void proposerTuiles(ArrayList<Tuile> ct){
-          for (Tuile t : getAventurierCourant().calculAssechement(getGrille())){
-              /* setCliquable à rajouter dans la vue grille */setCliquable(t.getPosition());
+          for (Tuile t : ct){
+              /* setCliquable à rajouter dans la VueGrille */setCliquable(t.getPosition());
           }
     }   
     
     public void aventurierSuivant(){
-        
+       
+       if (aventurierCourant.hashCode()==joueurs.size()) {
+           aventurierCourant=joueurs.get(0);
+       } else {aventurierCourant=joueurs.get(aventurierCourant.hashCode()+1);}
     }
+    
     public void nextTurn(){
         
     }
