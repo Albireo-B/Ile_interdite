@@ -5,6 +5,8 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.Grille;
+import ileInterdite.Tuile;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +31,7 @@ public abstract class Aventurier {
     }
     
     public ArrayList<Tuile> calculAssechement(Grille g){
-
+/* pblm fction retourne tuile[]*/
         return g.TuilesAdjacentes(getPosition());
         
     }

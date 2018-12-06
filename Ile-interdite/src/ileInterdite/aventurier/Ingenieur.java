@@ -5,6 +5,8 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.Grille;
+import ileInterdite.Tuile;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +19,7 @@ public class Ingenieur extends Aventurier {
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
         Tuile t=getPosition();
-        return g.TuilesAdjacentes(t);
+        return g.tuilesAdjacentesCroix(t);
         
     }
 }

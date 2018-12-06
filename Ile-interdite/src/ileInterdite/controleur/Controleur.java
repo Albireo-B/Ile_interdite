@@ -6,22 +6,37 @@
 package ileInterdite.controleur;
 
 import ileInterdite.Grille;
+import ileInterdite.Position;
 import ileInterdite.Tuile;
-import ileInterdite.aventurier.Aventurier;
+import ileInterdite.actions.*;
+import ileInterdite.aventurier.*;
+import ileInterdite.message.*;
+import ileInterdite.vues.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
  *
  * @author vinetg
  */
-public class Controleur {
+public class Controleur implements Observer{
     private VueAventurier vueAventurier;
     private VueGrille vueGrille;
     private HashMap<Integer,Aventurier> joueurs;
     private Grille grille;
     private Aventurier aventurierCourant;
+    
+    public Controleur(){
+        
+        
+        vueAventurier.addObserver(this);
+        vueGrille.addObserver(this);
+        
+    }
+    
     
     //Fonction globale qui gère le déplacement
     public void gererDeplacement(){
@@ -38,29 +53,50 @@ public class Controleur {
     /* affiche les cases possibles en les rendant cliquables*/
     public void proposerTuiles(ArrayList<Tuile> ct){
           for (Tuile t : ct){
-              /* setCliquable à rajouter dans la VueGrille */setCliquable(t.getPosition());
+          setCliquable(t.getPosition());
           }
     }   
     
+    /*fais apparaître une Tuile*/
+    public void setCliquable(Position pos){
+        
+    }
+    
     public void aventurierSuivant(){
        
-       if (aventurierCourant.hashCode()==joueurs.size()) {
-           aventurierCourant=joueurs.get(0);
-       } else {aventurierCourant=joueurs.get(aventurierCourant.hashCode()+1);}
+       aventurierCourant=joueurs.get(aventurierCourant.hashCode()+1%4);
     }
     
     public void nextTurn(){
         
     }
     
-    public void traiterMessage(Message action){
+    //s'occupe de toute les opérations
+    @Override
+    public void update(Observable o, Object arg) {
+        Message message = (Message) arg;
+    
+        if (message.getAction()== Action.ASSECHER){
+            gererAssechement();
+     
+        }
+        else if (message.getAction()==Action.DEPLACER){
+             gererDeplacement();
+        }
+       
+         if (arg instanceof MessagePos){
+             if (message.getAction()==Action.DEPLACER){
+                 if (aventurierCourant instanceof Pilote) {
+                    
+                     
+                    
+                 } else {
+                     
+                 }
+         }
+         }
         
     }
-    
-    public void traiterMessage(MessagePos action){
-        
-    }
-    
     
     
     
@@ -138,4 +174,5 @@ public class Controleur {
     public void setAventurierCourant(Aventurier aventurierCourant) {
         this.aventurierCourant = aventurierCourant;
     }
+
 }
