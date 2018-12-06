@@ -36,7 +36,7 @@ public abstract class Aventurier {
     
     
     public void decremente(){
-        this.nbAction=getNbAction()-1);
+        this.nbAction=getNbAction()-1;
     }
     
     

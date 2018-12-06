@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Ingenieur extends Aventurier {
     
-    
-    
+   
+    @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
         Tuile t=getPosition();
         return g.TuilesAdjacentes(t);

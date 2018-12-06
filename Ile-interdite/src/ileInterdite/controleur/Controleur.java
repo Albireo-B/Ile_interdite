@@ -6,6 +6,7 @@
 package ileInterdite.controleur;
 
 import ileInterdite.aventurier.Aventurier;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -18,21 +19,25 @@ public class Controleur {
     private VueGrille vueGrille;
     private HashMap<Integer,Aventurier> joueurs;
     private Grille grille;
-    public Aventurier aventurierCourant;
+    private Aventurier aventurierCourant;
     
-    
+    //Fonction globale qui gère le déplacement
     public void gererDeplacement(){
 
-    this.proposerTuiles(aventurierCourant.calculDeplacement(getGrille()));
+    this.proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()));
     }
 
+    //Fonction globale qui gère l'asséchement
     public void gererAssechement(){
  
-    this.proposerTuiles(aventurierCourant.calculAssechement(getGrille()));
+    this.proposerTuiles(getAventurierCourant().calculAssechement(getGrille()));
     }
     
+    /* affiche les cases possibles en les rendant cliquables*/
     public void proposerTuiles(ArrayList<Tuile> ct){
-          
+          for (Tuile t : getAventurierCourant().calculAssechement(getGrille())){
+              /* setCliquable à rajouter dans la vue grille */setCliquable(t.getPosition());
+          }
     }   
     
     public void aventurierSuivant(){
@@ -112,5 +117,19 @@ public class Controleur {
      */
       public void setGrille(Grille grille) {
         this.grille = grille;
+    }
+
+    /**
+     * @return the aventurierCourant
+     */
+    public Aventurier getAventurierCourant() {
+        return aventurierCourant;
+    }
+
+    /**
+     * @param aventurierCourant the aventurierCourant to set
+     */
+    public void setAventurierCourant(Aventurier aventurierCourant) {
+        this.aventurierCourant = aventurierCourant;
     }
 }
