@@ -95,18 +95,21 @@ public class Grille {
         while(!tuileNonVerifiees.isEmpty())
         {
             Tuile tuileVerifiee = tuileNonVerifiees.get(0);
-            ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
+            ArrayList<Tuile> tuilesAVerifier = new ArrayList();
             
+            tuilesAVerifier = this.tuilesAdjacentesCroix(tuileVerifiee.getPosition());
             
-            tuilesAdjacentes = this.tuilesAdjacentesCroix(tuileVerifiee.getPosition());
-            
-            for (Tuile tNew : tuilesAdjacentes) {
-                if (tuileAccessibles.contains(tNew)){
-                    tuilesAdjacentes.remove(tNew);
+            for (Tuile tNew : tuilesAVerifier) {
+                if (tNew.getEtat() == EtatTuile.SECHE) {
+                    tuileAccessibles.add(tNew);
+                    tuilesAVerifier.remove(tNew);
+                }
+                else if (tuileAccessibles.contains(tNew)){
+                    tuilesAVerifier.remove(tNew);
                 }
             }
             
-            tuileNonVerifiees.addAll(tuilesAdjacentes);
+            tuileNonVerifiees.addAll(tuilesAVerifier);
             
             tuileAccessibles.add(tuileVerifiee);
             tuileNonVerifiees.remove(0);
