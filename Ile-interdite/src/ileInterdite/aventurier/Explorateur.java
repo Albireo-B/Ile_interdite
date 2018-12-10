@@ -20,13 +20,12 @@ public class Explorateur extends Aventurier {
         
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
-        Tuile t=getPosition();
-        return g.tuilesAdjacentesCarre(t);
+        return g.tuilesAdjacentesCarre(getTuile());
     }
     
+    @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
-        Tuile t=getPosition();
-        return g.tuilesAdjacentesCarre(t);
+        return g.tuilesAdjacentesCarre(getTuile());
         
     }
 }

@@ -23,4 +23,5 @@ public class Pilote extends Aventurier {
         return g.tuilesSeches();
     }
     
+   
 }

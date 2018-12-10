@@ -18,8 +18,7 @@ public class Ingenieur extends Aventurier {
    
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
-        Tuile t=getPosition();
-        return g.tuilesAdjacentesCroix(t);
+        return g.tuilesAdjacentesCroix(getTuile());
         
     }
 }
