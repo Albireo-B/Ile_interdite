@@ -17,7 +17,7 @@ public abstract class Aventurier {
     private int nbAction;
     private Tuile tuile;
     private Boolean pouvoir;
-    private String classe;
+    private static String classe;
     private String nomJoueur;
 
     public Aventurier(Tuile tuile,String nom){
@@ -93,12 +93,6 @@ public abstract class Aventurier {
         return classe;
     }
 
-    /**
-     * @param classe the classe to set
-     */
-    public void setClasse(String classe) {
-        this.classe = classe;
-    }
 
     /**
      * @return the nomJoueur
@@ -112,6 +106,13 @@ public abstract class Aventurier {
      */
     public void setNomJoueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
+    }
+
+    /**
+     * @param classe the classe to set
+     */
+    public void setClasse(String classe) {
+        this.classe = classe;
     }
 
 }

@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class Ingenieur extends Aventurier {
     
-  public Ingenieur(Tuile tuile,String nom,String classe){
+  public Ingenieur(Tuile tuile,String nom){
        super(tuile,nom);   
-       setClasse(classe);
+       setClasse("Ingenieur");
     }
    
     @Override

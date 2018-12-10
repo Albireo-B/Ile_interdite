@@ -110,10 +110,22 @@ public class VueAventurier extends Observable {
                 clearChanged();
             }
         });
+
+        btnTerminerTour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers();
+                clearChanged();
+            }
+        });
+    
     }
-        
+    
         public void actualiser(){
-            
+           mainPanel.removeAll();
+   
+           
+           
         }
     
    
