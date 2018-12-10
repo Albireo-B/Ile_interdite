@@ -16,12 +16,35 @@ public class Grille {
     private static int longueurTerrain = 6;
     private HashMap<Position, Tuile> tuiles = new HashMap();
     
-    public Grille() {
-        
+    public Grille(ArrayList<String> nomTuiles) {
+        int demi_longueur = 1; // nombre de tuile dans la ligne actuelle / 2
+        int increment = 1; // Vaut +1 pour la première moitié des lignes, -1 ensuite
+        int i = 0; // numero de la tuile de la ligne actuelle
+        int x = 0, y = 5; // position de la tuile actuelle
+        // On parcours toutes les tuiles:
+        for (int indexTuile = 0; indexTuile <= 24; indexTuile++) {
+            String nomTuile = nomTuiles.get(indexTuile);
+            
+            if (i+1 == demi_longueur * 2) {
+                i = 0;
+                y--;
+                demi_longueur += increment;
+                if (demi_longueur == 4) {
+                    demi_longueur = 3;
+                    increment *= -1;
+                }
+            }
+            
+            x = 3 - demi_longueur + i;
+            Position pos = new Position(x,y);
+            
+            tuiles.put(pos, new Tuile(nomTuile, pos));
+            i++;
+        }
     }
     
     public Tuile getTuile(Position p) {
-        return tuiles.get(new Position(p.x, p.y));
+        return tuiles.get(p);
     }
     
     // Retourne un tableau des 4 tuiles adjascentes à la position pos selon ce
