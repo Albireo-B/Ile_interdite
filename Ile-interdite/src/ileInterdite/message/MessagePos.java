@@ -5,6 +5,7 @@
  */
 package ileInterdite.message;
 
+import ileInterdite.Position;
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 
@@ -13,24 +14,17 @@ import ileInterdite.actions.*;
  * @author vinetg
  */
 public class MessagePos extends Message{
-    private Tuile tuile;
+    private Position pos;
 
-    public MessagePos(Action action,Tuile tuile){
-       super(action);  
-       setTuile(tuile);
+    public MessagePos(Action action, Position pos){
+       super(action);
+       this.pos = pos;
     }
     
     /**
      * @return the case
      */
-    public Tuile getTuile() {
-        return tuile;
-    }
-
-    /**
-     * @param tuile the case to set
-     */
-    public void setTuile(Tuile tuile) {
-        this.tuile = tuile;
+    public Position getPosition() {
+        return pos;
     }
 }
