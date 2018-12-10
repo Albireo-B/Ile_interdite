@@ -17,10 +17,12 @@ public abstract class Aventurier {
     private int nbAction;
     private Tuile tuile;
     private Boolean pouvoir;
+    private String classe;
+    private String nomJoueur;
 
-    public Aventurier(int nbAction,Tuile tuile){
-       this.nbAction=nbAction;
-        setTuile(tuile);        
+    public Aventurier(Tuile tuile,String nom){
+        setTuile(tuile);   
+        resetPA();
     }
     
       
@@ -37,6 +39,9 @@ public abstract class Aventurier {
         
     }
     
+    public void resetPA(){
+        setNbAction(3);
+    }
     
     public void decremente(){
         this.setNbAction(getNbAction()-1);
@@ -79,6 +84,34 @@ public abstract class Aventurier {
      */
     public void setPouvoir(Boolean pouvoir) {
         this.pouvoir = pouvoir;
+    }
+
+    /**
+     * @return the classe
+     */
+    public String getClasse() {
+        return classe;
+    }
+
+    /**
+     * @param classe the classe to set
+     */
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
+    /**
+     * @return the nomJoueur
+     */
+    public String getNomJoueur() {
+        return nomJoueur;
+    }
+
+    /**
+     * @param nomJoueur the nomJoueur to set
+     */
+    public void setNomJoueur(String nomJoueur) {
+        this.nomJoueur = nomJoueur;
     }
 
 }

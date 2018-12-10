@@ -15,8 +15,9 @@ import java.util.ArrayList;
  */
 public class Pilote extends Aventurier {
     
-    public Pilote(int nbAction, Tuile tuile) {
-        super(nbAction, tuile);
+      public Pilote(Tuile tuile,String nom,String classe){
+       super(tuile,nom);   
+       setClasse(classe);
     }
 
     public void setPositionPilote(Grille g, Tuile t) {

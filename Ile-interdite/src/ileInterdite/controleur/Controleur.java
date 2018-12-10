@@ -33,10 +33,11 @@ public class Controleur implements Observer {
     public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
         //Crétion des joueurs
         setJoueurs(joueurs);
-        setAventurierCourant(getJoueurs().get(0));
+        setAventurierCourant(getJoueurs().get(-1));
+        nextTurn();
         
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier("Dora", "Explorateur",Utils.Pion.ROUGE.getCouleur(),3);
+        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),Utils.Pion.ROUGE.getCouleur(),aventurierCourant.getNbAction());
         vueAventurier.addObserver(this);
         
         //Création de la Grille
@@ -77,7 +78,7 @@ public class Controleur implements Observer {
     
     public void nextTurn(){
         getAventurierCourant().setPouvoir(true);
-        getAventurierCourant().setNbAction(3);
+        getAventurierCourant().resetPA();
         aventurierSuivant();
         getVueAventurier().actualiser();
     }
