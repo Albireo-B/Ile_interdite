@@ -15,9 +15,11 @@ import ileInterdite.aventurier.*;
 public class Tuile {
     private EtatTuile etat = EtatTuile.SECHE;
     private ArrayList<Aventurier> aventuriers;
-    public Position position;
+    private Position position;
+    private String nom;
     
-    public Tuile(Position pos) {
+    public Tuile(String nom, Position pos) {
+        this.nom = nom;
         this.position = pos;
     }
     
