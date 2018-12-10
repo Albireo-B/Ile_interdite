@@ -7,20 +7,39 @@ package Tests;
 
 import ileInterdite.Grille;
 import ileInterdite.Position;
+import ileInterdite.Tuile;
 import java.util.ArrayList;
+import ileInterdite.aventurier.*;
+import ileInterdite.controleur.Controleur;
+import java.util.ResourceBundle;
 
 /**
  *
  * @author daiha
  */
-public class TestEtatTuile {
+public class testTour {
     
     public static void main(String[] args) {
-        Position p = new Position(1, 14);
+        Position p1 = new Position(2,0);
+        Position p2 = new Position(3,0);
+        Position p3 = new Position(0,2);
+        Position p4 = new Position(0,3);
+        
         ArrayList<String> nomTuiles = nomsDesTuiles();
         Grille gl = new Grille(nomTuiles);
-        System.out.println(nomTuiles);
-        System.out.println(p);
+       
+        ArrayList <Aventurier> avens=new ArrayList<Aventurier>();
+        // initializing  4 players
+        avens.add(new Plongeur(gl.getTuile(p3),"clement"));
+        avens.add(new Explorateur(gl.getTuile(p4),"Guillaume"));
+        avens.add(new Ingenieur(gl.getTuile(p1),"Alexis"));
+        avens.add(new Messager(gl.getTuile(p2),"Lois"));
+
+        Controleur ctrl = new Controleur(avens,gl);
+                
+        
+        
+        
     }
         
     static public ArrayList<String> nomsDesTuiles() {
