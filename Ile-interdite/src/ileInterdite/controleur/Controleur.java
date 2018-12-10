@@ -80,7 +80,7 @@ public class Controleur implements Observer {
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
         aventurierSuivant();
-        getVueAventurier().actualiser();
+       getVueAventurier().actualiser();
     }
     
     //s'occupe de toute les opérations

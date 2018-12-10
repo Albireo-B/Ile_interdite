@@ -124,10 +124,10 @@ public class VueAventurier extends Observable {
     }
     
         public void actualiser(){
-           mainPanel.removeAll();
-           panelAventurier.setBackground(this.);
-           panelAventurier.add(new JLabel(aventurierCourant.getNomJoueur(),SwingConstants.CENTER ));
-           
+//           mainPanel.removeAll();
+//           panelAventurier.setBackground(this.);
+//           panelAventurier.add(new JLabel(aventurierCourant.getNomJoueur(),SwingConstants.CENTER ));
+//           
            
            
         }
