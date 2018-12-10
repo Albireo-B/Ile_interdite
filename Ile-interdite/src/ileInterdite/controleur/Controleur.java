@@ -36,8 +36,7 @@ public class Controleur implements Observer {
         setAventurierCourant(getJoueurs().get(0));
         
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),Utils.Pion.ROUGE.getCouleur(),aventurierCourant.getNbAction());
-        System.out.println(joueurs);
+        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),aventurierCourant.getPion().getCouleur(),aventurierCourant.getNbAction());
         vueAventurier.addObserver(this);
         
         //Initialisation de la Grille
@@ -80,7 +79,8 @@ public class Controleur implements Observer {
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
         aventurierSuivant();
-       getVueAventurier().actualiser();
+        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),aventurierCourant.getPion().getCouleur(),aventurierCourant.getNbAction());
+        vueAventurier.addObserver(this);
     }
     
     //s'occupe de toute les opérations
@@ -94,6 +94,10 @@ public class Controleur implements Observer {
         }
         else if (message.getAction()==Action.DEPLACER){
             gererDeplacement();
+        }
+        else if (message.getAction()==Action.TERMINER){
+            ((VueAventurier) o).close();
+            nextTurn();
         }
        
         if (arg instanceof MessagePos){

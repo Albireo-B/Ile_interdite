@@ -11,5 +11,6 @@ package ileInterdite.actions;
  */
 public enum Action {
     ASSECHER,
-    DEPLACER
+    DEPLACER,
+    TERMINER
 }

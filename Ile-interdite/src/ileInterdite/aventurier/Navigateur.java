@@ -6,6 +6,7 @@
 package ileInterdite.aventurier;
 
 import ileInterdite.Tuile;
+import ileInterdite.controleur.utilitaires.Utils;
 
 /**
  *
@@ -16,5 +17,6 @@ public class Navigateur extends Aventurier {
       public Navigateur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Navigateur");
+       setPion(Utils.Pion.JAUNE);
     }
 }

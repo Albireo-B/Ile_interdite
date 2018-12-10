@@ -102,6 +102,7 @@ public class VueGrille extends Observable {
         }
     }
     
+    
     public JPanel getPanelGrille() {
         return panelGrille;
     }

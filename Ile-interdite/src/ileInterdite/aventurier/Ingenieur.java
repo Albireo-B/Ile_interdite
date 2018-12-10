@@ -7,6 +7,7 @@ package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
+import ileInterdite.controleur.utilitaires.Utils;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public class Ingenieur extends Aventurier {
   public Ingenieur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Ingenieur");
+       setPion(Utils.Pion.ROUGE);
     }
    
     @Override

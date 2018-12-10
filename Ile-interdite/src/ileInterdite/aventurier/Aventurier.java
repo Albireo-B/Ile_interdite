@@ -7,6 +7,7 @@ package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
+import ileInterdite.controleur.utilitaires.Utils.*;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ public abstract class Aventurier {
     private Boolean pouvoir;
     private String classe;
     private String nomJoueur;
+    private Pion pion;
 
     public Aventurier(Tuile tuile,String nom){
         this.tuile=tuile;   
@@ -114,6 +116,20 @@ public abstract class Aventurier {
      */
     public void setClasse(String classe) {
         this.classe = classe;
+    }
+
+    /**
+     * @return the pion
+     */
+    public Pion getPion() {
+        return pion;
+    }
+
+    /**
+     * @param pion the pion to set
+     */
+    public void setPion(Pion pion) {
+        this.pion = pion;
     }
 
 }

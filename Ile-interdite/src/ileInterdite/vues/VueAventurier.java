@@ -51,7 +51,7 @@ public class VueAventurier extends Observable {
         this.window = new JFrame();
         window.setSize(650, 650);
         //le titre = nom du joueur 
-        window.setTitle(nomJoueur);
+        window.setTitle("Ile interdite");
         System.out.println(nomJoueur);
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
@@ -64,9 +64,10 @@ public class VueAventurier extends Observable {
 
         this.panelAventurier = new JPanel();
         panelAventurier.setBackground(couleur);
-        panelAventurier.add(new JLabel(nomAventurier,SwingConstants.CENTER ));
+        panelAventurier.add(new JLabel(nomAventurier + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
    
+           
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
         this.panelCentre = new JPanel(new GridLayout(2, 1));
@@ -116,21 +117,15 @@ public class VueAventurier extends Observable {
         btnTerminerTour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                notifyObservers();
+                notifyObservers(new Message(Action.TERMINER));
                 clearChanged();
             }
         });
-    
     }
     
-        public void actualiser(){
-//           mainPanel.removeAll();
-//           panelAventurier.setBackground(this.);
-//           panelAventurier.add(new JLabel(aventurierCourant.getNomJoueur(),SwingConstants.CENTER ));
-//           
-           
-           
-        }
+    public void close(){
+        this.window.dispose();
+    }
     
    
     public JButton getBtnBouger() {
