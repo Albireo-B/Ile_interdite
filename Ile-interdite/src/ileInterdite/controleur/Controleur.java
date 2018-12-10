@@ -33,7 +33,7 @@ public class Controleur implements Observer {
     public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
         //Crétion des joueurs
         setJoueurs(joueurs);
-        setAventurierCourant(getJoueurs().get(-1));
+        setAventurierCourant(getJoueurs().get(0));
         nextTurn();
         
         // Création de la vue aventurier
@@ -73,7 +73,7 @@ public class Controleur implements Observer {
     
     public void aventurierSuivant(){
        
-       setAventurierCourant(getJoueurs().get(getAventurierCourant().hashCode() + 1%4));
+       setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(aventurierCourant) + 1) % 4));
     }
     
     public void nextTurn(){

@@ -21,7 +21,7 @@ public abstract class Aventurier {
     private String nomJoueur;
 
     public Aventurier(Tuile tuile,String nom){
-        setTuile(tuile);   
+        this.tuile=tuile;   
         resetPA();
     }
     
