@@ -17,11 +17,12 @@ public abstract class Aventurier {
     private int nbAction;
     private Tuile tuile;
     private Boolean pouvoir;
-    private static String classe;
+    private String classe;
     private String nomJoueur;
 
     public Aventurier(Tuile tuile,String nom){
         this.tuile=tuile;   
+        setNomJoueur(nom);
         resetPA();
     }
     

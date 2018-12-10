@@ -34,10 +34,10 @@ public class Controleur implements Observer {
         //Crétion des joueurs
         setJoueurs(joueurs);
         setAventurierCourant(getJoueurs().get(0));
-        nextTurn();
         
         // Création de la vue aventurier
         vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),Utils.Pion.ROUGE.getCouleur(),aventurierCourant.getNbAction());
+        System.out.println(joueurs);
         vueAventurier.addObserver(this);
         
         //Création de la Grille
