@@ -40,11 +40,12 @@ public class VueAventurier extends Observable {
     private final JLabel nbPA;
     private final JButton btnTerminerTour;
     private VueGrille vueGrille;
+
    
    
    
     
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur,String nombrePA){
+    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur,int nombrePA){
 
         this.window = new JFrame();
         window.setSize(650, 650);
@@ -111,7 +112,9 @@ public class VueAventurier extends Observable {
         });
     }
         
-        
+        public void actualiser(){
+            
+        }
     
    
     public JButton getBtnBouger() {
@@ -126,10 +129,6 @@ public class VueAventurier extends Observable {
         return btnTerminerTour;
     }
  
-     public static void main(String [] args) {
-        // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier("Lois", "Explorateur",Pion.ROUGE.getCouleur(),"3");
-    }
 }
 
  

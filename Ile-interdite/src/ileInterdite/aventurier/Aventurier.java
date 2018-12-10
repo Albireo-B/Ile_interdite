@@ -39,7 +39,7 @@ public abstract class Aventurier {
     
     
     public void decremente(){
-        this.nbAction=getNbAction()-1;
+        this.setNbAction(getNbAction()-1);
     }
     
     
@@ -58,6 +58,15 @@ public abstract class Aventurier {
         return nbAction;
     }
 
+    
+    /**
+     * @param nbAction the nbAction to set
+     */
+    public void setNbAction(int nbAction) {
+        this.nbAction = nbAction;
+    }
+    
+    
     /**
      * @return the pouvoir
      */
@@ -71,4 +80,5 @@ public abstract class Aventurier {
     public void setPouvoir(Boolean pouvoir) {
         this.pouvoir = pouvoir;
     }
+
 }
