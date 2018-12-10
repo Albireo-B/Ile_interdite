@@ -52,6 +52,7 @@ public class VueAventurier extends Observable {
         window.setSize(650, 650);
         //le titre = nom du joueur 
         window.setTitle(nomJoueur);
+        System.out.println(nomJoueur);
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
 

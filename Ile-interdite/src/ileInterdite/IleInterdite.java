@@ -5,10 +5,6 @@
  */
 package ileInterdite;
 
-import Tests.TestEtatTuile;
-import ileInterdite.aventurier.Aventurier;
-import ileInterdite.controleur.Controleur;
-import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +16,6 @@ public class IleInterdite {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Controleur c1 = new Controleur(ArrayList<Aventurier> joueurs,Grille grille);
         
     }
     

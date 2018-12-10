@@ -12,11 +12,11 @@ import ileInterdite.actions.*;
  * @author vinetg
  */
 public class Message {
-        private Action action;
+    private Action action;
         
-        public Message(Action action){
-            setAction(action);
-        }
+    public Message(Action action){
+        setAction(action);
+    }
 
     /**
      * @return the action
