@@ -31,7 +31,7 @@ public class Controleur implements Observer {
     private Aventurier aventurierCourant;
     
     public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
-        //Crétion des joueurs
+        //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
         setAventurierCourant(getJoueurs().get(-1));
         nextTurn();
@@ -40,7 +40,7 @@ public class Controleur implements Observer {
         vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),Utils.Pion.ROUGE.getCouleur(),aventurierCourant.getNbAction());
         vueAventurier.addObserver(this);
         
-        //Création de la Grille
+        //Initialisation de la Grille
         setGrille(grille);
         
         
@@ -50,13 +50,13 @@ public class Controleur implements Observer {
     //Fonction globale qui gère le déplacement
     public void gererDeplacement(){
 
-    this.proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()));
+    proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()));
     }
 
     //Fonction globale qui gère l'asséchement
     public void gererAssechement(){
  
-    this.proposerTuiles(getAventurierCourant().calculAssechement(getGrille()));
+    proposerTuiles(getAventurierCourant().calculAssechement(getGrille()));
     }
     
     /* affiche les cases possibles en les rendant cliquables*/

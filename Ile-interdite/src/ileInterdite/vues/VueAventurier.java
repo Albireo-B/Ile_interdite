@@ -6,6 +6,7 @@
 package ileInterdite.vues;
 
 import ileInterdite.actions.*;
+import ileInterdite.aventurier.*;
 import ileInterdite.controleur.utilitaires.Utils.*;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
@@ -123,7 +124,9 @@ public class VueAventurier extends Observable {
     
         public void actualiser(){
            mainPanel.removeAll();
-   
+           panelAventurier.setBackground(this.);
+           panelAventurier.add(new JLabel(aventurierCourant.getNomJoueur(),SwingConstants.CENTER ));
+           
            
            
         }
