@@ -6,7 +6,7 @@
 package ileInterdite;
 
 import java.util.ArrayList;
-import ileInterdite.aventurier.*;
+import ileInterdite.aventurier.Aventurier;
 
 /**
  *

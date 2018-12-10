@@ -35,6 +35,7 @@ public class Grille {
         
     }
     
+    // Retourne la position de tous les emplacements valides pour des tuiles
     public static ArrayList<Position> getAllTilesPositions() {
         ArrayList<Position> positions = new ArrayList();
         
