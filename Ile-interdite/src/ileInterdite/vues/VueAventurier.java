@@ -110,10 +110,20 @@ public class VueAventurier extends Observable {
                 clearChanged();
             }
         });
+
+        btnTerminerTour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(new Message());
+                clearChanged();
+            }
+        });
+    
     }
-        
+    
         public void actualiser(){
-            
+            this.v
+            VueAventurier vueAventurier = new VueAventurier();
         }
     
    

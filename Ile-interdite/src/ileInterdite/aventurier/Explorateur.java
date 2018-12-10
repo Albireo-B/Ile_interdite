@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
-    public Explorateur(Tuile tuile,String nom,String classe){
+    public Explorateur(Tuile tuile,String nom){
        super(tuile,nom);   
-       setClasse(classe);
+       setClasse("Explorateur");
     }
     
         

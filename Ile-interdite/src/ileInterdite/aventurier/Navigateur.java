@@ -13,8 +13,8 @@ import ileInterdite.Tuile;
  */
 public class Navigateur extends Aventurier {
     
-      public Navigateur(Tuile tuile,String nom,String classe){
+      public Navigateur(Tuile tuile,String nom){
        super(tuile,nom);   
-       setClasse(classe);
+       setClasse("Navigateur");
     }
 }
