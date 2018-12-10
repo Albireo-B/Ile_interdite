@@ -84,15 +84,15 @@ public class Controleur implements Observer{
              gererDeplacement();
         }
        
-         if (arg instanceof MessagePos){
-             if (message.getAction()==Action.DEPLACER){
+        if (arg instanceof MessagePos){
+             MessagePos messagepos = (MessagePos) arg;
+             if (messagepos.getAction()==Action.DEPLACER){
                  if (aventurierCourant instanceof Pilote) {
-                    
-                     
-                    
+                    aventurierCourant.setPositionPilote(getGrille(),messagepos.getTuile());    
                  } else {
-                     
+                    aventurierCourant.setTuile(messagepos.getTuile());
                  }
+                 aventurierCourant.decremente();
          }
          }
         

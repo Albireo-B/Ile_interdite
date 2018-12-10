@@ -15,18 +15,19 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
-    
+    public Explorateur(int nbAction,Tuile tuile){
+       super(nbAction,tuile);       
+    }
     
         
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
-        Tuile t=getPosition();
-        return g.tuilesAdjacentesCarre(t);
+        return g.tuilesAdjacentesCarre(getTuile());
     }
     
+    @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
-        Tuile t=getPosition();
-        return g.tuilesAdjacentesCarre(t);
+        return g.tuilesAdjacentesCarre(getTuile());
         
     }
 }

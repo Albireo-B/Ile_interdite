@@ -15,24 +15,25 @@ import java.util.ArrayList;
  */
 public abstract class Aventurier {
     private int nbAction;
-    private Tuile position;
+    private Tuile tuile;
+    private Boolean pouvoir;
 
-    public Aventurier(int nbAction,Tuile position){
+    public Aventurier(int nbAction,Tuile tuile){
        this.nbAction=nbAction;
-        setPosition(position);        
+        setTuile(tuile);        
     }
     
       
     
     public ArrayList<Tuile> calculDeplacement(Grille g){
 
-        return g.TuilesAdjacentes(getPosition());
+        return g.tuilesAdjacentesCroix(getTuile());
         
     }
     
     public ArrayList<Tuile> calculAssechement(Grille g){
 /* pblm fction retourne tuile[]*/
-        return g.TuilesAdjacentes(getPosition());
+        return g.tuilesAdjacentesCroix(getTuile());
         
     }
     
@@ -42,13 +43,44 @@ public abstract class Aventurier {
     }
     
     
-    public Tuile getPosition(){
-        return position;
+    public void setPositionPilote(Grille g,Tuile t){
+       int compteTuile=0;
+       for (Tuile tuile : g.tuilesAdjacentesCroix(t)) {
+           if (t!=tuile){
+              compteTuile++;
+           }
+       }
+        if (compteTuile==4) {
+           setPouvoir(false);
+       } else {
+           setPouvoir(true);
+       }
+       setTuile(t);       
     }
-    public void setPosition(Tuile position){
-        this.position=position;
+    
+    
+    public Tuile getTuile(){
+        return tuile;
+    }
+    public void setTuile(Tuile tuile){
+        getTuile().removeAventurier(this);
+        tuile.addAventurier(this);
     }
     public int getNbAction() {
         return nbAction;
+    }
+
+    /**
+     * @return the pouvoir
+     */
+    public Boolean getPouvoir() {
+        return pouvoir;
+    }
+
+    /**
+     * @param pouvoir the pouvoir to set
+     */
+    public void setPouvoir(Boolean pouvoir) {
+        this.pouvoir = pouvoir;
     }
 }
