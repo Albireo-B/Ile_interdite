@@ -29,8 +29,11 @@ public class Grille {
     //           tuile[0]
     //    tuile[3] pos tuile[1]
     //           tuile[2]
-    public ArrayList<Tuile> tuilesAdjacentesCroix(Position posTuile) {
+    public ArrayList<Tuile> tuilesAdjacentesCroix(Tuile tuile) {
         ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
+        
+        Position posTuile = tuile.getPosition();
+        
         Position pos[] = {
             new Position(posTuile.x, posTuile.y+1),
             new Position(posTuile.x+1, posTuile.y),
@@ -55,8 +58,10 @@ public class Grille {
     //    tuile[0] tuile[1] tuile[2]
     //    tuile[3]   pos    tuile[4]
     //    tuile[5] tuile[6] tuile[7]
-    public ArrayList<Tuile> tuilesAdjacentesCarre(Position posTuile) {
+    public ArrayList<Tuile> tuilesAdjacentesCarre(Tuile tuile) {
         ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
+        
+        Position posTuile = tuile.getPosition();
         
         for (int y = 1; y <= -1; y--) {
             for (int x = -1; x <= 1; x++) {
@@ -97,7 +102,7 @@ public class Grille {
             Tuile tuileVerifiee = tuileNonVerifiees.get(0);
             ArrayList<Tuile> tuilesAVerifier = new ArrayList();
             
-            tuilesAVerifier = this.tuilesAdjacentesCroix(tuileVerifiee.getPosition());
+            tuilesAVerifier = this.tuilesAdjacentesCroix(tuileVerifiee);
             
             for (Tuile tNew : tuilesAVerifier) {
                 if (tNew.getEtat() == EtatTuile.SECHE) {
