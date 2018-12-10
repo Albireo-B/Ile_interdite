@@ -5,10 +5,15 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.Tuile;
+
 /**
  *
  * @author vinetg
  */
 public class Messager extends Aventurier {
     
+    public Messager(int nbAction,Tuile tuile){
+       super(nbAction,tuile);       
+    }
 }

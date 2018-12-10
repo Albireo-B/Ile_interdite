@@ -15,7 +15,9 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
-    
+    public Explorateur(int nbAction,Tuile tuile){
+       super(nbAction,tuile);       
+    }
     
         
     @Override

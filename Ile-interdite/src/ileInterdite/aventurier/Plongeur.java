@@ -15,7 +15,9 @@ import java.util.ArrayList;
  */
 public class Plongeur extends Aventurier{
  
-    
+    public Plongeur(int nbAction,Tuile tuile){
+       super(nbAction,tuile);       
+    }
         
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
