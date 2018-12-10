@@ -5,19 +5,21 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.actions.*;
 import ileInterdite.controleur.utilitaires.Utils.*;
+import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -35,17 +37,18 @@ public class VueAventurier extends Observable {
     private final JPanel mainPanel;
     private final JButton btnBouger  ;
     private final JButton btnAssecher;
-    private final JButton btnAutreAction;
+    private final JLabel nbPA;
     private final JButton btnTerminerTour;
-    private JTextField position;
+    private VueGrille vueGrille;
+
    
    
    
     
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur){
+    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur,int nombrePA){
 
         this.window = new JFrame();
-        window.setSize(350, 200);
+        window.setSize(650, 650);
         //le titre = nom du joueur 
         window.setTitle(nomJoueur);
         mainPanel = new JPanel(new BorderLayout());
@@ -70,9 +73,8 @@ public class VueAventurier extends Observable {
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
         panelCentre.add(new JLabel ("Position", SwingConstants.CENTER));
-        position = new  JTextField(30); 
-        position.setHorizontalAlignment(CENTER);
-        panelCentre.add(position);
+        vueGrille = new  VueGrille(); 
+        //panelCentre.add(vueGrille);
 
 
         // =================================================================================
@@ -83,29 +85,50 @@ public class VueAventurier extends Observable {
 
         this.btnBouger = new JButton("Bouger") ;
         this.btnAssecher = new JButton( "Assecher");
-        this.btnAutreAction = new JButton("AutreAction") ;
+        this.nbPA = new JLabel("Nombre d'actions restantes : " + nombrePA);
         this.btnTerminerTour = new JButton("Terminer Tour") ;
         
         this.panelBoutons.add(btnBouger);
         this.panelBoutons.add(btnAssecher);
-        this.panelBoutons.add(btnAutreAction);
+        this.panelBoutons.add(nbPA);
         this.panelBoutons.add(btnTerminerTour);
 
         this.window.setVisible(true);
-    } 
-    
-    public void setPosition(String pos) {
-        this.position.setText(pos);
-    }
-    
-     public JButton getBtnAutreAction() {
-        return btnAutreAction;
-    }
-    
-    public String getPosition() {
-        return position.getText();
-    }
+        
+        btnBouger.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(new Message(Action.DEPLACER));
+                clearChanged();
+            }
+        });
 
+        btnAssecher.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(new Message(Action.ASSECHER));
+                clearChanged();
+            }
+        });
+
+        btnTerminerTour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers();
+                clearChanged();
+            }
+        });
+    
+    }
+    
+        public void actualiser(){
+           mainPanel.removeAll();
+   
+           
+           
+        }
+    
+   
     public JButton getBtnBouger() {
         return btnBouger;
     }
@@ -118,10 +141,6 @@ public class VueAventurier extends Observable {
         return btnTerminerTour;
     }
  
-     public static void main(String [] args) {
-        // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier("Manon", "Explorateur",Pion.ROUGE.getCouleur() );
-    }
 }
 
  

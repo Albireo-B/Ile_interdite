@@ -17,10 +17,12 @@ public abstract class Aventurier {
     private int nbAction;
     private Tuile tuile;
     private Boolean pouvoir;
+    private static String classe;
+    private String nomJoueur;
 
-    public Aventurier(int nbAction,Tuile tuile){
-       this.nbAction=nbAction;
-        setTuile(tuile);        
+    public Aventurier(Tuile tuile,String nom){
+        this.tuile=tuile;   
+        resetPA();
     }
     
       
@@ -37,26 +39,16 @@ public abstract class Aventurier {
         
     }
     
+    public void resetPA(){
+        setNbAction(3);
+    }
     
     public void decremente(){
-        this.nbAction=getNbAction()-1;
+        this.setNbAction(getNbAction()-1);
     }
     
     
-    public void setPositionPilote(Grille g,Tuile t){
-       int compteTuile=0;
-       for (Tuile tuile : g.tuilesAdjacentesCroix(t)) {
-           if (t!=tuile){
-              compteTuile++;
-           }
-       }
-        if (compteTuile==4) {
-           setPouvoir(false);
-       } else {
-           setPouvoir(true);
-       }
-       setTuile(t);       
-    }
+
     
     
     public Tuile getTuile(){
@@ -65,11 +57,21 @@ public abstract class Aventurier {
     public void setTuile(Tuile tuile){
         getTuile().removeAventurier(this);
         tuile.addAventurier(this);
+        this.decremente();
     }
     public int getNbAction() {
         return nbAction;
     }
 
+    
+    /**
+     * @param nbAction the nbAction to set
+     */
+    public void setNbAction(int nbAction) {
+        this.nbAction = nbAction;
+    }
+    
+    
     /**
      * @return the pouvoir
      */
@@ -83,4 +85,34 @@ public abstract class Aventurier {
     public void setPouvoir(Boolean pouvoir) {
         this.pouvoir = pouvoir;
     }
+
+    /**
+     * @return the classe
+     */
+    public String getClasse() {
+        return classe;
+    }
+
+
+    /**
+     * @return the nomJoueur
+     */
+    public String getNomJoueur() {
+        return nomJoueur;
+    }
+
+    /**
+     * @param nomJoueur the nomJoueur to set
+     */
+    public void setNomJoueur(String nomJoueur) {
+        this.nomJoueur = nomJoueur;
+    }
+
+    /**
+     * @param classe the classe to set
+     */
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
 }

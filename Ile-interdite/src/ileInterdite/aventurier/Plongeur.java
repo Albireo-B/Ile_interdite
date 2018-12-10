@@ -15,8 +15,9 @@ import java.util.ArrayList;
  */
 public class Plongeur extends Aventurier{
  
-    public Plongeur(int nbAction,Tuile tuile){
-       super(nbAction,tuile);       
+      public Plongeur(Tuile tuile,String nom){
+       super(tuile,nom);   
+       setClasse("Plongeur");
     }
         
     @Override

@@ -13,7 +13,8 @@ import ileInterdite.Tuile;
  */
 public class Messager extends Aventurier {
     
-    public Messager(int nbAction,Tuile tuile){
-       super(nbAction,tuile);       
+     public Messager(Tuile tuile,String nom){
+       super(tuile,nom);   
+       setClasse("Messager");
     }
 }

@@ -5,15 +5,16 @@
  */
 package ileInterdite.controleur;
 
+import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.aventurier.*;
+import ileInterdite.controleur.utilitaires.Utils;
 import ileInterdite.message.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,18 +23,26 @@ import java.util.Observer;
  *
  * @author vinetg
  */
-public class Controleur implements Observer{
+public class Controleur implements Observer {
     private VueAventurier vueAventurier;
     private VueGrille vueGrille;
-    private HashMap<Integer,Aventurier> joueurs;
+    private ArrayList<Aventurier> joueurs;
     private Grille grille;
     private Aventurier aventurierCourant;
     
-    public Controleur(){
+    public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
+        //Crétion des joueurs
+        setJoueurs(joueurs);
+        setAventurierCourant(getJoueurs().get(0));
+        nextTurn();
         
-        
+        // Création de la vue aventurier
+        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),Utils.Pion.ROUGE.getCouleur(),aventurierCourant.getNbAction());
         vueAventurier.addObserver(this);
-        vueGrille.addObserver(this);
+        
+        //Création de la Grille
+        setGrille(grille);
+        
         
     }
     
@@ -64,11 +73,14 @@ public class Controleur implements Observer{
     
     public void aventurierSuivant(){
        
-       aventurierCourant=joueurs.get(aventurierCourant.hashCode()+1%4);
+       setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(aventurierCourant) + 1) % 4));
     }
     
     public void nextTurn(){
-        
+        getAventurierCourant().setPouvoir(true);
+        getAventurierCourant().resetPA();
+        aventurierSuivant();
+        getVueAventurier().actualiser();
     }
     
     //s'occupe de toute les opérations
@@ -78,22 +90,36 @@ public class Controleur implements Observer{
     
         if (message.getAction()== Action.ASSECHER){
             gererAssechement();
-     
+            
         }
         else if (message.getAction()==Action.DEPLACER){
-             gererDeplacement();
+            gererDeplacement();
         }
        
         if (arg instanceof MessagePos){
-             MessagePos messagepos = (MessagePos) arg;
-             if (messagepos.getAction()==Action.DEPLACER){
-                 if (aventurierCourant instanceof Pilote) {
-                    aventurierCourant.setPositionPilote(getGrille(),messagepos.getTuile());    
-                 } else {
-                    aventurierCourant.setTuile(messagepos.getTuile());
-                 }
-                 aventurierCourant.decremente();
-         }
+            MessagePos messagepos = (MessagePos) arg;
+            if (messagepos.getAction()==Action.DEPLACER){
+                if (getAventurierCourant() instanceof Pilote) {
+                    Pilote p = (Pilote) getAventurierCourant();
+                    p.setPositionPilote(getGrille(),messagepos.getTuile());    
+                } else {
+                    getAventurierCourant().setTuile(messagepos.getTuile());
+                }          
+            } else if (messagepos.getAction()==Action.ASSECHER){
+                messagepos.getTuile().setEtat(EtatTuile.SECHE);
+                if (getAventurierCourant() instanceof Ingenieur){
+                    if(getAventurierCourant().getPouvoir()) {
+                        getAventurierCourant().setPouvoir(false);
+                        gererAssechement();
+                    } else {
+                        getAventurierCourant().decremente();
+                    }
+                } else { 
+                    getAventurierCourant().decremente();
+                }
+                         
+            }
+         
          }
         
     }
@@ -106,14 +132,14 @@ public class Controleur implements Observer{
     /**
      * @return the joueurs
      */
-    public HashMap<Integer,Aventurier> getJoueurs() {
+    public ArrayList<Aventurier> getJoueurs() {
         return joueurs;
     }
 
     /**
      * @param joueurs the joueurs to set
      */
-    public void setJoueurs(HashMap<Integer,Aventurier> joueurs) {
+    public void setJoueurs(ArrayList<Aventurier> joueurs) {
         this.joueurs = joueurs;
     }
      

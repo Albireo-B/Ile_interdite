@@ -5,7 +5,6 @@
  */
 package ileInterdite;
 
-import ileInterdite.controleur.Controleur;
 
 /**
  *
@@ -17,7 +16,7 @@ public class IleInterdite {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Controleur c1 = new Controleur();
+        
     }
     
 }

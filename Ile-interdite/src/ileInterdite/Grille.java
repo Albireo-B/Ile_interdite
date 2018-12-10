@@ -38,13 +38,14 @@ public class Grille {
     // Retourne la position de tous les emplacements valides pour des tuiles
     public static ArrayList<Position> getAllTilesPositions() {
         ArrayList<Position> positions = new ArrayList();
-        
         int demi_longueur = 1; // nombre de tuile dans la ligne actuelle / 2
         int increment = 1; // Vaut +1 pour la première moitié des lignes, -1 ensuite
         int i = 0; // numero de la tuile de la ligne actuelle
         int x = 0, y = 5; // position de la tuile actuelle
+        
         // On parcours toutes les tuiles:
-        for (int indexTuile = 0; indexTuile <= 24; indexTuile++) {
+        for (int indexTuile = 0; indexTuile < 24; indexTuile++) {
+            
             if (i+1 == demi_longueur * 2) {
                 i = 0;
                 y--;
