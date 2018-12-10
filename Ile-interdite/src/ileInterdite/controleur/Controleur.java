@@ -5,6 +5,7 @@
  */
 package ileInterdite.controleur;
 
+import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.Tuile;
@@ -78,22 +79,36 @@ public class Controleur implements Observer {
     
         if (message.getAction()== Action.ASSECHER){
             gererAssechement();
-     
+            
         }
         else if (message.getAction()==Action.DEPLACER){
-             gererDeplacement();
+            gererDeplacement();
         }
        
         if (arg instanceof MessagePos){
-             MessagePos messagepos = (MessagePos) arg;
-             if (messagepos.getAction()==Action.DEPLACER){
-                 if (aventurierCourant instanceof Pilote) {
-                    aventurierCourant.setPositionPilote(getGrille(),messagepos.getTuile());    
-                 } else {
+            MessagePos messagepos = (MessagePos) arg;
+            if (messagepos.getAction()==Action.DEPLACER){
+                if (aventurierCourant instanceof Pilote) {
+                    Pilote p = (Pilote) aventurierCourant;
+                    p.setPositionPilote(getGrille(),messagepos.getTuile());    
+                } else {
                     aventurierCourant.setTuile(messagepos.getTuile());
-                 }
-                 aventurierCourant.decremente();
-         }
+                }          
+            } else if (messagepos.getAction()==Action.ASSECHER){
+                messagepos.getTuile().setEtat(EtatTuile.SECHE);
+                if (aventurierCourant instanceof Ingenieur){
+                    if(aventurierCourant.getPouvoir()) {
+                        aventurierCourant.setPouvoir(false);
+                        gererAssechement();
+                    } else {
+                        aventurierCourant.decremente();
+                    }
+                } else { 
+                    aventurierCourant.decremente();
+                }
+                         
+            }
+         
          }
         
     }
