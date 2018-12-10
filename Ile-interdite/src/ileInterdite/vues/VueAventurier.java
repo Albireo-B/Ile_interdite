@@ -114,7 +114,7 @@ public class VueAventurier extends Observable {
         btnTerminerTour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                notifyObservers(new Message());
+                notifyObservers();
                 clearChanged();
             }
         });
@@ -122,8 +122,10 @@ public class VueAventurier extends Observable {
     }
     
         public void actualiser(){
-            this.v
-            VueAventurier vueAventurier = new VueAventurier();
+           mainPanel.removeAll();
+   
+           
+           
         }
     
    
