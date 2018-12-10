@@ -5,6 +5,7 @@
  */
 package ileInterdite;
 
+import Tests.TestEtatTuile;
 import ileInterdite.controleur.Controleur;
 
 /**
@@ -18,6 +19,7 @@ public class IleInterdite {
      */
     public static void main(String[] args) {
         Controleur c1 = new Controleur();
+        
     }
     
 }

@@ -22,7 +22,7 @@ import java.util.Observer;
  *
  * @author vinetg
  */
-public class Controleur implements Observer{
+public class Controleur implements Observer {
     private VueAventurier vueAventurier;
     private VueGrille vueGrille;
     private HashMap<Integer,Aventurier> joueurs;
@@ -30,10 +30,10 @@ public class Controleur implements Observer{
     private Aventurier aventurierCourant;
     
     public Controleur(){
-        
+       // vueAventurier = new VueAventurier();
         
         vueAventurier.addObserver(this);
-        vueGrille.addObserver(this);
+       // vueGrille.addObserver(this);
         
     }
     

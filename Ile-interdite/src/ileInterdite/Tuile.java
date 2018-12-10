@@ -5,8 +5,9 @@
  */
 package ileInterdite;
 
+import Tests.TestEtatTuile;
 import java.util.ArrayList;
-import ileInterdite.aventurier.*;
+import ileInterdite.aventurier.Aventurier;
 
 /**
  *
