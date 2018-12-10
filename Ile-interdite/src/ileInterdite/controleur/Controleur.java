@@ -101,12 +101,12 @@ public class Controleur implements Observer {
             if (messagepos.getAction()==Action.DEPLACER){
                 if (getAventurierCourant() instanceof Pilote) {
                     Pilote p = (Pilote) getAventurierCourant();
-                    p.setPositionPilote(getGrille(),messagepos.getTuile());    
+                    p.setPositionPilote(getGrille(),grille.getTuile(messagepos.getPosition()));    
                 } else {
-                    getAventurierCourant().setTuile(messagepos.getTuile());
+                    getAventurierCourant().setTuile(grille.getTuile(messagepos.getPosition()));
                 }          
             } else if (messagepos.getAction()==Action.ASSECHER){
-                messagepos.getTuile().setEtat(EtatTuile.SECHE);
+                grille.getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
                 if (getAventurierCourant() instanceof Ingenieur){
                     if(getAventurierCourant().getPouvoir()) {
                         getAventurierCourant().setPouvoir(false);
