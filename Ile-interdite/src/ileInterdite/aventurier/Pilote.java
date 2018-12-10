@@ -15,11 +15,19 @@ import java.util.ArrayList;
  */
 public class Pilote extends Aventurier {
     
-       public Pilote(int nbAction,Tuile tuile){
-       super(nbAction,tuile);       
+    public Pilote(int nbAction, Tuile tuile) {
+        super(nbAction, tuile);
     }
-    
-    
+
+    public void setPositionPilote(Grille g, Tuile t) {
+
+        if (g.tuilesAdjacentesCroix(t).contains(t)){
+            setPouvoir(false);
+        } else {
+            setPouvoir(true);
+        }
+        setTuile(t);
+    }
         
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){

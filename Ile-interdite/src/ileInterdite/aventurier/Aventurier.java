@@ -43,20 +43,7 @@ public abstract class Aventurier {
     }
     
     
-    public void setPositionPilote(Grille g,Tuile t){
-       int compteTuile=0;
-       for (Tuile tuile : g.tuilesAdjacentesCroix(t)) {
-           if (t!=tuile){
-              compteTuile++;
-           }
-       }
-        if (compteTuile==4) {
-           setPouvoir(false);
-       } else {
-           setPouvoir(true);
-       }
-       setTuile(t);       
-    }
+
     
     
     public Tuile getTuile(){
@@ -65,6 +52,7 @@ public abstract class Aventurier {
     public void setTuile(Tuile tuile){
         getTuile().removeAventurier(this);
         tuile.addAventurier(this);
+        this.decremente();
     }
     public int getNbAction() {
         return nbAction;
