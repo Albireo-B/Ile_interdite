@@ -7,7 +7,6 @@ package ileInterdite.controleur;
 
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
-import ileInterdite.Position;
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.aventurier.*;
@@ -45,10 +44,6 @@ public class Controleur implements Observer {
 
         //Initialisation de la Grille
         setGrille(grille);
-        
-      
-               
-        
     }
     
     
@@ -88,7 +83,7 @@ public class Controleur implements Observer {
     
     /**
      * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
-     * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
+     * et actualise la vueAventurier avec les paramètres du nouvel aventurier
      */
     public void nextTurn(){
         getAventurierCourant().setPouvoir(true);
@@ -132,13 +127,13 @@ public class Controleur implements Observer {
                 //Si l'aventurier en train de jouer est un pilote
                 if (getAventurierCourant() instanceof Pilote) {
                     Pilote p = (Pilote) getAventurierCourant();
-                    //p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPosition()));    
+                    p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPos()));    
                 } else {
-                    //getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPosition()));
+                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
                 }        
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
-                //getGrille().getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
+                getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
                 //Si l'aventurier en train de jouer est un ingénieur
                 if (getAventurierCourant() instanceof Ingenieur){
                     //Si le pouvoir de l'ingénieur est utilisable
