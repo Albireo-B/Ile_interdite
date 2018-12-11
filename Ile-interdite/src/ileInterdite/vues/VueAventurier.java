@@ -28,35 +28,32 @@ import javax.swing.border.MatteBorder;
  
 public class VueAventurier extends Observable {
      
-    private final JPanel panelBoutons ;
-    private final JPanel panelCentre ;
-    private final JFrame window;
-    private final JPanel panelAventurier;
-    private final JPanel mainPanel;
-    private final JButton btnBouger  ;
-    private final JButton btnAssecher;
-    private final JLabel nbPA;
-    private final JButton btnTerminerTour;
+    private  JPanel panelBoutons ;
+    private  JPanel panelCentre ;
+    private  JFrame window;
+    private  JPanel panelAventurier;
+    private  JPanel mainPanel;
+    private  JButton btnBouger  ;
+    private  JButton btnAssecher;
+    private  JLabel nbPA;
+    private  JButton btnTerminerTour;
     private VueGrille vueGrille;
 
    
    
     /**
-     * On définit un constructeur de VueAventurier avec un nom de joueur String,
-     * un aventurier String, une couleur Color et un nombre d'action integer
-     * @param nomJoueur
-     * @param nomAventurier
-     * @param couleur
-     * @param nombrePA 
+     * On définit un constructeur de VueAventurier 
      */
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
+    public VueAventurier(){
 
         this.window = new JFrame();
         window.setSize(650, 650);
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        //le titre = nom du joueur 
-        window.setTitle("Ile interdite");
-        System.out.println(nomJoueur);
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
+    }
+    
+        public void actualiserVue(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
+        
+
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
 
@@ -127,6 +124,9 @@ public class VueAventurier extends Observable {
         this.getWindow().dispose();
     }
     
+    /**
+     * Permet 
+     */
 
     
     //Getters et Setters :

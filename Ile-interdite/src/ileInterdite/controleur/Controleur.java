@@ -39,9 +39,10 @@ public class Controleur implements Observer {
         setJoueurs(joueurs);
         setAventurierCourant(getJoueurs().get(0)); 
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(getAventurierCourant().getNomJoueur(),getAventurierCourant().getClasse(),getAventurierCourant().getPion().getCouleur(),getAventurierCourant().getNbAction());
+        vueAventurier = new VueAventurier();
         vueAventurier.addObserver(this);
-        
+        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
+
         //Initialisation de la Grille
         setGrille(grille);
         
@@ -74,16 +75,8 @@ public class Controleur implements Observer {
      * @param act
     */
     public void proposerTuiles(ArrayList<Tuile> ct,Action act){
-          getVueGrille().rendreBoutonsCliquable(ct,act);
+        //  getVueGrille().rendreBoutonsCliquable(ct,act);
     }   
-    
-    /**
-     * Fais apparaître une Tuile
-     * @param pos
-     */
-    public void setCliquable(Position pos){
-        
-    }
     
     /**
      * Passe au prochain joueur
@@ -95,13 +88,13 @@ public class Controleur implements Observer {
     
     /**
      * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
-     * et actualiser une nouvelle vueAventurier avec les paramètres du nouvel aventurier
+     * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
      */
     public void nextTurn(){
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
         aventurierSuivant();
-        getVueAventurier().actualiserVue();
+        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
     }
     
     /**
@@ -139,13 +132,13 @@ public class Controleur implements Observer {
                 //Si l'aventurier en train de jouer est un pilote
                 if (getAventurierCourant() instanceof Pilote) {
                     Pilote p = (Pilote) getAventurierCourant();
-                    p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPosition()));    
+                    //p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPosition()));    
                 } else {
-                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPosition()));
+                    //getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPosition()));
                 }        
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
-                getGrille().getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
+                //getGrille().getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
                 //Si l'aventurier en train de jouer est un ingénieur
                 if (getAventurierCourant() instanceof Ingenieur){
                     //Si le pouvoir de l'ingénieur est utilisable
