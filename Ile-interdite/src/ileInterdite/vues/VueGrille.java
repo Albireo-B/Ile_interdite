@@ -9,7 +9,6 @@ package ileInterdite.vues;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import ileInterdite.actions.Action;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
@@ -54,34 +53,43 @@ public class VueGrille extends Observable {
         }
     }
     
+    /**
+     * 
+     */
     public void tousBoutonsInertes() {
-        for (JButton bouton : bTuiles.values()) {
+        getbTuiles().values().forEach((bouton) -> {
             for (ActionListener ac : bouton.getActionListeners()) {
                 bouton.removeActionListener(ac);
             }
-        }
+        });
     }
     
-    // Rends tous les boutons avec cette position cliquables, ils jetterons l'action act
+    /**
+     * Rend toutes les positions de la liste cliquables 
+     * @param posBoutons
+     * @param act
+     */
     public void rendreBoutonsCliquable(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
-            if (bTuiles.keySet().contains(pos)) {
-                JButton bouton = bTuiles.get(pos);
+            if (getbTuiles().keySet().contains(pos)) {
+                JButton bouton = getbTuiles().get(pos);
                 
-                bouton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        setChanged();
-                        notifyObservers(new MessagePos(act, pos));
-                        clearChanged();
-                    }
+                bouton.addActionListener((ActionEvent e) -> {
+                    setChanged();
+                    notifyObservers(new MessagePos(act, pos));
+                    clearChanged();
                 });
             }
         }
     }
     
+    /**
+     * On définit l'état d'une Position (Tuile)
+     * @param etat
+     * @param pos 
+     */
     public void changerEtat(EtatTuile etat, Position pos) {
-        JButton bouton = bTuiles.get(pos);
+        JButton bouton = getbTuiles().get(pos);
         
         switch (etat) {
             case COULEE:
@@ -95,8 +103,36 @@ public class VueGrille extends Observable {
         }
     }
     
+    
+    //Getters et Setters :
+    
+    
+     /**
+     * @return the panelGrille
+     */
     public JPanel getPanelGrille() {
         return panelGrille;
+    }
+
+    /**
+     * @param panelGrille the panelGrille to set
+     */
+    public void setPanelGrille(JPanel panelGrille) {
+        this.panelGrille = panelGrille;
+    }
+
+    /**
+     * @return the bTuiles
+     */
+    public HashMap<Position, JButton> getbTuiles() {
+        return bTuiles;
+    }
+
+    /**
+     * @param bTuiles the bTuiles to set
+     */
+    public void setbTuiles(HashMap<Position, JButton> bTuiles) {
+        this.bTuiles = bTuiles;
     }
 }
 
