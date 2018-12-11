@@ -6,14 +6,11 @@
 package ileInterdite.vues;
 
 import ileInterdite.actions.*;
-import ileInterdite.aventurier.*;
-import ileInterdite.controleur.utilitaires.Utils.*;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -44,8 +41,14 @@ public class VueAventurier extends Observable {
 
    
    
-   
-    
+    /**
+     * On définit un constructeur de VueAventurier avec un nom de joueur,
+     * un aventurier, une couleur et un nombre d'action
+     * @param nomJoueur
+     * @param nomAventurier
+     * @param couleur
+     * @param nombrePA 
+     */
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
 
         this.window = new JFrame();
@@ -98,46 +101,115 @@ public class VueAventurier extends Observable {
 
         this.window.setVisible(true);
         
-        btnBouger.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-                notifyObservers(new Message(Action.DEPLACER));
-                clearChanged();
-            }
+        btnBouger.addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.DEPLACER));
+            clearChanged();
         });
 
-        btnAssecher.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-                notifyObservers(new Message(Action.ASSECHER));
-                clearChanged();
-            }
+        btnAssecher.addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.ASSECHER));
+            clearChanged();
         });
 
-        btnTerminerTour.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-                notifyObservers(new Message(Action.TERMINER));
-                clearChanged();
-            }
+        btnTerminerTour.addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.TERMINER));
+            clearChanged();
         });
     }
     
+    /**
+     * Ferme la fenêtre
+     */
     public void close(){
-        this.window.dispose();
+        this.getWindow().dispose();
     }
     
-   
+    
+    //Getters et Setters :
+    
+    
+    
+    /**
+     * 
+     * @return the btnBouger
+     */
     public JButton getBtnBouger() {
         return btnBouger;
     }
     
+     /**
+     * 
+     * @return the btnAssecher
+     */
     public JButton getBtnAssecher() {
         return btnAssecher;
     }
 
+     /**
+     * 
+     * @return the btnTerminerTour
+     */
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
+    }
+
+    /**
+     * @return the panelBoutons
+     */
+    public JPanel getPanelBoutons() {
+        return panelBoutons;
+    }
+
+    /**
+     * @return the panelCentre
+     */
+    public JPanel getPanelCentre() {
+        return panelCentre;
+    }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
+
+    /**
+     * @return the panelAventurier
+     */
+    public JPanel getPanelAventurier() {
+        return panelAventurier;
+    }
+
+    /**
+     * @return the mainPanel
+     */
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    /**
+     * @return the nbPA
+     */
+    public JLabel getNbPA() {
+        return nbPA;
+    }
+
+    /**
+     * @return the vueGrille
+     */
+    public VueGrille getVueGrille() {
+        return vueGrille;
+    }
+
+    /**
+     * @param vueGrille the vueGrille to set
+     */
+    public void setVueGrille(VueGrille vueGrille) {
+        this.vueGrille = vueGrille;
     }
  
 }
