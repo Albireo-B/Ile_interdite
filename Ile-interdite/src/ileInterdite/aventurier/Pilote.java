@@ -34,7 +34,7 @@ public class Pilote extends Aventurier {
         
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
-        return g.tuilesSeches();
+        return g.tuilesNonCoulees();
     }
     
    

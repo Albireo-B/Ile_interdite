@@ -27,11 +27,13 @@ import javax.swing.JPanel;
  * @author vinetg
  */
 public class VueGrille extends Observable {
+   
     private JPanel panelGrille;
-    
     private HashMap<Position, JButton> bTuiles = new HashMap();
     
-    // Remplit la grille de boutons
+    /**
+     * On définit le constructeur de VueGrille
+     */
     public VueGrille(/*ArrayList<Tuile> tuiles*/) {
         panelGrille = new JPanel(new GridLayout(6, 6));
         

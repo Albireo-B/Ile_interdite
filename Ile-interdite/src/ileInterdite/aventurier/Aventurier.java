@@ -39,29 +39,38 @@ public abstract class Aventurier {
     public ArrayList<Tuile> calculAssechement(Grille g){
 /* pblm fction retourne tuile[]*/
         return g.tuilesAdjacentesCroix(getTuile());
-        
+  
     }
     
     public void resetPA(){
         setNbAction(3);
     }
     
+    //Fais diminuer le nombre d'actions de 1
     public void decremente(){
         this.setNbAction(getNbAction()-1);
     }
-    
-    
 
-    
-    
-    public Tuile getTuile(){
-        return tuile;
-    }
+    //Permet de déplacer un aventurier sur une nouvelle Tuile en supprimant sa position précédente
     public void setTuile(Tuile tuile){
         getTuile().removeAventurier(this);
         tuile.addAventurier(this);
         this.decremente();
     }
+    
+    
+    //Getters et Setters :
+    
+      /**
+     * @return the tuile
+     */   
+    public Tuile getTuile(){
+        return tuile;
+    }
+    
+     /**
+     * @return the nbAction
+     */
     public int getNbAction() {
         return nbAction;
     }

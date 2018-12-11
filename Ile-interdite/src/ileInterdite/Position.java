@@ -13,6 +13,9 @@ public class Position {
     public final int x;
     public final int y;
     
+    /**
+     * On définit le constructeur de Position avec un integer x et un integer y
+     */
     public Position(int x, int y) {
         this.x = x;
         this.y = y;

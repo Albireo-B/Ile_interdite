@@ -13,18 +13,19 @@ import java.util.HashMap;
  * @author grosa
  */
 public class Grille {
-    private static int longueurTerrain = 6;
+    private final int longueurTerrain = 6;
     private HashMap<Position, Tuile> tuiles = new HashMap();
     
-    // Voici l'organisation de la grille (x = tuile):
-    /*      x ----->
-            0  1  2  3  4  5
-        y 0       x  x
-        | 1    x  x  x  x
-        | 2 x  x  x  x  x  x
-        | 3 x  x  x  x  x  x
-        \/4    x  x  x  x
-          5       x  x
+    /**
+    * Voici l'organisation de la grille (x = tuile):
+    *      x ----->
+    *        0  1  2  3  4  5
+    *    y 0       x  x
+    *    | 1    x  x  x  x
+    *    | 2 x  x  x  x  x  x
+    *    | 3 x  x  x  x  x  x
+    *    \/4    x  x  x  x
+    *      5       x  x
     */
     public Grille(ArrayList<String> nomTuiles) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
@@ -35,7 +36,9 @@ public class Grille {
         
     }
     
-    // Retourne la position de tous les emplacements valides pour des tuiles
+    /**
+     * Retourne la position de tous les emplacements valides pour des tuiles
+    */
     public static ArrayList<Position> getAllTilesPositions() {
         ArrayList<Position> positions = new ArrayList();
         int demi_longueur = 1; // nombre de tuile dans la ligne actuelle / 2
@@ -43,9 +46,10 @@ public class Grille {
         int i = 0; // numero de la tuile de la ligne actuelle
         int x = 0, y = 5; // position de la tuile actuelle
         
-        // On parcours toutes les tuiles:
+        /**
+         * On parcours toutes les tuiles:
+        */       
         for (int indexTuile = 0; indexTuile < 24; indexTuile++) {
-            
             if (i == demi_longueur * 2) {
                 i = 0;
                 y--;
@@ -69,11 +73,12 @@ public class Grille {
         return tuiles.get(p);
     }
     
-    // Retourne un tableau des 4 tuiles adjascentes à la position pos selon ce
-    // pattern:
-    //           tuile[0]
-    //    tuile[3] pos tuile[1]
-    //           tuile[2]
+    /** Retourne un tableau des 4 tuiles adjascentes à la position pos selon ce
+    *pattern:
+    *           tuile[0]
+    *    tuile[3] pos tuile[1]
+    *           tuile[2]
+    */
     public ArrayList<Tuile> tuilesAdjacentesCroix(Tuile tuile) {
         ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
         
@@ -98,11 +103,12 @@ public class Grille {
         return tuilesAdjacentes;
     }
     
-    // Retourne un tableau des 4 tuiles adjacentes à la position pos selon ce
-    // pattern:
-    //    tuile[0] tuile[1] tuile[2]
-    //    tuile[3]   pos    tuile[4]
-    //    tuile[5] tuile[6] tuile[7]
+    /** 
+    * Retourne une liste de 8 tuiles adjacentes à la position pos selon ce pattern:
+    *    tuile[0] tuile[1] tuile[2]
+    *    tuile[3]   pos    tuile[4]
+    *    tuile[5] tuile[6] tuile[7]
+    */
     public ArrayList<Tuile> tuilesAdjacentesCarre(Tuile tuile) {
         ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
         
@@ -123,7 +129,11 @@ public class Grille {
         return tuilesAdjacentes;
     }
     
-    public ArrayList<Tuile> tuilesSeches() {
+    
+    /** 
+     * Retourne une liste de toutes les tuiles non coulées
+    */
+    public ArrayList<Tuile> tuilesNonCoulees() {
         ArrayList<Tuile> tuilesSeches = new ArrayList();
         
         for (int x = 0; x < longueurTerrain; x++) {
@@ -137,6 +147,10 @@ public class Grille {
         return tuilesSeches;
     }
     
+    
+    /** 
+    * Retourne une liste de tuiles adjacentes à la position pos par rapport au plongeur et à son pouvoir
+    */
     public ArrayList<Tuile> tuilesAccessiblesPlongeur(Tuile tuile) {
         ArrayList<Tuile> tuileAccessibles = new ArrayList();
         ArrayList<Tuile> tuileNonVerifiees = new ArrayList();
