@@ -127,6 +127,7 @@ public class VueAventurier extends Observable {
         this.getWindow().dispose();
     }
     
+<<<<<<< HEAD
     
     //Getters et Setters :
     
@@ -136,6 +137,12 @@ public class VueAventurier extends Observable {
      * 
      * @return the btnBouger
      */
+=======
+    public VueGrille getVueGrille() {
+        return vueGrille;
+    }
+   
+>>>>>>> 7658ccc3de8de7e180ee342a1de07de1df37c990
     public JButton getBtnBouger() {
         return btnBouger;
     }
