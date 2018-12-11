@@ -95,14 +95,13 @@ public class Controleur implements Observer {
     
     /**
      * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
-     * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
+     * et actualiser une nouvelle vueAventurier avec les paramètres du nouvel aventurier
      */
     public void nextTurn(){
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
         aventurierSuivant();
-        setVueAventurier(new VueAventurier(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction()));
-        getVueAventurier().addObserver(this);
+        getVueAventurier().actualiserVue();
     }
     
     /**
