@@ -46,7 +46,7 @@ public class Grille {
         // On parcours toutes les tuiles:
         for (int indexTuile = 0; indexTuile < 24; indexTuile++) {
             
-            if (i+1 == demi_longueur * 2) {
+            if (i == demi_longueur * 2) {
                 i = 0;
                 y--;
                 demi_longueur += increment;
@@ -55,7 +55,6 @@ public class Grille {
                     increment *= -1;
                 }
             }
-            
             x = 3 - demi_longueur + i;
 
             positions.add(new Position(x,y));

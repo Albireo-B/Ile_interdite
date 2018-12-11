@@ -46,10 +46,11 @@ public class VueAventurier extends Observable {
    
    
     
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur,int nombrePA){
+    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
 
         this.window = new JFrame();
         window.setSize(650, 650);
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         //le titre = nom du joueur 
         window.setTitle("Ile interdite");
         System.out.println(nomJoueur);
@@ -70,14 +71,13 @@ public class VueAventurier extends Observable {
            
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
-        this.panelCentre = new JPanel(new GridLayout(2, 1));
+        this.panelCentre = new JPanel(new BorderLayout());
         this.panelCentre.setOpaque(false);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
-        panelCentre.add(new JLabel ("Position", SwingConstants.CENTER));
-        vueGrille = new  VueGrille(); 
-        //panelCentre.add(vueGrille);
+        vueGrille = new VueGrille();
+        panelCentre.add(vueGrille.getPanelGrille(),  BorderLayout.CENTER);
 
 
         // =================================================================================

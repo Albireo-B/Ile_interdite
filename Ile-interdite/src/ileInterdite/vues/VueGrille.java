@@ -9,27 +9,16 @@ package ileInterdite.vues;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import ileInterdite.actions.Action;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observable;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -46,6 +35,7 @@ public class VueGrille extends Observable {
         panelGrille = new JPanel(new GridLayout(6, 6));
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
+        
         for (int x = 0; x < 6; x++) {
             for (int y = 0; y < 6 ; y++) {
                 Position pos = new Position(x, y);
@@ -70,7 +60,7 @@ public class VueGrille extends Observable {
     }
     
     // Rends tous les boutons avec cette position cliquables, ils jetterons l'action act
-    public void rendreBoutonsCliquable(ArrayList<Position> posBoutons, Action act) {
+    public void rendreBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 JButton bouton = bTuiles.get(pos);
