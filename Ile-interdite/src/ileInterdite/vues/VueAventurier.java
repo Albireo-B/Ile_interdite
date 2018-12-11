@@ -5,12 +5,15 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -40,7 +43,6 @@ public class VueAventurier extends Observable {
     private VueGrille vueGrille;
     
 
-   
    
     /**
      * On définit un constructeur de VueAventurier 

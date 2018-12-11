@@ -28,12 +28,15 @@ import javax.swing.JPanel;
 public class VueGrille extends Observable {
    
     private JPanel panelGrille;
-    private HashMap<Position, JButton> bTuiles = new HashMap();
+    private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
+    private HashMap<String, Position> aventuriers = new HashMap();
     
     /**
-     * On définit le constructeur de VueGrille sans paramètres
+     * On définit le constructeur de VueGrille
+     * @param positions
+     * @param noms
      */
-    public VueGrille(/*ArrayList<Tuile> tuiles*/) {
+    public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
         panelGrille = new JPanel(new GridLayout(6, 6));
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
@@ -42,9 +45,16 @@ public class VueGrille extends Observable {
             for (int y = 0; y < 6 ; y++) {
                 Position pos = new Position(x, y);
                 if (positionTuiles.contains(pos)) {
-                    bTuiles.put(pos, new JButton());
+                    if (positions.contains(pos)) {
+                        String nom = noms.get(positions.indexOf(pos));
+                        bTuiles.put(pos, new BoutonTuile(nom));
                     
-                    panelGrille.add(bTuiles.get(pos));
+                        panelGrille.add(bTuiles.get(pos));
+                    }
+                    else {
+                        System.out.println("Il vous manque une case ou quoi?");
+                        panelGrille.add(new JPanel());
+                    }
                 }
                 else {
                     panelGrille.add(new JPanel());
@@ -57,11 +67,11 @@ public class VueGrille extends Observable {
      * 
      */
     public void tousBoutonsInertes() {
-        getbTuiles().values().forEach((bouton) -> {
+        for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getActionListeners()) {
                 bouton.removeActionListener(ac);
             }
-        });
+        }
     }
     
     /**
@@ -69,10 +79,10 @@ public class VueGrille extends Observable {
      * @param posBoutons
      * @param act
      */
-    public void rendreBoutonsCliquable(ArrayList<Position> posBoutons, Action act) {
+    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
-            if (getbTuiles().keySet().contains(pos)) {
-                JButton bouton = getbTuiles().get(pos);
+            if (bTuiles.keySet().contains(pos)) {
+                BoutonTuile bouton = bTuiles.get(pos);
                 
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
@@ -88,8 +98,8 @@ public class VueGrille extends Observable {
      * @param etat
      * @param pos 
      */
-    public void changerEtat(EtatTuile etat, Position pos) {
-        JButton bouton = getbTuiles().get(pos);
+    public void actualiserEtatTuile(EtatTuile etat, Position pos) {
+        BoutonTuile bouton = bTuiles.get(pos);
         
         switch (etat) {
             case COULEE:
@@ -103,13 +113,16 @@ public class VueGrille extends Observable {
         }
     }
     
-    
     //Getters et Setters :
-    
-    
      /**
      * @return the panelGrille
      */
+    public void actualiserPositionJoueur(Position position, String aventurier) {
+        Position posAv = aventuriers.get(aventurier);
+        bTuiles.get(posAv).removeAventurier(aventurier);
+        bTuiles.get(position).addAventurier(aventurier);
+    }
+    
     public JPanel getPanelGrille() {
         return panelGrille;
     }
@@ -119,20 +132,6 @@ public class VueGrille extends Observable {
      */
     public void setPanelGrille(JPanel panelGrille) {
         this.panelGrille = panelGrille;
-    }
-
-    /**
-     * @return the bTuiles
-     */
-    public HashMap<Position, JButton> getbTuiles() {
-        return bTuiles;
-    }
-
-    /**
-     * @param bTuiles the bTuiles to set
-     */
-    public void setbTuiles(HashMap<Position, JButton> bTuiles) {
-        this.bTuiles = bTuiles;
     }
 }
 
