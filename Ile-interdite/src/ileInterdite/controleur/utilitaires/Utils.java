@@ -27,10 +27,10 @@ public class Utils {
         JAUNE( new Color(255, 255, 0)) ;    
 
 
-        private final Color couleur ;
+        private Color couleur ;
 
 
-        Pion ( Color couleur) {
+        Pion (Color couleur) {
   
             this.couleur = couleur ;
         }

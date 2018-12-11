@@ -43,15 +43,20 @@ public class Controleur implements Observer {
         setGrille(grille);
         ArrayList<Position> posTuiles = new ArrayList<Position>();
         ArrayList<String> nomsTuiles = new ArrayList<String>();
-        for (Tuile t : getGrille().getTuiles().values()){
+        for (Tuile t : getGrille().getToutesTuiles()){
             posTuiles.add(t.getPosition());
             nomsTuiles.add(t.getNom());
         }
-        vueGrille = new VueGrille(posTuiles,nomsTuiles);
+        
+        ArrayList<String> avs = new ArrayList();
+        for (Aventurier j : joueurs) {
+            avs.add(j.getClasse());
+        }
+        vueGrille = new VueGrille(posTuiles,nomsTuiles, avs);
             
         for (int i=0;i<4;i++){
-            getAventurierCourant().setTuile(getGrille().getTuile(new Position(2,0)));
-            getVueGrille().actualiserPositionJoueur(new Position(2,0),getAventurierCourant());
+            
+            getVueGrille().actualiserPositionJoueur(new Position(2,0),getAventurierCourant().getClasse());
             aventurierSuivant();
         }
         
@@ -96,7 +101,7 @@ public class Controleur implements Observer {
         for (Tuile t : ct){
             posTuiles.add(t.getPosition());
         }
-        getVueGrille().rendreBoutonsCliquable(posTuiles,act);
+        getVueGrille().actualiserBoutonsCliquables(posTuiles,act);
     }   
     
     /**
@@ -157,7 +162,7 @@ public class Controleur implements Observer {
                 } else {
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
                 }
-                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant());
+                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getClasse());
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
                 getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);

@@ -31,6 +31,7 @@ public abstract class Aventurier {
         this.tuile=tuile;   
         setNomJoueur(nom);
         resetPA();
+        
     }
     
       

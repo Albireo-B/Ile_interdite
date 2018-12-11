@@ -36,7 +36,12 @@ public class VueGrille extends Observable {
      * @param positions
      * @param noms
      */
-    public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
+    public VueGrille(ArrayList<Position> positions, ArrayList<String> noms, ArrayList<String> classesAventuriers) {
+        
+        for(String av : classesAventuriers) {
+            aventuriers.put(av, new Position(2, 0));
+        }
+        
         panelGrille = new JPanel(new GridLayout(6, 6));
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
@@ -98,12 +103,13 @@ public class VueGrille extends Observable {
      * @param etat
      * @param pos 
      */
-    public void actualiserEtatTuile(EtatTuile etat, Position pos) {
+    public void actualiserEtatTuile(Position pos, EtatTuile etat) {
         BoutonTuile bouton = bTuiles.get(pos);
         
         switch (etat) {
             case COULEE:
                 bouton.setEnabled(false);
+                bouton.setBackground(Color.BLUE);
             case SECHE:
                 bouton.setEnabled(true);
                 bouton.setBackground(Color.LIGHT_GRAY);

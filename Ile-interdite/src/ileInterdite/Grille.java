@@ -6,6 +6,7 @@
 package ileInterdite;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -191,6 +192,7 @@ public class Grille {
     }
     
     public ArrayList<Tuile> getToutesTuiles() {
-        return (ArrayList)tuiles.values();
+        return new ArrayList<Tuile>(tuiles.values());
     }
+    
 }

@@ -30,7 +30,8 @@ public class BoutonTuile extends Button {
     }
     
     public void removeAventurier(String j) {
-        joueurs.remove(j);
+        if (joueurs.contains(j))
+            joueurs.remove(j);
         updateText();
     }
     
