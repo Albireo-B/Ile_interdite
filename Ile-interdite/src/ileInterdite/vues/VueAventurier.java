@@ -5,6 +5,7 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.aventurier.*;
 import ileInterdite.controleur.utilitaires.Utils.*;
@@ -14,6 +15,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -46,7 +48,7 @@ public class VueAventurier extends Observable {
    
    
     
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
+    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur, int nombrePA, ArrayList<Tuile> tuiles){
 
         this.window = new JFrame();
         window.setSize(650, 650);
@@ -76,7 +78,7 @@ public class VueAventurier extends Observable {
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
-        vueGrille = new VueGrille();
+        vueGrille = new VueGrille(tuiles);
         panelCentre.add(vueGrille.getPanelGrille(),  BorderLayout.CENTER);
 
 

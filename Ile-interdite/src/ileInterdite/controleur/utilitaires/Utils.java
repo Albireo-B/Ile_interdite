@@ -17,23 +17,6 @@ import javax.swing.JOptionPane;
  * @author vinetg
  */
 public class Utils {
- 
-    public static enum EtatTuile {
-        ASSECHEE("Asséchée"), 
-        INONDEE("Inondée"),
-        COULEE("Coulée");
-
-        String libelle ;
-        
-        EtatTuile(String libelle) {
-            this.libelle = libelle ;
-        }
-
-        @Override
-        public String toString() {
-            return this.libelle ;
-        }
-    }
 
     public static enum Pion {
         ROUGE( new Color(255, 0, 0)),
@@ -57,7 +40,7 @@ public class Utils {
         public Color getCouleur() {
             return this.couleur ;
         }
-
+        
     }
 
     /*public static ArrayList<Aventurier> melangerAventuriers(ArrayList<Aventurier> arrayList) {

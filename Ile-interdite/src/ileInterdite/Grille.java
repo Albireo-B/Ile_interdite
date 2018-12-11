@@ -181,4 +181,8 @@ public class Grille {
         
         return tuileAccessibles;
     }
+    
+    public ArrayList<Tuile> getToutesTuiles() {
+        return (ArrayList)tuiles.values();
+    }
 }
