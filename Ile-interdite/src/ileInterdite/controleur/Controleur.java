@@ -11,7 +11,6 @@ import ileInterdite.Position;
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.aventurier.*;
-import ileInterdite.controleur.utilitaires.Utils;
 import ileInterdite.message.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
@@ -30,88 +29,122 @@ public class Controleur implements Observer {
     private Grille grille;
     private Aventurier aventurierCourant;
     
+    /**
+    * On définit le constructeur du controleur avec une liste d'aventuriers joueurs et une Grille grille
+     * @param joueurs
+     * @param grille
+    */
     public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
         //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
-        setAventurierCourant(getJoueurs().get(0));
-        
+        setAventurierCourant(getJoueurs().get(0)); 
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),aventurierCourant.getPion().getCouleur(),aventurierCourant.getNbAction());
+        vueAventurier = new VueAventurier(getAventurierCourant().getNomJoueur(),getAventurierCourant().getClasse(),getAventurierCourant().getPion().getCouleur(),getAventurierCourant().getNbAction());
         vueAventurier.addObserver(this);
         
         //Initialisation de la Grille
         setGrille(grille);
         
+      
+               
         
     }
     
     
-    //Fonction globale qui gère le déplacement
+    /**
+    * Fonction globale qui gère le déplacement
+    */
     public void gererDeplacement(){
 
-    proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()));
+    proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()),Action.DEPLACER);
     }
 
-    //Fonction globale qui gère l'asséchement
+    /**
+    * Fonction globale qui gère l'asséchement
+    */
     public void gererAssechement(){
  
-    proposerTuiles(getAventurierCourant().calculAssechement(getGrille()));
+    proposerTuiles(getAventurierCourant().calculAssechement(getGrille()),Action.ASSECHER);
     }
     
-    /* affiche les cases possibles en les rendant cliquables*/
-    public void proposerTuiles(ArrayList<Tuile> ct){
-          for (Tuile t : ct){
-          setCliquable(t.getPosition());
-          }
+    /**
+    * Affiche les cases possibles en les rendant cliquables avec
+    * une liste de tuiles et une action
+     * @param ct
+     * @param act
+    */
+    public void proposerTuiles(ArrayList<Tuile> ct,Action act){
+          getVueGrille().rendreBoutonsCliquable(ct,act);
     }   
     
-    /*fais apparaître une Tuile*/
+    /**
+    * Fais apparaître une Tuile
+     * @param pos
+    */
     public void setCliquable(Position pos){
         
     }
     
+    /**
+    * Passe au prochain joueur
+    */
     public void aventurierSuivant(){
        
-       setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(aventurierCourant) + 1) % 4));
+       setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % 4));
     }
     
+    /**
+    * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
+    * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
+    */
     public void nextTurn(){
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
         aventurierSuivant();
-        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),aventurierCourant.getClasse(),aventurierCourant.getPion().getCouleur(),aventurierCourant.getNbAction());
-        vueAventurier.addObserver(this);
+        setVueAventurier(new VueAventurier(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction()));
+        getVueAventurier().addObserver(this);
     }
     
-    //s'occupe de toute les opérations
+    /**
+    * S'occupe de toute les opérations(logique applicative)
+     * @param o
+     * @param arg
+    */
     @Override
     public void update(Observable o, Object arg) {
         Message message = (Message) arg;
-    
+        //Si le message possède l'action ASSECHER 
         if (message.getAction()== Action.ASSECHER){
             gererAssechement();
             
         }
+        //Si le message possède l'action DEPLACER 
         else if (message.getAction()==Action.DEPLACER){
             gererDeplacement();
         }
+        //Si le message possède l'action TERMINER 
         else if (message.getAction()==Action.TERMINER){
             ((VueAventurier) o).close();
             nextTurn();
         }
-       
+       //Si arg est  de type MessagePos
         if (arg instanceof MessagePos){
             MessagePos messagepos = (MessagePos) arg;
+            //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction()==Action.DEPLACER){
+                //Si l'aventurier en train de jouer est un pilote
                 if (getAventurierCourant() instanceof Pilote) {
                     Pilote p = (Pilote) getAventurierCourant();
-                    p.setPositionPilote(getGrille(),grille.getTuile(messagepos.getPosition()));    
+                    p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPosition()));    
                 } else {
-                    getAventurierCourant().setTuile(grille.getTuile(messagepos.getPosition()));
-                }          
+                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPosition()));
+                }        
+            //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
-                grille.getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
+                getGrille().getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
+                //Si l'aventurier en train de jouer est un ingénieur
                 if (getAventurierCourant() instanceof Ingenieur){
+                    //Si le pouvoir de l'ingénieur est utilisable
                     if(getAventurierCourant().getPouvoir()) {
                         getAventurierCourant().setPouvoir(false);
                         gererAssechement();
@@ -120,6 +153,7 @@ public class Controleur implements Observer {
                     }
                 } else { 
                     getAventurierCourant().decremente();
+                    
                 }
                          
             }
@@ -132,6 +166,13 @@ public class Controleur implements Observer {
     
     
     
+    
+    
+    
+    
+    //Getters et Setters :
+    
+
     
     /**
      * @return the joueurs

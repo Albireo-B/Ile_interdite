@@ -14,6 +14,9 @@ import ileInterdite.controleur.utilitaires.Utils;
  */
 public class Messager extends Aventurier {
     
+    /**
+     * On définit le constructeur de Messager avec une Tuile tuile et un string nom 
+     */
      public Messager(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Messager");

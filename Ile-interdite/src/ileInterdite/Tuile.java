@@ -1,11 +1,10 @@
-    /*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package ileInterdite;
 
-import Tests.testTour;
 import java.util.ArrayList;
 import ileInterdite.aventurier.Aventurier;
 
@@ -14,33 +13,92 @@ import ileInterdite.aventurier.Aventurier;
  * @author grosa
  */
 public class Tuile {
-    private EtatTuile etat = EtatTuile.SECHE;
+    private EtatTuile etat;
     private ArrayList<Aventurier> aventuriers;
     private Position position;
     private String nom;
     
+    /**
+     * On définit le constructeur de Tuile avec un string nom et une Position pos
+     */
     public Tuile(String nom, Position pos) {
+        setNom(nom);
+        setPosition(pos);
+        setEtat(EtatTuile.SECHE);
+    }
+    
+    /**
+     * Ajoute un aventurier a la liste des aventuriers 
+     */
+    public void addAventurier(Aventurier av) {
+        getAventuriers().add(av);
+    }
+    
+    /**
+     * Supprime un aventurier de la liste des aventuriers 
+     */
+    public void removeAventurier(Aventurier av) {
+        getAventuriers().remove(av);
+    }
+    
+    
+    
+    //Getters et Setters :
+    
+     
+    /**
+     * @return the aventuriers
+     */
+    public ArrayList<Aventurier> getAventuriers() {
+        return aventuriers;
+    }
+
+    /**
+     * @param aventuriers the aventuriers to set
+     */
+    public void setAventuriers(ArrayList<Aventurier> aventuriers) {
+        this.aventuriers = aventuriers;
+    }
+
+    /**
+     * @return the nom
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * @param nom the nom to set
+     */
+    public void setNom(String nom) {
         this.nom = nom;
-        this.position = pos;
     }
-    
-    public void setEtat(EtatTuile etat) {
-        this.etat = etat;
-    }
-    
+
+    /**
+     * @return the etat
+     */
     public EtatTuile getEtat() {
         return etat;
     }
-    
-    public void addAventurier(Aventurier av) {
-        aventuriers.add(av);
+
+    /**
+     * @param etat the etat to set
+     */
+    public void setEtat(EtatTuile etat) {
+        this.etat = etat;
     }
-    
-    public void removeAventurier(Aventurier av) {
-        aventuriers.remove(av);
-    }
-    
+
+    /**
+     * @return the position
+     */
     public Position getPosition() {
-        return this.position;
+        return position;
+    }
+
+    /**
+     * @param position the position to set
+     */
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

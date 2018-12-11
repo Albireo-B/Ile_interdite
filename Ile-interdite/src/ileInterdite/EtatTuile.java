@@ -7,8 +7,10 @@ package ileInterdite;
 
 /**
  *
- * @author grosa
+ * @author vinetg
  */
 public enum EtatTuile {
-    SECHE,INONDEE,COULEE;
+    SECHE,
+    INONDEE,
+    COULEE;
 }

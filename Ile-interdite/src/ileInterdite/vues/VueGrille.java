@@ -9,27 +9,16 @@ package ileInterdite.vues;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import ileInterdite.actions.Action;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observable;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -37,11 +26,13 @@ import javax.swing.JPanel;
  * @author vinetg
  */
 public class VueGrille extends Observable {
+   
     private JPanel panelGrille;
-    
     private HashMap<Position, JButton> bTuiles = new HashMap();
     
-    // Remplit la grille de boutons
+    /**
+     * On définit le constructeur de VueGrille
+     */
     public VueGrille() {
         panelGrille = new JPanel(new GridLayout(6, 6));
         
