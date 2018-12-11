@@ -127,6 +127,9 @@ public class VueAventurier extends Observable {
         this.window.dispose();
     }
     
+    public VueGrille getVueGrille() {
+        return vueGrille;
+    }
    
     public JButton getBtnBouger() {
         return btnBouger;

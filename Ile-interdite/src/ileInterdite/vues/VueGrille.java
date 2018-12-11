@@ -9,6 +9,7 @@ package ileInterdite.vues;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
+import ileInterdite.Tuile;
 import ileInterdite.actions.Action;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
@@ -31,7 +32,7 @@ public class VueGrille extends Observable {
     private HashMap<Position, JButton> bTuiles = new HashMap();
     
     // Remplit la grille de boutons
-    public VueGrille() {
+    public VueGrille(/*ArrayList<Tuile> tuiles*/) {
         panelGrille = new JPanel(new GridLayout(6, 6));
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
@@ -60,11 +61,11 @@ public class VueGrille extends Observable {
     }
     
     // Rends tous les boutons avec cette position cliquables, ils jetterons l'action act
-    public void rendreBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
+    public void rendreBoutonsCliquable(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 JButton bouton = bTuiles.get(pos);
-                    
+                
                 bouton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -77,7 +78,7 @@ public class VueGrille extends Observable {
         }
     }
     
-    public void setEtat(EtatTuile etat, Position pos) {
+    public void changerEtat(EtatTuile etat, Position pos) {
         JButton bouton = bTuiles.get(pos);
         
         switch (etat) {
@@ -91,7 +92,6 @@ public class VueGrille extends Observable {
                 bouton.setBackground(Color.CYAN);
         }
     }
-    
     
     public JPanel getPanelGrille() {
         return panelGrille;
