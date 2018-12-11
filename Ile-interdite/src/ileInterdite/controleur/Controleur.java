@@ -7,6 +7,7 @@ package ileInterdite.controleur;
 
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
+import ileInterdite.Position;
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.aventurier.*;
@@ -37,13 +38,34 @@ public class Controleur implements Observer {
         //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
         setAventurierCourant(getJoueurs().get(0)); 
+        
+        //Initialisation de la Grille
+        setGrille(grille);
+        ArrayList<Position> posTuiles = new ArrayList<Position>();
+        ArrayList<String> nomsTuiles = new ArrayList<String>();
+        for (Tuile t : getGrille().getTuiles().values()){
+            posTuiles.add(t.getPosition());
+            nomsTuiles.add(t.getNom());
+        }
+        vueGrille = new VueGrille(posTuiles,nomsTuiles);
+            
+        for (int i=0;i<4;i++){
+            getAventurierCourant().setTuile(getGrille().getTuile(new Position(2,0)));
+            getVueGrille().actualiserPositionJoueur(new Position(2,0),getAventurierCourant());
+            aventurierSuivant();
+        }
+        
+        getGrille().getTuile(new Position(3,0)).setEtat(EtatTuile.INONDEE);
+        getGrille().getTuile(new Position(3,1)).setEtat(EtatTuile.COULEE);
+        
+        getVueGrille().actualiserEtatTuile(new Position(3,0),EtatTuile.INONDEE);
+        getVueGrille().actualiserEtatTuile(new Position(3,1),EtatTuile.COULEE);
+        
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier();
+        vueAventurier = new VueAventurier(getVueGrille());
         vueAventurier.addObserver(this);
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
 
-        //Initialisation de la Grille
-        setGrille(grille);
     }
     
     
@@ -70,7 +92,11 @@ public class Controleur implements Observer {
      * @param act
     */
     public void proposerTuiles(ArrayList<Tuile> ct,Action act){
-        //  getVueGrille().rendreBoutonsCliquable(ct,act);
+        ArrayList<Position> posTuiles = new ArrayList<Position>();
+        for (Tuile t : ct){
+            posTuiles.add(t.getPosition());
+        }
+        getVueGrille().rendreBoutonsCliquable(posTuiles,act);
     }   
     
     /**
@@ -113,7 +139,6 @@ public class Controleur implements Observer {
                 break;
             //Si le message possède l'action TERMINER
             case TERMINER:
-                ((VueAventurier) o).close();
                 nextTurn();
                 break;
             default:
@@ -121,6 +146,7 @@ public class Controleur implements Observer {
         }
        //Si arg est de type MessagePos
         if (arg instanceof MessagePos){
+            getVueGrille().tousBoutonsInertes();
             MessagePos messagepos = (MessagePos) arg;
             //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction()==Action.DEPLACER){
@@ -130,7 +156,8 @@ public class Controleur implements Observer {
                     p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPos()));    
                 } else {
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
-                }        
+                }
+                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant());
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
                 getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
@@ -147,7 +174,7 @@ public class Controleur implements Observer {
                     getAventurierCourant().decremente();
                     
                 }
-                         
+                getVueGrille().actualiserEtatTuile(messagepos.getPos(),EtatTuile.SECHE);         
             }
          
          }

@@ -72,7 +72,7 @@ public class Grille {
     }
     
     public Tuile getTuile(Position p) {
-        return tuiles.get(p);
+        return getTuiles().get(p);
     }
     
     /** Retourne un tableau des 4 tuiles adjascentes à la position pos selon ce
@@ -95,14 +95,14 @@ public class Grille {
             new Position(posTuile.x-1, posTuile.y)
         };
         
-        if (tuiles.containsKey(pos[0]))
-            tuilesAdjacentes.add(tuiles.get(pos[0]));
-        if (tuiles.containsKey(pos[1]))
-            tuilesAdjacentes.add(tuiles.get(pos[1]));
-        if (tuiles.containsKey(pos[2]))
-            tuilesAdjacentes.add(tuiles.get(pos[2]));
-        if (tuiles.containsKey(pos[3]))
-            tuilesAdjacentes.add(tuiles.get(pos[3]));
+        if (getTuiles().containsKey(pos[0]))
+            tuilesAdjacentes.add(getTuiles().get(pos[0]));
+        if (getTuiles().containsKey(pos[1]))
+            tuilesAdjacentes.add(getTuiles().get(pos[1]));
+        if (getTuiles().containsKey(pos[2]))
+            tuilesAdjacentes.add(getTuiles().get(pos[2]));
+        if (getTuiles().containsKey(pos[3]))
+            tuilesAdjacentes.add(getTuiles().get(pos[3]));
         
         return tuilesAdjacentes;
     }
@@ -125,8 +125,8 @@ public class Grille {
                 if (x == 0 && y == 0) {
                 } else {
                     Position pos = new Position(posTuile.x+x, posTuile.y+y);
-                    if (tuiles.containsKey(pos))
-                        tuilesAdjacentes.add(tuiles.get(pos));
+                    if (getTuiles().containsKey(pos))
+                        tuilesAdjacentes.add(getTuiles().get(pos));
                 }
             }
         }
@@ -142,10 +142,10 @@ public class Grille {
     public ArrayList<Tuile> tuilesNonCoulees() {
         ArrayList<Tuile> tuilesSeches = new ArrayList();
         
-        for (int x = 0; x < longueurTerrain; x++) {
-            for (int y = 0; y < longueurTerrain; y++) {
-                if (tuiles.get(new Position(x, y)).getEtat() == EtatTuile.SECHE) {
-                    tuilesSeches.add(tuiles.get(new Position(x, y)));
+        for (int x = 0; x < getLongueurTerrain(); x++) {
+            for (int y = 0; y < getLongueurTerrain(); y++) {
+                if (getTuiles().get(new Position(x, y)).getEtat() == EtatTuile.SECHE) {
+                    tuilesSeches.add(getTuiles().get(new Position(x, y)));
                 }
             }
         }
@@ -188,5 +188,19 @@ public class Grille {
         }
         
         return tuileAccessibles;
+    }
+
+    /**
+     * @return the longueurTerrain
+     */
+    public int getLongueurTerrain() {
+        return longueurTerrain;
+    }
+
+    /**
+     * @return the tuiles
+     */
+    public HashMap<Position, Tuile> getTuiles() {
+        return tuiles;
     }
 }

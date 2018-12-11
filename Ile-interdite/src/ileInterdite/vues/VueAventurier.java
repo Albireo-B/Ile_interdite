@@ -37,7 +37,7 @@ public class VueAventurier extends Observable {
     private  JButton btnAssecher= new JButton( "Assecher");
     private  JLabel nbPA   = new JLabel("Nombre d'actions restantes : ");
     private  JButton btnTerminerTour = new JButton("Terminer Tour") ;
-    private VueGrille vueGrille = new VueGrille();
+    private VueGrille vueGrille;
     
 
    
@@ -45,16 +45,45 @@ public class VueAventurier extends Observable {
     /**
      * On définit un constructeur de VueAventurier 
      */
-    public VueAventurier(){
+    public VueAventurier(VueGrille v){
+        vueGrille = v;
+        setWindow(new JFrame());
+        getWindow().setSize(650, 650);
+        getWindow().setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
+        getWindow().setTitle("Ile interdite");
+        getWindow().add(getMainPanel());
+        
 
-        this.window = new JFrame();
-        window.setSize(650, 650);
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
-        window.setTitle("Ile interdite");
+        // =================================================================================
+        // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
+
+        
+        getMainPanel().add(getPanelAventurier(), BorderLayout.NORTH);
+   
+           
+        // =================================================================================
+        // CENTRE : 1 ligne pour position courante
+        
+        getPanelCentre().setOpaque(false);
+        getMainPanel().add(getPanelCentre(), BorderLayout.CENTER);
+        getPanelCentre().add(getVueGrille().getPanelGrille(),  BorderLayout.CENTER);
+        getMainPanel().add(this.getPanelBoutons(), BorderLayout.SOUTH);
+        
+        // =================================================================================
+        // SUD
+        
+        getPanelBoutons().setOpaque(false);
+        getPanelBoutons().add(getBtnBouger());
+        getPanelBoutons().add(getBtnAssecher());
+        getPanelBoutons().add(getNbPA());
+        getPanelBoutons().add(getBtnTerminerTour());
         
         
         
         
+        
+        
+                      
         getBtnBouger().addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.DEPLACER));
@@ -72,56 +101,24 @@ public class VueAventurier extends Observable {
             notifyObservers(new Message(Action.TERMINER));
             clearChanged();
         });
+        
+        
     }
     
         public void actualiserVue(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
-        
-
-        
-        this.getWindow().add(getMainPanel());
-
-        getMainPanel().setBackground(new Color(230, 230, 230));
         getMainPanel().setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
-
-        // =================================================================================
-        // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
-
-       
         getPanelAventurier().setBackground(couleur);
         getPanelAventurier().add(new JLabel(nomAventurier + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
-        getMainPanel().add(getPanelAventurier(), BorderLayout.NORTH);
-   
-           
-        // =================================================================================
-        // CENTRE : 1 ligne pour position courante
-        
-        this.getPanelCentre().setOpaque(false);
-        this.getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
-        getMainPanel().add(this.getPanelCentre(), BorderLayout.CENTER);
-        
-        
-        getPanelCentre().add(getVueGrille().getPanelGrille(),  BorderLayout.CENTER);
-
-
-        // =================================================================================
-        // SUD : les boutons
-        this.getPanelBoutons().setOpaque(false);
-        getMainPanel().add(this.getPanelBoutons(), BorderLayout.SOUTH);
-        
-        this.getPanelBoutons().add(getBtnBouger());
-        this.getPanelBoutons().add(getBtnAssecher());
-        this.getPanelBoutons().add(getNbPA());
-        this.getPanelBoutons().add(getBtnTerminerTour());
-
-        this.getWindow().setVisible(true);
-
+        getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        setNbPA(new JLabel("Nombre d'actions restantes : " + nombrePA));
+        getWindow().setVisible(true);
     }
     
     /**
      * Ferme la fenêtre
      */
     public void close(){
-        this.getWindow().dispose();
+        getWindow().dispose();
     }
     
     
