@@ -16,18 +16,32 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
+    /**
+     * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
+     * @param tuile
+     * @param nom 
+     */
     public Explorateur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Explorateur");
        setPion(Utils.Pion.VERT);
     }
     
-        
+    /**
+     * On renvoie une liste des tuiles adjacentes en carré
+     * @param g
+     * @return 
+     */    
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesAdjacentesCarre(getTuile());
     }
     
+    /**
+     * On renvoie une liste des tuiles adjacentes en carré
+     * @param g
+     * @return 
+     */
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
         return g.tuilesAdjacentesCarre(getTuile());

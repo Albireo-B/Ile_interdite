@@ -15,12 +15,19 @@ public class Position {
     
     /**
      * On définit le constructeur de Position avec un integer x et un integer y
+     * @param x
+     * @param y
      */
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
+    /**
+     * On vérifie si une position correspond à une autre
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object)
     {

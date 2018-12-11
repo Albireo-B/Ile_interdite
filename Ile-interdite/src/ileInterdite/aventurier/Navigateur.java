@@ -14,7 +14,12 @@ import ileInterdite.controleur.utilitaires.Utils;
  */
 public class Navigateur extends Aventurier {
     
-      public Navigateur(Tuile tuile,String nom){
+    /**
+     * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
+     * @param tuile
+     * @param nom 
+     */
+    public Navigateur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Navigateur");
        setPion(Utils.Pion.JAUNE);

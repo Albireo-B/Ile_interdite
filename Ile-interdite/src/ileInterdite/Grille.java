@@ -26,6 +26,7 @@ public class Grille {
     *    | 3 x  x  x  x  x  x
     *    \/4    x  x  x  x
     *      5       x  x
+     * @param nomTuiles
     */
     public Grille(ArrayList<String> nomTuiles) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
@@ -38,6 +39,7 @@ public class Grille {
     
     /**
      * Retourne la position de tous les emplacements valides pour des tuiles
+     * @return 
     */
     public static ArrayList<Position> getAllTilesPositions() {
         ArrayList<Position> positions = new ArrayList();
@@ -78,6 +80,8 @@ public class Grille {
     *           tuile[0]
     *    tuile[3] pos tuile[1]
     *           tuile[2]
+     * @param tuile
+     * @return 
     */
     public ArrayList<Tuile> tuilesAdjacentesCroix(Tuile tuile) {
         ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
@@ -108,6 +112,8 @@ public class Grille {
     *    tuile[0] tuile[1] tuile[2]
     *    tuile[3]   pos    tuile[4]
     *    tuile[5] tuile[6] tuile[7]
+     * @param tuile
+     * @return 
     */
     public ArrayList<Tuile> tuilesAdjacentesCarre(Tuile tuile) {
         ArrayList<Tuile> tuilesAdjacentes = new ArrayList();
@@ -116,9 +122,8 @@ public class Grille {
         
         for (int y = 1; y <= -1; y--) {
             for (int x = -1; x <= 1; x++) {
-                if (x == 0 && y == 0)
-                    continue;
-                else {
+                if (x == 0 && y == 0) {
+                } else {
                     Position pos = new Position(posTuile.x+x, posTuile.y+y);
                     if (tuiles.containsKey(pos))
                         tuilesAdjacentes.add(tuiles.get(pos));
@@ -132,6 +137,7 @@ public class Grille {
     
     /** 
      * Retourne une liste de toutes les tuiles non coulées
+     * @return 
     */
     public ArrayList<Tuile> tuilesNonCoulees() {
         ArrayList<Tuile> tuilesSeches = new ArrayList();
@@ -150,6 +156,8 @@ public class Grille {
     
     /** 
     * Retourne une liste de tuiles adjacentes à la position pos par rapport au plongeur et à son pouvoir
+     * @param tuile
+     * @return 
     */
     public ArrayList<Tuile> tuilesAccessiblesPlongeur(Tuile tuile) {
         ArrayList<Tuile> tuileAccessibles = new ArrayList();

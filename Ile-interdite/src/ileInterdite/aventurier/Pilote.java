@@ -15,13 +15,23 @@ import java.util.ArrayList;
  * @author vinetg
  */
 public class Pilote extends Aventurier {
-    
-      public Pilote(Tuile tuile,String nom){
-       super(tuile,nom);   
-       setClasse("Pilote");
-       setPion(Utils.Pion.BLEU);
+     
+    /**
+     * On définit le constructeur de Pilote avec une tuile Tuile et nom String
+     * @param tuile
+     * @param nom
+     */ 
+    public Pilote(Tuile tuile,String nom){
+      super(tuile,nom);   
+      setClasse("Pilote");
+      setPion(Utils.Pion.BLEU);
     }
 
+    /**
+     * On passe le pouvoir du Pilote à utilisé et on change sa position
+     * @param g
+     * @param t
+     */ 
     public void setPositionPilote(Grille g, Tuile t) {
 
         if (g.tuilesAdjacentesCroix(t).contains(t)){
@@ -31,7 +41,12 @@ public class Pilote extends Aventurier {
         }
         setTuile(t);
     }
-        
+     
+    /**
+     * On renvoit la liste de toutes les tuiles non-coulées
+     * @param g
+     * @return 
+     */ 
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesNonCoulees();

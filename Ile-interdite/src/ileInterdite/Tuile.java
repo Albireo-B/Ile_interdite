@@ -20,6 +20,8 @@ public class Tuile {
     
     /**
      * On définit le constructeur de Tuile avec un string nom et une Position pos
+     * @param nom
+     * @param pos
      */
     public Tuile(String nom, Position pos) {
         setNom(nom);
@@ -29,6 +31,7 @@ public class Tuile {
     
     /**
      * Ajoute un aventurier a la liste des aventuriers 
+     * @param av
      */
     public void addAventurier(Aventurier av) {
         getAventuriers().add(av);
@@ -36,6 +39,7 @@ public class Tuile {
     
     /**
      * Supprime un aventurier de la liste des aventuriers 
+     * @param av
      */
     public void removeAventurier(Aventurier av) {
         getAventuriers().remove(av);

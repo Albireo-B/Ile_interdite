@@ -7,7 +7,6 @@ package ileInterdite.controleur;
 
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
-import ileInterdite.Position;
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.aventurier.*;
@@ -34,21 +33,15 @@ public class Controleur implements Observer {
      * @param joueurs
      * @param grille
     */
-    public Controleur(ArrayList<Aventurier> joueurs, Grille grille){
+    public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
         //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
-        setAventurierCourant(getJoueurs().get(0));
-        
+        setAventurierCourant(getJoueurs().get(0)); 
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(aventurierCourant.getNomJoueur(),
-                aventurierCourant.getClasse(),
-                aventurierCourant.getPion().getCouleur(), 
-                aventurierCourant.getNbAction(),
-                grille.getToutesTuiles()
-        );
+        vueAventurier = new VueAventurier();
         vueAventurier.addObserver(this);
-        vueAventurier.getVueGrille().addObserver(this);
-        
+        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
+
         //Initialisation de la Grille
         setGrille(grille);
     }
@@ -77,65 +70,70 @@ public class Controleur implements Observer {
      * @param act
     */
     public void proposerTuiles(ArrayList<Tuile> ct,Action act){
-        ArrayList<Position> pos = new ArrayList();
-        for (Tuile tuile : ct) {
-            pos.add(tuile.getPosition());
-        }
-        getVueGrille().rendreBoutonsCliquables(pos,act);
+        //  getVueGrille().rendreBoutonsCliquable(ct,act);
     }   
     
     /**
-    * Fais apparaître une Tuile
-     * @param pos
-    */
-    public void setCliquable(Position pos){
-        
-    }
-    
-    /**
-    * Passe au prochain joueur
-    */
+     * Passe au prochain joueur
+     */
     public void aventurierSuivant(){
        
        setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % 4));
     }
     
     /**
-    * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
-    * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
-    */
+     * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
+     * et actualise la vueAventurier avec les paramètres du nouvel aventurier
+     */
     public void nextTurn(){
-        System.out.println("Tour suivant");
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
         aventurierSuivant();
-        //setVueAventurier(new VueAventurier(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction()));
-        getVueAventurier().addObserver(this);
+        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
     }
     
     /**
-    * S'occupe de toute les opérations(logique applicative)
+     * S'occupe de toute les opérations(logique applicative)
      * @param o
      * @param arg
-    */
+     */
     @Override
     public void update(Observable o, Object arg) {
-        
-        //Si arg est de type MessagePos
+        Message message = (Message) arg;
+        //Si le message contient une Action
+        if (null!= message.getAction()) 
+        switch (message.getAction()) {
+            //Si le message possède l'action ASSECHER
+            case ASSECHER:
+                gererAssechement();
+                break;
+            //Si le message possède l'action DEPLACER
+            case DEPLACER:
+                gererDeplacement();
+                break;
+            //Si le message possède l'action TERMINER
+            case TERMINER:
+                ((VueAventurier) o).close();
+                nextTurn();
+                break;
+            default:
+                break;
+        }
+       //Si arg est de type MessagePos
         if (arg instanceof MessagePos){
             MessagePos messagepos = (MessagePos) arg;
             //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction()==Action.DEPLACER){
                 //Si l'aventurier en train de jouer est un pilote
-                if (getAventurierCourant() instanceof Pilote && getAventurierCourant().getPouvoir()==true) {
+                if (getAventurierCourant() instanceof Pilote) {
                     Pilote p = (Pilote) getAventurierCourant();
-                    p.setPositionPilote(getGrille(), getGrille().getTuile(messagepos.getPosition()));    
+                    p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPos()));    
                 } else {
-                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPosition()));
-                }
+                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
+                }        
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
-                getGrille().getTuile(messagepos.getPosition()).setEtat(EtatTuile.SECHE);
+                getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
                 //Si l'aventurier en train de jouer est un ingénieur
                 if (getAventurierCourant() instanceof Ingenieur){
                     //Si le pouvoir de l'ingénieur est utilisable
@@ -147,28 +145,12 @@ public class Controleur implements Observer {
                     }
                 } else { 
                     getAventurierCourant().decremente();
-                }     
+                    
+                }
+                         
             }
          
          }
-         else {
-            Message message = (Message) arg;
-            //Si le message possède l'action ASSECHER 
-            if (message.getAction()== Action.ASSECHER){
-                gererAssechement();
-                System.out.println("Phase assèchement");
-            }
-            //Si le message possède l'action DEPLACER 
-            else if (message.getAction()==Action.DEPLACER){
-                gererDeplacement();
-                System.out.println("Phase déplacement");
-            }
-            //Si le message possède l'action TERMINER 
-            else if (message.getAction()==Action.TERMINER){
-                ((VueAventurier) o).close();
-                nextTurn();
-            }
-        }
         
     }
     

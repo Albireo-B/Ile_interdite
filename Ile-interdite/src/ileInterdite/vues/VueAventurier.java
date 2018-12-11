@@ -7,8 +7,6 @@ package ileInterdite.vues;
 
 import ileInterdite.Tuile;
 import ileInterdite.actions.*;
-import ileInterdite.aventurier.*;
-import ileInterdite.controleur.utilitaires.Utils.*;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,116 +31,246 @@ import javax.swing.border.MatteBorder;
  
 public class VueAventurier extends Observable {
      
-    private final JPanel panelBoutons ;
-    private final JPanel panelCentre ;
-    private final JFrame window;
-    private final JPanel panelAventurier;
-    private final JPanel mainPanel;
-    private final JButton btnBouger  ;
-    private final JButton btnAssecher;
-    private final JLabel nbPA;
-    private final JButton btnTerminerTour;
+    private  JPanel panelBoutons = new JPanel(new GridLayout(2,2));
+    private  JPanel panelCentre =  new JPanel(new BorderLayout());
+    private  JFrame window;
+    private  JPanel panelAventurier = new JPanel();
+    private  JPanel mainPanel = new JPanel(new BorderLayout());
+    private  JButton btnBouger = new JButton("Bouger");
+    private  JButton btnAssecher= new JButton( "Assecher");
+    private  JLabel nbPA   = new JLabel("Nombre d'actions restantes : ");
+    private  JButton btnTerminerTour = new JButton("Terminer Tour") ;
     private VueGrille vueGrille;
+    
 
    
-   
-   
-    
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur, int nombrePA, ArrayList<Tuile> tuiles){
+    /**
+     * On définit un constructeur de VueAventurier 
+     */
+    public VueAventurier(){
 
         this.window = new JFrame();
         window.setSize(650, 650);
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        //le titre = nom du joueur 
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
         window.setTitle("Ile interdite");
-        System.out.println(nomJoueur);
-        mainPanel = new JPanel(new BorderLayout());
-        this.window.add(mainPanel);
+        
+        
+        
+        
+        getBtnBouger().addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.DEPLACER));
+            clearChanged();
+        });
 
-        mainPanel.setBackground(new Color(230, 230, 230));
-        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
+        getBtnAssecher().addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.ASSECHER));
+            clearChanged();
+        });
+
+        getBtnTerminerTour().addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.TERMINER));
+            clearChanged();
+        });
+    }
+    
+        public void actualiserVue(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
+        
+
+        
+        this.getWindow().add(getMainPanel());
+
+        getMainPanel().setBackground(new Color(230, 230, 230));
+        getMainPanel().setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
 
         // =================================================================================
         // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
 
-        this.panelAventurier = new JPanel();
-        panelAventurier.setBackground(couleur);
-        panelAventurier.add(new JLabel(nomAventurier + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
-        mainPanel.add(panelAventurier, BorderLayout.NORTH);
+       
+        getPanelAventurier().setBackground(couleur);
+        getPanelAventurier().add(new JLabel(nomAventurier + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
+        getMainPanel().add(getPanelAventurier(), BorderLayout.NORTH);
    
            
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
-        this.panelCentre = new JPanel(new BorderLayout());
-        this.panelCentre.setOpaque(false);
-        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
-        mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
-        vueGrille = new VueGrille(tuiles);
-        panelCentre.add(vueGrille.getPanelGrille(),  BorderLayout.CENTER);
+        this.getPanelCentre().setOpaque(false);
+        this.getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        getMainPanel().add(this.getPanelCentre(), BorderLayout.CENTER);
+        
+        
+        getPanelCentre().add(getVueGrille().getPanelGrille(),  BorderLayout.CENTER);
 
 
         // =================================================================================
         // SUD : les boutons
-        this.panelBoutons = new JPanel(new GridLayout(2,2));
-        this.panelBoutons.setOpaque(false);
-        mainPanel.add(this.panelBoutons, BorderLayout.SOUTH);
-
-        this.btnBouger = new JButton("Bouger") ;
-        this.btnAssecher = new JButton( "Assecher");
-        this.nbPA = new JLabel("Nombre d'actions restantes : " + nombrePA);
-        this.btnTerminerTour = new JButton("Terminer Tour") ;
+        this.getPanelBoutons().setOpaque(false);
+        getMainPanel().add(this.getPanelBoutons(), BorderLayout.SOUTH);
         
-        this.panelBoutons.add(btnBouger);
-        this.panelBoutons.add(btnAssecher);
-        this.panelBoutons.add(nbPA);
-        this.panelBoutons.add(btnTerminerTour);
+        this.getPanelBoutons().add(getBtnBouger());
+        this.getPanelBoutons().add(getBtnAssecher());
+        this.getPanelBoutons().add(getNbPA());
+        this.getPanelBoutons().add(getBtnTerminerTour());
 
-        this.window.setVisible(true);
-        
-        btnBouger.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-                notifyObservers(new Message(Action.DEPLACER));
-                clearChanged();
-            }
-        });
+        this.getWindow().setVisible(true);
 
-        btnAssecher.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-                notifyObservers(new Message(Action.ASSECHER));
-                clearChanged();
-            }
-        });
-
-        btnTerminerTour.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-                notifyObservers(new Message(Action.TERMINER));
-                clearChanged();
-            }
-        });
     }
     
+    /**
+     * Ferme la fenêtre
+     */
     public void close(){
-        this.window.dispose();
+        this.getWindow().dispose();
     }
     
-    public VueGrille getVueGrille() {
-        return vueGrille;
-    }
-   
+    
+    //Getters et Setters :
+    
+    
+    /**
+     *
+     * @return the btnBouger
+     */
     public JButton getBtnBouger() {
         return btnBouger;
     }
     
+     /**
+     *
+     * @return the btnAssecher
+     */
     public JButton getBtnAssecher() {
         return btnAssecher;
     }
 
+     /**
+     * 
+     * @return the btnTerminerTour
+     */
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
+    }
+
+    /**
+     * @return the panelBoutons
+     */
+    public JPanel getPanelBoutons() {
+        return panelBoutons;
+    }
+
+    /**
+     * @return the panelCentre
+     */
+    public JPanel getPanelCentre() {
+        return panelCentre;
+    }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
+
+    /**
+     * @return the panelAventurier
+     */
+    public JPanel getPanelAventurier() {
+        return panelAventurier;
+    }
+
+    /**
+     * @return the mainPanel
+     */
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    /**
+     * @return the nbPA
+     */
+    public JLabel getNbPA() {
+        return nbPA;
+    }
+
+    /**
+     * @return the vueGrille
+     */
+    public VueGrille getVueGrille() {
+        return vueGrille;
+    }
+
+    /**
+     * @param vueGrille the vueGrille to set
+     */
+    public void setVueGrille(VueGrille vueGrille) {
+        this.vueGrille = vueGrille;
+    }
+
+    /**
+     * @param panelBoutons the panelBoutons to set
+     */
+    public void setPanelBoutons(JPanel panelBoutons) {
+        this.panelBoutons = panelBoutons;
+    }
+
+    /**
+     * @param panelCentre the panelCentre to set
+     */
+    public void setPanelCentre(JPanel panelCentre) {
+        this.panelCentre = panelCentre;
+    }
+
+    /**
+     * @param window the window to set
+     */
+    public void setWindow(JFrame window) {
+        this.window = window;
+    }
+
+    /**
+     * @param panelAventurier the panelAventurier to set
+     */
+    public void setPanelAventurier(JPanel panelAventurier) {
+        this.panelAventurier = panelAventurier;
+    }
+
+    /**
+     * @param mainPanel the mainPanel to set
+     */
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+
+    /**
+     * @param btnBouger the btnBouger to set
+     */
+    public void setBtnBouger(JButton btnBouger) {
+        this.btnBouger = btnBouger;
+    }
+
+    /**
+     * @param btnAssecher the btnAssecher to set
+     */
+    public void setBtnAssecher(JButton btnAssecher) {
+        this.btnAssecher = btnAssecher;
+    }
+
+    /**
+     * @param nbPA the nbPA to set
+     */
+    public void setNbPA(JLabel nbPA) {
+        this.nbPA = nbPA;
+    }
+
+    /**
+     * @param btnTerminerTour the btnTerminerTour to set
+     */
+    public void setBtnTerminerTour(JButton btnTerminerTour) {
+        this.btnTerminerTour = btnTerminerTour;
     }
  
 }

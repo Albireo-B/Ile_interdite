@@ -9,7 +9,6 @@ package ileInterdite.vues;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import ileInterdite.actions.Action;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
@@ -64,6 +63,9 @@ public class VueGrille extends Observable {
         }
     }
     
+    /**
+     * 
+     */
     public void tousBoutonsInertes() {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getActionListeners()) {
@@ -72,24 +74,30 @@ public class VueGrille extends Observable {
         }
     }
     
-    // Rends tous les boutons avec cette position cliquables, ils jetterons l'action act
+    /**
+     * Rend toutes les positions de la liste cliquables 
+     * @param posBoutons
+     * @param act
+     */
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
                 
-                bouton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        setChanged();
-                        notifyObservers(new MessagePos(act, pos));
-                        clearChanged();
-                    }
+                bouton.addActionListener((ActionEvent e) -> {
+                    setChanged();
+                    notifyObservers(new MessagePos(act, pos));
+                    clearChanged();
                 });
             }
         }
     }
     
+    /**
+     * On définit l'état d'une Position (Tuile)
+     * @param etat
+     * @param pos 
+     */
     public void actualiserEtatTuile(EtatTuile etat, Position pos) {
         BoutonTuile bouton = bTuiles.get(pos);
         
@@ -105,6 +113,10 @@ public class VueGrille extends Observable {
         }
     }
     
+    //Getters et Setters :
+     /**
+     * @return the panelGrille
+     */
     public void actualiserPositionJoueur(Position position, String aventurier) {
         Position posAv = aventuriers.get(aventurier);
         bTuiles.get(posAv).removeAventurier(aventurier);
@@ -113,6 +125,13 @@ public class VueGrille extends Observable {
     
     public JPanel getPanelGrille() {
         return panelGrille;
+    }
+
+    /**
+     * @param panelGrille the panelGrille to set
+     */
+    public void setPanelGrille(JPanel panelGrille) {
+        this.panelGrille = panelGrille;
     }
 }
 

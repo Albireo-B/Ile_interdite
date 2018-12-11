@@ -22,6 +22,11 @@ public abstract class Aventurier {
     private String nomJoueur;
     private Pion pion;
 
+    /**
+     * On définit le constructeur de Aventurier avec une tuile Tuile et un nom String
+     * @param tuile
+     * @param nom 
+     */
     public Aventurier(Tuile tuile,String nom){
         this.tuile=tuile;   
         setNomJoueur(nom);
@@ -29,29 +34,43 @@ public abstract class Aventurier {
     }
     
       
-    
+    /**
+     * On renvoie la liste des tuiles adjacentes en croix
+     * @param g
+     * @return 
+     */
     public ArrayList<Tuile> calculDeplacement(Grille g){
-
-        return g.tuilesAdjacentesCroix(getTuile());
-        
+        return g.tuilesAdjacentesCroix(getTuile()); 
     }
     
+    /**
+     * On renvoie la liste des tuiles adjacentes en croix
+     * @param g
+     * @return 
+     */
     public ArrayList<Tuile> calculAssechement(Grille g){
-/* pblm fction retourne tuile[]*/
         return g.tuilesAdjacentesCroix(getTuile());
-  
     }
     
+    /**
+     * On remet le nombre d'actions à 3
+     */
     public void resetPA(){
         setNbAction(3);
     }
     
-    //Fais diminuer le nombre d'actions de 1
+    /**
+     * Fais diminuer le nombre d'actions de 1
+     */
     public void decremente(){
         this.setNbAction(getNbAction()-1);
     }
 
-    //Permet de déplacer un aventurier sur une nouvelle Tuile en supprimant sa position précédente
+    /**
+    * Permet de déplacer un aventurier sur une nouvelle Tuile
+    * en supprimant sa position précédente
+     * @param tuile
+    */
     public void setTuile(Tuile tuile){
         getTuile().removeAventurier(this);
         tuile.addAventurier(this);
