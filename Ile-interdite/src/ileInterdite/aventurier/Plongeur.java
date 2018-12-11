@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Plongeur extends Aventurier{
  
     /**
-     * On définit le constructeur de Plongeur
+     * On définit le constructeur de Plongeur avec une tuile Tuile et un nom String
      * @param tuile
      * @param nom 
      */

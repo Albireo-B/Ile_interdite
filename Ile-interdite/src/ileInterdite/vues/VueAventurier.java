@@ -42,8 +42,8 @@ public class VueAventurier extends Observable {
    
    
     /**
-     * On définit un constructeur de VueAventurier avec un nom de joueur,
-     * un aventurier, une couleur et un nombre d'action
+     * On définit un constructeur de VueAventurier avec un nom de joueur String,
+     * un aventurier String, une couleur Color et un nombre d'action integer
      * @param nomJoueur
      * @param nomAventurier
      * @param couleur
@@ -127,28 +127,21 @@ public class VueAventurier extends Observable {
         this.getWindow().dispose();
     }
     
-<<<<<<< HEAD
+
     
     //Getters et Setters :
     
     
-    
     /**
-     * 
+     *
      * @return the btnBouger
      */
-=======
-    public VueGrille getVueGrille() {
-        return vueGrille;
-    }
-   
->>>>>>> 7658ccc3de8de7e180ee342a1de07de1df37c990
     public JButton getBtnBouger() {
         return btnBouger;
     }
     
      /**
-     * 
+     *
      * @return the btnAssecher
      */
     public JButton getBtnAssecher() {

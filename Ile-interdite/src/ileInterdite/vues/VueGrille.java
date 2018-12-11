@@ -32,7 +32,7 @@ public class VueGrille extends Observable {
     private HashMap<Position, JButton> bTuiles = new HashMap();
     
     /**
-     * On définit le constructeur de VueGrille
+     * On définit le constructeur de VueGrille sans paramètres
      */
     public VueGrille(/*ArrayList<Tuile> tuiles*/) {
         panelGrille = new JPanel(new GridLayout(6, 6));

@@ -78,25 +78,25 @@ public class Controleur implements Observer {
     }   
     
     /**
-    * Fais apparaître une Tuile
+     * Fais apparaître une Tuile
      * @param pos
-    */
+     */
     public void setCliquable(Position pos){
         
     }
     
     /**
-    * Passe au prochain joueur
-    */
+     * Passe au prochain joueur
+     */
     public void aventurierSuivant(){
        
        setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % 4));
     }
     
     /**
-    * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
-    * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
-    */
+     * Change de tour : remet les points d'action a 3, remet le pouvoir en utilisable 
+     * et crée une nouvelle vueAventurier avec les paramètres du nouvel aventurier
+     */
     public void nextTurn(){
         getAventurierCourant().setPouvoir(true);
         getAventurierCourant().resetPA();
@@ -106,28 +106,33 @@ public class Controleur implements Observer {
     }
     
     /**
-    * S'occupe de toute les opérations(logique applicative)
+     * S'occupe de toute les opérations(logique applicative)
      * @param o
      * @param arg
-    */
+     */
     @Override
     public void update(Observable o, Object arg) {
         Message message = (Message) arg;
-        //Si le message possède l'action ASSECHER 
-        if (message.getAction()== Action.ASSECHER){
-            gererAssechement();
-            
+        //Si le message contient une Action
+        if (null!= message.getAction()) 
+        switch (message.getAction()) {
+            //Si le message possède l'action ASSECHER
+            case ASSECHER:
+                gererAssechement();
+                break;
+            //Si le message possède l'action DEPLACER
+            case DEPLACER:
+                gererDeplacement();
+                break;
+            //Si le message possède l'action TERMINER
+            case TERMINER:
+                ((VueAventurier) o).close();
+                nextTurn();
+                break;
+            default:
+                break;
         }
-        //Si le message possède l'action DEPLACER 
-        else if (message.getAction()==Action.DEPLACER){
-            gererDeplacement();
-        }
-        //Si le message possède l'action TERMINER 
-        else if (message.getAction()==Action.TERMINER){
-            ((VueAventurier) o).close();
-            nextTurn();
-        }
-       //Si arg est  de type MessagePos
+       //Si arg est de type MessagePos
         if (arg instanceof MessagePos){
             MessagePos messagepos = (MessagePos) arg;
             //Si le messagePos possède l'action DEPLACER

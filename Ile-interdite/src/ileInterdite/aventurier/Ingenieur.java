@@ -16,12 +16,22 @@ import java.util.ArrayList;
  */
 public class Ingenieur extends Aventurier {
     
-  public Ingenieur(Tuile tuile,String nom){
+    /**
+     * On définit le constructeur de Ingenieur avec une tuile Tuile et un nom String
+     * @param tuile
+     * @param nom 
+     */
+    public Ingenieur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Ingenieur");
        setPion(Utils.Pion.ROUGE);
     }
    
+    /**
+     * On renvoie une liste des tuiles adjacentes en croix
+     * @param g
+     * @return 
+     */
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
         return g.tuilesAdjacentesCroix(getTuile());
