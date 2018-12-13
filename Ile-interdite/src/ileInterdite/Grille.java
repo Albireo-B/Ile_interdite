@@ -5,6 +5,7 @@
  */
 package ileInterdite;
 
+import ileInterdite.aventurier.Aventurier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,10 +30,22 @@ public class Grille {
     *      5       x  x
      * @param nomTuiles
     */
-    public Grille(ArrayList<String> nomTuiles) {
+    public Grille(ArrayList<String> nomTuiles, ArrayList<Aventurier> aventuriers) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
         for (String nomTuile : nomTuiles) {
-            tuiles.put(positionTuiles.get(0), new Tuile(nomTuile, positionTuiles.get(0)));
+            Tuile t = new Tuile(nomTuile, positionTuiles.get(0));
+            
+            Aventurier avGood = null;
+            for (Aventurier av : aventuriers) {
+                if (av.getCaseDepart().equals(nomTuile))
+                    avGood = av;
+            }
+            if (avGood != null) {
+                avGood.setTuile(t);
+                t.addAventurier(avGood);
+            }
+            
+            tuiles.put(positionTuiles.get(0), t);
             positionTuiles.remove(0);
         }
     }

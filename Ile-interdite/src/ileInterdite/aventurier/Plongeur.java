@@ -17,7 +17,17 @@ import java.util.ArrayList;
 public class Plongeur extends Aventurier {
     
     private final String caseDepart = "La Porte de Fer";
- 
+    
+    /**
+     * On définit le constructeur de Plongeur avec une tuile Tuile et un nom String
+     * @param tuile
+     * @param nom 
+     */
+    public Plongeur(String nom){
+       super(nom);   
+       setClasse("Plongeur");
+       setPion(Utils.Pion.VIOLET);
+    }
     /**
      * On définit le constructeur de Plongeur avec une tuile Tuile et un nom String
      * @param tuile

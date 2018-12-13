@@ -23,6 +23,16 @@ public class Ingenieur extends Aventurier {
      * @param tuile
      * @param nom 
      */
+    public Ingenieur(String nom){
+       super(nom);   
+       setClasse("Ingenieur");
+       setPion(Utils.Pion.ROUGE);
+    }
+    /**
+     * On définit le constructeur de Ingenieur avec une tuile Tuile et un nom String
+     * @param tuile
+     * @param nom 
+     */
     public Ingenieur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Ingenieur");

@@ -21,6 +21,16 @@ public class Messager extends Aventurier {
      * @param tuile
      * @param nom
      */
+     public Messager(String nom){
+       super(nom);   
+       setClasse("Messager");
+       setPion(Utils.Pion.ORANGE);
+    }
+    /**
+     * On définit le constructeur de Messager avec une Tuile tuile et un string nom 
+     * @param tuile
+     * @param nom
+     */
      public Messager(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Messager");

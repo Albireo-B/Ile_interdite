@@ -32,15 +32,17 @@ public class Controleur implements Observer {
     /**
     * On définit le constructeur du controleur avec une liste d'aventuriers joueurs et une Grille grille
      * @param joueurs
+     * @param nomTuiles
      * @param grille
     */
-    public Controleur(ArrayList<Aventurier> joueurs, Grille grille){
+    public Controleur(ArrayList<Aventurier> joueurs, ArrayList<String> nomTuiles){
         //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
-        setAventurierCourant(getJoueurs().get(0)); 
+        setAventurierCourant(getJoueurs().get(0));
+        
+        grille = new Grille(nomTuiles, joueurs);
         
         //Initialisation de la Grille
-        setGrille(grille);
         ArrayList<Position> posTuiles = new ArrayList<Position>();
         ArrayList<String> nomsTuiles = new ArrayList<String>();
         for (Tuile t : getGrille().getToutesTuiles()){
@@ -48,16 +50,9 @@ public class Controleur implements Observer {
             nomsTuiles.add(t.getNom());
         }
         
-        ArrayList<String> avs = new ArrayList();
+        vueGrille = new VueGrille(posTuiles, nomsTuiles);
         for (Aventurier j : joueurs) {
-            avs.add(j.getClasse());
-        }
-        vueGrille = new VueGrille(posTuiles,nomsTuiles, avs);
-            
-        for (int i=0; i<4; i++){
-            
-            getVueGrille().actualiserPositionJoueur(new Position(2,0), getAventurierCourant().getClasse());
-            aventurierSuivant();
+            vueGrille.actualiserPositionJoueur(j.getPosition(), j);
         }
         
         getGrille().getTuile(new Position(3,0)).setEtat(EtatTuile.INONDEE);
