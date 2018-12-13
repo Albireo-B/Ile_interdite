@@ -18,22 +18,17 @@ import ileInterdite.controleur.Controleur;
 public class testTour {
     
     public static void main(String[] args) {
-        Position p1 = new Position(2,0);
-        Position p2 = new Position(3,0);
-        Position p3 = new Position(0,2);
-        Position p4 = new Position(0,3);
         
         ArrayList<String> nomTuiles = nomsDesTuiles();
-        Grille gl = new Grille(nomTuiles);
        
         ArrayList <Aventurier> avens=new ArrayList<Aventurier>();
         // initializing  4 players
-        avens.add(new Plongeur(gl.getTuile(p3),"clement"));
-        avens.add(new Explorateur(gl.getTuile(p4),"Guillaume"));
-        avens.add(new Ingenieur(gl.getTuile(p1),"Alexis"));
-        avens.add(new Messager(gl.getTuile(p2),"Lois"));
+        avens.add(new Plongeur("clement"));
+        avens.add(new Explorateur("Guillaume"));
+        avens.add(new Ingenieur("Alexis"));
+        avens.add(new Messager("Lois"));
 
-        Controleur ctrl = new Controleur(avens,gl);
+        Controleur ctrl = new Controleur(avens, nomTuiles);
                 
         
         

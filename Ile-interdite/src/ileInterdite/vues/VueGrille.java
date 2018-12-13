@@ -10,6 +10,7 @@ import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.actions.Action;
+import ileInterdite.aventurier.Aventurier;
 import ileInterdite.aventurier.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
@@ -37,12 +38,7 @@ public class VueGrille extends Observable {
      * @param noms
      * @param classesAventuriers
      */
-    public VueGrille(ArrayList<Position> positions, ArrayList<String> noms, ArrayList<String> classesAventuriers) {
-        
-        for(String av : classesAventuriers) {
-            aventuriers.put(av, new Position(2, 0));
-        }
-        
+    public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
         panelGrille = new JPanel(new GridLayout(6, 6));
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
@@ -131,9 +127,11 @@ public class VueGrille extends Observable {
      * @param aventurier
      * @param p
      */
+
     public void actualiserPositionJoueur(Position position, String aventurier, Pion p) {
         Position posAv = aventuriers.get(aventurier);
-        bTuiles.get(posAv).removeAventurier(p.getCouleur());
+        if (bTuiles.keySet().contains(posAv))
+            bTuiles.get(posAv).removeAventurier(p.getCouleur());
         bTuiles.get(position).addAventurier(p.getCouleur());
     }
     

@@ -6,6 +6,7 @@
 package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
+import ileInterdite.Position;
 import ileInterdite.Tuile;
 import java.util.ArrayList;
 
@@ -20,7 +21,13 @@ public abstract class Aventurier {
     private String classe;
     private String nomJoueur;
     private Pion pion;
-
+    
+    public Aventurier(String nom) {
+        this.tuile=null;   
+        setNomJoueur(nom);
+        resetPA();
+    }
+    
     /**
      * On définit le constructeur de Aventurier avec une tuile Tuile et un nom String
      * @param tuile
@@ -30,7 +37,6 @@ public abstract class Aventurier {
         this.tuile=tuile;   
         setNomJoueur(nom);
         resetPA();
-        
     }
     
       
@@ -72,15 +78,18 @@ public abstract class Aventurier {
      * @param tuile
     */
     public void setTuile(Tuile tuile){
-        getTuile().removeAventurier(this);
+        if (this.tuile != null)
+            getTuile().removeAventurier(this);
+        
         tuile.addAventurier(this);
-        this.decremente();
         this.tuile = tuile;
     }
     
     
     //Getters et Setters :
-    
+    public Position getPosition() {
+        return this.tuile.getPosition();
+    }
     
       /**
      * @return the tuile

@@ -32,15 +32,17 @@ public class Controleur implements Observer {
     /**
     * On définit le constructeur du controleur avec une liste d'aventuriers joueurs et une Grille grille
      * @param joueurs
+     * @param nomTuiles
      * @param grille
     */
-    public Controleur(ArrayList<Aventurier> joueurs, Grille grille){
+    public Controleur(ArrayList<Aventurier> joueurs, ArrayList<String> nomTuiles){
         //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
-        setAventurierCourant(getJoueurs().get(0)); 
+        setAventurierCourant(getJoueurs().get(0));
+        
+        grille = new Grille(nomTuiles, joueurs);
         
         //Initialisation de la Grille
-        setGrille(grille);
         ArrayList<Position> posTuiles = new ArrayList<Position>();
         ArrayList<String> nomsTuiles = new ArrayList<String>();
         for (Tuile t : getGrille().getToutesTuiles()){
@@ -48,17 +50,11 @@ public class Controleur implements Observer {
             nomsTuiles.add(t.getNom());
         }
         
-        ArrayList<String> avs = new ArrayList();
-        for (Aventurier j : joueurs) {
-            avs.add(j.getClasse());
-        }
-        vueGrille = new VueGrille(posTuiles,nomsTuiles, avs);
+        vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
-            
-        for (int i=0; i<4; i++){
-            
-            getVueGrille().actualiserPositionJoueur(new Position(2,0), getAventurierCourant().getClasse(),getAventurierCourant().getPion());
-            aventurierSuivant();
+        
+        for (Aventurier j : joueurs) {
+            vueGrille.actualiserPositionJoueur(j.getPosition(), j.getClasse(), j.getPion());
         }
         
         getGrille().getTuile(new Position(3,0)).setEtat(EtatTuile.INONDEE);
@@ -176,6 +172,7 @@ public class Controleur implements Observer {
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
                 }
                 getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getClasse(),getAventurierCourant().getPion());
+
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
                 getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);

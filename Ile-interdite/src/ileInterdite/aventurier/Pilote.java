@@ -16,7 +16,17 @@ import java.util.ArrayList;
 public class Pilote extends Aventurier {
     
     private final String caseDepart = "Heliport";
-     
+    
+    /**
+     * On définit le constructeur de Pilote avec une tuile Tuile et nom String
+     * @param tuile
+     * @param nom
+     */ 
+    public Pilote(String nom){
+      super(nom);   
+      setClasse("Pilote");
+      setPion(Pion.BLEU);
+    }
     /**
      * On définit le constructeur de Pilote avec une tuile Tuile et nom String
      * @param tuile

@@ -22,6 +22,17 @@ public class Explorateur extends Aventurier {
      * @param tuile
      * @param nom 
      */
+    public Explorateur(String nom){
+       super(nom);   
+       setClasse("Explorateur");
+       setPion(Pion.VERT);
+    }
+    
+    /**
+     * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
+     * @param tuile
+     * @param nom 
+     */
     public Explorateur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Explorateur");
