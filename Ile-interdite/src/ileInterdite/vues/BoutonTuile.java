@@ -33,11 +33,11 @@ public class BoutonTuile extends JPanel {
     public BoutonTuile(String nom) {
         super(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        JPanel panelCouleurs = new JPanel(new GridLayout(1, 6));
+        JPanel panelCouleurs = new JPanel(new GridLayout(1, 4));
         bouton = new JButton("["+nom+"]");
         this.add(bouton, BorderLayout.CENTER);
         
-        for (int c = 0; c < 6; c++) {
+        for (int c = 0; c < 4; c++) {
             JPanel p = new JPanel();
             panelCouleurs.add(p);
             p.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
@@ -50,13 +50,13 @@ public class BoutonTuile extends JPanel {
     
     public void removeAventurier(Color j) {
         if (couleursJoueurs.contains(j)) {
+            couleurs.get(couleursJoueurs.indexOf(j)).setBackground(Color.GRAY);
             couleursJoueurs.remove(j);
-            couleurs.get(couleursJoueurs.size()).setBackground(Color.GRAY);
         }
     }
     
     public void addAventurier(Color j) {
-        if (couleursJoueurs.size() < 6) {
+        if (couleursJoueurs.size() < 4) {
             couleurs.get(couleursJoueurs.size()).setBackground(j);
             couleursJoueurs.add(j);
         }

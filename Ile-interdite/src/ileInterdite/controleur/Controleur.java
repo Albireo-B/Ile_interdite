@@ -53,10 +53,11 @@ public class Controleur implements Observer {
             avs.add(j.getClasse());
         }
         vueGrille = new VueGrille(posTuiles,nomsTuiles, avs);
+        vueGrille.addObserver(this);
             
         for (int i=0; i<4; i++){
             
-            getVueGrille().actualiserPositionJoueur(new Position(2,0), getAventurierCourant().getClasse());
+            getVueGrille().actualiserPositionJoueur(new Position(2,0), getAventurierCourant().getClasse(),getAventurierCourant().getPion());
             aventurierSuivant();
         }
         
@@ -171,30 +172,41 @@ public class Controleur implements Observer {
                     Pilote p = (Pilote) getAventurierCourant();
                     p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPos()));    
                 } else {
+                    System.out.print(messagepos.getPos().getX()+ " " +messagepos.getPos().getY());
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
                 }
-                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getClasse());
+                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getClasse(),getAventurierCourant().getPion());
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
                 getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
+                getVueGrille().actualiserEtatTuile(messagepos.getPos(),EtatTuile.SECHE);
+                System.out.println("a");
                 //Si l'aventurier en train de jouer est un ingénieur
                 if (getAventurierCourant() instanceof Ingenieur){
                     //Si le pouvoir de l'ingénieur est utilisable
                     if(getAventurierCourant().getPouvoir()) {
-                        getAventurierCourant().setPouvoir(false);
-                        gererAssechement();
-                    } else {
+                        System.out.println("b1");
                         getAventurierCourant().decremente();
+                        getAventurierCourant().setPouvoir(false);
+                        System.out.println("c");
+                        gererAssechement();
+                    }
+                    else{
+                        System.out.println("b2");
+                        getAventurierCourant().setPouvoir(true);
                     }
                 } else { 
                     getAventurierCourant().decremente();
                     
                 }
-                getVueGrille().actualiserEtatTuile(messagepos.getPos(),EtatTuile.SECHE);         
+                
             }
          
          }
-        
+        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getClasse(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
+        if (getAventurierCourant().getNbAction()<1){
+            nextTurn();
+        }
     }
     
     

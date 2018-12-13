@@ -89,10 +89,10 @@ public class Grille {
         Position posTuile = tuile.getPosition();
         
         Position pos[] = {
-            new Position(posTuile.x, posTuile.y+1),
-            new Position(posTuile.x+1, posTuile.y),
-            new Position(posTuile.x, posTuile.y-1),
-            new Position(posTuile.x-1, posTuile.y)
+            new Position(posTuile.getX(), posTuile.getY()+1),
+            new Position(posTuile.getX()+1, posTuile.getY()),
+            new Position(posTuile.getX(), posTuile.getY()-1),
+            new Position(posTuile.getX()-1, posTuile.getY())
         };
         
         if (tuiles.containsKey(pos[0]))
@@ -124,7 +124,7 @@ public class Grille {
             for (int x = -1; x <= 1; x++) {
                 if (x == 0 && y == 0) {
                 } else {
-                    Position pos = new Position(posTuile.x+x, posTuile.y+y);
+                    Position pos = new Position(posTuile.getX()+x, posTuile.getY()+y);
                     if (tuiles.containsKey(pos))
                         tuilesAdjacentes.add(tuiles.get(pos));
                 }

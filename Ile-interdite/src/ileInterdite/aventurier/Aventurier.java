@@ -75,6 +75,7 @@ public abstract class Aventurier {
         getTuile().removeAventurier(this);
         tuile.addAventurier(this);
         this.decremente();
+        this.tuile = tuile;
     }
     
     

@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,11 +7,9 @@ package Tests;
 
 import ileInterdite.Grille;
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import java.util.ArrayList;
 import ileInterdite.aventurier.*;
 import ileInterdite.controleur.Controleur;
-import java.util.ResourceBundle;
 
 /**
  *

@@ -10,6 +10,7 @@ import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.actions.Action;
+import ileInterdite.aventurier.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
-                bouton.setForeground(Color.BLACK);
+                bouton.getBouton().setForeground(Color.BLACK);
             }
         }
     }
@@ -88,11 +89,13 @@ public class VueGrille extends Observable {
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
+                
                 BoutonTuile bouton = bTuiles.get(pos);
 
-                bouton.setForeground(Color.RED);
+                bouton.getBouton().setForeground(Color.RED);
+                
                 bouton.addActionListener((ActionEvent e) -> {
-
+                
                     setChanged();
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
@@ -126,11 +129,12 @@ public class VueGrille extends Observable {
      /**
      * @param position
      * @param aventurier
+     * @param p
      */
-    public void actualiserPositionJoueur(Position position, String aventurier) {
+    public void actualiserPositionJoueur(Position position, String aventurier, Pion p) {
         Position posAv = aventuriers.get(aventurier);
-        bTuiles.get(posAv).removeAventurier(Color.BLUE);
-        bTuiles.get(position).addAventurier(Color.BLUE);
+        bTuiles.get(posAv).removeAventurier(p.getCouleur());
+        bTuiles.get(position).addAventurier(p.getCouleur());
     }
     
     

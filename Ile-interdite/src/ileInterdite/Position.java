@@ -10,8 +10,8 @@ package ileInterdite;
  * @author grosa
  */
 public class Position {
-    public final int x;
-    public final int y;
+    private int x;
+    private int y;
     
     /**
      * On définit le constructeur de Position avec un integer x et un integer y
@@ -35,7 +35,7 @@ public class Position {
 
         if (object != null && object instanceof Position)
         {
-            isEqual = (this.x == ((Position) object).x && this.y == ((Position) object).y);
+            isEqual = (this.getX() == ((Position) object).getX() && this.getY() == ((Position) object).getY());
         }
 
         return isEqual;
@@ -43,6 +43,34 @@ public class Position {
 
     @Override
     public int hashCode() {
-        return this.x;
+        return this.getX();
+    }
+
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 }
