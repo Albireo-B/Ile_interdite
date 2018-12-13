@@ -7,7 +7,6 @@ package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +25,7 @@ public class Pilote extends Aventurier {
     public Pilote(String nom){
       super(nom);   
       setClasse("Pilote");
-      setPion(Utils.Pion.BLEU);
+      setPion(Pion.BLEU);
     }
     /**
      * On définit le constructeur de Pilote avec une tuile Tuile et nom String
@@ -36,7 +35,7 @@ public class Pilote extends Aventurier {
     public Pilote(Tuile tuile,String nom){
       super(tuile,nom);   
       setClasse("Pilote");
-      setPion(Utils.Pion.BLEU);
+      setPion(Pion.BLEU);
     }
 
     /**

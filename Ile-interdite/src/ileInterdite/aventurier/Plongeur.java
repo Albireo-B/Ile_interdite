@@ -7,7 +7,6 @@ package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +25,7 @@ public class Plongeur extends Aventurier {
     public Plongeur(String nom){
        super(nom);   
        setClasse("Plongeur");
-       setPion(Utils.Pion.VIOLET);
+       setPion(Pion.VIOLET);
     }
     /**
      * On définit le constructeur de Plongeur avec une tuile Tuile et un nom String
@@ -36,7 +35,7 @@ public class Plongeur extends Aventurier {
     public Plongeur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Plongeur");
-       setPion(Utils.Pion.VIOLET);
+       setPion(Pion.VIOLET);
     }
         
     /**

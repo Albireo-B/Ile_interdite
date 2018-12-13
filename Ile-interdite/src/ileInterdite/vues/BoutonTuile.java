@@ -5,8 +5,10 @@
  */
 package ileInterdite.vues;
 
+
+
+
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -15,10 +17,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author grosa
  */
+
+
 public class BoutonTuile extends JPanel {
     private JButton bouton;
     
@@ -40,6 +45,7 @@ public class BoutonTuile extends JPanel {
         }
         
         this.add(panelCouleurs, BorderLayout.SOUTH);
+
     }
     
     public void removeAventurier(Color j) {

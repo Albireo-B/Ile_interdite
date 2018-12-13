@@ -6,7 +6,6 @@
 package ileInterdite.aventurier;
 
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils;
 
 /**
  *
@@ -24,7 +23,7 @@ public class Messager extends Aventurier {
      public Messager(String nom){
        super(nom);   
        setClasse("Messager");
-       setPion(Utils.Pion.ORANGE);
+       setPion(Pion.ORANGE);
     }
     /**
      * On définit le constructeur de Messager avec une Tuile tuile et un string nom 
@@ -34,7 +33,7 @@ public class Messager extends Aventurier {
      public Messager(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Messager");
-       setPion(Utils.Pion.ORANGE);
+       setPion(Pion.ORANGE);
     }
      
     @Override

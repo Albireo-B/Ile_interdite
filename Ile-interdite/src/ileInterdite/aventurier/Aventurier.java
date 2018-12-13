@@ -8,7 +8,6 @@ package ileInterdite.aventurier;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils.*;
 import java.util.ArrayList;
 
 /**
@@ -89,7 +88,6 @@ public abstract class Aventurier {
     
     
     //Getters et Setters :
-    
     public Position getPosition() {
         return this.tuile.getPosition();
     }
@@ -178,5 +176,6 @@ public abstract class Aventurier {
      * @return the caseDepart
      */
     public abstract String getCaseDepart();
+
 
 }

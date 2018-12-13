@@ -19,7 +19,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -36,6 +35,7 @@ public class VueGrille extends Observable {
      * On définit le constructeur de VueGrille
      * @param positions
      * @param noms
+     * @param classesAventuriers
      */
     public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
         panelGrille = new JPanel(new GridLayout(6, 6));
@@ -71,6 +71,7 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
+                bouton.setForeground(Color.BLACK);
             }
         }
     }
@@ -84,12 +85,15 @@ public class VueGrille extends Observable {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-                
-                bouton.getBouton().addActionListener((ActionEvent e) -> {
+
+                bouton.setForeground(Color.RED);
+                bouton.addActionListener((ActionEvent e) -> {
+
                     setChanged();
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
                 });
+                
             }
         }
     }

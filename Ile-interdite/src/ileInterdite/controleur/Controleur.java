@@ -97,6 +97,7 @@ public class Controleur implements Observer {
             posTuiles.add(t.getPosition());
         }
         getVueGrille().actualiserBoutonsCliquables(posTuiles,act);
+      
     }   
     
     /**
@@ -125,9 +126,14 @@ public class Controleur implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
+        
+        if (arg instanceof Message){
         Message message = (Message) arg;
+        
+        
         //Si le message contient une Action
-        if (null!= message.getAction()) 
+        if (null!= message.getAction()) {
+        getVueGrille().tousBoutonsInertes();
         switch (message.getAction()) {
             //Si le message possède l'action ASSECHER
             case ASSECHER:
@@ -144,10 +150,15 @@ public class Controleur implements Observer {
             default:
                 break;
         }
+            System.out.println(message.getAction());
+        }
+        }
        //Si arg est de type MessagePos
         if (arg instanceof MessagePos){
+            
             getVueGrille().tousBoutonsInertes();
             MessagePos messagepos = (MessagePos) arg;
+            System.out.println(messagepos.getAction());
             //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction()==Action.DEPLACER){
                 //Si l'aventurier en train de jouer est un pilote
@@ -157,7 +168,7 @@ public class Controleur implements Observer {
                 } else {
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
                 }
-                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getClasse());
+                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant());
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
                 getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
