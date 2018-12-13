@@ -108,17 +108,19 @@ public class VueGrille extends Observable {
      */
     public void actualiserEtatTuile(Position pos, EtatTuile etat) {
         BoutonTuile bouton = bTuiles.get(pos);
-        
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
                 bouton.setButtonBackground(Color.BLUE);
+                break;
             case SECHE:
                 bouton.setButtonEnabled(true);
                 bouton.setButtonBackground(Color.LIGHT_GRAY);
+                break;
             case INONDEE:
                 bouton.setButtonEnabled(true);
                 bouton.setButtonBackground(Color.CYAN);
+                break;
         }
     }
 
