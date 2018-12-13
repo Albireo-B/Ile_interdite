@@ -109,7 +109,7 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setEnabled(false);
-                bouton.setBackground(Color.BLUE);
+                bouton.setBackground(Color.BLACK);
             case SECHE:
                 bouton.setEnabled(true);
                 bouton.setBackground(Color.LIGHT_GRAY);
@@ -118,10 +118,10 @@ public class VueGrille extends Observable {
                 bouton.setBackground(Color.CYAN);
         }
     }
-    
-    //Getters et Setters :
+
      /**
-     * @return the panelGrille
+     * @param position
+     * @param aventurier
      */
     public void actualiserPositionJoueur(Position position, String aventurier) {
         Position posAv = aventuriers.get(aventurier);
@@ -129,6 +129,14 @@ public class VueGrille extends Observable {
         bTuiles.get(position).addAventurier(aventurier);
     }
     
+    
+        
+    //Getters et Setters :
+    
+    /**
+     * 
+     * @return the panelGrille
+     */
     public JPanel getPanelGrille() {
         return panelGrille;
     }
