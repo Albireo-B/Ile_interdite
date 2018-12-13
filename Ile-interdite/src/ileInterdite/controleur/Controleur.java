@@ -178,7 +178,7 @@ public class Controleur implements Observer {
             } else if (messagepos.getAction()==Action.ASSECHER){
                 getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
                 getVueGrille().actualiserEtatTuile(messagepos.getPos(),EtatTuile.SECHE);
-                System.out.println("a");
+                
                 //Si l'aventurier en train de jouer est un ingénieur
                 if (getAventurierCourant() instanceof Ingenieur){
                     //Si le pouvoir de l'ingénieur est utilisable
