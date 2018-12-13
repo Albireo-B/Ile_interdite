@@ -30,7 +30,6 @@ public class VueGrille extends Observable {
    
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
-    private HashMap<String, Position> aventuriers = new HashMap();
     
     /**
      * On définit le constructeur de VueGrille
@@ -124,14 +123,14 @@ public class VueGrille extends Observable {
 
      /**
      * @param position
-     * @param aventurier
+     * @param posAv
      * @param p
      */
 
-    public void actualiserPositionJoueur(Position position, String aventurier, Pion p) {
-        Position posAv = aventuriers.get(aventurier);
-        if (bTuiles.keySet().contains(posAv))
+    public void actualiserPositionJoueur(Position position, Position posAv, Pion p) {
+        if (bTuiles.keySet().contains(posAv)) {
             bTuiles.get(posAv).removeAventurier(p.getCouleur());
+        }
         bTuiles.get(position).addAventurier(p.getCouleur());
     }
     

@@ -49,16 +49,24 @@ public class BoutonTuile extends JPanel {
     }
     
     public void removeAventurier(Color j) {
+        System.out.println(couleursJoueurs);
         if (couleursJoueurs.contains(j)) {
-            couleurs.get(couleursJoueurs.indexOf(j)).setBackground(Color.GRAY);
+            System.out.println("qssdfsdfsdfsdfsfdfqsdfqs");
+            
+            for (int i = couleursJoueurs.indexOf(j); i < couleursJoueurs.size() - 1; i++) {
+                couleurs.get(i).setBackground(couleursJoueurs.get(i + 1));
+            }
+            couleurs.get(couleursJoueurs.size() - 1).setBackground(Color.WHITE);
             couleursJoueurs.remove(j);
         }
     }
     
     public void addAventurier(Color j) {
+        
         if (couleursJoueurs.size() < 4) {
             couleurs.get(couleursJoueurs.size()).setBackground(j);
-            couleursJoueurs.add(j);
+            couleursJoueurs.add(new Color(j.getRGB()));
+            System.out.println(couleursJoueurs);
         }
     }
     

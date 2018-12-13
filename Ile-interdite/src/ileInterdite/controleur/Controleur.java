@@ -54,7 +54,7 @@ public class Controleur implements Observer {
         vueGrille.addObserver(this);
         
         for (Aventurier j : joueurs) {
-            vueGrille.actualiserPositionJoueur(j.getPosition(), j.getClasse(), j.getPion());
+            vueGrille.actualiserPositionJoueur(j.getPosition(), null, j.getPion());
         }
         
         getGrille().getTuile(new Position(3,0)).setEtat(EtatTuile.INONDEE);
@@ -164,14 +164,15 @@ public class Controleur implements Observer {
             //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction()==Action.DEPLACER){
                 //Si l'aventurier en train de jouer est un pilote
+                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getPosition(),getAventurierCourant().getPion());
                 if (getAventurierCourant() instanceof Pilote) {
                     Pilote p = (Pilote) getAventurierCourant();
                     p.setPositionPilote(getGrille(),getGrille().getTuile(messagepos.getPos()));    
                 } else {
-                    System.out.print(messagepos.getPos().getX()+ " " +messagepos.getPos().getY());
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
                 }
-                getVueGrille().actualiserPositionJoueur(messagepos.getPos(),getAventurierCourant().getClasse(),getAventurierCourant().getPion());
+                getAventurierCourant().decremente();
+                
 
             //Si le messagePos possède l'action ASSECHER
             } else if (messagepos.getAction()==Action.ASSECHER){
