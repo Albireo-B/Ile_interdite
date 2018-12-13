@@ -78,9 +78,9 @@ public class Grille {
     
     /** Retourne un tableau des 4 tuiles adjascentes à la position pos selon ce
     *pattern:
-    *           tuile[0]
-    *    tuile[3] pos tuile[1]
     *           tuile[2]
+    *    tuile[3] pos tuile[1]
+    *           tuile[0]
      * @param tuile
      * @return 
     */
@@ -121,7 +121,7 @@ public class Grille {
         
         Position posTuile = tuile.getPosition();
         
-        for (int y = 1; y <= -1; y--) {
+        for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
                 if (x == 0 && y == 0) {
                 } else {
@@ -145,7 +145,7 @@ public class Grille {
         
         for (int x = 0; x < longueurTerrain; x++) {
             for (int y = 0; y < longueurTerrain; y++) {
-                if (tuiles.get(new Position(x, y)).getEtat() == EtatTuile.SECHE) {
+                if (tuiles.get(new Position(x, y)).getEtat() != EtatTuile.COULEE) {
                     tuilesSeches.add(tuiles.get(new Position(x, y)));
                 }
             }
@@ -194,5 +194,4 @@ public class Grille {
     public ArrayList<Tuile> getToutesTuiles() {
         return new ArrayList<Tuile>(tuiles.values());
     }
-    
 }
