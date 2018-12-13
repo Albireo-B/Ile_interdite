@@ -13,8 +13,8 @@ import ileInterdite.aventurier.Aventurier;
  * @author grosa
  */
 public class Tuile {
-    private EtatTuile etat;
-    private ArrayList<Aventurier> aventuriers;
+    private EtatTuile etat = EtatTuile.SECHE;
+    private ArrayList<Aventurier> aventuriers = new ArrayList();
     private Position position;
     private String nom;
     
@@ -25,6 +25,13 @@ public class Tuile {
      */
     public Tuile(String nom, Position pos) {
         setNom(nom);
+        setPosition(pos);
+        setEtat(EtatTuile.SECHE);
+    }
+    
+    public Tuile(String nom, Position pos, Aventurier av) {
+        setNom(nom);
+        addAventurier(av);
         setPosition(pos);
         setEtat(EtatTuile.SECHE);
     }

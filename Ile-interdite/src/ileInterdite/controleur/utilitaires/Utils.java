@@ -34,8 +34,6 @@ public class Utils {
   
             this.couleur = couleur ;
         }
-   
-
 
         public Color getCouleur() {
             return this.couleur ;

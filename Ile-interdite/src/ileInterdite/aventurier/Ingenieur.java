@@ -16,6 +16,8 @@ import java.util.ArrayList;
  */
 public class Ingenieur extends Aventurier {
     
+    private final String caseDepart = "La Porte de Bronze";
+    
     /**
      * On définit le constructeur de Ingenieur avec une tuile Tuile et un nom String
      * @param tuile
@@ -36,5 +38,10 @@ public class Ingenieur extends Aventurier {
       public ArrayList<Tuile> calculAssechement(Grille g){
         return g.tuilesAdjacentesCroix(getTuile());
         
+    }
+      
+    @Override
+    public String getCaseDepart() {
+        return caseDepart;
     }
 }

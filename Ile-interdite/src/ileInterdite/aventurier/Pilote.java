@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * @author vinetg
  */
 public class Pilote extends Aventurier {
+    
+    private final String caseDepart = "Heliport";
      
     /**
      * On définit le constructeur de Pilote avec une tuile Tuile et nom String
@@ -52,5 +54,8 @@ public class Pilote extends Aventurier {
         return g.tuilesNonCoulees();
     }
     
-   
+    @Override
+    public String getCaseDepart() {
+        return caseDepart;
+    }
 }

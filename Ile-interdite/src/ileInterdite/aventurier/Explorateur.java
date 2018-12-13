@@ -16,6 +16,8 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
+    private final String caseDepart = "La Porte de Cuivre";
+    
     /**
      * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
      * @param tuile
@@ -46,5 +48,10 @@ public class Explorateur extends Aventurier {
       public ArrayList<Tuile> calculAssechement(Grille g){
         return g.tuilesAdjacentesCarre(getTuile());
         
+    }
+
+    @Override
+    public String getCaseDepart() {
+        return caseDepart;
     }
 }

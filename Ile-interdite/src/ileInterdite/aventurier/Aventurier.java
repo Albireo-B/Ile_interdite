@@ -27,7 +27,7 @@ public abstract class Aventurier {
      * @param tuile
      * @param nom 
      */
-    public Aventurier(Tuile tuile,String nom){
+    public Aventurier(Tuile tuile,String nom) {
         this.tuile=tuile;   
         setNomJoueur(nom);
         resetPA();
@@ -160,5 +160,10 @@ public abstract class Aventurier {
     public void setPion(Pion pion) {
         this.pion = pion;
     }
+
+    /**
+     * @return the caseDepart
+     */
+    public abstract String getCaseDepart();
 
 }

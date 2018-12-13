@@ -35,7 +35,6 @@ public class Grille {
             tuiles.put(positionTuiles.get(0), new Tuile(nomTuile, positionTuiles.get(0)));
             positionTuiles.remove(0);
         }
-        
     }
     
     /**
