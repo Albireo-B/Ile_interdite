@@ -46,8 +46,8 @@ public class VueGrille extends Observable {
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
         
-        for (int x = 0; x < 6; x++) {
-            for (int y = 0; y < 6 ; y++) {
+        for (int y = 0; y < 6; y++) {
+            for (int x = 0; x < 6 ; x++) {
                 Position pos = new Position(x, y);
                 if (positionTuiles.contains(pos)) {
                     if (positions.contains(pos)) {
