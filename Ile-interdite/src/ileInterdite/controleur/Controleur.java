@@ -34,7 +34,7 @@ public class Controleur implements Observer {
      * @param joueurs
      * @param grille
     */
-    public Controleur(ArrayList<Aventurier> joueurs,Grille grille){
+    public Controleur(ArrayList<Aventurier> joueurs, Grille grille){
         //Initialisation des joueurs et du joueur courant
         setJoueurs(joueurs);
         setAventurierCourant(getJoueurs().get(0)); 
@@ -54,9 +54,9 @@ public class Controleur implements Observer {
         }
         vueGrille = new VueGrille(posTuiles,nomsTuiles, avs);
             
-        for (int i=0;i<4;i++){
+        for (int i=0; i<4; i++){
             
-            getVueGrille().actualiserPositionJoueur(new Position(2,0),getAventurierCourant().getClasse());
+            getVueGrille().actualiserPositionJoueur(new Position(2,0), getAventurierCourant().getClasse());
             aventurierSuivant();
         }
         

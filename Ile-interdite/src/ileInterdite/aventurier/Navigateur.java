@@ -13,6 +13,8 @@ import ileInterdite.Tuile;
  */
 public class Navigateur extends Aventurier {
     
+    private final String caseDepart = "La Porte d’Or";
+    
     /**
      * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
      * @param tuile
@@ -22,5 +24,10 @@ public class Navigateur extends Aventurier {
        super(tuile,nom);   
        setClasse("Navigateur");
        setPion(Pion.JAUNE);
+    }
+    
+    @Override
+    public String getCaseDepart() {
+        return caseDepart;
     }
 }

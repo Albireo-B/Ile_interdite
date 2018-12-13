@@ -13,6 +13,8 @@ import ileInterdite.Tuile;
  */
 public class Messager extends Aventurier {
     
+    private final String caseDepart = "La Porte d’Argent";
+    
     /**
      * On définit le constructeur de Messager avec une Tuile tuile et un string nom 
      * @param tuile
@@ -22,5 +24,10 @@ public class Messager extends Aventurier {
        super(tuile,nom);   
        setClasse("Messager");
        setPion(Pion.ORANGE);
+    }
+     
+    @Override
+    public String getCaseDepart() {
+        return caseDepart;
     }
 }

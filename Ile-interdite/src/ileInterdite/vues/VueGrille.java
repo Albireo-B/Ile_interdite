@@ -73,7 +73,7 @@ public class VueGrille extends Observable {
      */
     public void tousBoutonsInertes() {
         for (BoutonTuile bouton : bTuiles.values()) {
-            for (ActionListener ac : bouton.getActionListeners()) {
+            for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
                 bouton.setForeground(Color.BLACK);
             }
@@ -89,8 +89,10 @@ public class VueGrille extends Observable {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
+
                 bouton.setForeground(Color.RED);
                 bouton.addActionListener((ActionEvent e) -> {
+
                     setChanged();
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
@@ -110,14 +112,14 @@ public class VueGrille extends Observable {
         
         switch (etat) {
             case COULEE:
-                bouton.setEnabled(false);
-                bouton.setBackground(Color.BLACK);
+                bouton.setButtonEnabled(false);
+                bouton.setButtonBackground(Color.BLUE);
             case SECHE:
-                bouton.setEnabled(true);
-                bouton.setBackground(Color.LIGHT_GRAY);
+                bouton.setButtonEnabled(true);
+                bouton.setButtonBackground(Color.LIGHT_GRAY);
             case INONDEE:
-                bouton.setEnabled(true);
-                bouton.setBackground(Color.CYAN);
+                bouton.setButtonEnabled(true);
+                bouton.setButtonBackground(Color.CYAN);
         }
     }
 
@@ -127,8 +129,8 @@ public class VueGrille extends Observable {
      */
     public void actualiserPositionJoueur(Position position, String aventurier) {
         Position posAv = aventuriers.get(aventurier);
-        bTuiles.get(posAv).removeAventurier(aventurier);
-        bTuiles.get(position).addAventurier(aventurier);
+        bTuiles.get(posAv).removeAventurier(Color.BLUE);
+        bTuiles.get(position).addAventurier(Color.BLUE);
     }
     
     
