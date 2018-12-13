@@ -7,7 +7,6 @@ package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +23,7 @@ public class Explorateur extends Aventurier {
     public Explorateur(Tuile tuile,String nom){
        super(tuile,nom);   
        setClasse("Explorateur");
-       setPion(Utils.Pion.VERT);
+       setPion(Pion.VERT);
     }
     
     /**

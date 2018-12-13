@@ -5,20 +5,21 @@
  */
 package ileInterdite.vues;
 
-import java.awt.Button;
+
 import java.util.ArrayList;
+import javax.swing.JButton;
 
 /**
  *
  * @author grosa
  */
-public class BoutonTuile extends Button {
+public class BoutonTuile extends JButton {
     private String nom;
     private ArrayList<String> joueurs = new ArrayList();
     
     public BoutonTuile(String nom) {
         super();
-        this.setNom(nom);
+        setNom(nom);
     }
     
     private void updateText() {

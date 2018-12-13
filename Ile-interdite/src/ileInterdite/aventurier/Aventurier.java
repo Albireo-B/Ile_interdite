@@ -7,7 +7,6 @@ package ileInterdite.aventurier;
 
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils.*;
 import java.util.ArrayList;
 
 /**
@@ -80,6 +79,7 @@ public abstract class Aventurier {
     
     
     //Getters et Setters :
+    
     
       /**
      * @return the tuile
@@ -160,5 +160,6 @@ public abstract class Aventurier {
     public void setPion(Pion pion) {
         this.pion = pion;
     }
+
 
 }

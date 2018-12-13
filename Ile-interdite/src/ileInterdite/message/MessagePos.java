@@ -6,7 +6,6 @@
 package ileInterdite.message;
 
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 
 /**

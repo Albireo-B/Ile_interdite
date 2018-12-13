@@ -5,15 +5,12 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -38,19 +35,19 @@ public class VueAventurier extends Observable {
     private  JPanel mainPanel = new JPanel(new BorderLayout());
     private  JButton btnBouger = new JButton("Bouger");
     private  JButton btnAssecher= new JButton( "Assecher");
-    private  JLabel nbPA   = new JLabel("Nombre d'actions restantes : ");
+    private  JLabel nbPA   = new JLabel();
     private  JButton btnTerminerTour = new JButton("Terminer Tour") ;
     private VueGrille vueGrille;
     
 
    
     /**
-     * On définit un constructeur de VueAventurier 
+     * On définit un constructeur de VueAventurier  avec une VueGrille v
      */
     public VueAventurier(VueGrille v){
         vueGrille = v;
         setWindow(new JFrame());
-        getWindow().setSize(650, 650);
+        getWindow().setSize(1080, 720);
         getWindow().setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
         getWindow().setTitle("Ile interdite");
         getWindow().add(getMainPanel());
@@ -77,8 +74,8 @@ public class VueAventurier extends Observable {
         getPanelBoutons().setOpaque(false);
         getPanelBoutons().add(getBtnBouger());
         getPanelBoutons().add(getBtnAssecher());
-        getPanelBoutons().add(getNbPA());
         getPanelBoutons().add(getBtnTerminerTour());
+        getPanelBoutons().add(getNbPA());
         
         
         
@@ -108,12 +105,22 @@ public class VueAventurier extends Observable {
     }
     
         public void actualiserVue(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
+            
         getMainPanel().setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
+        
         getPanelAventurier().setBackground(couleur);
+        
+        getPanelAventurier().removeAll();
         getPanelAventurier().add(new JLabel(nomAventurier + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
+        
         getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        
+        getPanelBoutons().remove(getNbPA());
         setNbPA(new JLabel("Nombre d'actions restantes : " + nombrePA));
+        getPanelBoutons().add(getNbPA());
+        
         getWindow().setVisible(true);
+        
     }
     
     /**
