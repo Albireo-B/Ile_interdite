@@ -17,16 +17,7 @@ public class Explorateur extends Aventurier {
     
     private final String caseDepart = "La Porte de Cuivre";
     
-    /**
-     * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
-     * @param tuile
-     * @param nom 
-     */
-    public Explorateur(String nom){
-       super(nom);   
-       setClasse("Explorateur");
-       setPion(Pion.VERT);
-    }
+
     
     /**
      * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 

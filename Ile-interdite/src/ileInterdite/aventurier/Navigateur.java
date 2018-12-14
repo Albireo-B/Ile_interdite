@@ -15,16 +15,7 @@ public class Navigateur extends Aventurier {
     
     private final String caseDepart = "La Porte d’Or";
     
-    /**
-     * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
-     * @param tuile
-     * @param nom 
-     */
-    public Navigateur(String nom){
-       super(nom);   
-       setClasse("Navigateur");
-       setPion(Pion.JAUNE);
-    }
+
     /**
      * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
      * @param tuile

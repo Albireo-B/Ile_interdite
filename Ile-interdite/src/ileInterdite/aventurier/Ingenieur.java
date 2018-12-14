@@ -19,7 +19,6 @@ public class Ingenieur extends Aventurier {
     
     /**
      * On définit le constructeur de Ingenieur avec une tuile Tuile et un nom String
-     * @param tuile
      * @param nom 
      */
     public Ingenieur(String nom){

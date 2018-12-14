@@ -5,8 +5,6 @@
  */
 package Tests;
 
-import ileInterdite.Grille;
-import ileInterdite.Position;
 import java.util.ArrayList;
 import ileInterdite.aventurier.*;
 import ileInterdite.controleur.Controleur;
@@ -21,12 +19,12 @@ public class testTour {
         
         ArrayList<String> nomTuiles = nomsDesTuiles();
        
-        ArrayList <Aventurier> avens=new ArrayList<Aventurier>();
+        ArrayList <Aventurier> avens=new ArrayList<>();
         // initializing  4 players
         avens.add(new Plongeur("clement"));
         avens.add(new Explorateur("Guillaume"));
         avens.add(new Ingenieur("Alexis"));
-        avens.add(new Messager("Lois"));
+        avens.add(new Pilote ("Lois"));
 
         Controleur ctrl = new Controleur(avens, nomTuiles);
                 

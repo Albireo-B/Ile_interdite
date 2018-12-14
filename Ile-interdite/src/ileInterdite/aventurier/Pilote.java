@@ -16,17 +16,7 @@ import java.util.ArrayList;
 public class Pilote extends Aventurier {
     
     private final String caseDepart = "Heliport";
-    
-    /**
-     * On définit le constructeur de Pilote avec une tuile Tuile et nom String
-     * @param tuile
-     * @param nom
-     */ 
-    public Pilote(String nom){
-      super(nom);   
-      setClasse("Pilote");
-      setPion(Pion.BLEU);
-    }
+
     /**
      * On définit le constructeur de Pilote avec une tuile Tuile et nom String
      * @param tuile
@@ -45,10 +35,8 @@ public class Pilote extends Aventurier {
      */ 
     public void setPositionPilote(Grille g, Tuile t) {
 
-        if (g.tuilesAdjacentesCroix(t).contains(t)){
+        if (!(g.tuilesAdjacentesCroix(t).contains(t))){
             setPouvoir(false);
-        } else {
-            setPouvoir(true);
         }
         setTuile(t);
     }
@@ -60,7 +48,7 @@ public class Pilote extends Aventurier {
      */ 
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
-        return g.tuilesNonCoulees();
+        return g.tuilesNonCoulees(getTuile());
     }
     
     @Override

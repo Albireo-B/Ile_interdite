@@ -7,7 +7,6 @@ package ileInterdite;
 
 import ileInterdite.aventurier.Aventurier;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -19,16 +18,17 @@ public class Grille {
     private HashMap<Position, Tuile> tuiles = new HashMap();
     
     /**
-    * Voici l'organisation de la grille (x = tuile):
-    *      x ----->
-    *        0  1  2  3  4  5
-    *    y 0       x  x
-    *    | 1    x  x  x  x
-    *    | 2 x  x  x  x  x  x
-    *    | 3 x  x  x  x  x  x
-    *    \/4    x  x  x  x
-    *      5       x  x
+     * Voici l'organisation de la grille (x = tuile):
+     *      x ----->
+     *        0  1  2  3  4  5
+     *    y 0       x  x
+     *    | 1    x  x  x  x
+     *    | 2 x  x  x  x  x  x
+     *    | 3 x  x  x  x  x  x
+     *    \/4    x  x  x  x
+     *      5       x  x
      * @param nomTuiles
+     * @param aventuriers
     */
     public Grille(ArrayList<String> nomTuiles, ArrayList<Aventurier> aventuriers) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
@@ -80,7 +80,7 @@ public class Grille {
             
             i++;
         }
-        
+
         return positions;
     }
     
@@ -150,19 +150,20 @@ public class Grille {
     
     /** 
      * Retourne une liste de toutes les tuiles non coulées
+     * @param tuile
      * @return 
     */
-    public ArrayList<Tuile> tuilesNonCoulees() {
+    public ArrayList<Tuile> tuilesNonCoulees(Tuile tuile) {
         ArrayList<Tuile> tuilesSeches = new ArrayList();
         
         for (int x = 0; x < longueurTerrain; x++) {
             for (int y = 0; y < longueurTerrain; y++) {
-                if (tuiles.get(new Position(x, y)).getEtat() != EtatTuile.COULEE) {
+                if (tuiles.get(new Position(x, y))!=null && tuiles.get(new Position(x, y)).getEtat() != EtatTuile.COULEE) {
                     tuilesSeches.add(tuiles.get(new Position(x, y)));
                 }
             }
         }
-        
+                tuilesSeches.remove(tuile);
         return tuilesSeches;
     }
     
@@ -204,6 +205,6 @@ public class Grille {
     }
     
     public ArrayList<Tuile> getToutesTuiles() {
-        return new ArrayList<Tuile>(tuiles.values());
+        return new ArrayList<>(tuiles.values());
     }
 }

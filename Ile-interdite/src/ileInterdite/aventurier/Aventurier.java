@@ -26,6 +26,7 @@ public abstract class Aventurier {
         this.tuile=null;   
         setNomJoueur(nom);
         resetPA();
+       
     }
     
     /**
@@ -37,6 +38,7 @@ public abstract class Aventurier {
         this.tuile=tuile;   
         setNomJoueur(nom);
         resetPA();
+         setPouvoir(true);
     }
     
       
@@ -171,10 +173,10 @@ public abstract class Aventurier {
         this.pion = pion;
     }
 
-    /**
-     * @return the caseDepart
-     */
-    public abstract String getCaseDepart();
+////    /**
+////     * @return the caseDepart
+////     */
+////    public abstract String getCaseDepart();
 
 
 }
