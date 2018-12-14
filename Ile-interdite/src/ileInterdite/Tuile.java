@@ -29,13 +29,6 @@ public class Tuile {
         setEtat(EtatTuile.SECHE);
     }
     
-    public Tuile(String nom, Position pos, Aventurier av) {
-        setNom(nom);
-        addAventurier(av);
-        setPosition(pos);
-        setEtat(EtatTuile.SECHE);
-    }
-    
     /**
      * Ajoute un aventurier a la liste des aventuriers 
      * @param av

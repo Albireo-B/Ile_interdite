@@ -13,22 +13,17 @@ import ileInterdite.Tuile;
  */
 public class Navigateur extends Aventurier {
     
-    private final String caseDepart = "La Porte d’Or";
-    
 
     /**
      * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
      * @param tuile
      * @param nom 
      */
-    public Navigateur(Tuile tuile,String nom){
-       super(tuile,nom);   
-       setClasse("Navigateur");
+    public Navigateur(String nom,Tuile tuile){
+       super(nom,tuile);   
+        setRole(Role.Navigateur);
        setPion(Pion.JAUNE);
     }
     
-    @Override
-    public String getCaseDepart() {
-        return caseDepart;
-    }
+
 }

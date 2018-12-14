@@ -5,6 +5,7 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
 import java.util.ArrayList;
@@ -15,18 +16,14 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
-    private final String caseDepart = "La Porte de Cuivre";
-    
-
-    
     /**
      * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
      * @param tuile
      * @param nom 
      */
-    public Explorateur(Tuile tuile,String nom){
-       super(tuile,nom);   
-       setClasse("Explorateur");
+    public Explorateur(String nom,Tuile tuile){
+       super(nom,tuile);   
+       setRole(Role.Explorateur);
        setPion(Pion.VERT);
     }
     
@@ -47,12 +44,16 @@ public class Explorateur extends Aventurier {
      */
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
-        return g.tuilesAdjacentesCarre(getTuile());
-        
+        ArrayList<Tuile> liste = new ArrayList<Tuile>();
+            if (getTuile().getEtat()==EtatTuile.INONDEE){
+                liste.add(getTuile());
+            }
+        for (Tuile t : g.tuilesAdjacentesCarre(getTuile())){
+            if (t.getEtat()==EtatTuile.INONDEE){
+                liste.add(t);
+            }
+        }
+        return liste;
     }
 
-    @Override
-    public String getCaseDepart() {
-        return caseDepart;
-    }
 }

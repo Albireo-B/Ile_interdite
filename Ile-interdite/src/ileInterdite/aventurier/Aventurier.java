@@ -5,6 +5,7 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.Tuile;
@@ -16,32 +17,18 @@ import java.util.ArrayList;
  */
 public abstract class Aventurier {
     private int nbAction;
-    private Tuile tuile;
-    private Boolean pouvoir;
-    private String classe;
+    private Tuile tuile = null;
+    private Boolean pouvoir = true;
+    private Role Role;
     private String nomJoueur;
     private Pion pion;
     
-    public Aventurier(String nom) {
-        this.tuile=null;   
+    public Aventurier(String nom,Tuile tuile) {
+        setTuile(tuile);
         setNomJoueur(nom);
-        resetPA();
-       
+        reset();
     }
-    
-    /**
-     * On définit le constructeur de Aventurier avec une tuile Tuile et un nom String
-     * @param tuile
-     * @param nom 
-     */
-    public Aventurier(Tuile tuile,String nom) {
-        this.tuile=tuile;   
-        setNomJoueur(nom);
-        resetPA();
-         setPouvoir(true);
-    }
-    
-      
+
     /**
      * On renvoie la liste des tuiles adjacentes en croix
      * @param g
@@ -57,14 +44,24 @@ public abstract class Aventurier {
      * @return 
      */
     public ArrayList<Tuile> calculAssechement(Grille g){
-        return g.tuilesAdjacentesCroix(getTuile());
+        ArrayList<Tuile> liste = new ArrayList<Tuile>();
+            if (getTuile().getEtat()==EtatTuile.INONDEE){
+                liste.add(getTuile());
+            }
+        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())){
+            if (t.getEtat()==EtatTuile.INONDEE){
+                liste.add(t);
+            }
+        }
+        return liste;
     }
     
     /**
      * On remet le nombre d'actions à 3
      */
-    public void resetPA(){
+    public void reset(){
         setNbAction(3);
+        setPouvoir(true);
     }
     
     /**
@@ -131,10 +128,10 @@ public abstract class Aventurier {
     }
 
     /**
-     * @return the classe
+     * @return the Role
      */
-    public String getClasse() {
-        return classe;
+    public Role getRole() {
+        return Role;
     }
 
 
@@ -153,10 +150,10 @@ public abstract class Aventurier {
     }
 
     /**
-     * @param classe the classe to set
+     * @param Role the Role to set
      */
-    public void setClasse(String classe) {
-        this.classe = classe;
+    public void setRole(Role Role) {
+        this.Role = Role;
     }
 
     /**
@@ -172,11 +169,6 @@ public abstract class Aventurier {
     public void setPion(Pion pion) {
         this.pion = pion;
     }
-
-////    /**
-////     * @return the caseDepart
-////     */
-////    public abstract String getCaseDepart();
 
 
 }

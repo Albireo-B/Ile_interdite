@@ -5,7 +5,6 @@
  */
 package ileInterdite;
 
-import ileInterdite.aventurier.Aventurier;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,8 +13,15 @@ import java.util.HashMap;
  * @author grosa
  */
 public class Grille {
+
+    /**
+     * @return the tuiles
+     */
+    public HashMap<Position, Tuile> getTuiles() {
+        return tuiles;
+    }
     private final int longueurTerrain = 6;
-    private HashMap<Position, Tuile> tuiles = new HashMap();
+    HashMap<Position, Tuile> tuiles = new HashMap();
     
     /**
      * Voici l'organisation de la grille (x = tuile):
@@ -30,20 +36,10 @@ public class Grille {
      * @param nomTuiles
      * @param aventuriers
     */
-    public Grille(ArrayList<String> nomTuiles, ArrayList<Aventurier> aventuriers) {
+    public Grille(ArrayList<String> nomTuiles) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
         for (String nomTuile : nomTuiles) {
             Tuile t = new Tuile(nomTuile, positionTuiles.get(0));
-            
-            Aventurier avGood = null;
-            for (Aventurier av : aventuriers) {
-                if (av.getCaseDepart().equals(nomTuile))
-                    avGood = av;
-            }
-            if (avGood != null) {
-                avGood.setTuile(t);
-                t.addAventurier(avGood);
-            }
             
             tuiles.put(positionTuiles.get(0), t);
             positionTuiles.remove(0);
@@ -85,7 +81,7 @@ public class Grille {
     }
     
     public Tuile getTuile(Position p) {
-        return tuiles.get(p);
+        return getTuiles().get(p);
     }
     
     /** Retourne un tableau des 4 tuiles adjascentes à la position pos selon ce
@@ -108,14 +104,14 @@ public class Grille {
             new Position(posTuile.getX()-1, posTuile.getY())
         };
         
-        if (tuiles.containsKey(pos[0]))
-            tuilesAdjacentes.add(tuiles.get(pos[0]));
-        if (tuiles.containsKey(pos[1]))
-            tuilesAdjacentes.add(tuiles.get(pos[1]));
-        if (tuiles.containsKey(pos[2]))
-            tuilesAdjacentes.add(tuiles.get(pos[2]));
-        if (tuiles.containsKey(pos[3]))
-            tuilesAdjacentes.add(tuiles.get(pos[3]));
+        if (getTuiles().containsKey(pos[0]))
+            tuilesAdjacentes.add(getTuiles().get(pos[0]));
+        if (getTuiles().containsKey(pos[1]))
+            tuilesAdjacentes.add(getTuiles().get(pos[1]));
+        if (getTuiles().containsKey(pos[2]))
+            tuilesAdjacentes.add(getTuiles().get(pos[2]));
+        if (getTuiles().containsKey(pos[3]))
+            tuilesAdjacentes.add(getTuiles().get(pos[3]));
         
         return tuilesAdjacentes;
     }
@@ -138,8 +134,8 @@ public class Grille {
                 if (x == 0 && y == 0) {
                 } else {
                     Position pos = new Position(posTuile.getX()+x, posTuile.getY()+y);
-                    if (tuiles.containsKey(pos))
-                        tuilesAdjacentes.add(tuiles.get(pos));
+                    if (getTuiles().containsKey(pos))
+                        tuilesAdjacentes.add(getTuiles().get(pos));
                 }
             }
         }
@@ -158,8 +154,8 @@ public class Grille {
         
         for (int x = 0; x < longueurTerrain; x++) {
             for (int y = 0; y < longueurTerrain; y++) {
-                if (tuiles.get(new Position(x, y))!=null && tuiles.get(new Position(x, y)).getEtat() != EtatTuile.COULEE) {
-                    tuilesSeches.add(tuiles.get(new Position(x, y)));
+                if (getTuiles().get(new Position(x, y))!=null && getTuiles().get(new Position(x, y)).getEtat() != EtatTuile.COULEE) {
+                    tuilesSeches.add(getTuiles().get(new Position(x, y)));
                 }
             }
         }
@@ -205,6 +201,11 @@ public class Grille {
     }
     
     public ArrayList<Tuile> getToutesTuiles() {
-        return new ArrayList<>(tuiles.values());
+        return new ArrayList<>(getTuiles().values());
+    }
+    
+    
+    public void setDefautAventurier(){
+        
     }
 }

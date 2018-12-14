@@ -14,17 +14,15 @@ import java.util.ArrayList;
  * @author vinetg
  */
 public class Plongeur extends Aventurier {
-    
-    private final String caseDepart = "La Porte de Fer";
 
     /**
      * On définit le constructeur de Plongeur avec une tuile Tuile et un nom String
      * @param tuile
      * @param nom 
      */
-    public Plongeur(Tuile tuile,String nom){
-       super(tuile,nom);   
-       setClasse("Plongeur");
+    public Plongeur(String nom,Tuile tuile){
+       super(nom,tuile);   
+       setRole(Role.Plongeur);
        setPion(Pion.VIOLET);
     }
         
@@ -38,8 +36,5 @@ public class Plongeur extends Aventurier {
         return g.tuilesAccessiblesPlongeur(getTuile());
     }
     
-    @Override
-    public String getCaseDepart() {
-        return caseDepart;
-    }
+
 }

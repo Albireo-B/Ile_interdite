@@ -49,9 +49,7 @@ public class BoutonTuile extends JPanel {
     }
     
     public void removeAventurier(Color j) {
-        System.out.println(couleursJoueurs);
         if (couleursJoueurs.contains(j)) {
-            System.out.println("qssdfsdfsdfsdfsfdfqsdfqs");
             
             for (int i = couleursJoueurs.indexOf(j); i < couleursJoueurs.size() - 1; i++) {
                 couleurs.get(i).setBackground(couleursJoueurs.get(i + 1));
@@ -66,7 +64,6 @@ public class BoutonTuile extends JPanel {
         if (couleursJoueurs.size() < 4) {
             couleurs.get(couleursJoueurs.size()).setBackground(j);
             couleursJoueurs.add(new Color(j.getRGB()));
-            System.out.println(couleursJoueurs);
         }
     }
     

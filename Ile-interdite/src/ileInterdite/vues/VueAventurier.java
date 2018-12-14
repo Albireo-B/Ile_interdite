@@ -6,6 +6,7 @@
 package ileInterdite.vues;
 
 import ileInterdite.actions.*;
+import ileInterdite.aventurier.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -104,14 +105,14 @@ public class VueAventurier extends Observable {
         
     }
     
-        public void actualiserVue(String nomJoueur, String nomAventurier, Color couleur, int nombrePA){
+        public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA){
             
         getMainPanel().setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
         
         getPanelAventurier().setBackground(couleur);
         
         getPanelAventurier().removeAll();
-        getPanelAventurier().add(new JLabel(nomAventurier + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
+        getPanelAventurier().add(new JLabel(classe + " ( "+nomJoueur+" ) ",SwingConstants.CENTER ));
         
         getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         
