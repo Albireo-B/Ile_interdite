@@ -44,7 +44,7 @@ public abstract class Aventurier {
      * @return 
      */
     public ArrayList<Tuile> calculAssechement(Grille g){
-        ArrayList<Tuile> liste = new ArrayList<Tuile>();
+        ArrayList<Tuile> liste = new ArrayList<>();
             if (getTuile().getEtat()==EtatTuile.INONDEE){
                 liste.add(getTuile());
             }
@@ -86,6 +86,8 @@ public abstract class Aventurier {
     
     
     //Getters et Setters :
+    
+    
     public Position getPosition() {
         return this.tuile.getPosition();
     }

@@ -6,7 +6,6 @@
 package Tests;
 
 import java.util.ArrayList;
-import ileInterdite.aventurier.*;
 import ileInterdite.controleur.Controleur;
 
 /**
