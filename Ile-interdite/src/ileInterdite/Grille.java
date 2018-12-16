@@ -174,20 +174,28 @@ public class Grille {
         ArrayList<Tuile> tuileNonVerifiees = new ArrayList();
         tuileNonVerifiees.add(tuile);
         
-        while(!tuileNonVerifiees.isEmpty())
+        
+        Tuile tuileVerifiee = tuileNonVerifiees.get(0);
+        ArrayList<Tuile> tuilesAVerifier = new ArrayList();
+            
+        tuilesAVerifier = this.tuilesAdjacentesCroix(tuileVerifiee);
+
+            
+            
+        while(!tuileNonVerifiees.isEmpty() && tuileAccessibles.size()<24)
         {
-            Tuile tuileVerifiee = tuileNonVerifiees.get(0);
-            ArrayList<Tuile> tuilesAVerifier = new ArrayList();
+           
             
-            tuilesAVerifier = this.tuilesAdjacentesCroix(tuileVerifiee);
-            
-            for (Tuile tNew : tuilesAVerifier) {
-                if (tNew.getEtat() == EtatTuile.SECHE) {
-                    tuileAccessibles.add(tNew);
-                    tuilesAVerifier.remove(tNew);
-                }
-                else if (tuileAccessibles.contains(tNew)){
-                    tuilesAVerifier.remove(tNew);
+            for (int i=0;i<tuilesAVerifier.size();i++) {          //(Tuile tNew : tuilesAVerifier) {
+                if  (tuilesAVerifier.get(i).getEtat()==EtatTuile.SECHE || tuilesAVerifier.get(i).getEtat()==EtatTuile.INONDEE){
+                     System.out.println("a");
+                    tuileAccessibles.add((tuilesAVerifier.get(i)));
+                    System.out.println("b");
+                    tuilesAVerifier.remove((tuilesAVerifier.get(i)));
+                    System.out.println("c");
+                } else if ( tuileAccessibles.contains((tuilesAVerifier.get(i)))){
+                    tuilesAVerifier.remove((tuilesAVerifier.get(i)));
+                    System.out.println("d");
                 }
             }
             
@@ -195,6 +203,8 @@ public class Grille {
             
             tuileAccessibles.add(tuileVerifiee);
             tuileNonVerifiees.remove(0);
+            
+            System.out.println("loop");
         }
         
         return tuileAccessibles;
