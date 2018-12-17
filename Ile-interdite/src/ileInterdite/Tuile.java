@@ -24,9 +24,9 @@ public class Tuile {
      * @param pos
      */
     public Tuile(String nom, Position pos) {
-        setNom(nom);
-        setPosition(pos);
-        setEtat(EtatTuile.SECHE);
+        this.nom = nom;
+        this.position = pos;
+        etat = EtatTuile.SECHE;
     }
     
     /**
@@ -34,7 +34,7 @@ public class Tuile {
      * @param av
      */
     public void addAventurier(Aventurier av) {
-        getAventuriers().add(av);
+        aventuriers.add(av);
     }
     
     /**
@@ -42,14 +42,11 @@ public class Tuile {
      * @param av
      */
     public void removeAventurier(Aventurier av) {
-        getAventuriers().remove(av);
+        aventuriers.remove(av);
     }
-    
-    
     
     //Getters et Setters :
     
-     
     /**
      * @return the aventuriers
      */

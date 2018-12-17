@@ -25,7 +25,7 @@ public class Controleur implements Observer {
 
     private VueAventurier vueAventurier;
     private VueGrille vueGrille;
-    private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
+    private ArrayList<Aventurier> joueurs = new ArrayList();
     private Grille grille;
     private Aventurier aventurierCourant;
 

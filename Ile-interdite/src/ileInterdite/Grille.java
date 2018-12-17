@@ -14,7 +14,6 @@ import java.util.HashMap;
  */
 public class Grille {
 
- 
     private final int longueurTerrain = 6;
     HashMap<Position, Tuile> tuiles = new HashMap();
     

@@ -26,9 +26,7 @@ public class MessagePos extends Message{
        this.pos = pos;
     }
     
-    
     //Getters et Setters :
-    
     
     /**
      * @return the pos

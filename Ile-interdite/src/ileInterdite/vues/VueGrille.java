@@ -134,8 +134,6 @@ public class VueGrille extends Observable {
         bTuiles.get(position).addAventurier(p.getCouleur());
     }
     
-    
-        
     //Getters et Setters :
     
     /**
