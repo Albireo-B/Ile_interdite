@@ -109,12 +109,8 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
-<<<<<<< HEAD
                 bouton.setButtonBackground(myBlue);
-=======
                 bouton.setButtonForeground(Color.WHITE);
-                bouton.setButtonBackground(Color.BLUE);
->>>>>>> 92c5e46b4599434022066af57be58148fe298a39
                 break;
             case SECHE:
                 bouton.setButtonEnabled(true);
@@ -123,12 +119,8 @@ public class VueGrille extends Observable {
                 break;
             case INONDEE:
                 bouton.setButtonEnabled(true);
-<<<<<<< HEAD
                 bouton.setButtonBackground(myCyan);
-=======
                 bouton.setButtonForeground(Color.WHITE);
-                bouton.setButtonBackground(Color.CYAN);
->>>>>>> 92c5e46b4599434022066af57be58148fe298a39
                 break;
         }
     }
