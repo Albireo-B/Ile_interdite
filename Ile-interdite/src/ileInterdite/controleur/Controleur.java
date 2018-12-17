@@ -278,7 +278,9 @@ public class Controleur implements Observer {
     }
         
         
-        
+    
+    //Getters et Setters :
+    
     /**
      * @return the vueAventurier
      */

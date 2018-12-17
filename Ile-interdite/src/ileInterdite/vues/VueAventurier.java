@@ -44,6 +44,7 @@ public class VueAventurier extends Observable {
    
     /**
      * On définit un constructeur de VueAventurier  avec une VueGrille v
+     * @param v
      */
     public VueAventurier(VueGrille v){
         vueGrille = v;
@@ -54,24 +55,18 @@ public class VueAventurier extends Observable {
         getWindow().add(getMainPanel());
         
 
-        // =================================================================================
-        // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
 
         
         getMainPanel().add(getPanelAventurier(), BorderLayout.NORTH);
    
-           
-        // =================================================================================
-        // CENTRE : 1 ligne pour position courante
+
         
         getPanelCentre().setOpaque(false);
         getMainPanel().add(getPanelCentre(), BorderLayout.CENTER);
         getPanelCentre().add(getVueGrille().getPanelGrille(),  BorderLayout.CENTER);
         getMainPanel().add(this.getPanelBoutons(), BorderLayout.SOUTH);
         
-        // =================================================================================
-        // SUD
-        
+ 
         getPanelBoutons().setOpaque(false);
         getPanelBoutons().add(getBtnBouger());
         getPanelBoutons().add(getBtnAssecher());

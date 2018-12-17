@@ -82,14 +82,7 @@ public class BoutonTuile extends JPanel {
     public void removeActionListener(ActionListener a) {
         bouton.removeActionListener(a);
     }
-
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        getBouton().setText("["+nom+"]");
-    }
-
+    
     /**
      * @return the bouton
      */
