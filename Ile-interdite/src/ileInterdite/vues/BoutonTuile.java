@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 public class BoutonTuile extends JPanel {
     private JButton bouton;
     private Color myWhite = new Color(241, 241, 241);
+    
+    private Color couleurTexte = Color.BLACK;
     private ArrayList<Color> couleursJoueurs = new ArrayList();
     private ArrayList<JPanel> couleurs = new ArrayList();
     
@@ -65,6 +67,11 @@ public class BoutonTuile extends JPanel {
     
     public void setButtonForeground(Color c) {
         bouton.setForeground(c);
+        couleurTexte = c;
+    }
+    
+    public void resetForeground() {
+        bouton.setForeground(couleurTexte);
     }
     
     public void setButtonBackground(Color c) {
