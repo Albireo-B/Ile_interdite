@@ -107,6 +107,12 @@ public class VueAventurier extends Observable {
     
         public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA){
             
+            
+        if (nombrePA==0) {
+            getBtnBouger().disable();
+            
+            
+        }
         getMainPanel().setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
         
         getPanelAventurier().setBackground(couleur);

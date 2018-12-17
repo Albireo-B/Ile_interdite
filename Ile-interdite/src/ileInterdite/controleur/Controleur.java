@@ -33,9 +33,8 @@ public class Controleur implements Observer {
      * On définit le constructeur du controleur avec une liste d'aventuriers
      * joueurs et une Grille grille
      *
-     * @param joueurs
+     * @param nomsjoueurs
      * @param nomTuiles
-     * @param grille
      */
     public Controleur(ArrayList<String> nomsjoueurs, ArrayList<String> nomTuiles) {
         //Initialisation des joueurs et du joueur courant
@@ -91,8 +90,9 @@ public class Controleur implements Observer {
      * Fonction globale qui gère le déplacement
      */
     public void gererDeplacement() {
-
+        if (getAventurierCourant().getNbAction()>0){
         proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()), Action.DEPLACER);
+        }
     }
 
     /**
@@ -179,7 +179,7 @@ public class Controleur implements Observer {
             MessagePos messagepos = (MessagePos) arg;
             
             //Si le messagePos possède l'action DEPLACER
-            if (messagepos.getAction() == Action.DEPLACER) {
+            if (messagepos.getAction() == Action.DEPLACER && getAventurierCourant().getNbAction()>0) {
                 
                 getVueGrille().actualiserPositionJoueur(messagepos.getPos(), getAventurierCourant().getPosition(), getAventurierCourant().getPion());
                 //Si l'aventurier en train de jouer est un pilote
@@ -219,7 +219,11 @@ public class Controleur implements Observer {
 
         }
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getRole(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
-        if (getAventurierCourant().getNbAction() < 1) {
+    
+        ArrayList<Tuile> casesAssechables = getAventurierCourant().calculAssechement(getGrille());
+        System.out.println(casesAssechables);
+        // Si l'aventurier a moins de 1 action ou qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
+        if (getAventurierCourant().getNbAction() < 1  && !(getAventurierCourant() instanceof Ingenieur && !(getAventurierCourant().getPouvoir()) && !casesAssechables.isEmpty()) ) {
             nextTurn();
         }
     }

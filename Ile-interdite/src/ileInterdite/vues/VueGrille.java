@@ -6,11 +6,11 @@
 package ileInterdite.vues;
 
 
+import ileInterdite.BoutonTuile;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.actions.Action;
-import ileInterdite.aventurier.Aventurier;
 import ileInterdite.aventurier.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
@@ -35,7 +35,6 @@ public class VueGrille extends Observable {
      * On définit le constructeur de VueGrille
      * @param positions
      * @param noms
-     * @param classesAventuriers
      */
     public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
         panelGrille = new JPanel(new GridLayout(6, 6));
