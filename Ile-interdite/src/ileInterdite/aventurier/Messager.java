@@ -21,7 +21,7 @@ public class Messager extends Aventurier {
      public Messager(String nom, Tuile tuile){
        super(nom, tuile);   
        setRole(Role.Messager);
-       setPion(Pion.ORANGE);
+       setPion(Pion.GRIS);
     }
      
 }
