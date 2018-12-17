@@ -14,12 +14,12 @@ import java.awt.Color;
         
 public enum Pion{
     
-    ROUGE( new Color(142, 7, 14)),
-    VERT( new Color(7, 62, 20)),
-    BLEU( new Color(9, 65, 127)),
-    GRIS( new Color(160, 160, 162)),
-    NOIR(new Color(45, 45, 45)),
-    JAUNE( new Color(230, 223, 22));
+    ROUGE( new Color(192, 57, 64)),
+    VERT( new Color(57, 112, 70)),
+    BLEU( new Color(59, 115, 177)),
+    GRIS( new Color(210, 210, 212)),
+    NOIR(new Color(105, 105, 105)),
+    JAUNE( new Color(250, 243, 42));
          
     private Color couleur;
        
