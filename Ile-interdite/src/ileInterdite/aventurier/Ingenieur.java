@@ -5,9 +5,7 @@
  */
 package ileInterdite.aventurier;
 
-import ileInterdite.Grille;
 import ileInterdite.Tuile;
-import java.util.ArrayList;
 
 /**
  *

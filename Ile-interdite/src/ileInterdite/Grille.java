@@ -14,12 +14,7 @@ import java.util.HashMap;
  */
 public class Grille {
 
-    /**
-     * @return the tuiles
-     */
-    public HashMap<Position, Tuile> getTuiles() {
-        return tuiles;
-    }
+ 
     private final int longueurTerrain = 6;
     HashMap<Position, Tuile> tuiles = new HashMap();
     
@@ -206,8 +201,10 @@ public class Grille {
         return new ArrayList<>(getTuiles().values());
     }
     
-    
-    public void setDefautAventurier(){
-        
+    /**
+     * @return the tuiles
+     */
+    public HashMap<Position, Tuile> getTuiles() {
+        return tuiles;
     }
 }
