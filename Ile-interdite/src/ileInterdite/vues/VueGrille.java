@@ -107,14 +107,17 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
+                bouton.setButtonForeground(Color.WHITE);
                 bouton.setButtonBackground(Color.BLUE);
                 break;
             case SECHE:
                 bouton.setButtonEnabled(true);
+                bouton.setButtonForeground(Color.BLACK);
                 bouton.setButtonBackground(Color.WHITE);
                 break;
             case INONDEE:
                 bouton.setButtonEnabled(true);
+                bouton.setButtonForeground(Color.WHITE);
                 bouton.setButtonBackground(Color.CYAN);
                 break;
         }

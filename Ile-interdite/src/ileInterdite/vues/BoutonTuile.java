@@ -63,6 +63,10 @@ public class BoutonTuile extends JPanel {
         }
     }
     
+    public void setButtonForeground(Color c) {
+        bouton.setForeground(c);
+    }
+    
     public void setButtonBackground(Color c) {
         bouton.setBackground(c);
     }
