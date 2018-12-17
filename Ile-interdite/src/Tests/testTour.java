@@ -15,7 +15,6 @@ import ileInterdite.controleur.Controleur;
 public class testTour {
     
     public static void main(String[] args) {
-        
         ArrayList<String> nomTuiles = nomsDesTuiles();
        
         ArrayList <String> avens=new ArrayList<>();
@@ -25,12 +24,10 @@ public class testTour {
         avens.add("Alexis");
         avens.add("Lois");
         
-
         Controleur ctrl = new Controleur(avens, nomTuiles);
     }
         
     static public ArrayList<String> nomsDesTuiles() {
-        
         ArrayList<String> ndt=new ArrayList<>();    
         ndt.add("Le Pont des Abimes");
         ndt.add("La Porte de Bronze");
