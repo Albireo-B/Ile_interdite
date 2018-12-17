@@ -24,7 +24,7 @@ public abstract class Aventurier {
     private Pion pion;
     
     public Aventurier(String nom,Tuile tuile) {
-        setTuile(tuile);
+        this.tuile=tuile;
         setNomJoueur(nom);
         reset();
     }
