@@ -29,8 +29,9 @@ public class VueGrille extends Observable {
    
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
-    private Color myBlue = new Color(0, 43, 128);
-    private Color myCyan = new Color(0, 96, 128);
+    private Color myBlue = new Color(30, 73, 158);
+    private Color myCyan = new Color(20, 136, 148);
+    private Color myRed = new Color(255, 77, 77);
     
     /**
      * On définit le constructeur de VueGrille
@@ -87,10 +88,9 @@ public class VueGrille extends Observable {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
 
-                bouton.getBouton().setForeground(Color.RED);
+                bouton.getBouton().setForeground(myRed);
                 
                 bouton.addActionListener((ActionEvent e) -> {
-                
                     setChanged();
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
