@@ -165,47 +165,41 @@ public class Grille {
     
     /** 
     * Retourne une liste de tuiles adjacentes à la position pos par rapport au plongeur et à son pouvoir
-     * @param tuile
+     * @param tuileJoueur
      * @return 
     */
-    public ArrayList<Tuile> tuilesAccessiblesPlongeur(Tuile tuile) {
-        ArrayList<Tuile> tuileAccessibles = new ArrayList();
-        ArrayList<Tuile> tuileNonVerifiees = new ArrayList();
-        tuileNonVerifiees.add(tuile);
+    public ArrayList<Tuile> tuilesAccessiblesPlongeur(Tuile tuileJoueur) {
+        ArrayList<Tuile> tuilesAccessibles = new ArrayList();
+        ArrayList<Tuile> tuilesNonVerifiees = tuilesAdjacentesCroix(tuileJoueur);
         
-        
-        Tuile tuileVerifiee = tuileNonVerifiees.get(0);
-        ArrayList<Tuile> tuilesAVerifier = new ArrayList();
+        while (!tuilesNonVerifiees.isEmpty()) {
+            Tuile tuileCourante = tuilesNonVerifiees.get(0);
             
-        tuilesAVerifier = this.tuilesAdjacentesCroix(tuileVerifiee);
-
-            
-            
-        while(!tuileNonVerifiees.isEmpty()){ //&& tuileAccessibles.size()<24)
-           
-            
-            for (int i=0;i<tuilesAVerifier.size();i++) {         
-                if  (tuilesAVerifier.get(i).getEtat()==EtatTuile.SECHE || tuilesAVerifier.get(i).getEtat()==EtatTuile.INONDEE){
-                     System.out.println("a");
-                    tuileAccessibles.add((tuilesAVerifier.get(i)));
-                    System.out.println("b");
-                    tuilesAVerifier.remove((tuilesAVerifier.get(i)));
-                    System.out.println("c");
-                } else if ( tuileAccessibles.contains((tuilesAVerifier.get(i)))){
-                    tuilesAVerifier.remove((tuilesAVerifier.get(i)));
-                    System.out.println("d");
+            //Si la tuile est inondée, on augmente le nombre de tuiles à vérifier:
+            if (tuileCourante.getEtat() != EtatTuile.SECHE) {
+                ArrayList<Tuile> nouvellesTuiles = tuilesAdjacentesCroix(tuileCourante);
+                // On évite d'ajouter la tuile du joueur
+                if (nouvellesTuiles.contains(tuileJoueur))
+                    nouvellesTuiles.remove(tuileJoueur);
+                
+                
+                ArrayList<Tuile> tuilesAjoutees = new ArrayList(nouvellesTuiles);
+                // On supprime les tuiles redondantes par rapport à tuilesAccessibles et tuilesNonVerifiees
+                for (Tuile t : nouvellesTuiles) {
+                    if (tuilesAccessibles.contains(t))
+                        tuilesAjoutees.remove(t);
+                    else if (tuilesNonVerifiees.contains(t))
+                        tuilesAjoutees.remove(t);
                 }
+                
+                tuilesNonVerifiees.addAll(tuilesAjoutees);
             }
-            
-            tuileNonVerifiees.addAll(tuilesAVerifier);
-            
-            tuileAccessibles.add(tuileVerifiee);
-            tuileNonVerifiees.remove(0);
-            
-            
+            // C'est bon, la tuile est traitée:
+            tuilesAccessibles.add(tuileCourante);
+            tuilesNonVerifiees.remove(tuileCourante);
         }
         
-        return tuileAccessibles;
+        return tuilesAccessibles;
     }
     
     public ArrayList<Tuile> getToutesTuiles() {
