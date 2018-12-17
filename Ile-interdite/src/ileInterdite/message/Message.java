@@ -5,8 +5,6 @@
  */
 package ileInterdite.message;
 
-import ileInterdite.actions.*;
-
 /**
  *
  * @author vinetg

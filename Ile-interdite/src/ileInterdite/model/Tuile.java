@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite;
+package ileInterdite.model;
 
 import java.util.ArrayList;
-import ileInterdite.aventurier.Aventurier;
+import ileInterdite.model.aventurier.Aventurier;
 
 /**
  *

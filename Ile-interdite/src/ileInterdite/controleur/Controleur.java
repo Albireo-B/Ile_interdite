@@ -5,12 +5,19 @@
  */
 package ileInterdite.controleur;
 
-import ileInterdite.EtatTuile;
-import ileInterdite.Grille;
-import ileInterdite.Position;
-import ileInterdite.Tuile;
-import ileInterdite.actions.*;
-import ileInterdite.aventurier.*;
+import ileInterdite.model.aventurier.Navigateur;
+import ileInterdite.model.aventurier.Messager;
+import ileInterdite.model.aventurier.Pilote;
+import ileInterdite.model.aventurier.Role;
+import ileInterdite.model.aventurier.Explorateur;
+import ileInterdite.model.aventurier.Plongeur;
+import ileInterdite.model.aventurier.Ingenieur;
+import ileInterdite.model.aventurier.Aventurier;
+import ileInterdite.message.Action;
+import ileInterdite.model.EtatTuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Position;
+import ileInterdite.model.Tuile;
 import ileInterdite.message.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
@@ -87,7 +94,6 @@ public class Controleur implements Observer {
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
                                     );
-
     }
 
     /**
@@ -127,7 +133,7 @@ public class Controleur implements Observer {
      * Passe au prochain joueur
      */
     public void aventurierSuivant() {
-        aventurierCourant = joueurs.get((joueurs.indexOf(aventurierCourant) + 1) % 4);
+        aventurierCourant = joueurs.get((joueurs.indexOf(aventurierCourant) + 1) % joueurs.size());
     }
 
     /**
@@ -184,7 +190,7 @@ public class Controleur implements Observer {
             MessagePos messagepos = (MessagePos) arg;
             
             //Si le messagePos possède l'action DEPLACER
-            if (messagepos.getAction() == Action.DEPLACER && aventurierCourant.getNbAction()>0) {
+            if (messagepos.getAction() == Action.DEPLACER) {
                 
                 vueGrille.actualiserPositionJoueur(messagepos.getPos(), aventurierCourant.getPosition(), aventurierCourant.getPion());
                 //Si l'aventurier en train de jouer est un pilote
@@ -254,10 +260,9 @@ public class Controleur implements Observer {
     }
     
     public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles){
-        for (Tuile t : grille.getTuiles().values()){
-            for (int i = 0; i < nomsJoueurs.size(); i++){
-                if (t.getNom().equals(Rôles.get(i).getCaseDepart())){
-
+        for (Tuile t : grille.getTuiles().values()) {
+            for (int i = 0; i < nomsJoueurs.size(); i++) {
+                if (t.getNom().equals(Rôles.get(i).getCaseDepart())) {
                     joueurs.add(créerAventurier(t, nomsJoueurs.get(i), Rôles.get(i)));
                 }
             }

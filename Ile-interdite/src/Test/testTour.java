@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tests;
+package Test;
 
 import java.util.ArrayList;
 import ileInterdite.controleur.Controleur;
