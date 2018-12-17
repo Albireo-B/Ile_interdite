@@ -90,7 +90,6 @@ public class VueGrille extends Observable {
                 bouton.getBouton().setForeground(Color.RED);
                 
                 bouton.addActionListener((ActionEvent e) -> {
-                
                     setChanged();
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
