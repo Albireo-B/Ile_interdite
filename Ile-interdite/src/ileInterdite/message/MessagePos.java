@@ -6,7 +6,6 @@
 package ileInterdite.message;
 
 import ileInterdite.Position;
-import ileInterdite.Tuile;
 import ileInterdite.actions.*;
 
 /**
@@ -16,15 +15,32 @@ import ileInterdite.actions.*;
 public class MessagePos extends Message{
     private Position pos;
 
+    /**
+     * On définit le constructeur de MessagePos avec une action Action
+     * et une position Position
+     * @param action
+     * @param pos 
+     */
     public MessagePos(Action action, Position pos){
        super(action);
        this.pos = pos;
     }
     
+    
+    //Getters et Setters :
+    
+    
     /**
-     * @return the case
+     * @return the pos
      */
-    public Position getPosition() {
+    public Position getPos() {
         return pos;
+    }
+
+    /**
+     * @param pos the pos to set
+     */
+    public void setPos(Position pos) {
+        this.pos = pos;
     }
 }

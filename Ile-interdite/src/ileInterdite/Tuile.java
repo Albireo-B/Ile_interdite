@@ -13,13 +13,15 @@ import ileInterdite.aventurier.Aventurier;
  * @author grosa
  */
 public class Tuile {
-    private EtatTuile etat;
-    private ArrayList<Aventurier> aventuriers;
+    private EtatTuile etat = EtatTuile.SECHE;
+    private ArrayList<Aventurier> aventuriers = new ArrayList();
     private Position position;
     private String nom;
     
     /**
      * On définit le constructeur de Tuile avec un string nom et une Position pos
+     * @param nom
+     * @param pos
      */
     public Tuile(String nom, Position pos) {
         setNom(nom);
@@ -29,6 +31,7 @@ public class Tuile {
     
     /**
      * Ajoute un aventurier a la liste des aventuriers 
+     * @param av
      */
     public void addAventurier(Aventurier av) {
         getAventuriers().add(av);
@@ -36,6 +39,7 @@ public class Tuile {
     
     /**
      * Supprime un aventurier de la liste des aventuriers 
+     * @param av
      */
     public void removeAventurier(Aventurier av) {
         getAventuriers().remove(av);

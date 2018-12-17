@@ -6,10 +6,12 @@
 package ileInterdite.vues;
 
 
+import ileInterdite.BoutonTuile;
 import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Position;
 import ileInterdite.actions.Action;
+import ileInterdite.aventurier.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -18,7 +20,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -28,23 +29,32 @@ import javax.swing.JPanel;
 public class VueGrille extends Observable {
    
     private JPanel panelGrille;
-    private HashMap<Position, JButton> bTuiles = new HashMap();
+    private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
     
     /**
      * On définit le constructeur de VueGrille
+     * @param positions
+     * @param noms
      */
-    public VueGrille() {
+    public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
         panelGrille = new JPanel(new GridLayout(6, 6));
         
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
         
-        for (int x = 0; x < 6; x++) {
-            for (int y = 0; y < 6 ; y++) {
+        for (int y = 0; y < 6; y++) {
+            for (int x = 0; x < 6 ; x++) {
                 Position pos = new Position(x, y);
                 if (positionTuiles.contains(pos)) {
-                    bTuiles.put(pos, new JButton());
+                    if (positions.contains(pos)) {
+                        String nom = noms.get(positions.indexOf(pos));
+                        bTuiles.put(pos, new BoutonTuile(nom));
                     
-                    panelGrille.add(bTuiles.get(pos));
+                        panelGrille.add(bTuiles.get(pos));
+                    }
+                    else {
+                        System.out.println("Il vous manque une case ou quoi?");
+                        panelGrille.add(new JPanel());
+                    }
                 }
                 else {
                     panelGrille.add(new JPanel());
@@ -53,50 +63,95 @@ public class VueGrille extends Observable {
         }
     }
     
+    /**
+     * 
+     */
     public void tousBoutonsInertes() {
-        for (JButton bouton : bTuiles.values()) {
-            for (ActionListener ac : bouton.getActionListeners()) {
+        for (BoutonTuile bouton : bTuiles.values()) {
+            for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
+                bouton.getBouton().setForeground(Color.BLACK);
             }
         }
     }
     
-    // Rends tous les boutons avec cette position cliquables, ils jetterons l'action act
-    public void rendreBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
+    /**
+     * Rend toutes les positions de la liste cliquables 
+     * @param posBoutons
+     * @param act
+     */
+    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
-                JButton bouton = bTuiles.get(pos);
-                    
-                bouton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        setChanged();
-                        notifyObservers(new MessagePos(act, pos));
-                        clearChanged();
-                    }
+                
+                BoutonTuile bouton = bTuiles.get(pos);
+
+                bouton.getBouton().setForeground(Color.RED);
+                
+                bouton.addActionListener((ActionEvent e) -> {
+                
+                    setChanged();
+                    notifyObservers(new MessagePos(act, pos));
+                    clearChanged();
                 });
+                
             }
         }
     }
     
-    public void setEtat(EtatTuile etat, Position pos) {
-        JButton bouton = bTuiles.get(pos);
-        
+    /**
+     * On définit l'état d'une Position (Tuile)
+     * @param etat
+     * @param pos 
+     */
+    public void actualiserEtatTuile(Position pos, EtatTuile etat) {
+        BoutonTuile bouton = bTuiles.get(pos);
         switch (etat) {
             case COULEE:
-                bouton.setEnabled(false);
+                bouton.setButtonEnabled(false);
+                bouton.setButtonBackground(Color.BLUE);
+                break;
             case SECHE:
-                bouton.setEnabled(true);
-                bouton.setBackground(Color.LIGHT_GRAY);
+                bouton.setButtonEnabled(true);
+                bouton.setButtonBackground(Color.LIGHT_GRAY);
+                break;
             case INONDEE:
-                bouton.setEnabled(true);
-                bouton.setBackground(Color.CYAN);
+                bouton.setButtonEnabled(true);
+                bouton.setButtonBackground(Color.CYAN);
+                break;
         }
+    }
+
+     /**
+     * @param position
+     * @param posAv
+     * @param p
+     */
+
+    public void actualiserPositionJoueur(Position position, Position posAv, Pion p) {
+        if (bTuiles.keySet().contains(posAv)) {
+            bTuiles.get(posAv).removeAventurier(p.getCouleur());
+        }
+        bTuiles.get(position).addAventurier(p.getCouleur());
     }
     
     
+        
+    //Getters et Setters :
+    
+    /**
+     * 
+     * @return the panelGrille
+     */
     public JPanel getPanelGrille() {
         return panelGrille;
+    }
+
+    /**
+     * @param panelGrille the panelGrille to set
+     */
+    public void setPanelGrille(JPanel panelGrille) {
+        this.panelGrille = panelGrille;
     }
 }
 

@@ -5,9 +5,10 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
+import ileInterdite.Position;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils.*;
 import java.util.ArrayList;
 
 /**
@@ -16,50 +17,80 @@ import java.util.ArrayList;
  */
 public abstract class Aventurier {
     private int nbAction;
-    private Tuile tuile;
-    private Boolean pouvoir;
-    private String classe;
+    private Tuile tuile = null;
+    private Boolean pouvoir = true;
+    private Role Role;
     private String nomJoueur;
     private Pion pion;
-
-    public Aventurier(Tuile tuile,String nom){
-        this.tuile=tuile;   
+    
+    public Aventurier(String nom,Tuile tuile) {
+        setTuile(tuile);
         setNomJoueur(nom);
-        resetPA();
+        reset();
     }
-    
-      
-    
-    public ArrayList<Tuile> calculDeplacement(Grille g){
 
-        return g.tuilesAdjacentesCroix(getTuile());
-        
+    /**
+     * On renvoie la liste des tuiles adjacentes en croix
+     * @param g
+     * @return 
+     */
+    public ArrayList<Tuile> calculDeplacement(Grille g){
+        return g.tuilesAdjacentesCroix(getTuile()); 
     }
     
+    /**
+     * On renvoie la liste des tuiles adjacentes en croix
+     * @param g
+     * @return 
+     */
     public ArrayList<Tuile> calculAssechement(Grille g){
-/* pblm fction retourne tuile[]*/
-        return g.tuilesAdjacentesCroix(getTuile());
-  
+        ArrayList<Tuile> liste = new ArrayList<>();
+            if (getTuile().getEtat()==EtatTuile.INONDEE){
+                liste.add(getTuile());
+            }
+        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())){
+            if (t.getEtat()==EtatTuile.INONDEE){
+                liste.add(t);
+            }
+        }
+        return liste;
     }
     
-    public void resetPA(){
+    /**
+     * On remet le nombre d'actions à 3
+     */
+    public void reset(){
         setNbAction(3);
+        setPouvoir(true);
     }
     
-    //Fais diminuer le nombre d'actions de 1
+    /**
+     * Fais diminuer le nombre d'actions de 1
+     */
     public void decremente(){
         this.setNbAction(getNbAction()-1);
     }
 
-    //Permet de déplacer un aventurier sur une nouvelle Tuile en supprimant sa position précédente
+    /**
+    * Permet de déplacer un aventurier sur une nouvelle Tuile
+    * en supprimant sa position précédente
+     * @param tuile
+    */
     public void setTuile(Tuile tuile){
-        getTuile().removeAventurier(this);
+        if (this.tuile != null)
+            getTuile().removeAventurier(this);
+        
         tuile.addAventurier(this);
-        this.decremente();
+        this.tuile = tuile;
     }
     
     
     //Getters et Setters :
+    
+    
+    public Position getPosition() {
+        return this.tuile.getPosition();
+    }
     
       /**
      * @return the tuile
@@ -99,10 +130,10 @@ public abstract class Aventurier {
     }
 
     /**
-     * @return the classe
+     * @return the Role
      */
-    public String getClasse() {
-        return classe;
+    public Role getRole() {
+        return Role;
     }
 
 
@@ -121,10 +152,10 @@ public abstract class Aventurier {
     }
 
     /**
-     * @param classe the classe to set
+     * @param Role the Role to set
      */
-    public void setClasse(String classe) {
-        this.classe = classe;
+    public void setRole(Role Role) {
+        this.Role = Role;
     }
 
     /**
@@ -140,5 +171,6 @@ public abstract class Aventurier {
     public void setPion(Pion pion) {
         this.pion = pion;
     }
+
 
 }

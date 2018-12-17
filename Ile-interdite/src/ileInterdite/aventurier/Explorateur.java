@@ -5,9 +5,9 @@
  */
 package ileInterdite.aventurier;
 
+import ileInterdite.EtatTuile;
 import ileInterdite.Grille;
 import ileInterdite.Tuile;
-import ileInterdite.controleur.utilitaires.Utils;
 import java.util.ArrayList;
 
 /**
@@ -16,21 +16,44 @@ import java.util.ArrayList;
  */
 public class Explorateur extends Aventurier {
     
-    public Explorateur(Tuile tuile,String nom){
-       super(tuile,nom);   
-       setClasse("Explorateur");
-       setPion(Utils.Pion.VERT);
+    /**
+     * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
+     * @param tuile
+     * @param nom 
+     */
+    public Explorateur(String nom,Tuile tuile){
+       super(nom,tuile);   
+       setRole(Role.Explorateur);
+       setPion(Pion.VERT);
     }
     
-        
+    /**
+     * On renvoie une liste des tuiles adjacentes en carré
+     * @param g
+     * @return 
+     */    
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesAdjacentesCarre(getTuile());
     }
     
+    /**
+     * On renvoie une liste des tuiles adjacentes en carré
+     * @param g
+     * @return 
+     */
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
-        return g.tuilesAdjacentesCarre(getTuile());
-        
+        ArrayList<Tuile> liste = new ArrayList<Tuile>();
+            if (getTuile().getEtat()==EtatTuile.INONDEE){
+                liste.add(getTuile());
+            }
+        for (Tuile t : g.tuilesAdjacentesCarre(getTuile())){
+            if (t.getEtat()==EtatTuile.INONDEE){
+                liste.add(t);
+            }
+        }
+        return liste;
     }
+
 }
