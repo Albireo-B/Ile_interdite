@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.actions;
+package ileInterdite.model;
 
 /**
  *
  * @author vinetg
  */
-public enum Action {
-    ASSECHER,
-    DEPLACER,
-    TERMINER
+public enum EtatTuile {
+    SECHE,
+    INONDEE,
+    COULEE;
 }

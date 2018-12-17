@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.aventurier;
+package ileInterdite.model.aventurier;
 
-import ileInterdite.EtatTuile;
-import ileInterdite.Grille;
-import ileInterdite.Tuile;
+import ileInterdite.model.EtatTuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Tuile;
 import java.util.ArrayList;
 
 /**
@@ -45,11 +45,13 @@ public class Explorateur extends Aventurier {
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
         ArrayList<Tuile> liste = new ArrayList<Tuile>();
-            if (getTuile().getEtat()==EtatTuile.INONDEE){
-                liste.add(getTuile());
-            }
+        
+        if (getTuile().getEtat() == EtatTuile.INONDEE){
+            liste.add(getTuile());
+        }
+        
         for (Tuile t : g.tuilesAdjacentesCarre(getTuile())){
-            if (t.getEtat()==EtatTuile.INONDEE){
+            if (t.getEtat() == EtatTuile.INONDEE){
                 liste.add(t);
             }
         }

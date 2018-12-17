@@ -5,8 +5,7 @@
  */
 package ileInterdite.message;
 
-import ileInterdite.Position;
-import ileInterdite.actions.*;
+import ileInterdite.model.Position;
 
 /**
  *
@@ -26,9 +25,7 @@ public class MessagePos extends Message{
        this.pos = pos;
     }
     
-    
     //Getters et Setters :
-    
     
     /**
      * @return the pos

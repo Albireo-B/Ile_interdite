@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.aventurier;
+package ileInterdite.model.aventurier;
 
-import ileInterdite.Grille;
-import ileInterdite.Tuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Tuile;
 import java.util.ArrayList;
 
 /**
@@ -21,9 +21,9 @@ public class Plongeur extends Aventurier {
      * @param nom 
      */
     public Plongeur(String nom,Tuile tuile){
-       super(nom,tuile);   
+       super(nom,tuile);
        setRole(Role.Plongeur);
-       setPion(Pion.VIOLET);
+       setPion(Pion.NOIR);
     }
         
     /**
@@ -35,6 +35,4 @@ public class Plongeur extends Aventurier {
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesAccessiblesPlongeur(getTuile());
     }
-    
-
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite;
+package ileInterdite.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import java.util.HashMap;
  */
 public class Grille {
 
- 
     private final int longueurTerrain = 6;
     HashMap<Position, Tuile> tuiles = new HashMap();
     

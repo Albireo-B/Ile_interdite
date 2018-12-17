@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.aventurier;
+package ileInterdite.model.aventurier;
 
-import ileInterdite.EtatTuile;
-import ileInterdite.Grille;
-import ileInterdite.Position;
-import ileInterdite.Tuile;
+import ileInterdite.model.EtatTuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Position;
+import ileInterdite.model.Tuile;
 import java.util.ArrayList;
 
 /**
@@ -68,7 +68,7 @@ public abstract class Aventurier {
      * Fais diminuer le nombre d'actions de 1
      */
     public void decremente(){
-        this.setNbAction(getNbAction()-1);
+        setNbAction(getNbAction()-1);
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class Aventurier {
     
     
     public Position getPosition() {
-        return this.tuile.getPosition();
+        return tuile.getPosition();
     }
     
       /**

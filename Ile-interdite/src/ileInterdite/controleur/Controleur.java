@@ -5,12 +5,19 @@
  */
 package ileInterdite.controleur;
 
-import ileInterdite.EtatTuile;
-import ileInterdite.Grille;
-import ileInterdite.Position;
-import ileInterdite.Tuile;
-import ileInterdite.actions.*;
-import ileInterdite.aventurier.*;
+import ileInterdite.model.aventurier.Navigateur;
+import ileInterdite.model.aventurier.Messager;
+import ileInterdite.model.aventurier.Pilote;
+import ileInterdite.model.aventurier.Role;
+import ileInterdite.model.aventurier.Explorateur;
+import ileInterdite.model.aventurier.Plongeur;
+import ileInterdite.model.aventurier.Ingenieur;
+import ileInterdite.model.aventurier.Aventurier;
+import ileInterdite.message.Action;
+import ileInterdite.model.EtatTuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Position;
+import ileInterdite.model.Tuile;
 import ileInterdite.message.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
@@ -25,7 +32,7 @@ public class Controleur implements Observer {
 
     private VueAventurier vueAventurier;
     private VueGrille vueGrille;
-    private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
+    private ArrayList<Aventurier> joueurs = new ArrayList();
     private Grille grille;
     private Aventurier aventurierCourant;
 
@@ -42,9 +49,9 @@ public class Controleur implements Observer {
         grille = new Grille(nomTuiles);
 
         //Initialisation de la Grille
-        ArrayList<Position> posTuiles = new ArrayList<Position>();
-        ArrayList<String> nomsTuiles = new ArrayList<String>();
-        for (Tuile t : getGrille().getToutesTuiles()) {
+        ArrayList<Position> posTuiles = new ArrayList();
+        ArrayList<String> nomsTuiles = new ArrayList();
+        for (Tuile t : grille.getToutesTuiles()) {
             posTuiles.add(t.getPosition());
             nomsTuiles.add(t.getNom());
         }
@@ -52,46 +59,49 @@ public class Controleur implements Observer {
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
 
-        ArrayList<Role> roles = new ArrayList<Role>();
+        ArrayList<Role> roles = new ArrayList();
         roles.add(Role.Pilote);
         roles.add(Role.Explorateur);
         roles.add(Role.Ingénieur);
         roles.add(Role.Plongeur);
-        setRôles(nomsjoueurs,roles);
-        setAventurierCourant(getJoueurs().get(0));
+        setRoles(nomsjoueurs,roles);
+        aventurierCourant = joueurs.get(0);
 
         
         for (Aventurier j : joueurs) {
             vueGrille.actualiserPositionJoueur(j.getPosition(), null, j.getPion());
         }
 
-        getGrille().getTuile(new Position(3, 0)).setEtat(EtatTuile.INONDEE);
-        getGrille().getTuile(new Position(3, 1)).setEtat(EtatTuile.COULEE);
-        getGrille().getTuile(new Position(3, 2)).setEtat(EtatTuile.INONDEE);
-        getGrille().getTuile(new Position(3, 3)).setEtat(EtatTuile.INONDEE);
-        getGrille().getTuile(new Position(2, 3)).setEtat(EtatTuile.INONDEE);
-        getGrille().getTuile(new Position(2, 2)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(3, 0)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(3, 1)).setEtat(EtatTuile.COULEE);
+        grille.getTuile(new Position(3, 2)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(3, 3)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(2, 3)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(2, 2)).setEtat(EtatTuile.INONDEE);
         
-        getVueGrille().actualiserEtatTuile(new Position(3, 0), EtatTuile.INONDEE);
-        getVueGrille().actualiserEtatTuile(new Position(3, 1), EtatTuile.COULEE);
-        getVueGrille().actualiserEtatTuile(new Position(3, 2), EtatTuile.INONDEE);
-        getVueGrille().actualiserEtatTuile(new Position(3, 3), EtatTuile.INONDEE);
-        getVueGrille().actualiserEtatTuile(new Position(2, 3), EtatTuile.INONDEE);
-        getVueGrille().actualiserEtatTuile(new Position(2, 2), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(3, 0), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(3, 1), EtatTuile.COULEE);
+        vueGrille.actualiserEtatTuile(new Position(3, 2), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(3, 3), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(2, 3), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(2, 2), EtatTuile.INONDEE);
 
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(getVueGrille());
+        vueAventurier = new VueAventurier(vueGrille);
         vueAventurier.addObserver(this);
-        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getRole(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
-
+        vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
+                                    aventurierCourant.getRole(),
+                                    aventurierCourant.getPion().getCouleur(),
+                                    aventurierCourant.getNbAction()
+                                    );
     }
 
     /**
      * Fonction globale qui gère le déplacement
      */
     public void gererDeplacement() {
-        if (getAventurierCourant().getNbAction()>0){
-        proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()), Action.DEPLACER);
+        if (aventurierCourant.getNbAction()>0){
+            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER);
         }
     }
 
@@ -99,8 +109,7 @@ public class Controleur implements Observer {
      * Fonction globale qui gère l'asséchement
      */
     public void gererAssechement() {
-
-        proposerTuiles(getAventurierCourant().calculAssechement(getGrille()), Action.ASSECHER);
+        proposerTuiles(aventurierCourant.calculAssechement(grille), Action.ASSECHER);
     }
 
     /**
@@ -111,19 +120,20 @@ public class Controleur implements Observer {
      * @param act
      */
     public void proposerTuiles(ArrayList<Tuile> ct, Action act) {
-        ArrayList<Position> posTuiles = new ArrayList<>();
+        ArrayList<Position> posTuiles = new ArrayList();
+        
         for (Tuile t : ct) {
             posTuiles.add(t.getPosition());
         }
-        getVueGrille().actualiserBoutonsCliquables(posTuiles, act);
+        
+        vueGrille.actualiserBoutonsCliquables(posTuiles, act);
     }
 
     /**
      * Passe au prochain joueur
      */
     public void aventurierSuivant() {
-
-        setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % 4));
+        aventurierCourant = joueurs.get((joueurs.indexOf(aventurierCourant) + 1) % joueurs.size());
     }
 
     /**
@@ -132,9 +142,13 @@ public class Controleur implements Observer {
      * aventurier
      */
     public void nextTurn() {
-        getAventurierCourant().reset();
+        aventurierCourant.reset();
         aventurierSuivant();
-        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getRole(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
+        vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
+                                    aventurierCourant.getRole(),
+                                    aventurierCourant.getPion().getCouleur(),
+                                    aventurierCourant.getNbAction()
+                                    );
     }
 
     /**
@@ -151,7 +165,7 @@ public class Controleur implements Observer {
 
             //Si le message contient une Action
             if (null != message.getAction()) {
-                getVueGrille().tousBoutonsInertes();
+                vueGrille.tousBoutonsInertes();
                 switch (message.getAction()) {
                     //Si le message possède l'action ASSECHER
                     case ASSECHER:
@@ -172,56 +186,60 @@ public class Controleur implements Observer {
         }
         //Si arg est de type MessagePos
         if (arg instanceof MessagePos) {
-            
-            
-            getVueGrille().tousBoutonsInertes();
+            vueGrille.tousBoutonsInertes();
             MessagePos messagepos = (MessagePos) arg;
             
             //Si le messagePos possède l'action DEPLACER
-            if (messagepos.getAction() == Action.DEPLACER && getAventurierCourant().getNbAction()>0) {
+            if (messagepos.getAction() == Action.DEPLACER) {
                 
-                getVueGrille().actualiserPositionJoueur(messagepos.getPos(), getAventurierCourant().getPosition(), getAventurierCourant().getPion());
+                vueGrille.actualiserPositionJoueur(messagepos.getPos(), aventurierCourant.getPosition(), aventurierCourant.getPion());
                 //Si l'aventurier en train de jouer est un pilote
-                if (getAventurierCourant() instanceof Pilote && getAventurierCourant().getPouvoir()) {
-                    Pilote p = (Pilote) getAventurierCourant();
-                    p.setPositionPilote(getGrille(), getGrille().getTuile(messagepos.getPos()));
+                if (aventurierCourant instanceof Pilote && aventurierCourant.getPouvoir()) {
+                    Pilote p = (Pilote) aventurierCourant;
+                    p.setPositionPilote(grille, grille.getTuile(messagepos.getPos()));
 
                 } else {
-                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
+                    aventurierCourant.setTuile(grille.getTuile(messagepos.getPos()));
                 }
-                getAventurierCourant().decremente();
+                aventurierCourant.decremente();
 
                 //Si le messagePos possède l'action ASSECHER
-            } else if (messagepos.getAction() == Action.ASSECHER) {
-                getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
-                getVueGrille().actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
+            }
+            else if (messagepos.getAction() == Action.ASSECHER) {
+                grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
+                vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
 
                 //Si l'aventurier en train de jouer est un ingénieur
-                if (getAventurierCourant() instanceof Ingenieur) {
+                if (aventurierCourant instanceof Ingenieur) {
                     //Si le pouvoir de l'ingénieur est utilisable
-                    if (getAventurierCourant().getPouvoir()) {
-                        
-                        getAventurierCourant().decremente();
-                        getAventurierCourant().setPouvoir(false);
+                    if (aventurierCourant.getPouvoir()) {
+                        aventurierCourant.decremente();
+                        aventurierCourant.setPouvoir(false);
                         
                         gererAssechement();
                     } else {
-                        
-                        getAventurierCourant().setPouvoir(true);
+                        aventurierCourant.setPouvoir(true);
                     }
-                } else {
-                    getAventurierCourant().decremente();
-
                 }
-
+                else {
+                    aventurierCourant.decremente();
+                }
             }
-
         }
-        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getRole(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
+        vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
+                                    aventurierCourant.getRole(),
+                                    aventurierCourant.getPion().getCouleur(),
+                                    aventurierCourant.getNbAction()
+                                    );
     
-        ArrayList<Tuile> casesAssechables = getAventurierCourant().calculAssechement(getGrille());
+        ArrayList<Tuile> casesAssechables = aventurierCourant.calculAssechement(grille);
         // Si l'aventurier a moins de 1 action ou qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
-        if (getAventurierCourant().getNbAction() < 1  && !(getAventurierCourant() instanceof Ingenieur && !(getAventurierCourant().getPouvoir()) && !casesAssechables.isEmpty()) ) {
+        if (aventurierCourant.getNbAction() < 1 && 
+                !( aventurierCourant instanceof Ingenieur &&
+                 !(aventurierCourant.getPouvoir()) &&
+                 !casesAssechables.isEmpty() )
+                )
+        {
             nextTurn();
         }
     }
@@ -240,20 +258,20 @@ public class Controleur implements Observer {
     public void setJoueurs(ArrayList<Aventurier> joueurs) {
         this.joueurs = joueurs;
     }
-    public void setRôles(ArrayList<String> nomsJoueurs,ArrayList<Role> Rôles){
-        for (Tuile t : getGrille().getTuiles().values()){
-            for (int i = 0; i < nomsJoueurs.size();i++){
-                if (t.getNom().equals(Rôles.get(i).getCaseDépart())){
-
-                    joueurs.add(créerAventurier(t,nomsJoueurs.get(i),Rôles.get(i)));
+    
+    public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles){
+        for (Tuile t : grille.getTuiles().values()) {
+            for (int i = 0; i < nomsJoueurs.size(); i++) {
+                if (t.getNom().equals(Rôles.get(i).getCaseDepart())) {
+                    joueurs.add(créerAventurier(t, nomsJoueurs.get(i), Rôles.get(i)));
                 }
             }
         }
     }
     
-    public Aventurier créerAventurier(Tuile t,String n ,Role r){
+    public Aventurier créerAventurier(Tuile t, String n, Role r){
         Aventurier a = null;
-        switch (r){
+        switch (r) {
             case Explorateur :
                 a = new Explorateur(n,t);
                 break;
@@ -271,70 +289,8 @@ public class Controleur implements Observer {
                 break;
              case Ingénieur :
                 a = new Ingenieur(n,t);
-                break;   
-                    
-       }
+                break; 
+        }
         return a;
     }
-        
-        
-    
-    //Getters et Setters :
-    
-    /**
-     * @return the vueAventurier
-     */
-    public VueAventurier getVueAventurier() {
-        return vueAventurier;
-    }
-
-    /**
-     * @param vueAventurier the vueAventurier to set
-     */
-    public void setVueAventurier(VueAventurier vueAventurier) {
-        this.vueAventurier = vueAventurier;
-    }
-
-    /**
-     * @return the vueGrille
-     */
-    public VueGrille getVueGrille() {
-        return vueGrille;
-    }
-
-    /**
-     * @param vueGrille the vueGrille to set
-     */
-    public void setVueGrille(VueGrille vueGrille) {
-        this.vueGrille = vueGrille;
-    }
-
-    /**
-     * @return the grille
-     */
-    public Grille getGrille() {
-        return grille;
-    }
-
-    /**
-     * @param grille the grille to set
-     */
-    public void setGrille(Grille grille) {
-        this.grille = grille;
-    }
-
-    /**
-     * @return the aventurierCourant
-     */
-    public Aventurier getAventurierCourant() {
-        return aventurierCourant;
-    }
-
-    /**
-     * @param aventurierCourant the aventurierCourant to set
-     */
-    public void setAventurierCourant(Aventurier aventurierCourant) {
-        this.aventurierCourant = aventurierCourant;
-    }
-
 }
