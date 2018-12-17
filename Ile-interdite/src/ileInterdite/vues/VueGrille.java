@@ -70,7 +70,7 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
-                bouton.getBouton().setForeground(Color.BLACK);
+                bouton.resetForeground();
             }
         }
     }
