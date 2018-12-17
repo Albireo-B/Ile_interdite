@@ -23,7 +23,7 @@ public class Plongeur extends Aventurier {
     public Plongeur(String nom,Tuile tuile){
        super(nom,tuile);   
        setRole(Role.Plongeur);
-       setPion(Pion.VIOLET);
+       setPion(Pion.NOIR);
     }
         
     /**
