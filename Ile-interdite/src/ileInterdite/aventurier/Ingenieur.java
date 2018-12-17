@@ -19,8 +19,8 @@ public class Ingenieur extends Aventurier {
      * @param tuile
      * @param nom 
      */
-    public Ingenieur(String nom,Tuile tuile){
-       super(nom,tuile);   
+    public Ingenieur(String nom, Tuile tuile){
+       super(nom, tuile);   
        setRole(Role.Ingénieur);
        setPion(Pion.ROUGE);
     }

@@ -18,7 +18,7 @@ public class Messager extends Aventurier {
      * @param tuile
      * @param nom
      */
-     public Messager(String nom,Tuile tuile){
+     public Messager(String nom, Tuile tuile){
        super(nom, tuile);   
        setRole(Role.Messager);
        setPion(Pion.GRIS);

@@ -5,9 +5,6 @@
  */
 package ileInterdite;
 
-
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -33,10 +30,11 @@ public class BoutonTuile extends JPanel {
     public BoutonTuile(String nom) {
         super(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        JPanel panelCouleurs = new JPanel(new GridLayout(1, 4));
-        bouton = new JButton("["+nom+"]");
-        this.add(bouton, BorderLayout.CENTER);
         
+        bouton = new JButton("[" + nom + "]");
+        add(bouton, BorderLayout.CENTER);
+        
+        JPanel panelCouleurs = new JPanel(new GridLayout(1, 4));
         for (int c = 0; c < 4; c++) {
             JPanel p = new JPanel();
             panelCouleurs.add(p);
@@ -44,13 +42,12 @@ public class BoutonTuile extends JPanel {
             couleurs.add(p);
         }
         
-        this.add(panelCouleurs, BorderLayout.SOUTH);
+        add(panelCouleurs, BorderLayout.SOUTH);
 
     }
     
     public void removeAventurier(Color j) {
         if (couleursJoueurs.contains(j)) {
-            
             for (int i = couleursJoueurs.indexOf(j); i < couleursJoueurs.size() - 1; i++) {
                 couleurs.get(i).setBackground(couleursJoueurs.get(i + 1));
             }
@@ -60,7 +57,6 @@ public class BoutonTuile extends JPanel {
     }
     
     public void addAventurier(Color j) {
-        
         if (couleursJoueurs.size() < 4) {
             couleurs.get(couleursJoueurs.size()).setBackground(j);
             couleursJoueurs.add(new Color(j.getRGB()));

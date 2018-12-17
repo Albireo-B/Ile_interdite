@@ -47,9 +47,10 @@ public class VueGrille extends Observable {
                 if (positionTuiles.contains(pos)) {
                     if (positions.contains(pos)) {
                         String nom = noms.get(positions.indexOf(pos));
-                        bTuiles.put(pos, new BoutonTuile(nom));
-                    
-                        panelGrille.add(bTuiles.get(pos));
+                        BoutonTuile bouton = new BoutonTuile(nom);
+                        bTuiles.put(pos, bouton);
+                        bouton.setButtonBackground(Color.WHITE);
+                        panelGrille.add(bouton);
                     }
                     else {
                         System.out.println("Il vous manque une case ou quoi?");
@@ -83,7 +84,6 @@ public class VueGrille extends Observable {
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
-                
                 BoutonTuile bouton = bTuiles.get(pos);
 
                 bouton.getBouton().setForeground(Color.RED);
@@ -94,7 +94,6 @@ public class VueGrille extends Observable {
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
                 });
-                
             }
         }
     }
@@ -113,7 +112,7 @@ public class VueGrille extends Observable {
                 break;
             case SECHE:
                 bouton.setButtonEnabled(true);
-                bouton.setButtonBackground(Color.LIGHT_GRAY);
+                bouton.setButtonBackground(Color.WHITE);
                 break;
             case INONDEE:
                 bouton.setButtonEnabled(true);

@@ -27,10 +27,6 @@ public class testTour {
         
 
         Controleur ctrl = new Controleur(avens, nomTuiles);
-                
-        
-        
-        
     }
         
     static public ArrayList<String> nomsDesTuiles() {

@@ -19,9 +19,9 @@ public class Navigateur extends Aventurier {
      * @param tuile
      * @param nom 
      */
-    public Navigateur(String nom,Tuile tuile){
+    public Navigateur(String nom, Tuile tuile){
        super(nom,tuile);   
-        setRole(Role.Navigateur);
+       setRole(Role.Navigateur);
        setPion(Pion.JAUNE);
     }
     
