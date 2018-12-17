@@ -24,6 +24,7 @@ public class testTour {
         avens.add("Guillaume");
         avens.add("Alexis");
         avens.add("Lois");
+        
 
         Controleur ctrl = new Controleur(avens, nomTuiles);
     }
