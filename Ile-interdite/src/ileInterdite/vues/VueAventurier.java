@@ -46,7 +46,7 @@ public class VueAventurier extends Observable {
      */
     public VueAventurier(VueGrille v){
         window = new JFrame();
-        window.setSize(1080, 720);
+        window.setSize(1380,800);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
         window.setTitle("Ile interdite");
         window.add(panelPrincipal);

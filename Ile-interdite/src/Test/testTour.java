@@ -7,6 +7,7 @@ package Test;
 
 import java.util.ArrayList;
 import ileInterdite.controleur.Controleur;
+import static java.util.Collections.reverse;
 
 /**
  *
@@ -18,11 +19,13 @@ public class testTour {
         ArrayList<String> nomTuiles = nomsDesTuiles();
        
         ArrayList <String> avens=new ArrayList<>();
-        // initializing  4 players
+        // initializing  6 players
         avens.add("clement");
         avens.add("Guillaume");
         avens.add("Alexis");
         avens.add("Lois");
+        avens.add("Haozhu");
+        avens.add("Patate");
         
         Controleur ctrl = new Controleur(avens, nomTuiles);
     }
@@ -33,11 +36,11 @@ public class testTour {
         ndt.add("La Porte de Bronze");
         ndt.add("La Caverne des Ombres");
         ndt.add("La Porte de Fer");
-        ndt.add("La Porte d’Or");
-        ndt.add("Les Falaises de l’Oubli");
+        ndt.add("La Porte d'Or");
+        ndt.add("Les Falaises de l'Oubli");
         ndt.add("Le Palais de Corail");
-        ndt.add("La Porte d’Argent");
-        ndt.add("Les Dunes de l’Illusion");
+        ndt.add("La Porte d'Argent");
+        ndt.add("Les Dunes de l'Illusion");
         ndt.add("Heliport");
         ndt.add("La Porte de Cuivre");
         ndt.add("Le Jardin des Hurlements");
@@ -53,7 +56,8 @@ public class testTour {
         ndt.add("Le Val du Crepuscule");
         ndt.add("La Tour du Guet");
         ndt.add("Le Jardin des Murmures");
-        return (ndt);
+        reverse(ndt);
+        return ndt;
        
     }
 }

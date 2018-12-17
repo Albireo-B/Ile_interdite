@@ -24,13 +24,10 @@ public abstract class Aventurier {
     private Pion pion;
     
     public Aventurier(String nom,Tuile tuile) {
-<<<<<<< HEAD
         this.tuile=tuile;
         setNomJoueur(nom);
-=======
         this.tuile = tuile;
         nomJoueur = nom;
->>>>>>> 1c48084db385905fb5b6db1c614682d155fdfa7a
         reset();
     }
 

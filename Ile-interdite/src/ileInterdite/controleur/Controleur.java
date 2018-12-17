@@ -60,10 +60,12 @@ public class Controleur implements Observer {
         vueGrille.addObserver(this);
 
         ArrayList<Role> roles = new ArrayList();
-        roles.add(Role.Pilote);
+        roles.add(Role.Navigateur);
         roles.add(Role.Explorateur);
-        roles.add(Role.Ingénieur);
+        roles.add(Role.Messager);
         roles.add(Role.Plongeur);
+        roles.add(Role.Pilote);
+        roles.add(Role.Ingénieur);
         setRoles(nomsjoueurs,roles);
         aventurierCourant = joueurs.get(0);
 
@@ -72,19 +74,28 @@ public class Controleur implements Observer {
             vueGrille.actualiserPositionJoueur(j.getPosition(), null, j.getPion());
         }
 
-        grille.getTuile(new Position(3, 0)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(3, 1)).setEtat(EtatTuile.COULEE);
-        grille.getTuile(new Position(3, 2)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(3, 3)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(2, 3)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(2, 2)).setEtat(EtatTuile.INONDEE);
         
-        vueGrille.actualiserEtatTuile(new Position(3, 0), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(3, 1), EtatTuile.COULEE);
-        vueGrille.actualiserEtatTuile(new Position(3, 2), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(3, 3), EtatTuile.INONDEE);
+        grille.getTuile(new Position(3, 2)).setEtat(EtatTuile.COULEE);
+        grille.getTuile(new Position(3, 3)).setEtat(EtatTuile.COULEE);
+        grille.getTuile(new Position(3, 4)).setEtat(EtatTuile.COULEE);
+        grille.getTuile(new Position(1, 3)).setEtat(EtatTuile.COULEE);
+        grille.getTuile(new Position(0, 3)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(2, 3)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(2, 5)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(4, 3)).setEtat(EtatTuile.INONDEE);
+        grille.getTuile(new Position(2, 0)).setEtat(EtatTuile.INONDEE);
+        
+        
+        vueGrille.actualiserEtatTuile(new Position(3, 2), EtatTuile.COULEE);
+        vueGrille.actualiserEtatTuile(new Position(3, 3), EtatTuile.COULEE);
+        vueGrille.actualiserEtatTuile(new Position(3, 4), EtatTuile.COULEE);
+        vueGrille.actualiserEtatTuile(new Position(1, 3), EtatTuile.COULEE);
+        vueGrille.actualiserEtatTuile(new Position(0, 3), EtatTuile.INONDEE);
         vueGrille.actualiserEtatTuile(new Position(2, 3), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(2, 2), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(2, 5), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(4, 3), EtatTuile.INONDEE);
+        vueGrille.actualiserEtatTuile(new Position(2, 0), EtatTuile.INONDEE);
+        
 
         // Création de la vue aventurier
         vueAventurier = new VueAventurier(vueGrille);
