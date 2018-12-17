@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite;
+package ileInterdite.vues;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -61,6 +61,10 @@ public class BoutonTuile extends JPanel {
             couleurs.get(couleursJoueurs.size()).setBackground(j);
             couleursJoueurs.add(new Color(j.getRGB()));
         }
+    }
+    
+    public void setButtonForeground(Color c) {
+        bouton.setForeground(c);
     }
     
     public void setButtonBackground(Color c) {

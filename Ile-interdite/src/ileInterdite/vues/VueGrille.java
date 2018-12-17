@@ -6,12 +6,11 @@
 package ileInterdite.vues;
 
 
-import ileInterdite.BoutonTuile;
-import ileInterdite.EtatTuile;
-import ileInterdite.Grille;
-import ileInterdite.Position;
-import ileInterdite.actions.Action;
-import ileInterdite.aventurier.Pion;
+import ileInterdite.model.EtatTuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Position;
+import ileInterdite.message.Action;
+import ileInterdite.model.aventurier.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -110,15 +109,26 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
+<<<<<<< HEAD
                 bouton.setButtonBackground(myBlue);
+=======
+                bouton.setButtonForeground(Color.WHITE);
+                bouton.setButtonBackground(Color.BLUE);
+>>>>>>> 92c5e46b4599434022066af57be58148fe298a39
                 break;
             case SECHE:
                 bouton.setButtonEnabled(true);
+                bouton.setButtonForeground(Color.BLACK);
                 bouton.setButtonBackground(Color.WHITE);
                 break;
             case INONDEE:
                 bouton.setButtonEnabled(true);
+<<<<<<< HEAD
                 bouton.setButtonBackground(myCyan);
+=======
+                bouton.setButtonForeground(Color.WHITE);
+                bouton.setButtonBackground(Color.CYAN);
+>>>>>>> 92c5e46b4599434022066af57be58148fe298a39
                 break;
         }
     }
