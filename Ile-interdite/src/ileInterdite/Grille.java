@@ -34,7 +34,6 @@ public class Grille {
      *    \/4    x  x  x  x
      *      5       x  x
      * @param nomTuiles
-     * @param aventuriers
     */
     public Grille(ArrayList<String> nomTuiles) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
@@ -182,11 +181,10 @@ public class Grille {
 
             
             
-        while(!tuileNonVerifiees.isEmpty() && tuileAccessibles.size()<24)
-        {
+        while(!tuileNonVerifiees.isEmpty()){ //&& tuileAccessibles.size()<24)
            
             
-            for (int i=0;i<tuilesAVerifier.size();i++) {          //(Tuile tNew : tuilesAVerifier) {
+            for (int i=0;i<tuilesAVerifier.size();i++) {         
                 if  (tuilesAVerifier.get(i).getEtat()==EtatTuile.SECHE || tuilesAVerifier.get(i).getEtat()==EtatTuile.INONDEE){
                      System.out.println("a");
                     tuileAccessibles.add((tuilesAVerifier.get(i)));
@@ -204,7 +202,7 @@ public class Grille {
             tuileAccessibles.add(tuileVerifiee);
             tuileNonVerifiees.remove(0);
             
-            System.out.println("loop");
+            
         }
         
         return tuileAccessibles;

@@ -116,7 +116,6 @@ public class Controleur implements Observer {
             posTuiles.add(t.getPosition());
         }
         getVueGrille().actualiserBoutonsCliquables(posTuiles, act);
-        System.out.println(getAventurierCourant().getPouvoir());
     }
 
     /**
@@ -185,7 +184,7 @@ public class Controleur implements Observer {
                 //Si l'aventurier en train de jouer est un pilote
                 if (getAventurierCourant() instanceof Pilote && getAventurierCourant().getPouvoir()) {
                     Pilote p = (Pilote) getAventurierCourant();
-                        p.setPositionPilote(getGrille(), getGrille().getTuile(messagepos.getPos()));
+                    p.setPositionPilote(getGrille(), getGrille().getTuile(messagepos.getPos()));
 
                 } else {
                     getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
@@ -221,7 +220,6 @@ public class Controleur implements Observer {
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(), getAventurierCourant().getRole(), getAventurierCourant().getPion().getCouleur(), getAventurierCourant().getNbAction());
     
         ArrayList<Tuile> casesAssechables = getAventurierCourant().calculAssechement(getGrille());
-        System.out.println(casesAssechables);
         // Si l'aventurier a moins de 1 action ou qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
         if (getAventurierCourant().getNbAction() < 1  && !(getAventurierCourant() instanceof Ingenieur && !(getAventurierCourant().getPouvoir()) && !casesAssechables.isEmpty()) ) {
             nextTurn();
