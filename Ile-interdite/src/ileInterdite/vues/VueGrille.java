@@ -30,6 +30,8 @@ public class VueGrille extends Observable {
    
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
+    private Color myBlue = new Color(0, 43, 128);
+    private Color myCyan = new Color(0, 96, 128);
     
     /**
      * On définit le constructeur de VueGrille
@@ -108,7 +110,7 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
-                bouton.setButtonBackground(Color.BLUE);
+                bouton.setButtonBackground(myBlue);
                 break;
             case SECHE:
                 bouton.setButtonEnabled(true);
@@ -116,7 +118,7 @@ public class VueGrille extends Observable {
                 break;
             case INONDEE:
                 bouton.setButtonEnabled(true);
-                bouton.setButtonBackground(Color.CYAN);
+                bouton.setButtonBackground(myCyan);
                 break;
         }
     }
