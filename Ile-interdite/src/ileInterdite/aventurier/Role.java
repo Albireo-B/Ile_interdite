@@ -17,17 +17,16 @@ public enum Role {
     Navigateur("La Porte d'Or"),
     Plongeur("La Porte de Fer");
     
-    private String caseDépart;
+    private String caseDepart;
     
-    Role (String caseDépart){
-    this.caseDépart = caseDépart;
-}
+    Role (String caseDepart){
+        this.caseDepart = caseDepart;
+    }
 
     /**
      * @return the caseDépart
      */
-    public String getCaseDépart() {
-        return caseDépart;
+    public String getCaseDepart() {
+        return caseDepart;
     }
-    
 }

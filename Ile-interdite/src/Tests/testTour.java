@@ -26,10 +26,6 @@ public class testTour {
         avens.add("Lois");
 
         Controleur ctrl = new Controleur(avens, nomTuiles);
-                
-        
-        
-        
     }
         
     static public ArrayList<String> nomsDesTuiles() {

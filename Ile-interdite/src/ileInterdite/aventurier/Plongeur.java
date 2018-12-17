@@ -21,7 +21,7 @@ public class Plongeur extends Aventurier {
      * @param nom 
      */
     public Plongeur(String nom,Tuile tuile){
-       super(nom,tuile);   
+       super(nom,tuile);
        setRole(Role.Plongeur);
        setPion(Pion.VIOLET);
     }
@@ -35,6 +35,4 @@ public class Plongeur extends Aventurier {
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesAccessiblesPlongeur(getTuile());
     }
-    
-
 }

@@ -68,7 +68,7 @@ public abstract class Aventurier {
      * Fais diminuer le nombre d'actions de 1
      */
     public void decremente(){
-        this.setNbAction(getNbAction()-1);
+        setNbAction(getNbAction()-1);
     }
 
     /**
@@ -89,7 +89,7 @@ public abstract class Aventurier {
     
     
     public Position getPosition() {
-        return this.tuile.getPosition();
+        return tuile.getPosition();
     }
     
       /**

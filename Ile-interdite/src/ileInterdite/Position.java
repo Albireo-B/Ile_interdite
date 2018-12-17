@@ -35,7 +35,7 @@ public class Position {
 
         if (object != null && object instanceof Position)
         {
-            isEqual = (this.getX() == ((Position) object).getX() && this.getY() == ((Position) object).getY());
+            isEqual = (x == ((Position) object).getX() && y == ((Position) object).getY());
         }
 
         return isEqual;
@@ -43,7 +43,7 @@ public class Position {
 
     @Override
     public int hashCode() {
-        return this.getX();
+        return getX();
     }
 
     //Getters et Setters :

@@ -45,11 +45,13 @@ public class Explorateur extends Aventurier {
     @Override
       public ArrayList<Tuile> calculAssechement(Grille g){
         ArrayList<Tuile> liste = new ArrayList<Tuile>();
-            if (getTuile().getEtat()==EtatTuile.INONDEE){
-                liste.add(getTuile());
-            }
+        
+        if (getTuile().getEtat() == EtatTuile.INONDEE){
+            liste.add(getTuile());
+        }
+        
         for (Tuile t : g.tuilesAdjacentesCarre(getTuile())){
-            if (t.getEtat()==EtatTuile.INONDEE){
+            if (t.getEtat() == EtatTuile.INONDEE){
                 liste.add(t);
             }
         }
