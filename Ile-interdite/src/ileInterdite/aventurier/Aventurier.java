@@ -77,11 +77,10 @@ public abstract class Aventurier {
      * @param tuile
     */
     public void setTuile(Tuile tuile){
-        if (this.tuile != null)
-            getTuile().removeAventurier(this);
         
-        tuile.addAventurier(this);
-        this.tuile = tuile;
+            getTuile().removeAventurier(this);
+            tuile.addAventurier(this);
+            this.tuile = tuile;
     }
     
     
