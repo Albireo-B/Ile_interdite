@@ -19,13 +19,11 @@ public class testTour {
         ArrayList<String> nomTuiles = nomsDesTuiles();
        
         ArrayList <String> avens=new ArrayList<>();
-        // initializing  6 players
-        avens.add("clement");
-        avens.add("Guillaume");
-        avens.add("Alexis");
+        // initializing  4 players
         avens.add("Lois");
-        avens.add("Haozhu");
-        avens.add("Patate");
+        avens.add("Alexis");
+        avens.add("Guillaume");
+        avens.add("Clement");
         
         Controleur ctrl = new Controleur(avens, nomTuiles);
     }

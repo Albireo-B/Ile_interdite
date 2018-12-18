@@ -60,9 +60,7 @@ public class Controleur implements Observer {
         vueGrille.addObserver(this);
 
         ArrayList<Role> roles = new ArrayList();
-        roles.add(Role.Navigateur);
         roles.add(Role.Explorateur);
-        roles.add(Role.Messager);
         roles.add(Role.Plongeur);
         roles.add(Role.Pilote);
         roles.add(Role.Ingénieur);
