@@ -126,6 +126,27 @@ public class Controleur implements Observer {
         proposerTuiles(getAventurierCourant().calculAssechement(getGrille()), Action.ASSECHER);
     }
 
+    
+    /**
+     * Fonction globale qui gère l'inondation de fin de tour
+     */
+    public void gererInondation() {
+        
+        for (CarteInondation carteAInonder : tirerCartesInondation()){
+            for (Tuile tuile : grille.getToutesTuiles()){
+                if (tuile.getNom().equals(carteAInonder.getNom())){
+                    if (tuile.getEtat()==EtatTuile.INONDEE){
+                        tuile.setEtat(EtatTuile.COULEE);
+                    } else {
+                        tuile.setEtat(EtatTuile.INONDEE);
+                        defausseInondation.add(carteAInonder);
+                    }
+                }
+            }
+        }
+    }
+
+    
     /**
      * Affiche les cases possibles en les rendant cliquables avec une liste de
      * tuiles et une action
@@ -157,6 +178,8 @@ public class Controleur implements Observer {
      */
     public void nextTurn() {
         getAventurierCourant().reset();
+        tirerCartes();
+        gererInondation();
         aventurierSuivant();
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
@@ -293,32 +316,48 @@ public class Controleur implements Observer {
         return a;
     }
     
+    /**
+    * On remet les cartes de la défausse sur le haut de la pioche des cartes d'inondation
+    * puis on pioches dans cette pioche un nombre de cartes dépendant du niveau d'eau
+    * @return une liste de CarteInondation
+    */
     public ArrayList<CarteInondation> tirerCartesInondation(){
         ArrayList<CarteInondation> cartesTirees = new ArrayList<>();
-        for (CarteInondation carteDefausse : getDefausseInondation()){
-            getPiocheInondation().add(carteDefausse);
-            getDefausseInondation().remove(carteDefausse);
+        //1,2 -> 2 cartes
+        //3,4,5 -> 3 cartes
+        //6,7 -> 4 cartes
+        //8,9 -> 5 cartes
+        int j = 2;
+        if (niveauEau<8){
+        j += niveauEau / 3;}
+        else{
+            j = 5;
         }
-        for (int i=1;i<=niveauEau;i++){
-            cartesTirees.add(getPiocheInondation().get(getPiocheInondation().size()-i));
+        
+        for (int i=0;i<j;i++){
+            cartesTirees.add(piocheInondation.get(piocheInondation.size()-1));
+            piocheInondation.remove(piocheInondation.size()-1);
         }
         return cartesTirees;       
     }
-    
         
-    
-      public void tirerCartes(){
-                   
+    /**
+     * On tire 2 cartes qu'on donne a l'aventurier courant
+    */
+    public void tirerCartes(){
+        ArrayList<CarteTirage> cartes = new ArrayList<>();
+        for (int i=0;i<2;i++){
+            cartes.add(piocheTirage.get(piocheTirage.size()-1));
+            piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));
+        }
+        aventurierCourant.addCartes(cartes);
     }
     
-    
-    public void defausserCarte(CarteTirage carte){
-        aventurierCourant.getCartes().remove(carte);
-        defausseTirage.add(carte);
-    }
-  
 
+   
     //Getters et Setters :
+    
+    
     /**
      * @return the joueurs
      */

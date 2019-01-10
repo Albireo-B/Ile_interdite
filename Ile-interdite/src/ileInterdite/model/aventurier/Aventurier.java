@@ -88,7 +88,26 @@ public abstract class Aventurier {
         this.tuile = tuile;
     }
 
-        //Getters et Setters :
+    
+    public void addCartes(ArrayList<CarteTirage> cartes){
+        for (CarteTirage c : cartes){
+        cartes.add(c);
+        }
+        if (cartes.size()>5){
+            defausserCarte();
+        }
+    }
+    
+   
+    public void defausserCarte(CarteTirage carte){
+        cartes().remove(carte);
+        defausseTirage.add(carte);
+    }
+  
+
+   
+    
+    //Getters et Setters :
     
     
     public Position getPosition() {
