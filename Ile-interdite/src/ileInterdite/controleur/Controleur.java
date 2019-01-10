@@ -123,7 +123,7 @@ public class Controleur implements Observer {
      */
     public void aventurierSuivant() {
 
-        setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % 4));
+        setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % joueurs.size()));
     }
 
     /**
