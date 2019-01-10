@@ -14,7 +14,7 @@ import ileInterdite.model.aventurier.Plongeur;
 import ileInterdite.model.aventurier.Ingenieur;
 import ileInterdite.model.aventurier.Aventurier;
 import utilitaires.Action;
-import ileInterdite.model.EtatTuile;
+import utilitaires.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
