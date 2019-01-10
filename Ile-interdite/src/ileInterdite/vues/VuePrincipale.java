@@ -5,7 +5,6 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.message.Action;
 import ileInterdite.model.aventurier.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
@@ -20,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import utilitaires.Action;
 
 /**
  *

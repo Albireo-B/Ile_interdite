@@ -10,8 +10,9 @@ package ileInterdite.model.cartes;
  * @author vinetg
  */
 public class CarteTirage {
-    //20 cartes trésors (5 pour chacun)
-    //2 cartes montée des eaux 
-    //3 cartes hélicoptère
-    //2 cartes sacs de sable
+    private Boolean utilisable;
+    
+    public CarteTirage(Boolean utilisable){
+        this.utilisable=utilisable;
+    }
 }

@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.model.cartes;
+package ileInterdite.vues;
 
 /**
  *
- * @author vinetg
+ * @author daiha
  */
-public class CarteTresor extends CarteTirage {
+public class vueTableauDeBord {
     
-    public CarteTresor(Boolean utilisable){
-        super(utilisable);
-    }
 }

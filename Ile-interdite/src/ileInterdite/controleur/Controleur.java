@@ -22,6 +22,7 @@ import ileInterdite.message.*;
 import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
+import ileInterdite.vues.VuePrincipale;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,7 +32,7 @@ import java.util.Observer;
  */
 public class Controleur implements Observer {
 
-    private VueAventurier vueAventurier;
+    private VuePrincipale vueAventurier;
     private VueGrille vueGrille;
     private ArrayList<Aventurier> joueurs = new ArrayList<>();//à modifier en [4]
     private Grille grille;
@@ -101,7 +102,7 @@ public class Controleur implements Observer {
         
 
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(getVueGrille());
+        vueAventurier = new VuePrincipale(getVueGrille());
         vueAventurier.addObserver(this);
         vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
@@ -312,14 +313,14 @@ public class Controleur implements Observer {
     /**
      * @return the vueAventurier
      */
-    public VueAventurier getVueAventurier() {
+    public VuePrincipale getVueAventurier() {
         return vueAventurier;
     }
 
     /**
      * @param vueAventurier the vueAventurier to set
      */
-    public void setVueAventurier(VueAventurier vueAventurier) {
+    public void setVueAventurier(VuePrincipale vueAventurier) {
         this.vueAventurier = vueAventurier;
     }
 
