@@ -5,16 +5,9 @@
  */
 package ileInterdite.controleur;
 
-import ileInterdite.model.aventurier.Navigateur;
-import ileInterdite.model.aventurier.Messager;
-import ileInterdite.model.aventurier.Pilote;
-import ileInterdite.model.aventurier.Role;
-import ileInterdite.model.aventurier.Explorateur;
-import ileInterdite.model.aventurier.Plongeur;
-import ileInterdite.model.aventurier.Ingenieur;
-import ileInterdite.model.aventurier.Aventurier;
-import utilitaires.Action;
-import utilitaires.EtatTuile;
+
+import ileInterdite.model.aventurier.*;
+import utilitaires.*;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
@@ -62,6 +55,11 @@ public class Controleur implements Observer {
             nomsTuiles.add(t.getNom());
         }
 
+        for (int i=0;i<nomsTuiles.size();i++){
+            piocheInondation[i]=new CarteInondation(nomsTuiles.get(i));
+        }
+        
+        
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
 
