@@ -5,11 +5,15 @@
  */
 package ileInterdite.model.cartes;
 
+import utilitaires.*;
+
 /**
  *
  * @author vinetg
  */
 public class CarteTresor extends CarteTirage {
+    
+    private Tresor tresor;
     
     public CarteTresor(Boolean utilisable){
         super(utilisable);
