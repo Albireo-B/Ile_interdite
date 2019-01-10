@@ -11,4 +11,10 @@ package ileInterdite.model.cartes;
  */
 public class CarteTirage {
     
+
+    private Boolean utilisable;
+    
+    public CarteTirage(Boolean utilisable){
+        
+    }
 }
