@@ -15,6 +15,7 @@ public class CarteTirage {
     private Boolean utilisable;
     
     public CarteTirage(Boolean utilisable){
-        
+        this.utilisable=utilisable;
     }
+    
 }

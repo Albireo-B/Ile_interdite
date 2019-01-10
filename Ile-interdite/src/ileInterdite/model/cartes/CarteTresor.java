@@ -11,4 +11,7 @@ package ileInterdite.model.cartes;
  */
 public class CarteTresor extends CarteTirage {
     
+    public CarteTresor(Boolean utilisable){
+        super(utilisable);
+    }
 }

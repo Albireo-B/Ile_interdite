@@ -11,4 +11,7 @@ package ileInterdite.model.cartes;
  */
 public class CarteHelicoptere extends CarteTirage {
     
+    public CarteHelicoptere(Boolean utilisable){
+        super(utilisable);
+    }
 }
