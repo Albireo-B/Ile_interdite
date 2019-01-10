@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.message;
+package utilitaires;
 
 /**
  *
@@ -12,5 +12,8 @@ package ileInterdite.message;
 public enum Action {
     ASSECHER,
     DEPLACER,
-    TERMINER
+    TERMINER,
+    DONNER,
+    RECUPERER_TRESOR;
+    
 }

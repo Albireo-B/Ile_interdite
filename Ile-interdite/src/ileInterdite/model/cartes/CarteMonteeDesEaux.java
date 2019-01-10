@@ -9,6 +9,6 @@ package ileInterdite.model.cartes;
  *
  * @author vinetg
  */
-public class CarteMonteeDesEaux {
+public class CarteMonteeDesEaux extends CarteTirage {
     
 }

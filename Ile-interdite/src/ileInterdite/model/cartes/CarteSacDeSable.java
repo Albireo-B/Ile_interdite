@@ -9,6 +9,6 @@ package ileInterdite.model.cartes;
  *
  * @author vinetg
  */
-public class CarteSacDeSable {
+public class CarteSacDeSable extends CarteTirage {
     
 }

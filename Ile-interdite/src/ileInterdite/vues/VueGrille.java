@@ -9,7 +9,7 @@ package ileInterdite.vues;
 import ileInterdite.model.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
-import ileInterdite.message.Action;
+import utilitaires.Action;
 import ileInterdite.model.aventurier.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;

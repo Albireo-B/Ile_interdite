@@ -13,7 +13,7 @@ import ileInterdite.model.aventurier.Explorateur;
 import ileInterdite.model.aventurier.Plongeur;
 import ileInterdite.model.aventurier.Ingenieur;
 import ileInterdite.model.aventurier.Aventurier;
-import ileInterdite.message.Action;
+import utilitaires.Action;
 import ileInterdite.model.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;

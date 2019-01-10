@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.model.cartes;
+package utilitaires;
 
 /**
  *
  * @author vinetg
  */
-public class CarteHelicoptere extends CarteTirage {
-    
+public enum Tresor {
+    PIERRE,
+    ZEPHYR,
+    CRISTAL,
+    CALICE;
 }
