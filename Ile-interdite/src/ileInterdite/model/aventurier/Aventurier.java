@@ -5,14 +5,13 @@
  */
 package ileInterdite.model.aventurier;
 
-import utilitaires.Pion;
-import utilitaires.EtatTuile;
+import utilitaires.*;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
 import ileInterdite.model.cartes.*;
-import ileInterdite.controleur.*;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -89,21 +88,14 @@ public abstract class Aventurier {
     }
 
     
-    public void addCartes(ArrayList<CarteTirage> cartes){
+    public void addCartes(ArrayList<CarteTirage> cartes) throws ExceptionAventurier{
         for (CarteTirage c : cartes){
         cartes.add(c);
         }
         if (cartes.size()>5){
-            defausserCarte();
+            throw new ExceptionAventurier(this);
         }
     }
-    
-   
-    public void defausserCarte(CarteTirage carte){
-        cartes().remove(carte);
-        defausseTirage.add(carte);
-    }
-  
 
    
     

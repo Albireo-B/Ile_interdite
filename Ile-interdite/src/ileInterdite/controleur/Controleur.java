@@ -350,10 +350,17 @@ public class Controleur implements Observer {
             cartes.add(piocheTirage.get(piocheTirage.size()-1));
             piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));
         }
+        try{
         aventurierCourant.addCartes(cartes);
+        } catch (ExceptionAventurier e) { 
+            defausseCartes(e.getAventurier());
+        }
     }
     
 
+    public void defausseCartes(Aventurier aventurier){
+        //à compléter        
+    }
    
     //Getters et Setters :
     
