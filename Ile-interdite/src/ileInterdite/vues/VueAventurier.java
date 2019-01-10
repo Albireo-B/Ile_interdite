@@ -131,11 +131,7 @@ public class VueAventurier {
             
             VueAventurier ihm=new VueAventurier();
             ihm.affiche();
-    
-            
 
-
-        
     }
     
 }
