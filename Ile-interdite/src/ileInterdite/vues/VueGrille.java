@@ -6,12 +6,11 @@
 package ileInterdite.vues;
 
 
-import ileInterdite.BoutonTuile;
-import ileInterdite.EtatTuile;
-import ileInterdite.Grille;
-import ileInterdite.Position;
-import ileInterdite.actions.Action;
-import ileInterdite.aventurier.Pion;
+import utilitaires.EtatTuile;
+import ileInterdite.model.Grille;
+import ileInterdite.model.Position;
+import utilitaires.Action;
+import utilitaires.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -30,6 +29,9 @@ public class VueGrille extends Observable {
    
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
+    private Color myBlue = new Color(30, 73, 158);
+    private Color myCyan = new Color(20, 136, 148);
+    private Color myRed = new Color(255, 77, 77);
     
     /**
      * On définit le constructeur de VueGrille
@@ -42,14 +44,15 @@ public class VueGrille extends Observable {
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
         
         for (int y = 0; y < 6; y++) {
-            for (int x = 0; x < 6 ; x++) {
+            for (int x = 5; x >-1 ; x--) {
                 Position pos = new Position(x, y);
                 if (positionTuiles.contains(pos)) {
                     if (positions.contains(pos)) {
                         String nom = noms.get(positions.indexOf(pos));
-                        bTuiles.put(pos, new BoutonTuile(nom));
-                    
-                        panelGrille.add(bTuiles.get(pos));
+                        BoutonTuile bouton = new BoutonTuile(nom);
+                        bTuiles.put(pos, bouton);
+                        bouton.setButtonBackground(Color.WHITE);
+                        panelGrille.add(bouton);
                     }
                     else {
                         System.out.println("Il vous manque une case ou quoi?");
@@ -70,7 +73,7 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
-                bouton.getBouton().setForeground(Color.BLACK);
+                bouton.resetForeground();
             }
         }
     }
@@ -83,18 +86,15 @@ public class VueGrille extends Observable {
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
-                
                 BoutonTuile bouton = bTuiles.get(pos);
 
-                bouton.getBouton().setForeground(Color.RED);
+                bouton.getBouton().setForeground(myRed);
                 
                 bouton.addActionListener((ActionEvent e) -> {
-                
                     setChanged();
                     notifyObservers(new MessagePos(act, pos));
                     clearChanged();
                 });
-                
             }
         }
     }
@@ -109,15 +109,18 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
-                bouton.setButtonBackground(Color.BLUE);
+                bouton.setButtonBackground(myBlue);
+                bouton.setButtonForeground(Color.WHITE);
                 break;
             case SECHE:
                 bouton.setButtonEnabled(true);
-                bouton.setButtonBackground(Color.LIGHT_GRAY);
+                bouton.setButtonForeground(Color.BLACK);
+                bouton.setButtonBackground(Color.WHITE);
                 break;
             case INONDEE:
                 bouton.setButtonEnabled(true);
-                bouton.setButtonBackground(Color.CYAN);
+                bouton.setButtonBackground(myCyan);
+                bouton.setButtonForeground(Color.WHITE);
                 break;
         }
     }
@@ -135,8 +138,6 @@ public class VueGrille extends Observable {
         bTuiles.get(position).addAventurier(p.getCouleur());
     }
     
-    
-        
     //Getters et Setters :
     
     /**

@@ -5,7 +5,7 @@
  */
 package ileInterdite.message;
 
-import ileInterdite.actions.*;
+import utilitaires.Action;
 
 /**
  *
@@ -13,19 +13,16 @@ import ileInterdite.actions.*;
  */
 public class Message {
     private Action action;
-        
     
     /**
      * On définit le constructeur de message avec une action Action
      * @param action 
      */
     public Message(Action action){
-        setAction(action);
+        this.action = action;
     }
 
-    
     //Getters et Setters :
-    
     
     /**
      * @return the action

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.aventurier;
+package ileInterdite.model.aventurier;
 
-import ileInterdite.Tuile;
+import utilitaires.Pion;
+import ileInterdite.model.Tuile;
 
 /**
  *
@@ -19,8 +20,8 @@ public class Ingenieur extends Aventurier {
      * @param tuile
      * @param nom 
      */
-    public Ingenieur(String nom,Tuile tuile){
-       super(nom,tuile);   
+    public Ingenieur(String nom, Tuile tuile){
+       super(nom, tuile);   
        setRole(Role.Ingénieur);
        setPion(Pion.ROUGE);
     }

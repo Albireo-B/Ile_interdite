@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.aventurier;
+package ileInterdite.model.aventurier;
 
-import ileInterdite.Tuile;
+import utilitaires.Pion;
+import ileInterdite.model.Tuile;
 
 /**
  *
@@ -18,10 +19,10 @@ public class Messager extends Aventurier {
      * @param tuile
      * @param nom
      */
-     public Messager(String nom,Tuile tuile){
+     public Messager(String nom, Tuile tuile){
        super(nom, tuile);   
        setRole(Role.Messager);
-       setPion(Pion.ORANGE);
+       setPion(Pion.GRIS);
     }
      
 }
