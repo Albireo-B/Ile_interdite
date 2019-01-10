@@ -30,7 +30,7 @@ import java.util.Observer;
  */
 public class Controleur implements Observer {
 
-    private VueAventurier vueAventurier;
+    private VuePrincipale vueAventurier;
     private VueGrille vueGrille;
     private ArrayList<Aventurier> joueurs = new ArrayList();
     private Grille grille;
@@ -96,7 +96,7 @@ public class Controleur implements Observer {
         
 
         // Création de la vue aventurier
-        vueAventurier = new VueAventurier(vueGrille);
+        vueAventurier = new VuePrincipale(vueGrille);
         vueAventurier.addObserver(this);
         vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),

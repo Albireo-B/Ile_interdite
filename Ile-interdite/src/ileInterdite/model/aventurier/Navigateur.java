@@ -13,7 +13,6 @@ import ileInterdite.model.Tuile;
  */
 public class Navigateur extends Aventurier {
     
-
     /**
      * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
      * @param tuile
