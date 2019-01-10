@@ -8,14 +8,13 @@ package ileInterdite.controleur;
 
 import ileInterdite.model.aventurier.*;
 import utilitaires.*;
-import ileInterdite.model.Grille;
-import ileInterdite.model.Position;
-import ileInterdite.model.Tuile;
+import ileInterdite.model.*;
 import ileInterdite.message.*;
 import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -347,8 +346,23 @@ public class Controleur implements Observer {
     public void tirerCartes(){
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         for (int i=0;i<2;i++){
-            cartes.add(piocheTirage.get(piocheTirage.size()-1));
-            piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));
+            
+            
+            
+            
+            ArrayList<CarteInondation> cartesARemettreEnPioche= new ArrayList<>();
+            if (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
+                for (CarteInondation carteDefausse : defausseInondation){
+                    cartesARemettreEnPioche.add(carteDefausse);
+                    defausseInondation.remove(carteDefausse);
+                }
+                Collections.shuffle(cartesARemettreEnPioche);
+                piocheInondation.addAll(cartesARemettreEnPioche); 
+                gererInondation();
+            } else {
+                cartes.add(piocheTirage.get(piocheTirage.size()-1));
+            }
+            piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));    
         }
         try{
         aventurierCourant.addCartes(cartes);
