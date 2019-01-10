@@ -32,7 +32,7 @@ public class Controleur implements Observer {
 
     private VueAventurier vueAventurier;
     private VueGrille vueGrille;
-    private ArrayList<Aventurier> joueurs = new ArrayList();
+    private ArrayList<Aventurier> joueurs = new ArrayList<>();
     private Grille grille;
     private Aventurier aventurierCourant;
 
@@ -134,7 +134,6 @@ public class Controleur implements Observer {
         for (Tuile t : ct) {
             posTuiles.add(t.getPosition());
         }
-        
         vueGrille.actualiserBoutonsCliquables(posTuiles, act);
     }
 
@@ -142,7 +141,8 @@ public class Controleur implements Observer {
      * Passe au prochain joueur
      */
     public void aventurierSuivant() {
-        aventurierCourant = joueurs.get((joueurs.indexOf(aventurierCourant) + 1) % joueurs.size());
+
+        aventurierCourant = joueurs.get((joueurs.indexOf(aventurierCourant)+1) % joueurs.size());
     }
 
     /**
@@ -252,23 +252,8 @@ public class Controleur implements Observer {
             nextTurn();
         }
     }
-
-    //Getters et Setters :
-    /**
-     * @return the joueurs
-     */
-    public ArrayList<Aventurier> getJoueurs() {
-        return joueurs;
-    }
-
-    /**
-     * @param joueurs the joueurs to set
-     */
-    public void setJoueurs(ArrayList<Aventurier> joueurs) {
-        this.joueurs = joueurs;
-    }
     
-    public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles){
+        public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles){
         for (Tuile t : grille.getTuiles().values()) {
             for (int i = 0; i < nomsJoueurs.size(); i++) {
                 if (t.getNom().equals(Rôles.get(i).getCaseDepart())) {
@@ -302,4 +287,22 @@ public class Controleur implements Observer {
         }
         return a;
     }
+    
+
+    //Getters et Setters :
+    /**
+     * @return the joueurs
+     */
+    public ArrayList<Aventurier> getJoueurs() {
+        return joueurs;
+    }
+
+    /**
+     * @param joueurs the joueurs to set
+     */
+    public void setJoueurs(ArrayList<Aventurier>joueurs) {
+        this.joueurs = joueurs;
+    }
+    
+
 }
