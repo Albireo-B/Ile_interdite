@@ -30,10 +30,11 @@ public class Controleur implements Observer {
     private ArrayList<Aventurier> joueurs = new ArrayList<>();//à modifier en [4]
     private Grille grille;
     private Aventurier aventurierCourant;
-    private CarteInondation[] piocheInondation=new CarteInondation[24];
-    private CarteInondation[] defausseInondation=new CarteInondation[24];
-    private CarteTirage[] piocheTirage=new CarteTirage[27];
-    private CarteTirage[] defausseTirage=new CarteTirage[27];
+    private ArrayList<CarteInondation> piocheInondation=new ArrayList<>();
+    private ArrayList<CarteInondation> defausseInondation=new ArrayList<>();
+    private ArrayList<CarteTirage> piocheTirage=new ArrayList<>();
+    private ArrayList<CarteTirage> defausseTirage=new ArrayList<>();
+    private int niveauEau;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -55,8 +56,8 @@ public class Controleur implements Observer {
             nomsTuiles.add(t.getNom());
         }
 
-        for (int i=0;i<nomsTuiles.size();i++){
-            piocheInondation[i]=new CarteInondation(nomsTuiles.get(i));
+        for (String nom : nomsTuiles){
+            piocheInondation.add(new CarteInondation(nom));
         }
         
         
@@ -292,6 +293,30 @@ public class Controleur implements Observer {
         return a;
     }
     
+    public ArrayList<CarteInondation> tirerCartesInondation(){
+        ArrayList<CarteInondation> cartesTirees = new ArrayList<>();
+        for (CarteInondation carteDefausse : getDefausseInondation()){
+            getPiocheInondation().add(carteDefausse);
+            getDefausseInondation().remove(carteDefausse);
+        }
+        for (int i=1;i<=niveauEau;i++){
+            cartesTirees.add(getPiocheInondation().get(getPiocheInondation().size()-i));
+        }
+        return cartesTirees;       
+    }
+    
+        
+    
+      public void tirerCartes(){
+                   
+    }
+    
+    
+    public void defausserCarte(CarteTirage carte){
+        aventurierCourant.getCartes().remove(carte);
+        defausseTirage.add(carte);
+    }
+  
 
     //Getters et Setters :
     /**
@@ -363,61 +388,75 @@ public class Controleur implements Observer {
     public void setAventurierCourant(Aventurier aventurierCourant) {
         this.aventurierCourant = aventurierCourant;
     }
+    
+    /**
+     * @return the niveauEau
+     */
+    public int getNiveauEau() {
+        return niveauEau;
+    }
 
     /**
-     * @return the piocheInondation
+     * @param niveauEau the niveauEau to set
      */
-    public CarteInondation[] getPiocheInondation() {
-        return piocheInondation;
+    public void setNiveauEau(int niveauEau) {
+        this.niveauEau = niveauEau;
     }
 
     /**
      * @param piocheInondation the piocheInondation to set
      */
-    public void setPiocheInondation(CarteInondation[] piocheInondation) {
+    public void setPiocheInondation(ArrayList<CarteInondation> piocheInondation) {
         this.piocheInondation = piocheInondation;
-    }
-
-    /**
-     * @return the defausseInondation
-     */
-    public CarteInondation[] getDefausseInondation() {
-        return defausseInondation;
     }
 
     /**
      * @param defausseInondation the defausseInondation to set
      */
-    public void setDefausseInondation(CarteInondation[] defausseInondation) {
+    public void setDefausseInondation(ArrayList<CarteInondation> defausseInondation) {
         this.defausseInondation = defausseInondation;
-    }
-
-    /**
-     * @return the piocheTirage
-     */
-    public CarteTirage[] getPiocheTirage() {
-        return piocheTirage;
     }
 
     /**
      * @param piocheTirage the piocheTirage to set
      */
-    public void setPiocheTirage(CarteTirage[] piocheTirage) {
+    public void setPiocheTirage(ArrayList<CarteTirage> piocheTirage) {
         this.piocheTirage = piocheTirage;
-    }
-
-    /**
-     * @return the defausseTirage
-     */
-    public CarteTirage[] getDefausseTirage() {
-        return defausseTirage;
     }
 
     /**
      * @param defausseTirage the defausseTirage to set
      */
-    public void setDefausseTirage(CarteTirage[] defausseTirage) {
+    public void setDefausseTirage(ArrayList<CarteTirage> defausseTirage) {
         this.defausseTirage = defausseTirage;
+    }
+
+    /**
+     * @return the piocheInondation
+     */
+    public ArrayList<CarteInondation> getPiocheInondation() {
+        return piocheInondation;
+    }
+
+    /**
+     * @return the defausseInondation
+     */
+    public ArrayList<CarteInondation> getDefausseInondation() {
+        return defausseInondation;
+    }
+
+    /**
+     * @return the piocheTirage
+     */
+    public ArrayList<CarteTirage> getPiocheTirage() {
+        return piocheTirage;
+    }
+
+    /**
+     * @return the defausseTirage
+     */
+    public ArrayList<CarteTirage> getDefausseTirage() {
+        return defausseTirage;
     }
     
 

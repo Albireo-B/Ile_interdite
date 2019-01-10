@@ -11,6 +11,7 @@ import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
 import ileInterdite.model.cartes.*;
+import ileInterdite.controleur.*;
 import java.util.ArrayList;
 
 /**
@@ -32,17 +33,6 @@ public abstract class Aventurier {
         this.tuile = tuile;
         reset();
     }
-
-    public void tirerCarteTirage(){
-        
-            
-    }
-    
-    public void defausserCarteTirage(){
-        
-        
-    }
-    
     
     
     /**
@@ -61,10 +51,10 @@ public abstract class Aventurier {
      */
     public ArrayList<Tuile> calculAssechement(Grille g){
         ArrayList<Tuile> liste = new ArrayList();
-        if (tuile.getEtat() == EtatTuile.INONDEE){
+        if (getTuile().getEtat() == EtatTuile.INONDEE){
             liste.add(getTuile());
         }
-        for (Tuile t : g.tuilesAdjacentesCroix(tuile)){
+        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())){
             if (t.getEtat() == EtatTuile.INONDEE){
                 liste.add(t);
             }
@@ -76,7 +66,7 @@ public abstract class Aventurier {
      * On remet le nombre d'actions à 3
      */
     public void reset(){
-        nbAction = 3;
+        setNbAction(3);
         setPouvoir(true);
     }
     
@@ -84,7 +74,7 @@ public abstract class Aventurier {
      * Fais diminuer le nombre d'actions de 1
      */
     public void decremente(){
-        nbAction --;
+        setNbAction(getNbAction() - 1);
     }
 
     /**
@@ -97,12 +87,12 @@ public abstract class Aventurier {
         tuile.addAventurier(this);
         this.tuile = tuile;
     }
-    
-    //Getters et Setters :
+
+        //Getters et Setters :
     
     
     public Position getPosition() {
-        return tuile.getPosition();
+        return getTuile().getPosition();
     }
     
       /**
@@ -173,5 +163,26 @@ public abstract class Aventurier {
      */
     public void setPion(Pion pion) {
         this.pion = pion;
+    }
+
+    /**
+     * @param nbAction the nbAction to set
+     */
+    public void setNbAction(int nbAction) {
+        this.nbAction = nbAction;
+    }
+
+    /**
+     * @return the cartes
+     */
+    public ArrayList<CarteTirage> getCartes() {
+        return cartes;
+    }
+
+    /**
+     * @param cartes the cartes to set
+     */
+    public void setCartes(ArrayList<CarteTirage> cartes) {
+        this.cartes = cartes;
     }
 }
