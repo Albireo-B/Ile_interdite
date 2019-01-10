@@ -24,7 +24,7 @@ public abstract class Aventurier {
     private Role Role;
     private String nomJoueur;
     private Pion pion;
-    private CarteTirage[] cartes=new CarteTirage[9];
+    private ArrayList<CarteTirage> cartes=new ArrayList<>();
     
     public Aventurier(String nomJoueur,Tuile tuile) {
         this.tuile=tuile;
@@ -33,6 +33,18 @@ public abstract class Aventurier {
         reset();
     }
 
+    public void tirerCarteTirage(){
+        
+            
+    }
+    
+    public void defausserCarteTirage(){
+        
+        
+    }
+    
+    
+    
     /**
      * On renvoie la liste des tuiles adjacentes en croix
      * @param g
