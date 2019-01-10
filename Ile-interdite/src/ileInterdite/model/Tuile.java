@@ -5,6 +5,7 @@
  */
 package ileInterdite.model;
 
+import utilitaires.EtatTuile;
 import java.util.ArrayList;
 import ileInterdite.model.aventurier.Aventurier;
 

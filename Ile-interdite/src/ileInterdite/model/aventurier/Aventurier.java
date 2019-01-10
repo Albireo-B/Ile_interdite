@@ -5,10 +5,12 @@
  */
 package ileInterdite.model.aventurier;
 
-import ileInterdite.model.EtatTuile;
+import utilitaires.Pion;
+import utilitaires.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
+import ileInterdite.model.cartes.*;
 import java.util.ArrayList;
 
 /**
@@ -22,12 +24,12 @@ public abstract class Aventurier {
     private Role Role;
     private String nomJoueur;
     private Pion pion;
+    private CarteTirage[] cartes=new CarteTirage[9];
     
-    public Aventurier(String nom,Tuile tuile) {
+    public Aventurier(String nomJoueur,Tuile tuile) {
         this.tuile=tuile;
-        setNomJoueur(nom);
+        this.nomJoueur=nomJoueur;
         this.tuile = tuile;
-        nomJoueur = nom;
         reset();
     }
 

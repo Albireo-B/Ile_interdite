@@ -5,6 +5,7 @@
  */
 package ileInterdite.model.aventurier;
 
+import utilitaires.Pion;
 import ileInterdite.model.Tuile;
 
 /**

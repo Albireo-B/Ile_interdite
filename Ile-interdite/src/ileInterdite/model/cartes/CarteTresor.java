@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.model;
+package ileInterdite.model.cartes;
 
 /**
  *
  * @author vinetg
  */
-public enum EtatTuile {
-    SECHE,
-    INONDEE,
-    COULEE;
+public class CarteTresor extends CarteTirage {
+    
 }

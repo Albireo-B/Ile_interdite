@@ -6,11 +6,11 @@
 package ileInterdite.vues;
 
 
-import ileInterdite.model.EtatTuile;
+import utilitaires.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
-import ileInterdite.message.Action;
-import ileInterdite.model.aventurier.Pion;
+import utilitaires.Action;
+import utilitaires.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
 import java.util.ArrayList;

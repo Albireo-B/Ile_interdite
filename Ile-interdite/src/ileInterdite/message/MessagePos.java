@@ -5,6 +5,7 @@
  */
 package ileInterdite.message;
 
+import utilitaires.Action;
 import ileInterdite.model.Position;
 
 /**
