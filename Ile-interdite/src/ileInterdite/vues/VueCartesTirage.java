@@ -6,7 +6,6 @@
 package ileInterdite.vues;
 
 import ileInterdite.model.cartes.CarteTirage;
-import ileInterdite.model.cartes.CarteTresor;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -29,7 +28,7 @@ public class VueCartesTirage {
     private JPanel paneCarte;
     
     
-    public VueCartesTirage(CarteTirage catre){
+    public VueCartesTirage(CarteTirage carte){
         this.carte=carte;
         
         
