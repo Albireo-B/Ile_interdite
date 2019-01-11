@@ -32,40 +32,26 @@ import javax.swing.border.MatteBorder;
  *
  * @author grosa
  */
-public class VueAventurier {
-    private JFrame fenetre;
+public class VueAventurier extends JPanel{
+   
     private JButton bouger;
     private JPanel paneClass;
     private JPanel paneTresor;
     private JButton assecher;
     private JButton recuperer;
     private JButton donner;
-    private JButton carte1;
-    private JButton carte2;
-    private JButton carte3;
-    private JButton carte4;
-    private JButton carte5;
+
     private ArrayList<JButton> buttonCartes;
-    private JLabel lampe1;
-    private JLabel lampe2;
-    private JLabel lampe3;
-    private JLabel lampe4;
+  
     private ArrayList<JLabel> lampes;
     private String nomAventurier;
+    private JPanel pannelBouttons=new JPanel(new GridLayout(2,2));
     
     
     
     public VueAventurier(String nomAventurier) {
         this.nomAventurier=nomAventurier;
         
-        fenetre=new JFrame();
-        fenetre.setTitle(nomAventurier);
-        
-        fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(600, 500);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        fenetre.setLocation(dim.width/2-fenetre.getSize().width/2, dim.height/2-fenetre.getSize().height/2);
-        fenetre.setResizable(true);
         
         //====================== principal========================
         
@@ -81,7 +67,7 @@ public class VueAventurier {
         recuperer=new JButton("recuperer");
         donner=new JButton("donner");
         
-        JPanel pannelBouttons=new JPanel(new GridLayout(2,2));
+        
         
         pannelBouttons.add(bouger);
         pannelBouttons.add(assecher);
@@ -92,17 +78,12 @@ public class VueAventurier {
         JPanel paneImage=new JPanel();
         paneTresor=new JPanel(new GridLayout(1,4));
         
-        
-        lampe1=new JLabel("aa");
-        lampe2=new JLabel("aa");
-        lampe3=new JLabel("aa");
-        lampe4=new JLabel("aa");
-        
-        paneTresor.add(lampe1);
-        paneTresor.add(lampe2);
-        paneTresor.add(lampe3);
-        paneTresor.add(lampe4);
-        
+        lampes=new ArrayList<>();
+       
+        for (int i=0;i<4;i++){
+        paneTresor.add(lampes.get(i));
+    
+        }
         paneClass.add(paneImage,BorderLayout.CENTER);
         paneClass.add(paneTresor,BorderLayout.SOUTH);
         
@@ -114,45 +95,29 @@ public class VueAventurier {
         //=======================pannel en bas pour afficher les cartes=========
         
         JPanel pannelBas=new JPanel(new GridLayout(1,5));
-                
-        carte1=new JButton("Carte1");
-        carte2=new JButton("Carte2");
-        carte3=new JButton("Carte3");
-        carte4=new JButton("Carte4");
-        carte5=new JButton("Carte5");
         
         
+        buttonCartes=new ArrayList<>();
+        for(int i=0;i<4;i++){
+        pannelBas.add(buttonCartes.get(i));
         
-        pannelBas.add(carte1);
-        pannelBas.add(carte2);
-        pannelBas.add(carte3);
-        pannelBas.add(carte4);
-        pannelBas.add(carte5);
+        }
+
         
         pannelPrincipal.add(pannelHaut);
         pannelPrincipal.add(pannelBas);
-        fenetre.add(pannelPrincipal);
+
     }
     
-      public void affiche(){
-        this.fenetre.setVisible(true);
-    }
+
    
      public void ActualiserAventurier(ArrayList<String> listeCarte){
          int i=0;
          for (String c : listeCarte){
-           buttonCartes.get(i).setText(c);
+            getButtonCartes().get(i).setText(c);
          }
      
     } 
-     
-
-    public static void main(String[] args) {
-        
-        VueAventurier v=new VueAventurier("pilote");
-        v.affiche();
-    }
-
     /**
      * @return the nomAventurier
      */
@@ -165,6 +130,74 @@ public class VueAventurier {
      */
     public void setNomAventurier(String nomAventurier) {
         this.nomAventurier = nomAventurier;
+    }
+
+    /**
+     * @return the bouger
+     */
+    public JButton getBouger() {
+        return bouger;
+    }
+
+    public JButton getAssecher() {
+        return assecher;
+    }
+
+    public JButton getRecuperer() {
+        return recuperer;
+    }
+
+    public JButton getDonner() {
+        return donner;
+    }
+
+    public ArrayList<JButton> getButtonCartes() {
+        return buttonCartes;
+    }
+
+    public ArrayList<JLabel> getLampes() {
+        return lampes;
+    }
+
+    public void setBouger(JButton bouger) {
+        this.bouger = bouger;
+    }
+
+    /**
+     * @param paneClass the paneClass to set
+     */
+    public void setPaneClass(JPanel paneClass) {
+        this.paneClass = paneClass;
+    }
+
+
+    public void setAssecher(JButton assecher) {
+        this.assecher = assecher;
+    }
+
+    public void setRecuperer(JButton recuperer) {
+        this.recuperer = recuperer;
+    }
+
+    public void setDonner(JButton donner) {
+        this.donner = donner;
+    }
+
+    public void setButtonCartes(ArrayList<JButton> buttonCartes) {
+        this.buttonCartes = buttonCartes;
+    }
+
+
+    public void setLampes(ArrayList<JLabel> lampes) {
+        this.lampes = lampes;
+    }
+
+
+    /**
+     * @param pannelBouttons the pannelBouttons to set
+     */
+    public void setPannelBouttons(JPanel pannelBouttons) {
+        this.pannelBouttons = pannelBouttons;
     }
      
      

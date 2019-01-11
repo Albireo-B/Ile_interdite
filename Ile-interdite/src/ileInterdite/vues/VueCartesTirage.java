@@ -67,5 +67,16 @@ public class VueCartesTirage {
         this.fenetre.setVisible(true);
     }
       
-
+      public static void main(String[] args) {
+                  ArrayList<String> listeCartes = new ArrayList<>();
+        listeCartes.add("dia");
+        listeCartes.add("dai");
+        listeCartes.add("iad");
+        listeCartes.add("ida");
+        listeCartes.add("adi");
+        listeCartes.add("aid");
+        VueCartesTirage v=new VueCartesTirage(listeCartes);
+        v.affiche();
+    }
+    
 }
