@@ -178,7 +178,7 @@ public class Controleur implements Observer {
                     System.out.println("2");
                     if (!aventurier.calculDeplacement(grille).isEmpty()){
                         System.out.println("3");
-                        obligerDeplacement(aventurier.calculDeplacement(grille), Action.DEPLACER);
+                        proposerTuiles(aventurier.calculDeplacement(grille), Action.DEPLACER);
                     } else {
                         throw new ExceptionAventurier(aventurier);
                     }
@@ -195,8 +195,9 @@ public class Controleur implements Observer {
     
     /**
      * Force le déplacement d'un joueur, et bloque toutes les autres possibilités
+     * @param ct
      */
-    public void obligerDeplacement(ArrayList<Tuile> ct, {
+    public void obligerDeplacement(ArrayList<Tuile> ct) {
         ArrayList<Position> posTuiles = new ArrayList();
         
         for (Tuile t : ct) {
