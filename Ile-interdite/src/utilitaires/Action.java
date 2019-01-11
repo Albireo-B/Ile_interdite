@@ -14,6 +14,7 @@ public enum Action {
     DEPLACER,
     TERMINER,
     DONNER,
-    RECUPERER_TRESOR;
+    RECUPERER_TRESOR,
+    DEFAUSSER;
     
 }

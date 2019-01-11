@@ -6,6 +6,7 @@
 package ileInterdite.vues;
 
 
+import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utilitaires.Action;
 
 /**
  *
@@ -75,7 +77,7 @@ public class VueDefausse extends Observable{
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
-                    notifyObservers(new Message());
+                    notifyObservers(new MessageCarte(c,Action.DEFAUSSER));
                     clearChanged();
                 }
             });

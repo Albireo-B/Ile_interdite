@@ -316,7 +316,26 @@ public class Controleur implements Observer {
                     getAventurierCourant().decremente();
                 }
             }
+        }  
+        //Si arg est de type MessageCarte
+        if (arg instanceof MessageCarte) {
+            MessageCarte messageCarte = (MessageCarte) arg;
+            CarteTirage carteSelection = null;
+            for (CarteTirage carte : aventurierCourant.getCartes()){
+                if (carte.getNom().equals(messageCarte.getNomCarte())) {
+                    carteSelection=carte;
+                }
+            }
+               
+            if (carteSelection.getUtilisable()){
+                
+            }
+            defausseTirage.add(carteSelection);
         }
+        
+        
+        
+        
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
