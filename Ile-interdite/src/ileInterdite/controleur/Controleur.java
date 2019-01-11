@@ -318,25 +318,30 @@ public class Controleur implements Observer {
             }
         }  
         //Si arg est de type MessageCarte
-//        if (arg instanceof MessageCarte) {
-//            MessageCarte messageCarte = (MessageCarte) arg;
-//            CarteTirage carteSelection = null;
-//            for (CarteTirage carte : aventurierCourant.getCartes()){
-//                if (carte.getNom().equals(messageCarte.getNomCarte())) {
-//                    carteSelection=carte;
-//                }
-//            }
-//               
-//            if (carteSelection.getUtilisable()){
-//                
-//            }
-//            defausseTirage.add(carteSelection);
-//        }
-//        
+        if (arg instanceof MessageCarte) {
+            MessageCarte messageCarte = (MessageCarte) arg;
+            CarteTirage carteSelection = null;
+            for (CarteTirage carte : aventurierCourant.getCartes()){
+                if (carte.getNom().equals(messageCarte.getNomCarte())) {
+                    carteSelection=carte;
+                }
+            }
+               
+            if (carteSelection.getUtilisable()){
+                if(carteSelection instanceof CarteHelicoptere){
+                    
+                } else if (carteSelection instanceof CarteSacDeSable){
+                        
+                }
+            }
+            defausseTirage.add(carteSelection);
+            aventurierCourant.getCartes().remove(carteSelection);
+        }
         
         
         
-        getVuePrincipale().actualiserVue(getAventurierCourant().getNomJoueur(),
+        
+        vueAventurier.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()

@@ -9,10 +9,8 @@ import ileInterdite.model.aventurier.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -34,23 +32,19 @@ public class VuePrincipale extends Observable {
     private JFrame window;
     
     private JPanel panelCentre =  new JPanel(new BorderLayout());
-    
-    private ArrayList<JPanel> panelAventuriers;
+    private JPanel panelAventurier = new JPanel();
     private JPanel panelPrincipal = new JPanel(new BorderLayout());
     
     private JButton btnBouger = new JButton("Bouger");
-    private JButton btnAssecher=new JButton("Assecher");
-    private JButton btnDonner=new JButton("Donner");
-    private JButton btnRecuper=new JButton("Recuper");
+    
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
-   
     
     /**
      * On définit un constructeur de VueAventurier avec une VueGrille v
      * @param v
      */
-    public VuePrincipale(VueGrille v,ArrayList<String> nomsAventuriers){
+    public VuePrincipale(VueGrille v){
         window = new JFrame();
         window.setSize(1380,800);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
@@ -60,19 +54,12 @@ public class VuePrincipale extends Observable {
         panelCentre.add(v.getPanelGrille(), BorderLayout.CENTER);
         
         labelNomJoueur.setForeground(Color.WHITE);
-        
-        JPanel paneGauche=new JPanel(new GridLayout(2,1));
-      
-        
-        JPanel paneDroite=new JPanel(new GridLayout(2,1));
-        
-        panelPrincipal.add(paneGauche,BorderLayout.WEST);
-        panelPrincipal.add(paneDroite,BorderLayout.EAST);
-        
-       
+        panelAventurier.add(labelNomJoueur);
+        panelPrincipal.add(panelAventurier, BorderLayout.NORTH);
         
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
-        //=====================================================================
+        
+        
         JPanel panelBoutons = new JPanel(new GridLayout(2,2));
         
         JButton btnAssecher= new JButton("Assecher");
@@ -102,56 +89,85 @@ public class VuePrincipale extends Observable {
             notifyObservers(new Message(Action.TERMINER));
             clearChanged();
         });
-        
-        
-        
-        //===================pour chaque aventurier different=================
-        
-        panelAventuriers=new ArrayList<>();
-        
-        for(String n: nomsAventuriers){
-           VueAventurier va = new VueAventurier(n);
-           panelAventuriers.add(va);
-           va.setPannelBouttons(panelBoutons);
-        }
-        
-        
-         paneGauche.add(panelAventuriers.get(0));
-         paneGauche.add(panelAventuriers.get(2));
-        
-         paneDroite.add(panelAventuriers.get(1));
-         paneDroite.add(panelAventuriers.get(3));
-        
-        
     }
     
-    public void actualiserVue(int nbAventurier,String nomJoueur, Role classe, Color couleur, int nombrePA) {
+    public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
         if (nombrePA == 0) {
-            btnBouger.setVisible(false);
+            getBtnBouger().setVisible(false);
         }
         else {
-            btnBouger.setVisible(true);
+            getBtnBouger().setVisible(true);
         }
         
-        panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
+        getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
         
-
-        panelAventuriers.get(nbAventurier).setBackground(couleur);
-        labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
+        getPanelAventurier().setBackground(couleur);
+        getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
         
-        panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         
-        labelNbPA.setText("Nombre d'actions restantes : " + nombrePA);
+        getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
         
-        window.setVisible(true);
+        getWindow().setVisible(true);
     }
     
     /**
      * Ferme la fenêtre
      */
     public void close() {
-        window.dispose();
+        getWindow().dispose();
     }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
+
+    /**
+     * @return the panelCentre
+     */
+    public JPanel getPanelCentre() {
+        return panelCentre;
+    }
+
+    /**
+     * @return the panelAventurier
+     */
+    public JPanel getPanelAventurier() {
+        return panelAventurier;
+    }
+
+    /**
+     * @return the panelPrincipal
+     */
+    public JPanel getPanelPrincipal() {
+        return panelPrincipal;
+    }
+
+    /**
+     * @return the btnBouger
+     */
+    public JButton getBtnBouger() {
+        return btnBouger;
+    }
+
+    /**
+     * @return the labelNbPA
+     */
+    public JLabel getLabelNbPA() {
+        return labelNbPA;
+    }
+
+    /**
+     * @return the labelNomJoueur
+     */
+    public JLabel getLabelNomJoueur() {
+        return labelNomJoueur;
+    }
+
+
 }
 
  
