@@ -328,15 +328,20 @@ public class Controleur implements Observer {
             }
                
             if (carteSelection.getUtilisable()){
-                
+                if(carteSelection instanceof CarteHelicoptere){
+                    
+                } else if (carteSelection instanceof CarteSacDeSable){
+                        
+                }
             }
             defausseTirage.add(carteSelection);
+            aventurierCourant.getCartes().remove(carteSelection);
         }
         
         
         
         
-        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
+        vueAventurier.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()

@@ -59,6 +59,7 @@ public class VuePrincipale extends Observable {
         
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
         
+        
         JPanel panelBoutons = new JPanel(new GridLayout(2,2));
         
         JButton btnAssecher= new JButton("Assecher");
@@ -92,30 +93,81 @@ public class VuePrincipale extends Observable {
     
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
         if (nombrePA == 0) {
-            btnBouger.setVisible(false);
+            getBtnBouger().setVisible(false);
         }
         else {
-            btnBouger.setVisible(true);
+            getBtnBouger().setVisible(true);
         }
         
-        panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
+        getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
         
-        panelAventurier.setBackground(couleur);
-        labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
+        getPanelAventurier().setBackground(couleur);
+        getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
         
-        panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         
-        labelNbPA.setText("Nombre d'actions restantes : " + nombrePA);
+        getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
         
-        window.setVisible(true);
+        getWindow().setVisible(true);
     }
     
     /**
      * Ferme la fenêtre
      */
     public void close() {
-        window.dispose();
+        getWindow().dispose();
     }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
+
+    /**
+     * @return the panelCentre
+     */
+    public JPanel getPanelCentre() {
+        return panelCentre;
+    }
+
+    /**
+     * @return the panelAventurier
+     */
+    public JPanel getPanelAventurier() {
+        return panelAventurier;
+    }
+
+    /**
+     * @return the panelPrincipal
+     */
+    public JPanel getPanelPrincipal() {
+        return panelPrincipal;
+    }
+
+    /**
+     * @return the btnBouger
+     */
+    public JButton getBtnBouger() {
+        return btnBouger;
+    }
+
+    /**
+     * @return the labelNbPA
+     */
+    public JLabel getLabelNbPA() {
+        return labelNbPA;
+    }
+
+    /**
+     * @return the labelNomJoueur
+     */
+    public JLabel getLabelNomJoueur() {
+        return labelNomJoueur;
+    }
+
+
 }
 
  
