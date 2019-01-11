@@ -13,5 +13,6 @@ public class CarteSacDeSable extends CarteTirage {
     
     public CarteSacDeSable(){
         super(true);
+        setNom("SacDeSable");
     }
 }

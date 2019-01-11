@@ -10,7 +10,7 @@ import ileInterdite.model.aventurier.Role;
 import ileInterdite.model.cartes.*;
 import java.util.ArrayList;
 import static java.util.Collections.reverse;
-import utilitaires.EtatTuile;
+import utilitaires.ExceptionAventurier;
 import utilitaires.Tresor;
 
 /**
@@ -21,46 +21,49 @@ public class ControleurInit {
     
     public ControleurInit(){
         
-        // initialisation joueurs 
-        ArrayList <String> avens=new ArrayList<>();
-        avens.add("Lois");
-        avens.add("Alexis");
-        avens.add("Guillaume");
-        avens.add("Clement");
-        
-        ArrayList<Role> roles = new ArrayList();
-        roles.add(Role.Explorateur);
-        roles.add(Role.Plongeur);
-        roles.add(Role.Pilote);
-        roles.add(Role.Ingénieur);
-        
-        
-        Controleur ctrl = new Controleur(avens,roles, nomsDesTuiles(), cartesPioche(), 2);
-        
-        
-        
-        //initialisation inondation debut de partie
-        ctrl.monteeDesEaux(new Position(2, 0));
-        ctrl.monteeDesEaux(new Position(4, 3));
-        ctrl.monteeDesEaux(new Position(2, 5));
-        ctrl.monteeDesEaux(new Position(2, 3));
-        ctrl.monteeDesEaux(new Position(0, 3));
-        
-        ctrl.monteeDesEaux(new Position(3, 2));
-        ctrl.monteeDesEaux(new Position(3, 2));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 2)));
-        
-        ctrl.monteeDesEaux(new Position(3, 3));
-        ctrl.monteeDesEaux(new Position(3, 3));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 3)));
-        
-        ctrl.monteeDesEaux(new Position(3, 4));
-        ctrl.monteeDesEaux(new Position(3, 4));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 4)));
-        
-        ctrl.monteeDesEaux(new Position(1, 3));
-        ctrl.monteeDesEaux(new Position(1, 3));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(1, 3)));
+ 
+            // initialisation joueurs
+            ArrayList <String> avens=new ArrayList<>();
+            avens.add("Lois");
+            avens.add("Alexis");
+            avens.add("Guillaume");
+            avens.add("Clement");
+            
+            ArrayList<Role> roles = new ArrayList();
+            roles.add(Role.Explorateur);
+            roles.add(Role.Plongeur);
+            roles.add(Role.Pilote);
+            roles.add(Role.Ingénieur);
+            
+            
+            Controleur ctrl = new Controleur(avens,roles, nomsDesTuiles(), cartesPioche(), 2);
+            
+            
+            
+            //initialisation inondation debut de partie
+            try{
+            ctrl.monteeDesEaux(new Position(2, 0));
+            ctrl.monteeDesEaux(new Position(4, 3));
+            ctrl.monteeDesEaux(new Position(2, 5));
+            ctrl.monteeDesEaux(new Position(2, 3));
+            ctrl.monteeDesEaux(new Position(0, 3));
+            
+            ctrl.monteeDesEaux(new Position(3, 2));
+            ctrl.monteeDesEaux(new Position(3, 2));
+            ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 2)));
+            
+            ctrl.monteeDesEaux(new Position(3, 3));
+            ctrl.monteeDesEaux(new Position(3, 3));
+            ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 3)));
+            
+            ctrl.monteeDesEaux(new Position(3, 4));
+            ctrl.monteeDesEaux(new Position(3, 4));
+            ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 4)));
+            
+            ctrl.monteeDesEaux(new Position(1, 3));
+            ctrl.monteeDesEaux(new Position(1, 3));
+            ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(1, 3)));
+        } catch (ExceptionAventurier ex) {}
         
     }
     

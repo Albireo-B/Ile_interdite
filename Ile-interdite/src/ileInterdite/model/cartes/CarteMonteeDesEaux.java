@@ -13,5 +13,6 @@ public class CarteMonteeDesEaux extends CarteTirage {
     
     public CarteMonteeDesEaux(){
         super(false);
+        setNom("MonteeDesEaux");
     }
 }

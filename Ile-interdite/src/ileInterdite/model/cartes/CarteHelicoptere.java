@@ -13,5 +13,6 @@ public class CarteHelicoptere extends CarteTirage {
     
     public CarteHelicoptere(){
         super(true);
+        setNom("Helicoptere");
     }
 }

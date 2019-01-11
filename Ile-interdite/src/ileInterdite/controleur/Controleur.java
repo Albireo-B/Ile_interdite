@@ -117,8 +117,8 @@ public class Controleur implements Observer {
      * Fonction globale qui gère le déplacement
      */
     public void gererDeplacement() {
-        if (getAventurierCourant().getNbAction()>0){
-            proposerTuiles(getAventurierCourant().calculDeplacement(getGrille()), Action.DEPLACER);
+        if (aventurierCourant.getNbAction()>0){
+            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER);
         }
     }
 
@@ -126,19 +126,33 @@ public class Controleur implements Observer {
      * Fonction globale qui gère l'asséchement
      */
     public void gererAssechement() {
-        proposerTuiles(getAventurierCourant().calculAssechement(getGrille()), Action.ASSECHER);
+        proposerTuiles(aventurierCourant.calculAssechement(grille), Action.ASSECHER);
     }
 
     
     /**
      * Fonction globale qui gère l'inondation de fin de tour
      */
-    public void gererInondation() {
-        
+    public void gererInondation(){
+        //Pour toutes les cartes à inonder
         for (CarteInondation carteAInonder : tirerCartesInondation()){
+            //Pour toutes les tuiles
             for (Tuile tuile : grille.getToutesTuiles()){
+                //Si La tuile a le même nom que la carte à inonder
                 if (tuile.getNom().equals(carteAInonder.getNom())){
-                    monteeDesEaux(tuile.getPosition());
+
+                    try {
+                        monteeDesEaux(tuile.getPosition());
+                    } 
+                    catch (ExceptionAventurier ex) {
+                        System.out.println("L'aventurier " + ex.getAventurier().getNomJoueur() +" ne peut plus se déplacer !");
+                        
+                        
+                        //à compléter
+                        
+                        
+                    }
+                    //Si la tuile est coulée
                     if (tuile.getEtat()!=EtatTuile.COULEE){
                         defausseInondation.add(carteAInonder);
                     }
@@ -147,19 +161,52 @@ public class Controleur implements Observer {
         }
     }
 
-    public void monteeDesEaux(Position p) {
+
+    /**
+     * Augmente de le niveau d'eau d'une tuile, et vérifie qu'aucun aventurier n'est présent sur l'île,
+     * et si oui lui propose de se déplacer
+     * @param p 
+     */
+    public void monteeDesEaux(Position p) throws ExceptionAventurier {
+        //Si le tuile est inondée
         if (getGrille().getTuile(p).getEtat()==EtatTuile.INONDEE){
             getGrille().getTuile(p).setEtat(EtatTuile.COULEE);
             getVueGrille().actualiserEtatTuile(p, EtatTuile.COULEE);
+            
+            for (Aventurier aventurier : joueurs){
+                if (aventurier.getTuile().getEtat()==EtatTuile.COULEE){
+                    System.out.println("2");
+                    if (!aventurier.calculDeplacement(grille).isEmpty()){
+                        System.out.println("3");
+                        obligerDeplacement(aventurier.calculDeplacement(grille), Action.DEPLACER);
+                    } else {
+                        throw new ExceptionAventurier(aventurier);
+                    }
+                }
+            }
+                  
+            
         }
         else{
             getGrille().getTuile(p).setEtat(EtatTuile.INONDEE);
             getVueGrille().actualiserEtatTuile(p, EtatTuile.INONDEE);
         }
-        
     }
     
-    
+    /**
+     * Force le déplacement d'un joueur, et bloque toutes les autres possibilités
+     */
+    public void obligerDeplacement(ArrayList<Tuile> ct, {
+        ArrayList<Position> posTuiles = new ArrayList();
+        
+        for (Tuile t : ct) {
+            posTuiles.add(t.getPosition());
+        }
+        getVueGrille().actualiserBoutonsCliquables(posTuiles,Action.DEPLACER);
+        
+    }
+        
+        
     /**
      * Affiche les cases possibles en les rendant cliquables avec une liste de
      * tuiles et une action
@@ -348,9 +395,18 @@ public class Controleur implements Observer {
             j = 5;
         }
         
+        //Pour chauqe niveau d'eau
         for (int i=0;i<j;i++){
+            //Si la pioche inondation n'est pas vide
+            if (!piocheInondation.isEmpty()){
             cartesTirees.add(piocheInondation.get(piocheInondation.size()-1));
             piocheInondation.remove(piocheInondation.size()-1);
+            //Si la pioche inondation est vide
+            } else {
+                Collections.shuffle(defausseInondation);
+                piocheInondation.addAll(defausseInondation);
+                defausseInondation.clear();
+            }
         }
         return cartesTirees;       
     }
@@ -365,7 +421,7 @@ public class Controleur implements Observer {
         //Pour le nombre de cartes qu'on veut donner
         for (int i=0;i<2;i++){
             //Si la pioche n'est pas vide
-            if (piocheInondation.size()!=0) {
+            if (!piocheInondation.isEmpty()) {
                 //Si la prochaine carte est une carte montée des eaux
                 if (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
                     trigger=true;
@@ -383,6 +439,7 @@ public class Controleur implements Observer {
                 Collections.shuffle(defausseInondation);
                 piocheInondation.addAll(defausseInondation);
                 defausseInondation.clear();
+            }
         }
         if (trigger){
                 
@@ -406,9 +463,13 @@ public class Controleur implements Observer {
         //à compléter        
     }
    
+    public void donnerCartes(Aventurier aventurier){
+        //à compléter
+    }
+
+
     //Getters et Setters :
-    
-    
+   
     /**
      * @return the joueurs
      */
