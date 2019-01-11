@@ -64,13 +64,12 @@ public abstract class Aventurier {
     }
     
     public void defausseCartes(){
-        while (cartes.size()>5) {
+        
             ArrayList<String> carteSelection = new ArrayList<>();
             for (CarteTirage carte : cartes){
                 carteSelection.add(carte.getNom());
             }
             vueDefausse.actualiser(carteSelection);
-        }
     }
    
     

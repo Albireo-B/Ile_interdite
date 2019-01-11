@@ -5,10 +5,13 @@
  */
 package ileInterdite.vues;
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.JButton;
@@ -23,8 +26,8 @@ import javax.swing.JPanel;
 public class VueDefausse extends Observable{
     private JFrame fenetre;
     private ArrayList<JButton> buttonCartes;
-    private JPanel paneCarte;
-    private JPanel pannelPrincipale;
+    private JPanel panelCarte;
+    private JPanel panelPrincipal;
 
     public VueDefausse(){
 
@@ -32,43 +35,54 @@ public class VueDefausse extends Observable{
         fenetre=new JFrame();
         fenetre.setTitle("cartes");
         
-        fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        fenetre.setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         fenetre.setSize(600, 300);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         fenetre.setLocation(dim.width/2-fenetre.getSize().width/2, dim.height/2-fenetre.getSize().height/2);
         fenetre.setResizable(true);
         
         
-        pannelPrincipale=new JPanel(new BorderLayout());
+        panelPrincipal=new JPanel(new BorderLayout());
         JLabel explication=new JLabel("on met les explications ici");
         
         
 
         
-        paneCarte=new JPanel(new GridLayout(1,1));
-       //===================================================================================== 
+        panelCarte=new JPanel(new GridLayout(1,1)); 
         
-        pannelPrincipale.add(explication,BorderLayout.NORTH);
-        pannelPrincipale.add(paneCarte,BorderLayout.CENTER);
+        panelPrincipal.add(explication,BorderLayout.NORTH);
+        panelPrincipal.add(panelCarte,BorderLayout.CENTER);
+        
+        
         actualiser(new ArrayList<>());
+        
+        
+        
         close();
-        fenetre.add(pannelPrincipale);
+        fenetre.add(panelPrincipal);
     }
     
       public void actualiser(ArrayList<String> listeCartes){ 
-          pannelPrincipale.remove(paneCarte);
-          //============ajouter des button des cartes dans la vue============================= 
+        panelPrincipal.remove(panelCarte);
+          
         buttonCartes=new ArrayList<>();
         
-        paneCarte=new JPanel(new GridLayout(1,listeCartes.size()));
-        for(String c:listeCartes){
+        panelCarte=new JPanel(new GridLayout(1,listeCartes.size()));
+        for(String c: listeCartes){
             JButton buttonCarte=new JButton();
-             buttonCarte.setText(c);
-             buttonCartes.add(buttonCarte);
-             paneCarte.add(buttonCarte);
-             System.out.println("bob");
+            buttonCarte.setText(c);
+            buttonCarte.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent arg0) {
+                    setChanged();
+                    notifyObservers(new Message());
+                    clearChanged();
+                }
+            });
+            buttonCartes.add(buttonCarte);
+            panelCarte.add(buttonCarte);
         }
-        pannelPrincipale.add(paneCarte,BorderLayout.CENTER);
+        panelPrincipal.add(panelCarte,BorderLayout.CENTER);
         afficher();
       }
     
