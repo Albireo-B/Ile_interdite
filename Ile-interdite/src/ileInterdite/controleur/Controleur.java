@@ -193,20 +193,7 @@ public class Controleur implements Observer {
         }
     }
     
-    /**
-     * Force le déplacement d'un joueur, et bloque toutes les autres possibilités
-     * @param ct
-     */
-    public void obligerDeplacement(ArrayList<Tuile> ct) {
-        ArrayList<Position> posTuiles = new ArrayList();
-        
-        for (Tuile t : ct) {
-            posTuiles.add(t.getPosition());
-        }
-        getVueGrille().actualiserBoutonsCliquables(posTuiles,Action.DEPLACER);
-        
-    }
-        
+        //OBLIGERDEPLAEMENT A FAIRE AVEC MESSAGE URGENCE (AZventurier, pos) et TOUS BOUTONS NOIRS SEULEMENT ANNULER
         
     /**
      * Affiche les cases possibles en les rendant cliquables avec une liste de
