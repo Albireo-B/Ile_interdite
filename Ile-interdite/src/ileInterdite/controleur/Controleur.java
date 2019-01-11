@@ -74,16 +74,19 @@ public class Controleur implements Observer {
         setRoles(nomsjoueurs,roles);
         aventurierCourant = joueurs.get(0);
 
-        
+        ArrayList<String> nomsAventuriers = new ArrayList();
         for (Aventurier j : joueurs) {
             vueGrille.actualiserPositionJoueur(j.getPosition(), null, j.getPion());
+            nomsAventuriers.add(j.getRole().toString());
         }
         
-
+        
+        
+        
         // Création des vues aventurier
-        vueAventurier = new VuePrincipale(getVueGrille());
+        vueAventurier = new VuePrincipale(getVueGrille(), nomsAventuriers);
         vueAventurier.addObserver(this);
-        vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
+        vueAventurier.actualiserVue(0, aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
@@ -235,7 +238,7 @@ public class Controleur implements Observer {
         System.out.println(aventurierCourant.getCartes().size());
         gererInondation();
         aventurierSuivant();
-        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
+        getVueAventurier().actualiserVue(0, getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -341,7 +344,7 @@ public class Controleur implements Observer {
         
         
         
-        vueAventurier.actualiserVue(getAventurierCourant().getNomJoueur(),
+        vueAventurier.actualiserVue(0, getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
