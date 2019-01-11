@@ -40,14 +40,17 @@ public class Controleur implements Observer {
      * joueurs et une Grille grille
      *
      * @param nomsjoueurs
+     * @param roles
      * @param nomTuiles
      */
-    public Controleur(ArrayList<String> nomsjoueurs, ArrayList<String> nomTuiles) {
-        //Initialisation des joueurs et du joueur courant
-
+    public Controleur(ArrayList<String> nomsjoueurs,ArrayList<Role> roles, ArrayList<String> nomTuiles, ArrayList<CarteTirage> pioche, int niveauEau) {
+        //Initialisation du niveau d'eau
+        this.niveauEau=niveauEau;
+        
+        
+        //Initialisation de la Grille
         grille = new Grille(nomTuiles);
 
-        //Initialisation de la Grille
         ArrayList<Position> posTuiles = new ArrayList();
         ArrayList<String> nomsTuiles = new ArrayList();
         for (Tuile t : grille.getToutesTuiles()) {
@@ -59,15 +62,15 @@ public class Controleur implements Observer {
             piocheInondation.add(new CarteInondation(nom));
         }
         
+        piocheTirage = pioche;
+        
+        //initialiser main des joueurs
+        initCartes();
         
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
-
-        ArrayList<Role> roles = new ArrayList();
-        roles.add(Role.Explorateur);
-        roles.add(Role.Plongeur);
-        roles.add(Role.Pilote);
-        roles.add(Role.Ingénieur);
+        
+        //Initialisation des joueurs et du joueur courant
         setRoles(nomsjoueurs,roles);
         aventurierCourant = joueurs.get(0);
 
@@ -75,31 +78,9 @@ public class Controleur implements Observer {
         for (Aventurier j : joueurs) {
             vueGrille.actualiserPositionJoueur(j.getPosition(), null, j.getPion());
         }
-
-        
-        grille.getTuile(new Position(3, 2)).setEtat(EtatTuile.COULEE);
-        grille.getTuile(new Position(3, 3)).setEtat(EtatTuile.COULEE);
-        grille.getTuile(new Position(3, 4)).setEtat(EtatTuile.COULEE);
-        grille.getTuile(new Position(1, 3)).setEtat(EtatTuile.COULEE);
-        grille.getTuile(new Position(0, 3)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(2, 3)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(2, 5)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(4, 3)).setEtat(EtatTuile.INONDEE);
-        grille.getTuile(new Position(2, 0)).setEtat(EtatTuile.INONDEE);
-        
-        
-        vueGrille.actualiserEtatTuile(new Position(3, 2), EtatTuile.COULEE);
-        vueGrille.actualiserEtatTuile(new Position(3, 3), EtatTuile.COULEE);
-        vueGrille.actualiserEtatTuile(new Position(3, 4), EtatTuile.COULEE);
-        vueGrille.actualiserEtatTuile(new Position(1, 3), EtatTuile.COULEE);
-        vueGrille.actualiserEtatTuile(new Position(0, 3), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(2, 3), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(2, 5), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(4, 3), EtatTuile.INONDEE);
-        vueGrille.actualiserEtatTuile(new Position(2, 0), EtatTuile.INONDEE);
         
 
-        // Création de la vue aventurier
+        // Création des vues aventurier
         vueAventurier = new VuePrincipale(getVueGrille());
         vueAventurier.addObserver(this);
         vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
@@ -108,7 +89,30 @@ public class Controleur implements Observer {
                                     aventurierCourant.getNbAction()
                                     );
     }
-
+    
+    public void initCoule() {
+        for (int i = 0 ; i < 6 ; i ++){
+            piocheInondation.get(piocheInondation.size()-1);
+        }
+    }
+    
+    public void initCartes() {
+        for (Aventurier a : joueurs){
+                ArrayList<CarteTirage> cartes = new ArrayList<>();
+                for (int i = 0; i<2;i++){
+                    while (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
+                        Collections.shuffle(piocheTirage);
+                    }
+                    cartes.add(piocheTirage.get(piocheTirage.size()-1));
+                    piocheTirage.remove(piocheTirage.size()-1);
+                }
+                try{
+                a.addCartes(cartes);
+                }
+                catch (ExceptionAventurier ex){};
+        }
+    }
+    
     /**
      * Fonction globale qui gère le déplacement
      */
@@ -134,10 +138,8 @@ public class Controleur implements Observer {
         for (CarteInondation carteAInonder : tirerCartesInondation()){
             for (Tuile tuile : grille.getToutesTuiles()){
                 if (tuile.getNom().equals(carteAInonder.getNom())){
-                    if (tuile.getEtat()==EtatTuile.INONDEE){
-                        tuile.setEtat(EtatTuile.COULEE);
-                    } else {
-                        tuile.setEtat(EtatTuile.INONDEE);
+                    monteeDesEaux(tuile.getPosition());
+                    if (tuile.getEtat()!=EtatTuile.COULEE){
                         defausseInondation.add(carteAInonder);
                     }
                 }
@@ -145,6 +147,18 @@ public class Controleur implements Observer {
         }
     }
 
+    public void monteeDesEaux(Position p) {
+        if (getGrille().getTuile(p).getEtat()==EtatTuile.INONDEE){
+            getGrille().getTuile(p).setEtat(EtatTuile.COULEE);
+            getVueGrille().actualiserEtatTuile(p, EtatTuile.COULEE);
+        }
+        else{
+            getGrille().getTuile(p).setEtat(EtatTuile.INONDEE);
+            getVueGrille().actualiserEtatTuile(p, EtatTuile.INONDEE);
+        }
+        
+    }
+    
     
     /**
      * Affiche les cases possibles en les rendant cliquables avec une liste de
@@ -327,6 +341,7 @@ public class Controleur implements Observer {
         //6,7 -> 4 cartes
         //8,9 -> 5 cartes
         int j = 2;
+        System.out.println("WTF");
         if (niveauEau<8){
         j += niveauEau / 3;}
         else{
@@ -345,24 +360,39 @@ public class Controleur implements Observer {
     */
     public void tirerCartes(){
         ArrayList<CarteTirage> cartes = new ArrayList<>();
+        ArrayList<CarteInondation> cartesARemettreEnPioche= new ArrayList<>();
+        Boolean trigger = false;
+        //Pour le nombre de cartes qu'on veut donner
         for (int i=0;i<2;i++){
-            
-            
-            
-            
-            ArrayList<CarteInondation> cartesARemettreEnPioche= new ArrayList<>();
-            if (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
-                for (CarteInondation carteDefausse : defausseInondation){
-                    cartesARemettreEnPioche.add(carteDefausse);
-                    defausseInondation.remove(carteDefausse);
+            //Si la pioche n'est pas vide
+            if (piocheInondation.size()!=0) {
+                //Si la prochaine carte est une carte montée des eaux
+                if (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
+                    trigger=true;
+                    niveauEau+=1;
+                    System.out.println("TRIGGGGGGGGGGERD");
+                    defausseTirage.add(piocheTirage.get(piocheTirage.size()-1));
                 }
-                Collections.shuffle(cartesARemettreEnPioche);
-                piocheInondation.addAll(cartesARemettreEnPioche); 
-                gererInondation();
-            } else {
-                cartes.add(piocheTirage.get(piocheTirage.size()-1));
-            }
-            piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));    
+                //Si la prochaine carte n'est pas une carte montée des eaux
+                else {
+                    cartes.add(piocheTirage.get(piocheTirage.size()-1));
+                }
+                piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));    
+            // Si la pioche est vide    
+            } else { 
+                Collections.shuffle(defausseInondation);
+                piocheInondation.addAll(defausseInondation);
+                defausseInondation.clear();
+        }
+        if (trigger){
+                
+            cartesARemettreEnPioche.addAll(defausseInondation);
+            defausseInondation.clear();
+                
+            Collections.shuffle(cartesARemettreEnPioche);
+            piocheInondation.addAll(cartesARemettreEnPioche); 
+          
+            gererInondation();
         }
         try{
         aventurierCourant.addCartes(cartes);

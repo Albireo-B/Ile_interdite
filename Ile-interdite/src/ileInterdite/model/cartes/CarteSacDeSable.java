@@ -11,7 +11,7 @@ package ileInterdite.model.cartes;
  */
 public class CarteSacDeSable extends CarteTirage {
     
-    public CarteSacDeSable(Boolean utilisable){
-        super(utilisable);
+    public CarteSacDeSable(){
+        super(true);
     }
 }

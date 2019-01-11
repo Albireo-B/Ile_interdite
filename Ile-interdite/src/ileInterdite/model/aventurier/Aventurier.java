@@ -90,9 +90,9 @@ public abstract class Aventurier {
     
     public void addCartes(ArrayList<CarteTirage> cartes) throws ExceptionAventurier{
         for (CarteTirage c : cartes){
-        cartes.add(c);
+        this.cartes.add(c);
         }
-        if (cartes.size()>5){
+        if (this.cartes.size()>5){
             throw new ExceptionAventurier(this);
         }
     }

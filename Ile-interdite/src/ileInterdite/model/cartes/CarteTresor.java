@@ -15,7 +15,8 @@ public class CarteTresor extends CarteTirage {
     
     private Tresor tresor;
     
-    public CarteTresor(Boolean utilisable){
-        super(utilisable);
+    public CarteTresor(Tresor tresor){
+        super(false);
+        this.tresor = tresor;
     }
 }

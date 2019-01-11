@@ -11,7 +11,7 @@ package ileInterdite.model.cartes;
  */
 public class CarteMonteeDesEaux extends CarteTirage {
     
-    public CarteMonteeDesEaux(Boolean utilisable){
-        super(utilisable);
+    public CarteMonteeDesEaux(){
+        super(false);
     }
 }
