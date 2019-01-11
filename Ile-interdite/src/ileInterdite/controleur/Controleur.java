@@ -237,6 +237,8 @@ public class Controleur implements Observer {
     public void nextTurn() {
         aventurierCourant.reset();
         tirerCartes();
+        for(CarteTirage t:aventurierCourant.getCartes())
+            System.out.println(t.getNom());
         gererInondation();
         aventurierSuivant();
         vuePrincipale.actualiserVue(0,getAventurierCourant().getNomJoueur(),
