@@ -84,11 +84,11 @@ public class Controleur implements Observer {
         
 
         // Création des vues aventurier
-        vuePrincipale = new VuePrincipale(getVueGrille(),nomsjoueurs);
+        vuePrincipale = new VuePrincipale(getVueGrille(),listeRoles);
         vuePrincipale.addObserver(this);
         
         
-        vuePrincipale.actualiserVue(0,aventurierCourant.getNomJoueur(),
+        vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
@@ -121,6 +121,7 @@ public class Controleur implements Observer {
                 joueurs.get(role).addCartes(cartes);
                 }
                 catch (ExceptionAventurier ex){};
+                vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
     }
     
@@ -237,9 +238,11 @@ public class Controleur implements Observer {
     public void nextTurn() {
         aventurierCourant.reset();
         tirerCartes();
+        for(CarteTirage t:aventurierCourant.getCartes())
+            System.out.println(t.getNom());
         gererInondation();
         aventurierSuivant();
-        vuePrincipale.actualiserVue(0,getAventurierCourant().getNomJoueur(),
+        vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -347,7 +350,7 @@ public class Controleur implements Observer {
         
         
         
-        vuePrincipale.actualiserVue(0,getAventurierCourant().getNomJoueur(),
+        vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -448,7 +451,7 @@ public class Controleur implements Observer {
         for (int i=0;i<2;i++){
             System.out.println(piocheTirage.get(piocheTirage.size()-1));
             //Si la pioche n'est pas vide
-            if (!piocheInondation.isEmpty()) {
+            if (!piocheTirage.isEmpty()) {
                 //Si la prochaine carte est une carte montée des eaux
                 if (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
                     trigger=true;
@@ -462,10 +465,11 @@ public class Controleur implements Observer {
                 piocheTirage.remove(piocheTirage.get(piocheTirage.size()-1));    
             // Si la pioche est vide    
             } else { 
-                Collections.shuffle(defausseInondation);
-                piocheInondation.addAll(defausseInondation);
-                defausseInondation.clear();
+                Collections.shuffle(defausseTirage);
+                piocheTirage.addAll(defausseTirage);
+                defausseTirage.clear();
             }
+            
         }
         if (trigger){
                 
@@ -482,6 +486,8 @@ public class Controleur implements Observer {
         } catch (ExceptionAventurier e) { 
             aventurierCourant.defausseCartes();
         }
+        
+        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
     
 

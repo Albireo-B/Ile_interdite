@@ -83,7 +83,7 @@ public class VueAventurier extends JPanel{
         
         
         buttonCartes=new ArrayList<>();
-        for(int i=0;i<4;i++){
+        for(int i=0;i<5;i++){
             buttonCartes.add(new JButton("Carte"));
             pannelBas.add(buttonCartes.get(i));
         }
@@ -93,14 +93,11 @@ public class VueAventurier extends JPanel{
         pannelPrincipal.add(pannelBas);
         this.add(pannelPrincipal);
     }
-    
-
-   
-    public void ActualiserAventurier(ArrayList<String> listeCarte){
-        int i=0;
-        for (String c : listeCarte){
-           getButtonCartes().get(i).setText(c);
-        }
+        
+     public void actualiserVueAventurier(ArrayList<String> listeCarte){
+         for (String c : listeCarte){
+            getButtonCartes().get(listeCarte.indexOf(c)).setText(c);
+         }
      
     } 
     /**
