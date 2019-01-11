@@ -97,8 +97,16 @@ public abstract class Aventurier {
         }
     }
 
-   
+    public void recupererTresor(){
+       
+    }
     
+    public Boolean peutRecupererTresor(){
+
+       return true;
+       
+    }
+   
     //Getters et Setters :
     
     

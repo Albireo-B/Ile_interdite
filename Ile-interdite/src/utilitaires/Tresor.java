@@ -10,8 +10,22 @@ package utilitaires;
  * @author vinetg
  */
 public enum Tresor {
-    PIERRE,
-    ZEPHYR,
-    CRISTAL,
-    CALICE;
+    
+    
+    
+    PIERRE(false),
+    ZEPHYR(false),
+    CRISTAL(false),
+    CALICE(false);
+        
+    private Boolean recuperé;
+       
+    Tresor (Boolean recuperé) {
+        this.recuperé = recuperé ;
+    }
+
+
+    public Boolean  getRecuperé() {
+        return this.recuperé ;
+    }
 }
