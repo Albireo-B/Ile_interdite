@@ -12,6 +12,7 @@ import ileInterdite.model.Position;
 import utilitaires.Action;
 import utilitaires.Pion;
 import ileInterdite.message.MessagePos;
+import utilitaires.Role;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,7 +93,7 @@ public class VueGrille extends Observable {
                 
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
-                    notifyObservers(new MessagePos(act, pos));
+                    notifyObservers(new MessagePos(act, pos, null));
                     clearChanged();
                 });
             }

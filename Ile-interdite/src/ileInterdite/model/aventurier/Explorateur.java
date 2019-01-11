@@ -5,6 +5,7 @@
  */
 package ileInterdite.model.aventurier;
 
+import utilitaires.Role;
 import utilitaires.Pion;
 import utilitaires.EtatTuile;
 import ileInterdite.model.Grille;

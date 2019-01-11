@@ -5,6 +5,7 @@
  */
 package ileInterdite.model.aventurier;
 
+import utilitaires.Role;
 import utilitaires.*;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;

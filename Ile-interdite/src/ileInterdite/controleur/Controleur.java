@@ -6,6 +6,7 @@
 package ileInterdite.controleur;
 
 
+import utilitaires.Role;
 import ileInterdite.model.aventurier.*;
 import utilitaires.*;
 import ileInterdite.model.*;
@@ -230,12 +231,11 @@ public class Controleur implements Observer {
      * aventurier
      */
     public void nextTurn() {
-        getAventurierCourant().reset();
+        aventurierCourant.reset();
         tirerCartes();
-        System.out.println(aventurierCourant.getCartes().size());
         gererInondation();
         aventurierSuivant();
-        getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
+        vueAventurier.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -256,7 +256,7 @@ public class Controleur implements Observer {
 
             //Si le message contient une Action
             if (null != message.getAction()) {
-                getVueGrille().tousBoutonsInertes();
+                vueGrille.tousBoutonsInertes();
                 switch (message.getAction()) {
                     //Si le message possède l'action ASSECHER
                     case ASSECHER:
@@ -277,31 +277,31 @@ public class Controleur implements Observer {
         }
         //Si arg est de type MessagePos
         if (arg instanceof MessagePos) {
-            getVueGrille().tousBoutonsInertes();
+            vueGrille.tousBoutonsInertes();
             MessagePos messagepos = (MessagePos) arg;
             
             //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction() == Action.DEPLACER) {
                 
-                getVueGrille().actualiserPositionJoueur(messagepos.getPos(), getAventurierCourant().getPosition(), getAventurierCourant().getPion());
+                vueGrille.actualiserPositionJoueur(messagepos.getPos(), getAventurierCourant().getPosition(), getAventurierCourant().getPion());
                 //Si l'aventurier en train de jouer est un pilote
-                if (getAventurierCourant() instanceof Pilote && getAventurierCourant().getPouvoir()) {
+                if (messagepos.getRole() instanceof Pilote && getAventurierCourant().getPouvoir()) {
                     Pilote p = (Pilote) getAventurierCourant();
-                    p.setPositionPilote(getGrille(), getGrille().getTuile(messagepos.getPos()));
+                    p.setPositionPilote(grille, grille.getTuile(messagepos.getPos()));
 
                 } else {
-                    getAventurierCourant().setTuile(getGrille().getTuile(messagepos.getPos()));
+                    aventurierCourant.setTuile(grille.getTuile(messagepos.getPos()));
                 }
-                getAventurierCourant().decremente();
+                aventurierCourant.decremente();
 
                 //Si le messagePos possède l'action ASSECHER
             }
             else if (messagepos.getAction() == Action.ASSECHER) {
-                getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
-                getVueGrille().actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
+                grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
+                vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
 
                 //Si l'aventurier en train de jouer est un ingénieur
-                if (getAventurierCourant() instanceof Ingenieur) {
+                if (aventurierCourant instanceof Ingenieur) {
                     //Si le pouvoir de l'ingénieur est utilisable
                     if (getAventurierCourant().getPouvoir()) {
                         getAventurierCourant().decremente();
@@ -322,16 +322,18 @@ public class Controleur implements Observer {
             MessageCarte messageCarte = (MessageCarte) arg;
             CarteTirage carteSelection = null;
             for (CarteTirage carte : aventurierCourant.getCartes()){
+                System.out.print(carte.getNom());
                 if (carte.getNom().equals(messageCarte.getNomCarte())) {
                     carteSelection=carte;
                 }
             }
                
+            
             if (carteSelection.getUtilisable()){
                 if(carteSelection instanceof CarteHelicoptere){
-                    
-                } else if (carteSelection instanceof CarteSacDeSable){
-                        
+                    //à compléter
+                } else {
+                    //à compléter
                 }
             }
             defausseTirage.add(carteSelection);

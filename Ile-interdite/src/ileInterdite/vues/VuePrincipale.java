@@ -5,7 +5,7 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.model.aventurier.Role;
+import utilitaires.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
