@@ -88,6 +88,12 @@ public class Controleur implements Observer {
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
                                     );
+        
+        //ecoute des vues defausse
+        for (Aventurier a : joueurs){
+            a.getVueDefausse().addObserver(this);
+        }
+        
     }
     
     public void initCoule() {
@@ -166,6 +172,7 @@ public class Controleur implements Observer {
      * Augmente de le niveau d'eau d'une tuile, et vérifie qu'aucun aventurier n'est présent sur l'île,
      * et si oui lui propose de se déplacer
      * @param p 
+     * @throws utilitaires.ExceptionAventurier 
      */
     public void monteeDesEaux(Position p) throws ExceptionAventurier {
         //Si le tuile est inondée
@@ -175,9 +182,7 @@ public class Controleur implements Observer {
             
             for (Aventurier aventurier : joueurs){
                 if (aventurier.getTuile().getEtat()==EtatTuile.COULEE){
-                    System.out.println("2");
                     if (!aventurier.calculDeplacement(grille).isEmpty()){
-                        System.out.println("3");
                         proposerTuiles(aventurier.calculDeplacement(grille), Action.DEPLACER);
                     } else {
                         throw new ExceptionAventurier(aventurier);
@@ -227,6 +232,7 @@ public class Controleur implements Observer {
     public void nextTurn() {
         getAventurierCourant().reset();
         tirerCartes();
+        System.out.println(aventurierCourant.getCartes().size());
         gererInondation();
         aventurierSuivant();
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
@@ -310,7 +316,26 @@ public class Controleur implements Observer {
                     getAventurierCourant().decremente();
                 }
             }
+        }  
+        //Si arg est de type MessageCarte
+        if (arg instanceof MessageCarte) {
+            MessageCarte messageCarte = (MessageCarte) arg;
+            CarteTirage carteSelection = null;
+            for (CarteTirage carte : aventurierCourant.getCartes()){
+                if (carte.getNom().equals(messageCarte.getNomCarte())) {
+                    carteSelection=carte;
+                }
+            }
+               
+            if (carteSelection.getUtilisable()){
+                
+            }
+            defausseTirage.add(carteSelection);
         }
+        
+        
+        
+        
         getVueAventurier().actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
@@ -376,7 +401,6 @@ public class Controleur implements Observer {
         //6,7 -> 4 cartes
         //8,9 -> 5 cartes
         int j = 2;
-        System.out.println("WTF");
         if (niveauEau<8){
         j += niveauEau / 3;}
         else{
@@ -408,13 +432,13 @@ public class Controleur implements Observer {
         Boolean trigger = false;
         //Pour le nombre de cartes qu'on veut donner
         for (int i=0;i<2;i++){
+            System.out.println(piocheTirage.get(piocheTirage.size()-1));
             //Si la pioche n'est pas vide
             if (!piocheInondation.isEmpty()) {
                 //Si la prochaine carte est une carte montée des eaux
                 if (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
                     trigger=true;
                     niveauEau+=1;
-                    System.out.println("TRIGGGGGGGGGGERD");
                     defausseTirage.add(piocheTirage.get(piocheTirage.size()-1));
                 }
                 //Si la prochaine carte n'est pas une carte montée des eaux
@@ -442,14 +466,11 @@ public class Controleur implements Observer {
         try{
         aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) { 
-            defausseCartes(e.getAventurier());
+            aventurierCourant.defausseCartes();
         }
     }
     
 
-    public void defausseCartes(Aventurier aventurier){
-        //à compléter        
-    }
    
     public void donnerCartes(Aventurier aventurier){
         //à compléter

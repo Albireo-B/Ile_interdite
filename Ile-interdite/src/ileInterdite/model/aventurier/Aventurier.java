@@ -10,6 +10,7 @@ import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
 import ileInterdite.model.cartes.*;
+import ileInterdite.vues.VueDefausse;
 import java.util.ArrayList;
 
 
@@ -25,6 +26,7 @@ public abstract class Aventurier {
     private String nomJoueur;
     private Pion pion;
     private ArrayList<CarteTirage> cartes=new ArrayList<>();
+    private VueDefausse vueDefausse = new VueDefausse();
     
     public Aventurier(String nomJoueur,Tuile tuile) {
         this.tuile=tuile;
@@ -60,6 +62,16 @@ public abstract class Aventurier {
         }
         return liste;
     }
+    
+    public void defausseCartes(){
+        
+            ArrayList<String> carteSelection = new ArrayList<>();
+            for (CarteTirage carte : cartes){
+                carteSelection.add(carte.getNom());
+            }
+            vueDefausse.actualiser(carteSelection);
+    }
+   
     
     /**
      * On remet le nombre d'actions à 3
@@ -203,5 +215,12 @@ public abstract class Aventurier {
      */
     public void setCartes(ArrayList<CarteTirage> cartes) {
         this.cartes = cartes;
+    }
+
+    /**
+     * @return the vueDefausse
+     */
+    public VueDefausse getVueDefausse() {
+        return vueDefausse;
     }
 }
