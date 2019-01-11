@@ -6,7 +6,7 @@
 package ileInterdite.controleur;
 
 import ileInterdite.model.Position;
-import ileInterdite.model.aventurier.Role;
+import utilitaires.Role;
 import ileInterdite.model.cartes.*;
 import java.util.ArrayList;
 import static java.util.Collections.reverse;

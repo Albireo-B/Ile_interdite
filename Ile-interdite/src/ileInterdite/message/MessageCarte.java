@@ -5,6 +5,7 @@
  */
 package ileInterdite.message;
 
+import utilitaires.Role;
 import utilitaires.Action;
 
 /**
@@ -15,8 +16,8 @@ public class MessageCarte extends Message {
     
     private String nomCarte;
     
-    public MessageCarte(String nomcarte,Action a){
-        super(a);
+    public MessageCarte(String nomcarte,Action a,Role role){
+        super(a,role);
         this.nomCarte=nomCarte;
     }
 
