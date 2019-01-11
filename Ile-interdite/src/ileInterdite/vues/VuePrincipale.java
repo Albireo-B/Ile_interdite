@@ -11,10 +11,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,7 +35,7 @@ public class VuePrincipale extends Observable {
     
     private JFrame window;
     
-    private JPanel panelCentre =  new JPanel(new BorderLayout());
+    private JPanel panelPlateau =  new JPanel(new BorderLayout());
     
     private ArrayList<JPanel> panelAventuriers;
     private JPanel panelPrincipal = new JPanel(new BorderLayout());
@@ -44,7 +46,10 @@ public class VuePrincipale extends Observable {
     private JButton btnRecuper=new JButton("Recuper");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
-   
+    
+    private String path = "src/images/";
+    
+    private ImageIcon imgNiveau = new ImageIcon(new ImageIcon(path+"Niveau.png").getImage().getScaledInstance(130, 400, Image.SCALE_DEFAULT));
     
     /**
      * On définit un constructeur de VueAventurier avec une VueGrille v
@@ -57,7 +62,9 @@ public class VuePrincipale extends Observable {
         window.setTitle("Ile interdite");
         window.add(panelPrincipal);
         
-        panelCentre.add(v.getPanelGrille(), BorderLayout.CENTER);
+        JPanel panelCentre = new JPanel(new BorderLayout());
+        
+        panelPlateau.add(v.getPanelGrille(), BorderLayout.CENTER);
         
         labelNomJoueur.setForeground(Color.WHITE);
         
@@ -72,6 +79,8 @@ public class VuePrincipale extends Observable {
        
         
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
+        
+        panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
         JPanel panelBoutons = new JPanel(new GridLayout(2,2));
         
@@ -83,8 +92,10 @@ public class VuePrincipale extends Observable {
         panelBoutons.add(btnTerminerTour);
         panelBoutons.add(labelNbPA);
         
-        panelCentre.add(panelBoutons, BorderLayout.SOUTH);
-                 
+        panelPlateau.add(new JLabel(imgNiveau), BorderLayout.EAST);
+        
+        panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
+        
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.DEPLACER));
@@ -139,7 +150,7 @@ public class VuePrincipale extends Observable {
         panelAventuriers.get(nbAventurier).setBackground(couleur);
         labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
         
-        panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        panelPlateau.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         
         labelNbPA.setText("Nombre d'actions restantes : " + nombrePA);
         

@@ -53,15 +53,13 @@ public class VueAventurier extends JPanel{
         recuperer=new JButton("recuperer");
         donner=new JButton("donner");
         
-        
-        
-        pannelBouttons.add(bouger);
-        pannelBouttons.add(assecher);
-        pannelBouttons.add(recuperer);
+        pannelBouttons.add(new JPanel());
+        pannelBouttons.add(new JPanel());
         pannelBouttons.add(donner);
+        pannelBouttons.add(new JPanel());
 
         paneClass=new JPanel(new BorderLayout());
-        JPanel paneImage=new JPanel();
+        JButton carteJoueur=new JButton("icone");
         paneTresor=new JPanel(new GridLayout(1,4));
         
         lampes=new ArrayList<>();
@@ -71,7 +69,7 @@ public class VueAventurier extends JPanel{
             paneTresor.add(lampes.get(i));
     
         }
-        paneClass.add(paneImage,BorderLayout.CENTER);
+        paneClass.add(carteJoueur, BorderLayout.CENTER);
         paneClass.add(paneTresor,BorderLayout.SOUTH);
         
         pannelHaut.add(pannelBouttons);
@@ -98,11 +96,11 @@ public class VueAventurier extends JPanel{
     
 
    
-     public void ActualiserAventurier(ArrayList<String> listeCarte){
-         int i=0;
-         for (String c : listeCarte){
-            getButtonCartes().get(i).setText(c);
-         }
+    public void ActualiserAventurier(ArrayList<String> listeCarte){
+        int i=0;
+        for (String c : listeCarte){
+           getButtonCartes().get(i).setText(c);
+        }
      
     } 
     /**

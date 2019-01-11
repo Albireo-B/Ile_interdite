@@ -34,6 +34,8 @@ public class VueGrille extends Observable {
     private Color myCyan = new Color(20, 136, 148);
     private Color myRed = new Color(255, 77, 77);
     
+    private Color myBackgroundColor = new Color(12, 143, 181);
+    
     /**
      * On définit le constructeur de VueGrille
      * @param positions
@@ -41,7 +43,7 @@ public class VueGrille extends Observable {
      */
     public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
         panelGrille = new JPanel(new GridLayout(6, 6));
-        
+        panelGrille.setBackground(myBackgroundColor);
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
         
         for (int y = 0; y < 6; y++) {
@@ -57,11 +59,15 @@ public class VueGrille extends Observable {
                     }
                     else {
                         System.out.println("Il vous manque une case ou quoi?");
-                        panelGrille.add(new JPanel());
+                        JPanel panel = new JPanel();
+                        panel.setBackground(myRed);
+                        panelGrille.add(panel);
                     }
                 }
                 else {
-                    panelGrille.add(new JPanel());
+                    JPanel panel = new JPanel();
+                    panel.setBackground(myBackgroundColor);
+                    panelGrille.add(panel);
                 }
             }
         }
