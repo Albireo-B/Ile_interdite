@@ -23,20 +23,16 @@ import javax.swing.JPanel;
 public class VueCartesTirage {
     private JFrame fenetre;
     private ArrayList<JButton> buttonCartes;
-    private ArrayList<CarteTirage> cartes;
-    private CarteTirage carte;
     private JPanel paneCarte;
-    
-    
-    public VueCartesTirage(CarteTirage carte){
-        this.carte=carte;
-        
+
+    public VueCartesTirage(ArrayList<String> listeCartes){
+
         
         fenetre=new JFrame();
         fenetre.setTitle("cartes");
         
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(600, 500);
+        fenetre.setSize(600, 300);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         fenetre.setLocation(dim.width/2-fenetre.getSize().width/2, dim.height/2-fenetre.getSize().height/2);
         fenetre.setResizable(true);
@@ -44,17 +40,23 @@ public class VueCartesTirage {
         
         JPanel pannelPrincipale=new JPanel(new BorderLayout());
         JLabel explication=new JLabel("on met les explications ici");
-        paneCarte=new JPanel(new GridLayout(1,buttonCartes.size()));
+        
         
 
         
       //============ajouter des button des cartes dans la vue============================= 
-        cartes=new ArrayList<>();
+        buttonCartes=new ArrayList<>();
         
-        for(JButton c:buttonCartes){
-               paneCarte.add(c);
         
+        paneCarte=new JPanel(new GridLayout(1,listeCartes.size()));
+        for(String c:listeCartes){
+            JButton buttonCarte=new JButton();
+             buttonCarte.setText(c);
+             buttonCartes.add(buttonCarte);
+             paneCarte.add(buttonCarte);
+             System.out.println("bob");
         }
+       //===================================================================================== 
         
         pannelPrincipale.add(explication,BorderLayout.NORTH);
         pannelPrincipale.add(paneCarte,BorderLayout.CENTER);
@@ -63,15 +65,6 @@ public class VueCartesTirage {
       public void affiche(){
         this.fenetre.setVisible(true);
     }
-   
-        public static void main(String[] args) {
-        CarteTirage carte=null;
-            
-        VueCartesTirage ct=new VueCartesTirage(carte);
-        
-        ct.affiche();
+      
 
-    }
-        
-    
 }

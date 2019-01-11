@@ -5,15 +5,19 @@
  */
 package ileInterdite.vues;
 
+import Test.testTour;
 import utilitaires.Action;
 import ileInterdite.model.aventurier.Role;
 import ileInterdite.message.*;
+import ileInterdite.model.aventurier.Aventurier;
+import ileInterdite.model.cartes.CarteTirage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -41,16 +45,21 @@ public class VueAventurier {
     private JButton carte3;
     private JButton carte4;
     private JButton carte5;
+    private ArrayList<JButton> buttonCartes;
     private JLabel lampe1;
     private JLabel lampe2;
     private JLabel lampe3;
     private JLabel lampe4;
+    private ArrayList<JLabel> lampes;
+    private String nomAventurier;
     
     
-    public VueAventurier() {
+    
+    public VueAventurier(String nomAventurier) {
+        this.nomAventurier=nomAventurier;
         
         fenetre=new JFrame();
-        fenetre.setTitle("aventurier");
+        fenetre.setTitle(nomAventurier);
         
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         fenetre.setSize(600, 500);
@@ -112,6 +121,8 @@ public class VueAventurier {
         carte4=new JButton("Carte4");
         carte5=new JButton("Carte5");
         
+        
+        
         pannelBas.add(carte1);
         pannelBas.add(carte2);
         pannelBas.add(carte3);
@@ -127,11 +138,34 @@ public class VueAventurier {
         this.fenetre.setVisible(true);
     }
    
-        public static void main(String[] args) {
-            
-            VueAventurier ihm=new VueAventurier();
-            ihm.affiche();
+     public void ActualiserAventurier(ArrayList<String> listeCarte){
+         int i=0;
+         for (String c : listeCarte){
+           buttonCartes.get(i).setText(c);
+         }
+     
+    } 
+     
 
+    public static void main(String[] args) {
+        
+        VueAventurier v=new VueAventurier("pilote");
+        v.affiche();
     }
-    
+
+    /**
+     * @return the nomAventurier
+     */
+    public String getNomAventurier() {
+        return nomAventurier;
+    }
+
+    /**
+     * @param nomAventurier the nomAventurier to set
+     */
+    public void setNomAventurier(String nomAventurier) {
+        this.nomAventurier = nomAventurier;
+    }
+     
+     
 }
