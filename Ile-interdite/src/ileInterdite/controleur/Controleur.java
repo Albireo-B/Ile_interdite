@@ -88,6 +88,12 @@ public class Controleur implements Observer {
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
                                     );
+        
+        //ecoute des vues defausse
+        for (Aventurier a : joueurs){
+            a.getVueDefausse().addObserver(this);
+        }
+        
     }
     
     public void initCoule() {
@@ -442,14 +448,11 @@ public class Controleur implements Observer {
         try{
         aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) { 
-            defausseCartes(e.getAventurier());
+            aventurierCourant.defausseCartes();
         }
     }
     
 
-    public void defausseCartes(Aventurier aventurier){
-        //à compléter        
-    }
    
     public void donnerCartes(Aventurier aventurier){
         //à compléter

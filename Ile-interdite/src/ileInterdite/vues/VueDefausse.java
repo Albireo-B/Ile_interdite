@@ -5,12 +5,12 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.model.cartes.CarteTirage;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,12 +20,13 @@ import javax.swing.JPanel;
  *
  * @author PC
  */
-public class VueCartesTirage {
+public class VueDefausse extends Observable{
     private JFrame fenetre;
     private ArrayList<JButton> buttonCartes;
     private JPanel paneCarte;
+    private JPanel pannelPrincipale;
 
-    public VueCartesTirage(ArrayList<String> listeCartes){
+    public VueDefausse(){
 
         
         fenetre=new JFrame();
@@ -38,15 +39,26 @@ public class VueCartesTirage {
         fenetre.setResizable(true);
         
         
-        JPanel pannelPrincipale=new JPanel(new BorderLayout());
+        pannelPrincipale=new JPanel(new BorderLayout());
         JLabel explication=new JLabel("on met les explications ici");
         
         
 
         
-      //============ajouter des button des cartes dans la vue============================= 
-        buttonCartes=new ArrayList<>();
+        paneCarte=new JPanel(new GridLayout(1,1));
+       //===================================================================================== 
         
+        pannelPrincipale.add(explication,BorderLayout.NORTH);
+        pannelPrincipale.add(paneCarte,BorderLayout.CENTER);
+        actualiser(new ArrayList<>());
+        close();
+        fenetre.add(pannelPrincipale);
+    }
+    
+      public void actualiser(ArrayList<String> listeCartes){ 
+          pannelPrincipale.remove(paneCarte);
+          //============ajouter des button des cartes dans la vue============================= 
+        buttonCartes=new ArrayList<>();
         
         paneCarte=new JPanel(new GridLayout(1,listeCartes.size()));
         for(String c:listeCartes){
@@ -56,15 +68,16 @@ public class VueCartesTirage {
              paneCarte.add(buttonCarte);
              System.out.println("bob");
         }
-       //===================================================================================== 
-        
-        pannelPrincipale.add(explication,BorderLayout.NORTH);
         pannelPrincipale.add(paneCarte,BorderLayout.CENTER);
-        fenetre.add(pannelPrincipale);
-    }
-      public void affiche(){
+        afficher();
+      }
+    
+      public void afficher(){
         this.fenetre.setVisible(true);
     }
       
+      public void close(){
+        this.fenetre.dispose();
+    }
 
 }
