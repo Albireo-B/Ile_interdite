@@ -109,7 +109,21 @@ public abstract class Aventurier {
             throw new ExceptionAventurier(this);
         }
     }
-
+        
+        
+    public ArrayList<String> cartesToString(){
+        ArrayList<String> cartes = new ArrayList<>();
+        for(CarteTirage carte : this.cartes){
+            cartes.add(carte.getNom());
+        } 
+        return cartes;
+    }
+    
+    public void removeCartes(CarteTirage carte){
+        
+    }
+    
+    
     public void recupererTresor(){
        
     }

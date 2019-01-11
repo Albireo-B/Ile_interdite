@@ -9,10 +9,10 @@ import utilitaires.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -35,7 +35,7 @@ public class VuePrincipale extends Observable {
     
     private JPanel panelCentre =  new JPanel(new BorderLayout());
     
-    private ArrayList<JPanel> panelAventuriers;
+    private HashMap<Role,VueAventurier> panelAventuriers;
     private JPanel panelPrincipal = new JPanel(new BorderLayout());
     
     private JButton btnBouger = new JButton("Bouger");
@@ -50,7 +50,7 @@ public class VuePrincipale extends Observable {
      * On définit un constructeur de VueAventurier avec une VueGrille v
      * @param v
      */
-    public VuePrincipale(VueGrille v, ArrayList<String> nomsAventuriers){
+    public VuePrincipale(VueGrille v, ArrayList<Role> roleAventurier){
         window = new JFrame();
         window.setSize(1600,800);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
@@ -107,50 +107,120 @@ public class VuePrincipale extends Observable {
         
         //===================pour chaque aventurier different=================
         
-        panelAventuriers=new ArrayList<>();
+        panelAventuriers=new HashMap<>();
         
-        for(String n: nomsAventuriers){
-           VueAventurier va = new VueAventurier(n);
-           panelAventuriers.add(va);
+        for(Role role : roleAventurier){
+           VueAventurier va = new VueAventurier(role.toString());
+           panelAventuriers.put(role,va);
            va.setPannelBouttons(panelBoutons);
         }
         
         
-         paneGauche.add(panelAventuriers.get(0));
-         paneGauche.add(panelAventuriers.get(2));
+         paneGauche.add(panelAventuriers.get(roleAventurier.get(0)));
+         paneGauche.add(panelAventuriers.get(roleAventurier.get(3)));
         
-         paneDroite.add(panelAventuriers.get(1));
-         paneDroite.add(panelAventuriers.get(3));
+         paneDroite.add(panelAventuriers.get(roleAventurier.get(1)));
+         paneDroite.add(panelAventuriers.get(roleAventurier.get(2)));
         
         
     }
     
-    public void actualiserVue(int nbAventurier, String nomJoueur, Role classe, Color couleur, int nombrePA) {
+    public void actualiserVue( String nomJoueur, Role classe, Color couleur, int nombrePA) {
         if (nombrePA == 0) {
-            btnBouger.setVisible(false);
+            getBtnBouger().setVisible(false);
         }
         else {
-            btnBouger.setVisible(true);
+            getBtnBouger().setVisible(true);
         }
         
-        panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
+        getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
         
 
-        panelAventuriers.get(nbAventurier).setBackground(couleur);
-        labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
+        getPanelAventuriers().get(classe).setBackground(couleur);
+        getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
         
-        panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        getPanelCentre().setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         
-        labelNbPA.setText("Nombre d'actions restantes : " + nombrePA);
+        getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
         
-        window.setVisible(true);
+        getWindow().setVisible(true);
     }
     
     /**
      * Ferme la fenêtre
      */
     public void close() {
-        window.dispose();
+        getWindow().dispose();
+    }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
+
+    /**
+     * @return the panelCentre
+     */
+    public JPanel getPanelCentre() {
+        return panelCentre;
+    }
+
+    /**
+     * @return the panelAventuriers
+     */
+    public HashMap<Role,VueAventurier> getPanelAventuriers() {
+        return panelAventuriers;
+    }
+
+    /**
+     * @return the panelPrincipal
+     */
+    public JPanel getPanelPrincipal() {
+        return panelPrincipal;
+    }
+
+    /**
+     * @return the btnBouger
+     */
+    public JButton getBtnBouger() {
+        return btnBouger;
+    }
+
+    /**
+     * @return the btnAssecher
+     */
+    public JButton getBtnAssecher() {
+        return btnAssecher;
+    }
+
+    /**
+     * @return the btnDonner
+     */
+    public JButton getBtnDonner() {
+        return btnDonner;
+    }
+
+    /**
+     * @return the btnRecuper
+     */
+    public JButton getBtnRecuper() {
+        return btnRecuper;
+    }
+
+    /**
+     * @return the labelNbPA
+     */
+    public JLabel getLabelNbPA() {
+        return labelNbPA;
+    }
+
+    /**
+     * @return the labelNomJoueur
+     */
+    public JLabel getLabelNomJoueur() {
+        return labelNomJoueur;
     }
 }
 
