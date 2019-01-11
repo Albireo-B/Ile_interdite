@@ -84,11 +84,11 @@ public class Controleur implements Observer {
         
 
         // Création des vues aventurier
-        vuePrincipale = new VuePrincipale(getVueGrille());
+        vuePrincipale = new VuePrincipale(getVueGrille(),nomsjoueurs);
         vuePrincipale.addObserver(this);
         
         
-        vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
+        vuePrincipale.actualiserVue(0,aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
@@ -239,7 +239,7 @@ public class Controleur implements Observer {
         tirerCartes();
         gererInondation();
         aventurierSuivant();
-        vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
+        vuePrincipale.actualiserVue(0,getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -347,7 +347,7 @@ public class Controleur implements Observer {
         
         
         
-        vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
+        vuePrincipale.actualiserVue(0,getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()

@@ -35,7 +35,8 @@ public class VueAventurier extends JPanel{
     
     
     public VueAventurier(String nomAventurier) {
-        this.nomAventurier=nomAventurier;
+        super(new BorderLayout());
+        this.nomAventurier = nomAventurier;
         
         
         //====================== principal========================
@@ -66,7 +67,8 @@ public class VueAventurier extends JPanel{
         lampes=new ArrayList<>();
        
         for (int i=0;i<4;i++){
-        paneTresor.add(lampes.get(i));
+            lampes.add(new JLabel("AA"));
+            paneTresor.add(lampes.get(i));
     
         }
         paneClass.add(paneImage,BorderLayout.CENTER);
@@ -84,14 +86,14 @@ public class VueAventurier extends JPanel{
         
         buttonCartes=new ArrayList<>();
         for(int i=0;i<4;i++){
-        pannelBas.add(buttonCartes.get(i));
-        
+            buttonCartes.add(new JButton("Carte"));
+            pannelBas.add(buttonCartes.get(i));
         }
 
         
         pannelPrincipal.add(pannelHaut);
         pannelPrincipal.add(pannelBas);
-
+        this.add(pannelPrincipal);
     }
     
 

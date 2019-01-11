@@ -65,6 +65,7 @@ public class ControleurInit {
             ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(1, 3)));
         } catch (ExceptionAventurier ex) {}
         
+            ctrl.initCartes();
     }
     
     
