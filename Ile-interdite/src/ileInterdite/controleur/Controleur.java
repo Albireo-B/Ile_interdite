@@ -16,6 +16,7 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,9 +26,9 @@ import java.util.Observer;
  */
 public class Controleur implements Observer {
 
-    private VuePrincipale vueAventurier;
+    private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
-    private ArrayList<Aventurier> joueurs = new ArrayList<>();//à modifier en [4]
+    private HashMap<Role,Aventurier> joueurs = new HashMap<>();//à modifier en [4]
     private Grille grille;
     private Aventurier aventurierCourant;
     private ArrayList<CarteInondation> piocheInondation=new ArrayList<>();
@@ -35,6 +36,7 @@ public class Controleur implements Observer {
     private ArrayList<CarteTirage> piocheTirage=new ArrayList<>();
     private ArrayList<CarteTirage> defausseTirage=new ArrayList<>();
     private int niveauEau;
+    private ArrayList<Role> listeRoles;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -73,26 +75,28 @@ public class Controleur implements Observer {
         
         //Initialisation des joueurs et du joueur courant
         setRoles(nomsjoueurs,roles);
-        aventurierCourant = joueurs.get(0);
+        aventurierCourant = joueurs.get(listeRoles.get(0));
 
         
-        for (Aventurier j : joueurs) {
-            vueGrille.actualiserPositionJoueur(j.getPosition(), null, j.getPion());
+        for (Role role : joueurs.keySet()) {
+            vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
         }
         
 
         // Création des vues aventurier
-        vueAventurier = new VuePrincipale(getVueGrille());
-        vueAventurier.addObserver(this);
-        vueAventurier.actualiserVue(aventurierCourant.getNomJoueur(),
+        vuePrincipale = new VuePrincipale(getVueGrille());
+        vuePrincipale.addObserver(this);
+        
+        
+        vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
                                     aventurierCourant.getPion().getCouleur(),
                                     aventurierCourant.getNbAction()
                                     );
         
         //ecoute des vues defausse
-        for (Aventurier a : joueurs){
-            a.getVueDefausse().addObserver(this);
+        for (Role role : joueurs.keySet()){
+            joueurs.get(role).getVueDefausse().addObserver(this);
         }
         
     }
@@ -104,7 +108,7 @@ public class Controleur implements Observer {
     }
     
     public void initCartes() {
-        for (Aventurier a : joueurs){
+        for (Role role : joueurs.keySet()){
                 ArrayList<CarteTirage> cartes = new ArrayList<>();
                 for (int i = 0; i<2;i++){
                     while (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
@@ -114,7 +118,7 @@ public class Controleur implements Observer {
                     piocheTirage.remove(piocheTirage.size()-1);
                 }
                 try{
-                a.addCartes(cartes);
+                joueurs.get(role).addCartes(cartes);
                 }
                 catch (ExceptionAventurier ex){};
         }
@@ -181,12 +185,12 @@ public class Controleur implements Observer {
             getGrille().getTuile(p).setEtat(EtatTuile.COULEE);
             getVueGrille().actualiserEtatTuile(p, EtatTuile.COULEE);
             
-            for (Aventurier aventurier : joueurs){
-                if (aventurier.getTuile().getEtat()==EtatTuile.COULEE){
-                    if (!aventurier.calculDeplacement(grille).isEmpty()){
-                        proposerTuiles(aventurier.calculDeplacement(grille), Action.DEPLACER);
+            for (Role role : joueurs.keySet()){
+                if (joueurs.get(role).getTuile().getEtat()==EtatTuile.COULEE){
+                    if (!joueurs.get(role).calculDeplacement(grille).isEmpty()){
+                        proposerTuiles(joueurs.get(role).calculDeplacement(grille), Action.DEPLACER);
                     } else {
-                        throw new ExceptionAventurier(aventurier);
+                        throw new ExceptionAventurier(joueurs.get(role));
                     }
                 }
             }
@@ -221,13 +225,13 @@ public class Controleur implements Observer {
      * Passe au prochain joueur
      */
     public void aventurierSuivant() {
-
-        setAventurierCourant(getJoueurs().get((getJoueurs().indexOf(getAventurierCourant()) + 1) % getJoueurs().size()));
+        
+        setAventurierCourant(joueurs.get(listeRoles.get((listeRoles.indexOf(aventurierCourant.getRole())+1)%joueurs.size())));
     }
 
     /**
      * Change de tour : remet les points d'action a 3, remet le pouvoir en
-     * utilisable et actualise la vueAventurier avec les paramètres du nouvel
+     * utilisable et actualise la vuePrincipale avec les paramètres du nouvel
      * aventurier
      */
     public void nextTurn() {
@@ -235,7 +239,7 @@ public class Controleur implements Observer {
         tirerCartes();
         gererInondation();
         aventurierSuivant();
-        vueAventurier.actualiserVue(getAventurierCourant().getNomJoueur(),
+        vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -285,7 +289,7 @@ public class Controleur implements Observer {
                 
                 vueGrille.actualiserPositionJoueur(messagepos.getPos(), getAventurierCourant().getPosition(), getAventurierCourant().getPion());
                 //Si l'aventurier en train de jouer est un pilote
-                if (messagepos.getRole() instanceof Pilote && getAventurierCourant().getPouvoir()) {
+                if (getAventurierCourant() instanceof Pilote && getAventurierCourant().getPouvoir()) {
                     Pilote p = (Pilote) getAventurierCourant();
                     p.setPositionPilote(grille, grille.getTuile(messagepos.getPos()));
 
@@ -343,7 +347,7 @@ public class Controleur implements Observer {
         
         
         
-        vueAventurier.actualiserVue(getAventurierCourant().getNomJoueur(),
+        vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
                                     getAventurierCourant().getNbAction()
@@ -365,10 +369,13 @@ public class Controleur implements Observer {
         for (Tuile t : getGrille().getTuiles().values()) {
             for (int i = 0; i < nomsJoueurs.size(); i++) {
                 if (t.getNom().equals(Rôles.get(i).getCaseDepart())) {
-                    getJoueurs().add(créerAventurier(t, nomsJoueurs.get(i), Rôles.get(i)));
+                    getJoueurs().put(Rôles.get(i),créerAventurier(t, nomsJoueurs.get(i), Rôles.get(i)));
                 }
             }
         }
+        listeRoles = new ArrayList<>(joueurs.keySet());
+        
+        
     }
     
     public Aventurier créerAventurier(Tuile t, String n, Role r){
@@ -489,29 +496,29 @@ public class Controleur implements Observer {
     /**
      * @return the joueurs
      */
-    public ArrayList<Aventurier> getJoueurs() {
+    public HashMap<Role,Aventurier> getJoueurs() {
         return joueurs;
     }
 
     /**
      * @param joueurs the joueurs to set
      */
-    public void setJoueurs(ArrayList<Aventurier>joueurs) {
+    public void setJoueurs(HashMap<Role,Aventurier> joueurs) {
         this.joueurs = joueurs;
     }
 
     /**
-     * @return the vueAventurier
+     * @return the vuePrincipale
      */
-    public VuePrincipale getVueAventurier() {
-        return vueAventurier;
+    public VuePrincipale getvuePrincipale() {
+        return vuePrincipale;
     }
 
     /**
-     * @param vueAventurier the vueAventurier to set
+     * @param vuePrincipale the vuePrincipale to set
      */
-    public void setVueAventurier(VuePrincipale vueAventurier) {
-        this.vueAventurier = vueAventurier;
+    public void setvuePrincipale(VuePrincipale vuePrincipale) {
+        this.vuePrincipale = vuePrincipale;
     }
 
     /**

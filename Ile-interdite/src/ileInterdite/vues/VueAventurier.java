@@ -43,7 +43,7 @@ public class VueAventurier extends JPanel{
         JPanel pannelPrincipal = new JPanel(new GridLayout(2, 1));
         
         
-        //===================pannel en haut avec les button et la class====
+        //===================pannel en haut avec les button et la classe====
         
         JPanel pannelHaut=new JPanel(new GridLayout(1,2));
         

@@ -5,7 +5,6 @@
  */
 package ileInterdite.message;
 
-import utilitaires.Role;
 import utilitaires.Action;
 
 /**
@@ -14,15 +13,13 @@ import utilitaires.Action;
  */
 public class Message {
     private Action action;
-    private Role role;
     
     /**
      * On définit le constructeur de message avec une action Action
      * @param action 
      */
-    public Message(Action action,Role role){
+    public Message(Action action){
         this.action = action;
-        this.role=role;
     }
 
     //Getters et Setters :
@@ -39,19 +36,5 @@ public class Message {
      */
     public void setAction(Action action) {
         this.action = action;
-    }
-
-    /**
-     * @return the role
-     */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * @param role the role to set
-     */
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

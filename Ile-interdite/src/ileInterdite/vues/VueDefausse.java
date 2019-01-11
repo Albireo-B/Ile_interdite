@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import utilitaires.Action;
+import utilitaires.Role;
 
 /**
  *
@@ -56,7 +57,7 @@ public class VueDefausse extends Observable{
         panelPrincipal.add(panelCarte,BorderLayout.CENTER);
         
         
-        actualiser(new ArrayList<>());
+        actualiser(new ArrayList<>(),null);
         
         
         
@@ -64,7 +65,7 @@ public class VueDefausse extends Observable{
         fenetre.add(panelPrincipal);
     }
     
-      public void actualiser(ArrayList<String> listeCartes){ 
+      public void actualiser(ArrayList<String> listeCartes,Role role){ 
         panelPrincipal.remove(panelCarte);
           
         buttonCartes=new ArrayList<>();
@@ -77,7 +78,7 @@ public class VueDefausse extends Observable{
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
-                    notifyObservers(new MessageCarte(c,Action.DEFAUSSER));
+                    notifyObservers(new MessageCarte(c,Action.DEFAUSSER,role));
                     clearChanged();
                 }
             });

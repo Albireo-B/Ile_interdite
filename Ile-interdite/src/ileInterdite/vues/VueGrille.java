@@ -93,7 +93,7 @@ public class VueGrille extends Observable {
                 
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
-                    notifyObservers(new MessagePos(act, pos, null));
+                    notifyObservers(new MessagePos(act, pos));
                     clearChanged();
                 });
             }

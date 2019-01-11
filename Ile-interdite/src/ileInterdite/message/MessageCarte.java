@@ -15,10 +15,12 @@ import utilitaires.Action;
 public class MessageCarte extends Message {
     
     private String nomCarte;
+    private Role role;
     
     public MessageCarte(String nomcarte,Action a,Role role){
-        super(a,role);
+        super(a);
         this.nomCarte=nomCarte;
+        this.role=role;
     }
 
     /**
@@ -26,5 +28,12 @@ public class MessageCarte extends Message {
      */
     public String getNomCarte() {
         return nomCarte;
+    }
+
+    /**
+     * @return the role
+     */
+    public Role getRole() {
+        return role;
     }
 }

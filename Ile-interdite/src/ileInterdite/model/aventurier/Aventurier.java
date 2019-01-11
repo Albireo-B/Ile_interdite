@@ -23,7 +23,7 @@ public abstract class Aventurier {
     private int nbAction;
     private Tuile tuile;
     private Boolean pouvoir = true;
-    private Role Role;
+    private Role role;
     private String nomJoueur;
     private Pion pion;
     private ArrayList<CarteTirage> cartes=new ArrayList<>();
@@ -70,7 +70,7 @@ public abstract class Aventurier {
             for (CarteTirage carte : cartes){
                 carteSelection.add(carte.getNom());
             }
-            vueDefausse.actualiser(carteSelection);
+            vueDefausse.actualiser(carteSelection,role);
     }
    
     
@@ -159,7 +159,7 @@ public abstract class Aventurier {
      * @return the Role
      */
     public Role getRole() {
-        return Role;
+        return role;
     }
 
     /**
@@ -179,8 +179,8 @@ public abstract class Aventurier {
     /**
      * @param Role the Role to set
      */
-    public void setRole(Role Role) {
-        this.Role = Role;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     /**
