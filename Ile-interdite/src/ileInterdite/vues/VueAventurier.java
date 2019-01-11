@@ -5,27 +5,12 @@
  */
 package ileInterdite.vues;
 
-import Test.testTour;
-import utilitaires.Action;
-import ileInterdite.model.aventurier.Role;
-import ileInterdite.message.*;
-import ileInterdite.model.aventurier.Aventurier;
-import ileInterdite.model.cartes.CarteTirage;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Observable;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
 
         
 /**
