@@ -82,9 +82,17 @@ public class Controleur implements Observer {
             vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
         }
         
-
+        HashMap<Role, VueAventurier> panelAventuriers=new HashMap<>();
+        Integer i = 0;
+        for(Role role : listeRoles){
+           VueAventurier va = new VueAventurier(role,i==0 || i==3);
+           va.addObserver(this);
+           panelAventuriers.put(role,va);
+           i ++;
+        }
+        
         // Création des vues aventurier
-        vuePrincipale = new VuePrincipale(getVueGrille(),listeRoles);
+        vuePrincipale = new VuePrincipale(getVueGrille(), panelAventuriers);
         vuePrincipale.addObserver(this);
         
         
@@ -122,7 +130,12 @@ public class Controleur implements Observer {
                 joueurs.get(role).addCartes(cartes);
                 }
                 catch (ExceptionAventurier ex){};
-                vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
+                
+                ArrayList<CarteTirage> cartesJoueur = new ArrayList();
+                for (CarteTirage carte : joueurs.get(role).getCartes()) {
+                    cartesJoueur.add(new CarteTirage(carte));
+                }
+                vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(cartesJoueur);
                 System.out.println(joueurs.get(role).cartesToString());
         }
     }
@@ -329,8 +342,9 @@ public class Controleur implements Observer {
         //Si arg est de type MessageCarte
         if (arg instanceof MessageCarte) {
             MessageCarte messageCarte = (MessageCarte) arg;
+            System.out.println(messageCarte.getAction() + messageCarte.getRole().toString());
             //Si l'action est défausser
-            if(messageCarte.getAction()==Action.DEFAUSSER){
+            if(messageCarte.getAction() == Action.DEFAUSSER){
             CarteTirage carteSelection = null;
             for (CarteTirage carte : joueurs.get(messageCarte.getRole()).getCartes()){
                 if (carte.getNom().equals(messageCarte.getNomCarte())) {
@@ -348,7 +362,13 @@ public class Controleur implements Observer {
             
             defausseTirage.add(carteSelection);
             joueurs.get(messageCarte.getRole()).getCartes().remove(carteSelection);
-            vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
+            
+            ArrayList<CarteTirage> cartesJoueur = new ArrayList();
+            for (CarteTirage carte : joueurs.get(messageCarte.getRole()).getCartes()) {
+                cartesJoueur.add(new CarteTirage(carte));
+            }
+            vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(cartesJoueur);
+            
             joueurs.get(messageCarte.getRole()).getVueDefausse().close();
                  
             //Si l'action est donner
@@ -462,7 +482,7 @@ public class Controleur implements Observer {
                 defausseInondation.clear();
             }
         }
-        return cartesTirees;       
+        return cartesTirees;
     }
         
     /**
@@ -508,7 +528,11 @@ public class Controleur implements Observer {
             
         }
         
-        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
+        ArrayList<CarteTirage> cartesJoueur = new ArrayList();
+        for (CarteTirage carte : joueurs.get(aventurierCourant.getRole()).getCartes()) {
+            cartesJoueur.add(new CarteTirage(carte));
+        }
+        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(cartesJoueur);
     }
     
 

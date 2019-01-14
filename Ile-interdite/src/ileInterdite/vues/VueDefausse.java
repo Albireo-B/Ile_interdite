@@ -7,7 +7,6 @@ package ileInterdite.vues;
 
 
 import ileInterdite.message.*;
-import ileInterdite.model.cartes.ICartes;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -72,19 +71,18 @@ public class VueDefausse extends Observable{
         buttonCartes=new ArrayList<>();
         
         panelCarte=new JPanel(new GridLayout(1,listeCartes.size()));
-        for(String c: listeCartes){
-            JButton buttonCarte=new JButton();
-            buttonCarte.setText(c);
-            buttonCarte.addActionListener(new ActionListener() {
+        for(String nomCarte: listeCartes){
+            ICartes carte = new ICartes(nomCarte, role, Action.DEFAUSSER);
+            carte.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
-                    notifyObservers(new MessageCarte(c,Action.DEFAUSSER,role));
+                    notifyObservers(carte.getMessage());
                     clearChanged();
                 }
             });
-            buttonCartes.add(new ICartes(buttonCarte,null,role));
-            panelCarte.add(buttonCarte);
+            buttonCartes.add(carte);
+            panelCarte.add(carte);
         }
         panelPrincipal.add(panelCarte,BorderLayout.CENTER);
         afficher();

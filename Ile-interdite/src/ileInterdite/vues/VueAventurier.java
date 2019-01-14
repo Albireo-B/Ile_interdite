@@ -5,15 +5,20 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.message.MessageCarte;
+import ileInterdite.message.MessagePos;
 import ileInterdite.model.aventurier.IAventurier;
-import ileInterdite.model.cartes.ICartes;
+import ileInterdite.model.cartes.CarteTirage;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utilitaires.Action;
 import utilitaires.Role;
 
         
@@ -21,8 +26,9 @@ import utilitaires.Role;
  *
  * @author grosa
  */
-public class VueAventurier extends JPanel{
-   
+public class VueAventurier extends Observable {
+    private JPanel panelPrincipal;
+    
     private JButton bouger;
     private JPanel paneClass;
     private JPanel paneTresor;
@@ -32,7 +38,6 @@ public class VueAventurier extends JPanel{
 
     private IAventurier carteJoueur;
 
-    private JPanel panelPrincipal;
 
 
     private ArrayList<ICartes> buttonCartes;
@@ -45,8 +50,6 @@ public class VueAventurier extends JPanel{
     
 
     public VueAventurier(Role roleAventurier,boolean gauche) {
-
-        super(new BorderLayout());
         this.roleAventurier = roleAventurier;
         
         
@@ -72,11 +75,6 @@ public class VueAventurier extends JPanel{
         
         lampes=new ArrayList<>();
        
-        for (int i=0;i<4;i++){
-            lampes.add(new JLabel("AA"));
-            paneTresor.add(lampes.get(i));
-    
-        }
         buttonCartes=new ArrayList<>();
         
        
@@ -87,38 +85,52 @@ public class VueAventurier extends JPanel{
                 if((i==0 && !gauche) || (i==2 && gauche)){
                     panelPrincipal.add(paneClass);
                 }
-                buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
-                panelPrincipal.add(buttonCartes.get(i).getBoutonCarte());
-
+                buttonCartes.add(new ICartes("Carte",roleAventurier, null));
+                panelPrincipal.add(buttonCartes.get(i));
             }
 
-
-        
-        
-
-            buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
-            this.add(panelPrincipal,BorderLayout.CENTER);
-            this.add(paneTresor,BorderLayout.SOUTH);
+            buttonCartes.add(new ICartes("Carte",roleAventurier, null));
+            panelPrincipal.add(paneTresor,BorderLayout.SOUTH);
 
         }
     
+    public JPanel getPanelPrincipal() {
+        return panelPrincipal;
+    }
         
-    public void actualiserVueAventurier(ArrayList<String> listeCarte){
-         for (int i = 0 ;i<5 && i<listeCarte.size();i++){
-            getButtonCartes().get(i).getBoutonCarte().setText(listeCarte.get(i));
-         }
-     
+    public void actualiserVueAventurier(ArrayList<CarteTirage> listeCarte){
+        for (int i = 0 ;i<5 && i<listeCarte.size();i++){
+            ICartes icarte = getButtonCartes().get(i);
+            CarteTirage carte = listeCarte.get(i);
+            icarte.setText(carte.getNom());
+            icarte.setActionCarte(carte.getAction());
+        }
     } 
-
-    public void rendreCartesCliquables(ArrayList<Integer> listePos){
+    
+    public void rendreCartesCliquables() {
+        ArrayList<Integer> listePos = new ArrayList();
+        
+        for (int i = 0; i < buttonCartes.size(); i++) {
+            listePos.add(i);
+        }
+        
+        rendreCartesCliquables(listePos);
+    }
+    
+    public void rendreCartesCliquables(ArrayList<Integer> listePos) {
         for (Integer carteCliquable : listePos){
-            buttonCartes.get(carteCliquable).rendreCarteCliquable();
+            ICartes carte = buttonCartes.get(carteCliquable);
+            carte.addActionListener((ActionEvent e) -> {
+                    setChanged();
+                    notifyObservers(carte.getMessage());
+                    clearChanged();
+                });
         }
     }
             
     public void rendreAventurierCliquable(){
             carteJoueur.rendreAventurierCliquable();
-        }
+    }
             
     //Getters et Setters :
      
