@@ -17,7 +17,7 @@ public class MessageCarte extends Message {
     private String nomCarte;
     private Role role;
     
-    public MessageCarte(String nomcarte,Action a,Role role){
+    public MessageCarte(String nomCarte,Action a,Role role){
         super(a);
         this.nomCarte=nomCarte;
         this.role=role;
