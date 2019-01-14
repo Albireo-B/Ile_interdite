@@ -5,7 +5,9 @@
  */
 package ileInterdite.model.aventurier;
 
-import ileInterdite.message.MessageAventurier;
+import ileInterdite.message.Message;
+import ileInterdite.message.MessageCarte;
+import ileInterdite.model.cartes.CarteTirage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -28,18 +30,31 @@ public class IAventurier extends Observable{
         this.role=role;
     }
 
-    public void rendreAventurierCliquable(Action action){
+    public void devenirReceveur(String carte){
+
          
         setActions(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent arg0) {
                setChanged();
-               notifyObservers(new MessageAventurier(action,role));
+               notifyObservers(new MessageCarte(carte,Action.RECEVOIR,role));
+
                clearChanged();
            }
        });
     }
     
+    public void devenirSuiveur(){         
+        setActions(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent arg0) {
+               setChanged();
+               notifyObservers(new Message(Action.SUIVRE,role));
+
+               clearChanged();
+           }
+       });
+    }
    
     /**
      * @return the boutonAventurier

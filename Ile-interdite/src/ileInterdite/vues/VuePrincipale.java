@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -100,22 +101,27 @@ public class VuePrincipale extends Observable {
         
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.DEPLACER));
+            notifyObservers(new Message(Action.DEPLACER,null));
             clearChanged();
         });
 
         btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.ASSECHER));
+            notifyObservers(new Message(Action.ASSECHER,null));
             clearChanged();
         });
 
         btnTerminerTour.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.TERMINER));
+            notifyObservers(new Message(Action.TERMINER,null));
             clearChanged();
         });
         
+        btnDonner.addActionListener((ActionEvent arg0) -> {
+            setChanged();
+            notifyObservers(new Message(Action.DONNER,null));
+            clearChanged();
+        });
         
         
         //===================pour chaque aventurier different=================
@@ -158,24 +164,7 @@ public class VuePrincipale extends Observable {
         
         getWindow().setVisible(true);
     }
-    
-    
-    public void rendreAventuriersCliquable(Action action){
-        for (Role r : panelAventuriers.keySet()){
-                panelAventuriers.get(r).rendreAventurierCliquable(action);
-        }
-    }
-    //rends tous les aventuriers cliquable sauf le role donné en paramètre
-    public void rendreAventuriersCliquable(Action action, Role role){
-        for (Role r : panelAventuriers.keySet()){
-            if (r!=role){
-                panelAventuriers.get(r).rendreAventurierCliquable(action);
-            }
-        }
-    }
-    
-    
-    
+     
     /**
      * Ferme la fenêtre
      */
