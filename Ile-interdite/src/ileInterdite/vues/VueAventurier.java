@@ -116,8 +116,8 @@ public class VueAventurier extends JPanel{
         }
     }
             
-    public void rendreAventurierCliquable(){
-            carteJoueur.rendreAventurierCliquable();
+    public void rendreAventurierCliquable(Action action){
+            carteJoueur.rendreAventurierCliquable(action);
         }
             
     //Getters et Setters :

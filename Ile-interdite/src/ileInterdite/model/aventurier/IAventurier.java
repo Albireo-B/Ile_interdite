@@ -28,13 +28,13 @@ public class IAventurier extends Observable{
         this.role=role;
     }
 
-    public void rendreAventurierCliquable(){
+    public void rendreAventurierCliquable(Action action){
          
         setActions(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent arg0) {
                setChanged();
-               notifyObservers(new MessageAventurier(Action.DONNER,role));
+               notifyObservers(new MessageAventurier(action,role));
                clearChanged();
            }
        });
