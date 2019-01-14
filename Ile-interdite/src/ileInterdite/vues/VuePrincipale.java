@@ -165,10 +165,10 @@ public class VuePrincipale extends Observable {
         getWindow().setVisible(true);
     }
     
-    public void rendreAutresAventuriersCliquable(Action action, Role role){
+    public void rendreAutresAventuriersCliquable(Role role,Action action){
         for (Role r : panelAventuriers.keySet()){
             if (r!=role){
-                panelAventuriers.get(r).rendreAventurierCliquable(action);
+                panelAventuriers.get(r).rendreAventurierCliquable(null,action);
             }
         }
     }
