@@ -31,35 +31,32 @@ public class VueAventurier extends JPanel{
   
     private ArrayList<JLabel> lampes;
     private String nomAventurier;
-    private JPanel pannelBouttons=new JPanel(new GridLayout(2,2));
+
     
     
     
-    public VueAventurier(String nomAventurier) {
+    public VueAventurier(String nomAventurier,boolean gauche) {
         super(new BorderLayout());
         this.nomAventurier = nomAventurier;
         
         
         //====================== principal========================
         
-        JPanel pannelPrincipal = new JPanel(new GridLayout(2, 1));
+        JPanel pannelPrincipal = new JPanel(new GridLayout(2,3));
         
         
         //===================pannel en haut avec les button et la classe====
         
-        JPanel pannelHaut=new JPanel(new GridLayout(1,2));
+       
         
         bouger=new JButton("bouger");
         assecher=new JButton("assecher");
         recuperer=new JButton("recuperer");
         donner=new JButton("donner");
         
-        pannelBouttons.add(new JPanel());
-        pannelBouttons.add(new JPanel());
-        pannelBouttons.add(donner);
-        pannelBouttons.add(new JPanel());
 
-        paneClass=new JPanel(new BorderLayout());
+
+        paneClass=new JPanel();
         JButton carteJoueur=new JButton("icone");
         paneTresor=new JPanel(new GridLayout(1,4));
         
@@ -70,29 +67,43 @@ public class VueAventurier extends JPanel{
             paneTresor.add(lampes.get(i));
     
         }
-        paneClass.add(carteJoueur, BorderLayout.CENTER);
-        paneClass.add(paneTresor,BorderLayout.SOUTH);
-        
-        pannelHaut.add(pannelBouttons);
-        pannelHaut.add(paneClass);
-                
-        
-        
-        //=======================pannel en bas pour afficher les cartes=========
-        
-        JPanel pannelBas=new JPanel(new GridLayout(1,5));
-        
-        
         buttonCartes=new ArrayList<>();
-        for(int i=0;i<5;i++){
-            buttonCartes.add(new JButton("Carte"));
-            pannelBas.add(buttonCartes.get(i));
-        }
-
         
-        pannelPrincipal.add(pannelHaut);
-        pannelPrincipal.add(pannelBas);
-        this.add(pannelPrincipal);
+       
+        //=============================================
+        paneClass.add(carteJoueur);
+        if(!gauche){
+        
+        
+        
+        
+        pannelPrincipal.add(paneClass);
+        for(int i=0;i<5;i++){
+            
+                buttonCartes.add(new JButton("Carte"));
+                pannelPrincipal.add(buttonCartes.get(i));
+        
+            }
+        
+        
+        }
+        else{
+        for(int i=0;i<5;i++){
+                if(i==2)
+                    pannelPrincipal.add(paneClass);
+                
+                    buttonCartes.add(new JButton("Carte"));
+                    pannelPrincipal.add(buttonCartes.get(i));
+                
+                }
+        
+        
+        }
+        
+        
+        //===============================================
+        this.add(pannelPrincipal,BorderLayout.CENTER);
+        this.add(paneTresor,BorderLayout.SOUTH);
     }
         
      public void actualiserVueAventurier(ArrayList<String> listeCarte){
@@ -186,12 +197,6 @@ public class VueAventurier extends JPanel{
     }
 
 
-    /**
-     * @param pannelBouttons the pannelBouttons to set
-     */
-    public void setPannelBouttons(JPanel pannelBouttons) {
-        this.pannelBouttons = pannelBouttons;
-    }
      
      
 }
