@@ -28,42 +28,45 @@ public class VueAventurier extends JPanel{
     private JButton assecher;
     private JButton recuperer;
     private JButton donner;
+
     private JButton carteJoueur;
+
+    private JPanel panelPrincipal;
+
 
     private ArrayList<ICartes> buttonCartes;
   
     private ArrayList<JLabel> lampes;
-    private String nomAventurier;
-    private JPanel pannelBouttons=new JPanel(new GridLayout(2,2));
+    private Role roleAventurier;
+
     
     
     
-    public VueAventurier(Role roleAventurier) {
+
+    public VueAventurier(Role roleAventurier,boolean gauche) {
+
         super(new BorderLayout());
-        this.nomAventurier = nomAventurier;
+        this.roleAventurier = roleAventurier;
         
         
         //====================== principal========================
         
-        JPanel pannelPrincipal = new JPanel(new GridLayout(2, 1));
+        panelPrincipal = new JPanel(new GridLayout(2,3));
         
         
         //===================pannel en haut avec les button et la classe====
         
-        JPanel pannelHaut=new JPanel(new GridLayout(1,2));
+       
         
         bouger=new JButton("bouger");
         assecher=new JButton("assecher");
         recuperer=new JButton("recuperer");
         donner=new JButton("donner");
         
-        pannelBouttons.add(new JPanel());
-        pannelBouttons.add(new JPanel());
-        pannelBouttons.add(donner);
-        pannelBouttons.add(new JPanel());
 
         paneClass=new JPanel(new BorderLayout());
         carteJoueur=new JButton("icone");
+
         paneTresor=new JPanel(new GridLayout(1,4));
         
         lampes=new ArrayList<>();
@@ -73,30 +76,31 @@ public class VueAventurier extends JPanel{
             paneTresor.add(lampes.get(i));
     
         }
-        paneClass.add(carteJoueur, BorderLayout.CENTER);
-        paneClass.add(paneTresor,BorderLayout.SOUTH);
-        
-        pannelHaut.add(pannelBouttons);
-        pannelHaut.add(paneClass);
-                
-        
-        
-        //=======================pannel en bas pour afficher les cartes=========
-        
-        JPanel pannelBas=new JPanel(new GridLayout(1,5));
-        
-        
         buttonCartes=new ArrayList<>();
+        
+       
+        //=============================================
+        paneClass.add(carteJoueur);
+
         for(int i=0;i<5;i++){
-            buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
-            pannelBas.add(buttonCartes.get(i).getBoutonCarte());
-        }
+                if((i==0 && gauche) || (i==2 && !gauche)){
+                    panelPrincipal.add(paneClass);
+                }
+                buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+                panelPrincipal.add(buttonCartes.get(i).getBoutonCarte());
+
+            }
+
 
         
-        pannelPrincipal.add(pannelHaut);
-        pannelPrincipal.add(pannelBas);
-        this.add(pannelPrincipal);
-    }
+        
+
+            buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+            this.add(panelPrincipal,BorderLayout.CENTER);
+            this.add(paneTresor,BorderLayout.SOUTH);
+
+        }
+    
         
     public void actualiserVueAventurier(ArrayList<String> listeCarte){
          for (int i = 0 ;i<5 && i<listeCarte.size();i++){
@@ -115,7 +119,7 @@ public class VueAventurier extends JPanel{
         for (Integer aventurier : aventuriers){
             
         }
-        carteJoueur.addActionListener(new ActionListener);
+        //carteJoueur.addActionListener(new ActionListener);
     }
             
     //Getters et Setters :
@@ -123,15 +127,15 @@ public class VueAventurier extends JPanel{
     /**
      * @return the nomAventurier
      */
-    public String getNomAventurier() {
-        return nomAventurier;
+    public Role getRoleAventurier() {
+        return roleAventurier;
     }
 
     /**
      * @param nomAventurier the nomAventurier to set
      */
-    public void setNomAventurier(String nomAventurier) {
-        this.nomAventurier = nomAventurier;
+    public void setRoleAventurier(Role roleAventurier) {
+        this.roleAventurier = roleAventurier;
     }
 
     /**
@@ -195,12 +199,6 @@ public class VueAventurier extends JPanel{
     }
 
 
-    /**
-     * @param pannelBouttons the pannelBouttons to set
-     */
-    public void setPannelBouttons(JPanel pannelBouttons) {
-        this.pannelBouttons = pannelBouttons;
-    }
      
      
 }

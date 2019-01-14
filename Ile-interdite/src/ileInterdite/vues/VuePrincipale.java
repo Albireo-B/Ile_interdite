@@ -82,11 +82,13 @@ public class VuePrincipale extends Observable {
         
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
-        JPanel panelBoutons = new JPanel(new GridLayout(2,2));
+        JPanel panelBoutons = new JPanel(new GridLayout(3,2));
         
         JButton btnAssecher= new JButton("Assecher");
         JButton btnTerminerTour = new JButton("Terminer Tour");
         
+        panelBoutons.add(btnDonner);
+        panelBoutons.add(btnRecuper);
         panelBoutons.add(btnBouger);
         panelBoutons.add(btnAssecher);
         panelBoutons.add(btnTerminerTour);
@@ -119,11 +121,11 @@ public class VuePrincipale extends Observable {
         //===================pour chaque aventurier different=================
         
         panelAventuriers=new HashMap<>();
-        
+        Integer i = 0;
         for(Role role : roleAventurier){
-           VueAventurier va = new VueAventurier(role);
+           VueAventurier va = new VueAventurier(role,i==0 || i==3);
+           i ++;
            panelAventuriers.put(role,va);
-           va.setPannelBouttons(panelBoutons);
         }
         
         
