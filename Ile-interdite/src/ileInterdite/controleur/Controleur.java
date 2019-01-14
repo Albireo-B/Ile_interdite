@@ -370,7 +370,7 @@ public class Controleur implements Observer {
                 
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
-                        vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
+                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
 
                     }
                 }
