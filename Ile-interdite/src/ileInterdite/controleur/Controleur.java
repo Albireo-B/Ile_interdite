@@ -419,9 +419,9 @@ public class Controleur implements Observer {
         //3,4,5 -> 3 cartes
         //6,7 -> 4 cartes
         //8,9 -> 5 cartes
-        int j = 2;
+        int j;
         if (niveauEau<8){
-        j += niveauEau / 3;}
+        j = 2 + niveauEau / 3;}
         else{
             j = 5;
         }
@@ -447,7 +447,6 @@ public class Controleur implements Observer {
     */
     public void tirerCartes(){
         ArrayList<CarteTirage> cartes = new ArrayList<>();
-        ArrayList<CarteInondation> cartesARemettreEnPioche= new ArrayList<>();
         Boolean trigger = false;
         //Pour le nombre de cartes qu'on veut donner
         for (int i=0;i<2;i++){
@@ -474,12 +473,9 @@ public class Controleur implements Observer {
             
         }
         if (trigger){
-                
-            cartesARemettreEnPioche.addAll(defausseInondation);
+            Collections.shuffle(defausseInondation);
+            piocheInondation.addAll(defausseInondation); 
             defausseInondation.clear();
-                
-            Collections.shuffle(cartesARemettreEnPioche);
-            piocheInondation.addAll(cartesARemettreEnPioche); 
           
             gererInondation();
         }
@@ -494,14 +490,8 @@ public class Controleur implements Observer {
     
 
        
-    public void donnerCartes(){
-        ArrayList<CarteTirage> cartesCliquables = new ArrayList<>();
-        for (CarteTirage carte : aventurierCourant.getCartes()){
-            if(!carte.getUtilisable()){
-                cartesCliquables.add(carte);
-            }
-        }
-        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(cartesCliquables);
+    public void gererDon(){
+        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
         
     }
     

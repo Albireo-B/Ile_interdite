@@ -77,7 +77,16 @@ public abstract class Aventurier {
         setNbAction(3);
         setPouvoir(true);
     }
-    
+    public ArrayList<CarteTirage> cartesTresor(){
+        ArrayList<CarteTirage> cartesTresor = new ArrayList<>();
+        for (CarteTirage carte : getCartes()){
+            
+            if(!carte.getUtilisable()){
+                cartesTresor.add(carte);
+            }
+        }
+        return cartesTresor;
+    }
     /**
      * Fais diminuer le nombre d'actions de 1
      */
