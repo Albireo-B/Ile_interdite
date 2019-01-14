@@ -5,13 +5,14 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.model.cartes.CarteTirage;
+import ileInterdite.model.cartes.ICartes;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utilitaires.Role;
 
         
 /**
@@ -27,7 +28,7 @@ public class VueAventurier extends JPanel{
     private JButton recuperer;
     private JButton donner;
 
-    private ArrayList<JButton> buttonCartes;
+    private ArrayList<ICartes> buttonCartes;
   
     private ArrayList<JLabel> lampes;
     private String nomAventurier;
@@ -35,7 +36,7 @@ public class VueAventurier extends JPanel{
     
     
     
-    public VueAventurier(String nomAventurier) {
+    public VueAventurier(Role roleAventurier) {
         super(new BorderLayout());
         this.nomAventurier = nomAventurier;
         
@@ -85,8 +86,8 @@ public class VueAventurier extends JPanel{
         
         buttonCartes=new ArrayList<>();
         for(int i=0;i<5;i++){
-            buttonCartes.add(new JButton("Carte"));
-            pannelBas.add(buttonCartes.get(i));
+            buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+            pannelBas.add(buttonCartes.get(i).getBoutonCarte());
         }
 
         
@@ -95,20 +96,23 @@ public class VueAventurier extends JPanel{
         this.add(pannelPrincipal);
     }
         
-     public void actualiserVueAventurier(ArrayList<String> listeCarte){
+    public void actualiserVueAventurier(ArrayList<String> listeCarte){
          for (int i = 0 ;i<5 && i<listeCarte.size();i++){
-            getButtonCartes().get(i).setText(listeCarte.get(i));
+            getButtonCartes().get(i).getBoutonCarte().setText(listeCarte.get(i));
          }
      
     } 
-     
-     
-       
 
-    public void rendreCartesCliquables(ArrayList<CarteTirage> cartesCliquables){
-       
+    public void rendreCartesCliquables(ArrayList<Integer> listePos){
+        for (Integer carteCliquable : listePos){
+            buttonCartes.get(carteCliquable).rendreCarteCliquable();
+        }
     }
-    
+            
+    public void rendreAventurierCliquable(){
+        
+    }
+            
     //Getters et Setters :
      
     /**
@@ -144,7 +148,7 @@ public class VueAventurier extends JPanel{
         return donner;
     }
 
-    public ArrayList<JButton> getButtonCartes() {
+    public ArrayList<ICartes> getButtonCartes() {
         return buttonCartes;
     }
 
@@ -176,7 +180,7 @@ public class VueAventurier extends JPanel{
         this.donner = donner;
     }
 
-    public void setButtonCartes(ArrayList<JButton> buttonCartes) {
+    public void setButtonCartes(ArrayList<ICartes> buttonCartes) {
         this.buttonCartes = buttonCartes;
     }
 

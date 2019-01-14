@@ -50,7 +50,7 @@ public abstract class Aventurier {
     /**
      * On renvoie la liste des tuiles adjacentes en croix
      * @param g
-     * @return 
+     * @return CarteTirage> 
      */
     public ArrayList<Tuile> calculAssechement(Grille g){
         ArrayList<Tuile> liste = new ArrayList();
@@ -77,12 +77,11 @@ public abstract class Aventurier {
         setNbAction(3);
         setPouvoir(true);
     }
-    public ArrayList<CarteTirage> cartesTresor(){
-        ArrayList<CarteTirage> cartesTresor = new ArrayList<>();
-        for (CarteTirage carte : getCartes()){
-            
+    public ArrayList<Integer> cartesTresor(){
+        ArrayList<Integer> cartesTresor = new ArrayList<>();
+        for (CarteTirage carte : cartes){
             if(!carte.getUtilisable()){
-                cartesTresor.add(carte);
+                cartesTresor.add(cartes.indexOf(carte));
             }
         }
         return cartesTresor;

@@ -121,7 +121,7 @@ public class VuePrincipale extends Observable {
         panelAventuriers=new HashMap<>();
         
         for(Role role : roleAventurier){
-           VueAventurier va = new VueAventurier(role.toString());
+           VueAventurier va = new VueAventurier(role);
            panelAventuriers.put(role,va);
            va.setPannelBouttons(panelBoutons);
         }

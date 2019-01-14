@@ -329,6 +329,7 @@ public class Controleur implements Observer {
         //Si arg est de type MessageCarte
         if (arg instanceof MessageCarte) {
             MessageCarte messageCarte = (MessageCarte) arg;
+            if(messageCarte.getAction()==Action.DEFAUSSER){
             CarteTirage carteSelection = null;
             for (CarteTirage carte : joueurs.get(messageCarte.getRole()).getCartes()){
                 if (carte.getNom().equals(messageCarte.getNomCarte())) {
@@ -349,6 +350,16 @@ public class Controleur implements Observer {
             vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
             System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
             joueurs.get(messageCarte.getRole()).getVueDefausse().close();
+            
+            } else {
+            if (messageCarte.getAction()==Action.DONNER){
+//                for (Aventurier aventurier : joueurs){
+//                    if (aventurier!=aventurierCourant){
+//                        vuePrincipale.getPanelAventuriers().get(aventurier.getRole()).rendreAventurierCliquable();
+//                    }
+//                }
+                
+            }
             
         }
         
