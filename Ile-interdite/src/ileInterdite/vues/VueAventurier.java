@@ -78,7 +78,7 @@ public class VueAventurier extends JPanel{
         paneClass.add(carteJoueur);
 
         for(int i=0;i<5;i++){
-                if((i==0 && gauche) || (i==2 && !gauche)){
+                if((i==0 && !gauche) || (i==2 && gauche)){
                     panelPrincipal.add(paneClass);
                 }
                 buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
