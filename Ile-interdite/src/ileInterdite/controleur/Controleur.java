@@ -357,7 +357,7 @@ public class Controleur implements Observer {
 //                    if (aventurier!=aventurierCourant){
 //                        vuePrincipale.getPanelAventuriers().get(aventurier.getRole()).rendreAventurierCliquable();
 //                    }
-//                }
+               }
                 
             }
             
@@ -385,7 +385,12 @@ public class Controleur implements Observer {
         }
     }
     
-        public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles){
+    /**
+     *
+     * @param nomsJoueurs
+     * @param Rôles
+     */
+    public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles){
         for (Tuile t : getGrille().getTuiles().values()) {
             for (int i = 0; i < nomsJoueurs.size(); i++) {
                 if (t.getNom().equals(Rôles.get(i).getCaseDepart())) {
