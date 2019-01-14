@@ -155,12 +155,13 @@ public class Controleur implements Observer {
                     }
                 }
             }
-            else{
-                proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
-            } 
+            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());   
         }
     }
-
+    
+    public void gererNaviguation(Role r){
+        proposerTuiles(joueurs.get(r).calculGuide(grille), Action.SUIVRE,r);
+    }
     /**
      * Fonction globale qui gère l'asséchement
      */
@@ -266,7 +267,6 @@ public class Controleur implements Observer {
         aventurierCourant.reset();
         tirerCartes();
         for(CarteTirage t:aventurierCourant.getCartes())
-            System.out.println(t.getNom());
         gererInondation();
         aventurierSuivant();
         vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
@@ -307,6 +307,9 @@ public class Controleur implements Observer {
                     case DONNER:
                         gererDon();
                         break;
+                    case SUIVRE:
+                        gererNaviguation(message.getRole());
+                        break;
                     default:
                         break;
                 }
@@ -332,6 +335,12 @@ public class Controleur implements Observer {
                 aventurierCourant.decremente();
 
                 //Si le messagePos possède l'action ASSECHER
+            }
+            else if (messagepos.getAction() == Action.SUIVRE) {
+                vueGrille.actualiserPositionJoueur(messagepos.getPos(),joueurs.get(messagepos.getRole()).getPosition(), joueurs.get(messagepos.getRole()).getPion());
+                joueurs.get(messagepos.getRole()).setTuile(grille.getTuile(messagepos.getPos()));
+                aventurierCourant.decremente();
+                System.out.println(aventurierCourant.getNbAction());
             }
             else if (messagepos.getAction() == Action.ASSECHER) {
                 grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
@@ -381,10 +390,8 @@ public class Controleur implements Observer {
                  
             //Si l'action est donner
             } else if (messageCarte.getAction()==Action.DONNER){
-                System.out.println("5");
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
-                        System.out.println("dans le if");
                         vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
 
 
@@ -394,7 +401,6 @@ public class Controleur implements Observer {
                 
                 
             } else if (messageCarte.getAction()==Action.RECEVOIR){
-                System.out.println("Action==recevoir");
                 CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
                 ArrayList<CarteTirage> cartes= new ArrayList<>();
                 cartes.add(carte);
@@ -566,7 +572,6 @@ public class Controleur implements Observer {
        
 
     public void gererDon(){
-        System.out.println("gererDon");
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
     }
     

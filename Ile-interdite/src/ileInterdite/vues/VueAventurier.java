@@ -130,6 +130,7 @@ public class VueAventurier extends JPanel{
     
     public void devenirSuiveur(){
             getCarteJoueur().devenirSuiveur();
+            getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
     }
     
     //Getters et Setters :
