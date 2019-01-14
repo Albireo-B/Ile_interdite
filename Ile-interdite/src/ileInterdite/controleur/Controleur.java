@@ -139,7 +139,8 @@ public class Controleur implements Observer {
             joueurs.get(role).addCartes(cartes);
             }
             catch (ExceptionAventurier ex){};
-            vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
+                System.out.println(joueurs.get(role).getCartes());
+                vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
     }
     
@@ -551,8 +552,6 @@ public class Controleur implements Observer {
             Collections.shuffle(defausseInondation);
             piocheInondation.addAll(defausseInondation); 
             defausseInondation.clear();
-          
-            gererInondation();
         }
         try{
             aventurierCourant.addCartes(cartes);
