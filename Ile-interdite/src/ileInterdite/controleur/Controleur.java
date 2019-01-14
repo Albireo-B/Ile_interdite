@@ -86,14 +86,25 @@ public class Controleur implements Observer {
         }
         
 
-        // Création des vues aventurier
+        // Création des vues
         vuePrincipale = new VuePrincipale(getVueGrille(),listeRoles);
         vuePrincipale.addObserver(this);
+        
+        //Ecoute des ICarte
         for (VueAventurier vav : vuePrincipale.getPanelAventuriers().values()){
             for (ICarte c : vav.getButtonCartes()){
                 c.addObserver(this);
             }
         }
+        
+        //Ecoute des IAventurier
+        for (VueAventurier av : vuePrincipale.getPanelAventuriers().values()){
+            av.getCarteJoueur().addObserver(this);
+        }
+        
+        
+        
+        
         
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
@@ -101,7 +112,7 @@ public class Controleur implements Observer {
                                     aventurierCourant.getNbAction()
                                     );
         
-        //ecoute des vues defausse
+        //Ecoute des VueDefausse
         for (Role role : joueurs.keySet()){
             joueurs.get(role).getVueDefausse().addObserver(this);
         }
@@ -116,21 +127,19 @@ public class Controleur implements Observer {
     
     public void initCartes() {
         for (Role role : joueurs.keySet()){
-                ArrayList<CarteTirage> cartes = new ArrayList<>();
-                for (int i = 0; i<2;i++){
-                    while (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
-                        Collections.shuffle(piocheTirage);
-                    }
-                    cartes.add(piocheTirage.get(piocheTirage.size()-1));
-                    piocheTirage.remove(piocheTirage.size()-1);
+            ArrayList<CarteTirage> cartes = new ArrayList<>();
+            for (int i = 0; i<2;i++){
+                while (piocheTirage.get(piocheTirage.size()-1) instanceof CarteMonteeDesEaux){
+                    Collections.shuffle(piocheTirage);
                 }
-                System.out.println(cartes);
-                try{
-                joueurs.get(role).addCartes(cartes);
-                }
-                catch (ExceptionAventurier ex){};
-                vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
-                System.out.println(joueurs.get(role).cartesToString());
+                cartes.add(piocheTirage.get(piocheTirage.size()-1));
+                piocheTirage.remove(piocheTirage.size()-1);
+            }
+            try{
+            joueurs.get(role).addCartes(cartes);
+            }
+            catch (ExceptionAventurier ex){};
+            vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
     }
     
@@ -376,14 +385,11 @@ public class Controleur implements Observer {
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
                         System.out.println("dans le if");
-                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
-
                         vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
 
 
                     }
                 }
-                aventurierCourant.decremente();
                 
                 
                 
@@ -397,9 +403,9 @@ public class Controleur implements Observer {
                     joueurs.get(messageCarte.getRole()).addCartes(cartes);
                 } catch (ExceptionAventurier ex) {
                     joueurs.get(messageCarte.getRole()).defausseCartes();
-                    vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
-                    vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
                 }
+                vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
+                vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
             }
         }
 

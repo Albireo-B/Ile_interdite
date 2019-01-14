@@ -118,17 +118,11 @@ public abstract class Aventurier {
     public ArrayList<String> cartesToString(){
         ArrayList<String> cartes = new ArrayList<>();
         for(CarteTirage carte : this.cartes){
+            System.out.println(carte.getNom());
             cartes.add(carte.getNom());
         } 
         return cartes;
     }
-    
-  
-    
-    public void removeCartes(CarteTirage carte){
-        
-    }
-    
     
     public void recupererTresor(){
        

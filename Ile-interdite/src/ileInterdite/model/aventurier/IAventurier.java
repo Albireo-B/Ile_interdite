@@ -7,7 +7,6 @@ package ileInterdite.model.aventurier;
 
 import ileInterdite.message.Message;
 import ileInterdite.message.MessageCarte;
-import ileInterdite.model.cartes.CarteTirage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -21,38 +20,38 @@ import utilitaires.Role;
  */
 public class IAventurier extends Observable{
     private JButton boutonAventurier;
-    private ActionListener actions;
     private Role role;
     
-    public IAventurier(JButton boutonAventurier,ActionListener actions,Role role){
-        this.actions=actions;
+    public IAventurier(JButton boutonAventurier,Role role){
         this.boutonAventurier=boutonAventurier;
         this.role=role;
     }
 
     public void devenirReceveur(String carte){
-
-        System.out.println("Aventurier Clilquables");
-        setActions(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent arg0) {
-               setChanged();
-               notifyObservers(new MessageCarte(carte,Action.RECEVOIR,role));
-               clearChanged();
-           }
-       });
+        ActionListener l = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new MessageCarte(carte,Action.RECEVOIR, getRole()));
+                clearChanged();
+            }
+        };
+        boutonAventurier.removeActionListener(l);
+        boutonAventurier.addActionListener(l);
     }
+
     
     public void devenirSuiveur(){         
-        setActions(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent arg0) {
-               setChanged();
-               notifyObservers(new Message(Action.SUIVRE,role));
-
-               clearChanged();
-           }
-       });
+           ActionListener l = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new Message(Action.SUIVRE, getRole()));
+                clearChanged();
+            }
+        };
+        boutonAventurier.removeActionListener(l);
+        boutonAventurier.addActionListener(l);
     }
    
     /**
@@ -63,16 +62,11 @@ public class IAventurier extends Observable{
     }
 
     /**
-     * @return the actions
+     * @return the role
      */
-    public ActionListener getActions() {
-        return actions;
+    public Role getRole() {
+        return role;
     }
 
-    /**
-     * @param actions the actions to set
-     */
-    public void setActions(ActionListener actions) {
-        this.actions = actions;
-    }
+
 }

@@ -83,7 +83,7 @@ public class VueDefausse extends Observable{
                     clearChanged();
                 }
             });
-            buttonCartes.add(new ICarte(buttonCarte,null,role));
+            buttonCartes.add(new ICarte(buttonCarte,role));
             panelCarte.add(buttonCarte);
         }
         panelPrincipal.add(panelCarte,BorderLayout.CENTER);

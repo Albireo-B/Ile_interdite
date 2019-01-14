@@ -6,17 +6,14 @@
 package ileInterdite.vues;
 
 import ileInterdite.model.aventurier.IAventurier;
-import ileInterdite.model.cartes.CarteTirage;
 import ileInterdite.model.cartes.ICarte;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import utilitaires.Action;
 import utilitaires.Role;
 
         
@@ -69,7 +66,7 @@ public class VueAventurier extends JPanel{
         
 
         paneClass=new JPanel(new BorderLayout());
-        carteJoueur=new IAventurier(new JButton("icone"),null,roleAventurier);
+        carteJoueur=new IAventurier(new JButton("icone"),roleAventurier);
 
         paneTresor=new JPanel(new GridLayout(1,4));
         
@@ -90,7 +87,7 @@ public class VueAventurier extends JPanel{
                 if((i==0 && !gauche) || (i==2 && gauche)){
                     panelPrincipal.add(paneClass);
                 }
-                buttonCartes.add(new ICarte(new JButton("Carte"),null,roleAventurier));
+                buttonCartes.add(new ICarte(new JButton("Carte"),roleAventurier));
                 panelPrincipal.add(buttonCartes.get(i).getBoutonCarte());
 
             }
@@ -99,7 +96,7 @@ public class VueAventurier extends JPanel{
         
         
 
-            buttonCartes.add(new ICarte(new JButton("Carte"),null,roleAventurier));
+            buttonCartes.add(new ICarte(new JButton("Carte"),roleAventurier));
             this.add(panelPrincipal,BorderLayout.CENTER);
             this.add(paneTresor,BorderLayout.SOUTH);
 
@@ -107,8 +104,13 @@ public class VueAventurier extends JPanel{
     
         
     public void actualiserVueAventurier(ArrayList<String> listeCarte){
-         for (int i = 0 ;i<5 && i<listeCarte.size();i++){
+        int j= 0;
+         for (int i=0 ;i<5 && i<listeCarte.size();i++){
             getButtonCartes().get(i).getBoutonCarte().setText(listeCarte.get(i));
+            j=i;
+         }
+         for (int i=j+1;i<5;i++){
+             getButtonCartes().get(i).getBoutonCarte().setText("carte");
          }
      
     } 
@@ -117,19 +119,17 @@ public class VueAventurier extends JPanel{
         for (Integer carteCliquable : listePos){
             buttonCartes.get(carteCliquable).rendreCarteCliquable();
             buttonCartes.get(carteCliquable).getBoutonCarte().setBackground(Color.red);
-            System.out.println(buttonCartes.get(carteCliquable).getBoutonCarte().getText());
-            
         }
     }
             
 
     public void devenirReceveur(String carte){
-            carteJoueur.devenirReceveur(carte);
-            carteJoueur.getBoutonAventurier().setBackground(Color.red);
+            getCarteJoueur().devenirReceveur(carte);
+            getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
     }
     
     public void devenirSuiveur(){
-            carteJoueur.devenirSuiveur();
+            getCarteJoueur().devenirSuiveur();
     }
     
     //Getters et Setters :
@@ -142,7 +142,7 @@ public class VueAventurier extends JPanel{
     }
 
     /**
-     * @param nomAventurier the nomAventurier to set
+     * @param roleAventurier
      */
     public void setRoleAventurier(Role roleAventurier) {
         this.roleAventurier = roleAventurier;
@@ -206,6 +206,34 @@ public class VueAventurier extends JPanel{
 
     public void setLampes(ArrayList<JLabel> lampes) {
         this.lampes = lampes;
+    }
+
+    /**
+     * @return the paneClass
+     */
+    public JPanel getPaneClass() {
+        return paneClass;
+    }
+
+    /**
+     * @return the paneTresor
+     */
+    public JPanel getPaneTresor() {
+        return paneTresor;
+    }
+
+    /**
+     * @return the carteJoueur
+     */
+    public IAventurier getCarteJoueur() {
+        return carteJoueur;
+    }
+
+    /**
+     * @return the panelPrincipal
+     */
+    public JPanel getPanelPrincipal() {
+        return panelPrincipal;
     }
 
 

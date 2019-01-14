@@ -20,26 +20,26 @@ import utilitaires.Role;
 public class ICarte extends Observable {
     
     private JButton boutonCarte;
-    private ActionListener actions;
-    private Role role; 
+    private Role role;
     
-    public ICarte(JButton boutonCarte,ActionListener actions,Role role){
-        this.actions=actions;
+    public ICarte(JButton boutonCarte,Role role){
         this.boutonCarte=boutonCarte;
         this.role=role;
     }
     
     
     public void rendreCarteCliquable(){
-        System.out.println("cartes Cliquables");
-        setActions((ActionEvent arg0) -> {
-            setChanged();
-            notifyObservers(new MessageCarte(boutonCarte.getText(),Action.DONNER,getRole()));
-            clearChanged();
-        });
-        
-        
-        //rendre les joueurs cliquables
+        ActionListener l = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new MessageCarte(boutonCarte.getText(),Action.DONNER,getRole()));
+                clearChanged();
+            }
+        };
+        boutonCarte.removeActionListener(l);
+        boutonCarte.addActionListener(l);
+    
     }
     
     
@@ -49,20 +49,6 @@ public class ICarte extends Observable {
      */
     public JButton getBoutonCarte() {
         return boutonCarte;
-    }
-
-    /**
-     * @return the actions
-     */
-    public ActionListener getActions() {
-        return actions;
-    }
-
-    /**
-     * @param actions the actions to set
-     */
-    public void setActions(ActionListener actions) {
-        this.actions = actions;
     }
 
     /**
