@@ -5,25 +5,40 @@
  */
 package ileInterdite.model.aventurier;
 
+import ileInterdite.message.MessageAventurier;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 import javax.swing.JButton;
+import utilitaires.Action;
+import utilitaires.Role;
 
 /**
  *
  * @author vinetg
  */
-public class IAventurier {
+public class IAventurier extends Observable{
     private JButton boutonAventurier;
     private ActionListener actions;
+    private Role role;
     
-    public IAventurier(JButton boutonAventurier,ActionListener actions){
+    public IAventurier(JButton boutonAventurier,ActionListener actions,Role role){
         this.actions=actions;
         this.boutonAventurier=boutonAventurier;
+        this.role=role;
     }
 
-//    public rendreAventurierCliquable(){
-//        
-//    }
+    public void rendreAventurierCliquable(){
+         
+        setActions(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent arg0) {
+               setChanged();
+               notifyObservers(new MessageAventurier(Action.DONNER,role));
+               clearChanged();
+           }
+       });
+    }
     
    
     /**
