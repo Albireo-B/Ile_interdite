@@ -66,7 +66,8 @@ public class VueAventurier extends JPanel{
         
 
         paneClass=new JPanel(new BorderLayout());
-        carteJoueur=new IAventurier(new JButton("icone"),roleAventurier);
+        carteJoueur=new IAventurier(new JButton(roleAventurier.toString()),roleAventurier);
+       
 
         paneTresor=new JPanel(new GridLayout(1,4));
         

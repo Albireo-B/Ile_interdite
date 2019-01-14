@@ -140,6 +140,7 @@ public class Controleur implements Observer {
             }
             catch (ExceptionAventurier ex){};
                 System.out.println(joueurs.get(role).getCartes());
+                System.out.println(joueurs.get(role).cartesToString());
                 vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
     }

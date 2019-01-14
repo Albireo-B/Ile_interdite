@@ -131,7 +131,7 @@ public abstract class Aventurier {
         
     public ArrayList<String> cartesToString(){
         ArrayList<String> cartes = new ArrayList<>();
-        if (!cartes.isEmpty()){
+        if (!this.cartes.isEmpty()){
             for(CarteTirage carte : this.cartes){
                 cartes.add(carte.getNom());
             }
