@@ -5,6 +5,7 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.model.cartes.CarteTirage;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -100,6 +101,16 @@ public class VueAventurier extends JPanel{
          }
      
     } 
+     
+     
+       
+
+    public void rendreCartesCliquables(ArrayList<CarteTirage> cartesCliquables){
+       
+    }
+    
+    //Getters et Setters :
+     
     /**
      * @return the nomAventurier
      */

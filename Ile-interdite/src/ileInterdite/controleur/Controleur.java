@@ -484,20 +484,27 @@ public class Controleur implements Observer {
             gererInondation();
         }
         try{
-        aventurierCourant.addCartes(cartes);
+            aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) { 
             aventurierCourant.defausseCartes();
         }
         
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
-        System.out.println(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
     
 
-   
-    public void donnerCartes(Aventurier aventurier){
-        //à compléter
+       
+    public void donnerCartes(){
+        ArrayList<CarteTirage> cartesCliquables = new ArrayList<>();
+        for (CarteTirage carte : aventurierCourant.getCartes()){
+            if(!carte.getUtilisable()){
+                cartesCliquables.add(carte);
+            }
+        }
+        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(cartesCliquables);
+        
     }
+    
 
 
     //Getters et Setters :
