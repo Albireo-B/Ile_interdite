@@ -159,13 +159,22 @@ public class VuePrincipale extends Observable {
         getWindow().setVisible(true);
     }
     
-    public void rendreAutresAventuriersCliquable(Action action, Role role){
+    
+    public void rendreAventuriersCliquable(Action action){
+        for (Role r : panelAventuriers.keySet()){
+                panelAventuriers.get(r).rendreAventurierCliquable(action);
+        }
+    }
+    //rends tous les aventuriers cliquable sauf le role donné en paramètre
+    public void rendreAventuriersCliquable(Action action, Role role){
         for (Role r : panelAventuriers.keySet()){
             if (r!=role){
                 panelAventuriers.get(r).rendreAventurierCliquable(action);
             }
         }
     }
+    
+    
     
     /**
      * Ferme la fenêtre
