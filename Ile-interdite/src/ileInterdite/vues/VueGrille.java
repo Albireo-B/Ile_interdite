@@ -32,9 +32,9 @@ public class VueGrille extends Observable {
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
     private Color myBlue = new Color(30, 73, 158);
     private Color myCyan = new Color(20, 136, 148);
-    private Color myRed = new Color(255, 77, 77);
-    
+    private Color myRed = new Color(255, 77, 77);    
     private Color myBackgroundColor = new Color(12, 143, 181);
+    private Role joueurSelectionné;
     
     /**
      * On définit le constructeur de VueGrille
@@ -90,7 +90,8 @@ public class VueGrille extends Observable {
      * @param posBoutons
      * @param act
      */
-    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act) {
+    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act,Role role) {
+        joueurSelectionné=role;
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
@@ -99,7 +100,7 @@ public class VueGrille extends Observable {
                 
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
-                    notifyObservers(new MessagePos(act, pos));
+                    notifyObservers(new MessagePos(act, pos,joueurSelectionné));
                     clearChanged();
                 });
             }

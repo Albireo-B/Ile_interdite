@@ -95,8 +95,8 @@ public class VueAventurier extends JPanel{
     }
         
      public void actualiserVueAventurier(ArrayList<String> listeCarte){
-         for (String c : listeCarte){
-            getButtonCartes().get(listeCarte.indexOf(c)).setText(c);
+         for (int i = 0 ;i<listeCarte.size();i++){
+            getButtonCartes().get(i).setText(listeCarte.get(i));
          }
      
     } 

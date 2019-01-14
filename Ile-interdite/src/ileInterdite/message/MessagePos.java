@@ -7,6 +7,7 @@ package ileInterdite.message;
 
 import utilitaires.Action;
 import ileInterdite.model.Position;
+import utilitaires.Role;
 
 /**
  *
@@ -14,6 +15,7 @@ import ileInterdite.model.Position;
  */
 public class MessagePos extends Message{
     private Position pos;
+    private Role role;
 
     /**
      * On définit le constructeur de MessagePos avec une action Action
@@ -21,9 +23,10 @@ public class MessagePos extends Message{
      * @param action
      * @param pos 
      */
-    public MessagePos(Action action, Position pos){
+    public MessagePos(Action action, Position pos,Role role){
        super(action);
        this.pos = pos;
+       this.role = role;
     }
     
     //Getters et Setters :

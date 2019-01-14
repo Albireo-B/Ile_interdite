@@ -117,11 +117,13 @@ public class Controleur implements Observer {
                     cartes.add(piocheTirage.get(piocheTirage.size()-1));
                     piocheTirage.remove(piocheTirage.size()-1);
                 }
+                System.out.println(cartes);
                 try{
                 joueurs.get(role).addCartes(cartes);
                 }
                 catch (ExceptionAventurier ex){};
                 vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
+                System.out.println(joueurs.get(role).cartesToString());
         }
     }
     
@@ -130,7 +132,7 @@ public class Controleur implements Observer {
      */
     public void gererDeplacement() {
         if (aventurierCourant.getNbAction()>0){
-            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER);
+            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
         }
     }
 
@@ -138,7 +140,7 @@ public class Controleur implements Observer {
      * Fonction globale qui gère l'asséchement
      */
     public void gererAssechement() {
-        proposerTuiles(aventurierCourant.calculAssechement(grille), Action.ASSECHER);
+        proposerTuiles(aventurierCourant.calculAssechement(grille), Action.ASSECHER,aventurierCourant.getRole());
     }
 
     
@@ -189,7 +191,7 @@ public class Controleur implements Observer {
             for (Role role : joueurs.keySet()){
                 if (joueurs.get(role).getTuile().getEtat()==EtatTuile.COULEE){
                     if (!joueurs.get(role).calculDeplacement(grille).isEmpty()){
-                        proposerTuiles(joueurs.get(role).calculDeplacement(grille), Action.DEPLACER);
+                        proposerTuiles(joueurs.get(role).calculDeplacement(grille), Action.DEPLACER,role);
                     } else {
                         throw new ExceptionAventurier(joueurs.get(role));
                     }
@@ -213,13 +215,13 @@ public class Controleur implements Observer {
      * @param ct
      * @param act
      */
-    public void proposerTuiles(ArrayList<Tuile> ct, Action act) {
+    public void proposerTuiles(ArrayList<Tuile> ct, Action act,Role role) {
         ArrayList<Position> posTuiles = new ArrayList();
         
         for (Tuile t : ct) {
             posTuiles.add(t.getPosition());
         }
-        getVueGrille().actualiserBoutonsCliquables(posTuiles, act);
+        getVueGrille().actualiserBoutonsCliquables(posTuiles, act,role);
     }
 
     /**
@@ -488,6 +490,7 @@ public class Controleur implements Observer {
         }
         
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
+        System.out.println(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
     
 
