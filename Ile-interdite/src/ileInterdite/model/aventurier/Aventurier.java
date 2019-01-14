@@ -46,6 +46,20 @@ public abstract class Aventurier {
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesAdjacentesCroix(getTuile()); 
     }
+    public ArrayList<Tuile> calculGuide(Grille g){
+        ArrayList<Tuile> tuiles = new ArrayList<>();
+        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
+            if (t.getEtat()!=EtatTuile.COULEE){
+                tuiles.add(t);
+                for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
+                    if (tt !=getTuile()){
+                        tuiles.add(tt);
+                    }
+                }
+            }
+        }
+        return tuiles;
+    }
     
     /**
      * On renvoie la liste des tuiles adjacentes en croix

@@ -52,7 +52,6 @@ public class IAventurier extends Observable{
                 boutonAventurier.removeActionListener(this);
             }
         };
-   
         boutonAventurier.addActionListener(l);
     }
    

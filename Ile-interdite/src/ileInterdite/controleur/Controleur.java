@@ -156,12 +156,13 @@ public class Controleur implements Observer {
                     }
                 }
             }
-            else{
-                proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
-            } 
+            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());   
         }
     }
-
+    
+    public void gererNaviguation(Role r){
+        proposerTuiles(joueurs.get(r).calculGuide(grille), Action.SUIVRE,r);
+    }
     /**
      * Fonction globale qui gère l'asséchement
      */
@@ -307,6 +308,9 @@ public class Controleur implements Observer {
                     case DONNER:
                         gererDon();
                         break;
+                    case SUIVRE:
+                        gererNaviguation(message.getRole());
+                        break;
                     default:
                         break;
                 }
@@ -332,6 +336,12 @@ public class Controleur implements Observer {
                 aventurierCourant.decremente();
 
                 //Si le messagePos possède l'action ASSECHER
+            }
+            else if (messagepos.getAction() == Action.SUIVRE) {
+                vueGrille.actualiserPositionJoueur(messagepos.getPos(),joueurs.get(messagepos.getRole()).getPosition(), joueurs.get(messagepos.getRole()).getPion());
+                joueurs.get(messagepos.getRole()).setTuile(grille.getTuile(messagepos.getPos()));
+                aventurierCourant.decremente();
+                System.out.println(aventurierCourant.getNbAction());
             }
             else if (messagepos.getAction() == Action.ASSECHER) {
                 grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
