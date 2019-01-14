@@ -263,10 +263,9 @@ public class Controleur implements Observer {
      * aventurier
      */
     public void nextTurn() {
+        System.out.println("NExtturn triggered");
         aventurierCourant.reset();
         tirerCartes();
-        for(CarteTirage t:aventurierCourant.getCartes())
-            System.out.println(t.getNom());
         gererInondation();
         aventurierSuivant();
         vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
@@ -375,16 +374,14 @@ public class Controleur implements Observer {
             } 
             
             defausseTirage.add(carteSelection);
-            joueurs.get(messageCarte.getRole()).getCartes().remove(carteSelection);
+            joueurs.get(messageCarte.getRole()).removeCarte(carteSelection);
             vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
             joueurs.get(messageCarte.getRole()).getVueDefausse().close();
                  
             //Si l'action est donner
             } else if (messageCarte.getAction()==Action.DONNER){
-                System.out.println("5");
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
-                        System.out.println("dans le if");
                         vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
 
 
@@ -394,7 +391,6 @@ public class Controleur implements Observer {
                 
                 
             } else if (messageCarte.getAction()==Action.RECEVOIR){
-                System.out.println("Action==recevoir");
                 CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
                 ArrayList<CarteTirage> cartes= new ArrayList<>();
                 cartes.add(carte);
@@ -402,11 +398,15 @@ public class Controleur implements Observer {
                 try {
                     joueurs.get(messageCarte.getRole()).addCartes(cartes);
                 } catch (ExceptionAventurier ex) {
+                    
                     joueurs.get(messageCarte.getRole()).defausseCartes();
                 }
                 vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
                 vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
+                
+                 aventurierCourant.decremente();
             }
+           
         }
 
         
@@ -419,6 +419,7 @@ public class Controleur implements Observer {
     
         ArrayList<Tuile> casesAssechables = getAventurierCourant().calculAssechement(getGrille());
         // Si l'aventurier a moins de 1 action ou qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
+        System.out.println(aventurierCourant.getNbAction());
         if (getAventurierCourant().getNbAction() < 1 && 
                 !( aventurierCourant instanceof Ingenieur &&
                  !(aventurierCourant.getPouvoir()) &&
@@ -520,6 +521,7 @@ public class Controleur implements Observer {
      * On tire 2 cartes qu'on donne a l'aventurier courant
     */
     public void tirerCartes(){
+        System.out.println("Tirage triggered");
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         Boolean trigger = false;
         //Pour le nombre de cartes qu'on veut donner
@@ -566,8 +568,17 @@ public class Controleur implements Observer {
        
 
     public void gererDon(){
-        System.out.println("gererDon");
-        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
+        Boolean yes = false;
+        for (Role role : joueurs.keySet()){
+            System.out.println(role);
+            if (joueurs.get(role).getTuile().equals(aventurierCourant.getTuile()) && !joueurs.get(role).equals(aventurierCourant)){
+                yes=true;
+            }
+        }
+        
+        if(yes){
+            vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
+        }
     }
     
 
