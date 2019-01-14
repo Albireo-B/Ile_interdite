@@ -87,8 +87,11 @@ public class VueDefausse extends Observable{
         }
         panelPrincipal.add(panelCarte,BorderLayout.CENTER);
         afficher();
-      }
+    }
+      
     
+    
+      
       public void afficher(){
         this.fenetre.setVisible(true);
     }

@@ -12,7 +12,6 @@ import ileInterdite.model.Position;
 import utilitaires.Action;
 import utilitaires.Pion;
 import ileInterdite.message.MessagePos;
-import utilitaires.Role;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
