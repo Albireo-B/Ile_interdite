@@ -8,6 +8,7 @@ package ileInterdite.vues;
 import ileInterdite.model.cartes.ICartes;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ public class VueAventurier extends JPanel{
     private JButton assecher;
     private JButton recuperer;
     private JButton donner;
+    private JButton carteJoueur;
 
     private ArrayList<ICartes> buttonCartes;
   
@@ -61,7 +63,7 @@ public class VueAventurier extends JPanel{
         pannelBouttons.add(new JPanel());
 
         paneClass=new JPanel(new BorderLayout());
-        JButton carteJoueur=new JButton("icone");
+        carteJoueur=new JButton("icone");
         paneTresor=new JPanel(new GridLayout(1,4));
         
         lampes=new ArrayList<>();
@@ -109,8 +111,11 @@ public class VueAventurier extends JPanel{
         }
     }
             
-    public void rendreAventurierCliquable(){
-        
+    public void rendreAventuriersCliquables(ArrayList<Integer> aventuriers){
+        for (Integer aventurier : aventuriers){
+            
+        }
+        carteJoueur.addActionListener(new ActionListener);
     }
             
     //Getters et Setters :
