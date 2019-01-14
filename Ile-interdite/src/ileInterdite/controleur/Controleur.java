@@ -364,7 +364,7 @@ public class Controleur implements Observer {
             } else if (messageCarte.getAction()==Action.DONNER){
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole()){
-                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable();
+                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(Action.DONNER);
                     }
                 }
                 //àcompléter
