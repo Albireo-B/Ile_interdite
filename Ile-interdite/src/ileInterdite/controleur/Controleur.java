@@ -329,6 +329,7 @@ public class Controleur implements Observer {
         //Si arg est de type MessageCarte
         if (arg instanceof MessageCarte) {
             MessageCarte messageCarte = (MessageCarte) arg;
+            //Si l'action est défausser
             if(messageCarte.getAction()==Action.DEFAUSSER){
             CarteTirage carteSelection = null;
             for (CarteTirage carte : joueurs.get(messageCarte.getRole()).getCartes()){
@@ -350,23 +351,21 @@ public class Controleur implements Observer {
             vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
             System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
             joueurs.get(messageCarte.getRole()).getVueDefausse().close();
-            
-            } else {
-            if (messageCarte.getAction()==Action.DONNER){
-//                for (Aventurier aventurier : joueurs){
-//                    if (aventurier!=aventurierCourant){
-//                        vuePrincipale.getPanelAventuriers().get(aventurier.getRole()).rendreAventurierCliquable();
-//                    }
+                 
+            //Si l'action est donner
+            } else if (messageCarte.getAction()==Action.DONNER){
+                for (Role aventurier : joueurs.keySet()){
+                    if (aventurier!=aventurierCourant.getRole()){
+                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable();
+                    }
                }
+                
                 
             }
             
         }
         
-        
-        
-        
-        
+  
         vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
