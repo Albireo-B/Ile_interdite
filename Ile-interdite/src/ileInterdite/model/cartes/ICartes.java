@@ -31,17 +31,12 @@ public class ICartes extends Observable {
     
     
     public void rendreCarteCliquable(){
-        //Couleur a implémenter
-
-        setActions(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent arg0) {
-               setChanged();
-               notifyObservers(new MessageCarte(boutonCarte.getText(),Action.DONNER,getRole()));
-               clearChanged();
-               System.out.println("3");
-           }
-       });
+        System.out.println("cartes Cliquables");
+        setActions((ActionEvent arg0) -> {
+            setChanged();
+            notifyObservers(new MessageCarte(boutonCarte.getText(),Action.DONNER,getRole()));
+            clearChanged();
+        });
         
         
         //rendre les joueurs cliquables

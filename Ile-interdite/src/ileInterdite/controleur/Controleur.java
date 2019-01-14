@@ -306,10 +306,10 @@ public class Controleur implements Observer {
             //Si le messagePos possède l'action DEPLACER
             if (messagepos.getAction() == Action.DEPLACER) {
                 
-                vueGrille.actualiserPositionJoueur(messagepos.getPos(), getAventurierCourant().getPosition(), getAventurierCourant().getPion());
+                vueGrille.actualiserPositionJoueur(messagepos.getPos(),aventurierCourant.getPosition(), aventurierCourant.getPion());
                 //Si l'aventurier en train de jouer est un pilote
-                if (getAventurierCourant() instanceof Pilote && getAventurierCourant().getPouvoir()) {
-                    Pilote p = (Pilote) getAventurierCourant();
+                if (aventurierCourant instanceof Pilote && aventurierCourant.getPouvoir()) {
+                    Pilote p = (Pilote) aventurierCourant;
                     p.setPositionPilote(grille, grille.getTuile(messagepos.getPos()));
 
                 } else {
@@ -326,17 +326,17 @@ public class Controleur implements Observer {
                 //Si l'aventurier en train de jouer est un ingénieur
                 if (aventurierCourant instanceof Ingenieur) {
                     //Si le pouvoir de l'ingénieur est utilisable
-                    if (getAventurierCourant().getPouvoir()) {
-                        getAventurierCourant().decremente();
-                        getAventurierCourant().setPouvoir(false);
+                    if (aventurierCourant.getPouvoir()) {
+                        aventurierCourant.decremente();
+                        aventurierCourant.setPouvoir(false);
                         
                         gererAssechement();
                     } else {
-                        getAventurierCourant().setPouvoir(true);
+                        aventurierCourant.setPouvoir(true);
                     }
                 }
                 else {
-                    getAventurierCourant().decremente();
+                    aventurierCourant.decremente();
                 }
             }
         }  
@@ -367,7 +367,7 @@ public class Controleur implements Observer {
                  
             //Si l'action est donner
             } else if (messageCarte.getAction()==Action.DONNER){
-                
+                System.out.println("5");
                 for (Role aventurier : joueurs.keySet()){
 
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
@@ -375,10 +375,12 @@ public class Controleur implements Observer {
 
                     }
                 }
+                aventurierCourant.decremente();
                 
                 
                 
             } else if (messageCarte.getAction()==Action.RECEVOIR){
+                System.out.println("Action==recevoir");
                 CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
                 ArrayList<CarteTirage> cartes= new ArrayList<>();
                 cartes.add(carte);
@@ -389,7 +391,6 @@ public class Controleur implements Observer {
                     joueurs.get(messageCarte.getRole()).defausseCartes();
                     vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
                     vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
-                    System.out.println("3");
                 }
                     
             }
@@ -552,7 +553,7 @@ public class Controleur implements Observer {
        
 
     public void gererDon(){
-        System.out.println("1");
+        System.out.println("gererDon");
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
     }
     

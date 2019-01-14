@@ -117,6 +117,7 @@ public class VueAventurier extends JPanel{
         for (Integer carteCliquable : listePos){
             buttonCartes.get(carteCliquable).rendreCarteCliquable();
             buttonCartes.get(carteCliquable).getBoutonCarte().setBackground(Color.red);
+            System.out.println(buttonCartes.get(carteCliquable).getBoutonCarte().getText());
         }
     }
             
