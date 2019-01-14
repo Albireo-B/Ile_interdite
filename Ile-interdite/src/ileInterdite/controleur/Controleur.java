@@ -369,9 +369,8 @@ public class Controleur implements Observer {
             } else if (messageCarte.getAction()==Action.DONNER){
                 System.out.println("5");
                 for (Role aventurier : joueurs.keySet()){
-
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
-                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte(),Action.DONNER);
+                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
 
                     }
                 }
@@ -392,7 +391,6 @@ public class Controleur implements Observer {
                     vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
                     vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
                 }
-                    
             }
         }
 

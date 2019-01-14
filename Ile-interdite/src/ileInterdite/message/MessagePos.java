@@ -15,7 +15,7 @@ import utilitaires.Role;
  */
 public class MessagePos extends Message{
     private Position pos;
-    private Role role;
+    
 
     /**
      * On définit le constructeur de MessagePos avec une action Action
@@ -24,9 +24,8 @@ public class MessagePos extends Message{
      * @param pos 
      */
     public MessagePos(Action action, Position pos,Role role){
-       super(action);
+       super(action,role);
        this.pos = pos;
-       this.role = role;
     }
     
     //Getters et Setters :

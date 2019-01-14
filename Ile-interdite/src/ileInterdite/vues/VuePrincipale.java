@@ -101,25 +101,25 @@ public class VuePrincipale extends Observable {
         
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.DEPLACER));
+            notifyObservers(new Message(Action.DEPLACER,null));
             clearChanged();
         });
 
         btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.ASSECHER));
+            notifyObservers(new Message(Action.ASSECHER,null));
             clearChanged();
         });
 
         btnTerminerTour.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.TERMINER));
+            notifyObservers(new Message(Action.TERMINER,null));
             clearChanged();
         });
         
         btnDonner.addActionListener((ActionEvent arg0) -> {
             setChanged();
-            notifyObservers(new Message(Action.DONNER));
+            notifyObservers(new Message(Action.DONNER,null));
             clearChanged();
         });
         
@@ -164,15 +164,7 @@ public class VuePrincipale extends Observable {
         
         getWindow().setVisible(true);
     }
-    
-    public void rendreAutresAventuriersCliquable(Role role,Action action){
-        for (Role r : panelAventuriers.keySet()){
-            if (r!=role){
-                panelAventuriers.get(r).rendreAventurierCliquable(null,action);
-            }
-        }
-    }
-    
+     
     /**
      * Ferme la fenêtre
      */

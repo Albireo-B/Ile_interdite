@@ -122,8 +122,8 @@ public class VueAventurier extends JPanel{
     }
             
 
-    public void rendreAventurierCliquable(String carte,Action action){
-            carteJoueur.rendreAventurierCliquable(carte);
+    public void rendreAventurierCliquable(String carte){
+            carteJoueur.devenirReceveur(carte);
             carteJoueur.getBoutonAventurier().setBackground(Color.red);
     }
 
