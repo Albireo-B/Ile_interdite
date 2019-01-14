@@ -44,7 +44,7 @@ public class VuePrincipale extends Observable {
     private JButton btnBouger = new JButton("Bouger");
     private JButton btnAssecher=new JButton("Assecher");
     private JButton btnDonner=new JButton("Donner");
-    private JButton btnRecuper=new JButton("Recuper");
+    private JButton btnRecuper=new JButton("Récuper");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     
@@ -55,6 +55,7 @@ public class VuePrincipale extends Observable {
     /**
      * On définit un constructeur de VueAventurier avec une VueGrille v
      * @param v
+     * @param roleAventurier
      */
     public VuePrincipale(VueGrille v, ArrayList<Role> roleAventurier){
         window = new JFrame();
