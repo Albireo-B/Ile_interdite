@@ -121,11 +121,15 @@ public class VueAventurier extends JPanel{
     }
             
 
-    public void rendreAventurierCliquable(String carte){
+    public void devenirReceveur(String carte){
             carteJoueur.devenirReceveur(carte);
             carteJoueur.getBoutonAventurier().setBackground(Color.red);
     }
-
+    
+    public void devenirSuiveur(){
+            carteJoueur.devenirSuiveur();
+    }
+    
     //Getters et Setters :
      
     /**
