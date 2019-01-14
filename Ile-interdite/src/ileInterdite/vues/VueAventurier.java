@@ -7,7 +7,7 @@ package ileInterdite.vues;
 
 import ileInterdite.model.aventurier.IAventurier;
 import ileInterdite.model.cartes.CarteTirage;
-import ileInterdite.model.cartes.ICartes;
+import ileInterdite.model.cartes.ICarte;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -38,7 +38,7 @@ public class VueAventurier extends JPanel{
     private JPanel panelPrincipal;
 
 
-    private ArrayList<ICartes> buttonCartes;
+    private ArrayList<ICarte> buttonCartes;
   
     private ArrayList<JLabel> lampes;
     private Role roleAventurier;
@@ -90,7 +90,7 @@ public class VueAventurier extends JPanel{
                 if((i==0 && !gauche) || (i==2 && gauche)){
                     panelPrincipal.add(paneClass);
                 }
-                buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+                buttonCartes.add(new ICarte(new JButton("Carte"),null,roleAventurier));
                 panelPrincipal.add(buttonCartes.get(i).getBoutonCarte());
 
             }
@@ -99,7 +99,7 @@ public class VueAventurier extends JPanel{
         
         
 
-            buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+            buttonCartes.add(new ICarte(new JButton("Carte"),null,roleAventurier));
             this.add(panelPrincipal,BorderLayout.CENTER);
             this.add(paneTresor,BorderLayout.SOUTH);
 
@@ -118,6 +118,7 @@ public class VueAventurier extends JPanel{
             buttonCartes.get(carteCliquable).rendreCarteCliquable();
             buttonCartes.get(carteCliquable).getBoutonCarte().setBackground(Color.red);
             System.out.println(buttonCartes.get(carteCliquable).getBoutonCarte().getText());
+            
         }
     }
             
@@ -162,7 +163,7 @@ public class VueAventurier extends JPanel{
         return donner;
     }
 
-    public ArrayList<ICartes> getButtonCartes() {
+    public ArrayList<ICarte> getButtonCartes() {
         return buttonCartes;
     }
 
@@ -194,7 +195,7 @@ public class VueAventurier extends JPanel{
         this.donner = donner;
     }
 
-    public void setButtonCartes(ArrayList<ICartes> buttonCartes) {
+    public void setButtonCartes(ArrayList<ICarte> buttonCartes) {
         this.buttonCartes = buttonCartes;
     }
 

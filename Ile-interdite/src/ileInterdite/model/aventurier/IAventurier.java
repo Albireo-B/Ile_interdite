@@ -32,13 +32,12 @@ public class IAventurier extends Observable{
 
     public void devenirReceveur(String carte){
 
-         
+        System.out.println("Aventurier Clilquables");
         setActions(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent arg0) {
                setChanged();
                notifyObservers(new MessageCarte(carte,Action.RECEVOIR,role));
-
                clearChanged();
            }
        });

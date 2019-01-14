@@ -17,13 +17,13 @@ import utilitaires.Role;
  *
  * @author vinetg
  */
-public class ICartes extends Observable {
+public class ICarte extends Observable {
     
     private JButton boutonCarte;
     private ActionListener actions;
     private Role role; 
     
-    public ICartes(JButton boutonCarte,ActionListener actions,Role role){
+    public ICarte(JButton boutonCarte,ActionListener actions,Role role){
         this.actions=actions;
         this.boutonCarte=boutonCarte;
         this.role=role;

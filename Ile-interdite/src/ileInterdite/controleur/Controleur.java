@@ -19,8 +19,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -75,6 +73,9 @@ public class Controleur implements Observer {
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
         
+        
+        
+        
         //Initialisation des joueurs et du joueur courant
         setRoles(nomsjoueurs,roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
@@ -88,7 +89,11 @@ public class Controleur implements Observer {
         // Création des vues aventurier
         vuePrincipale = new VuePrincipale(getVueGrille(),listeRoles);
         vuePrincipale.addObserver(this);
-        
+        for (VueAventurier vav : vuePrincipale.getPanelAventuriers().values()){
+            for (ICarte c : vav.getButtonCartes()){
+                c.addObserver(this);
+            }
+        }
         
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                                     aventurierCourant.getRole(),
@@ -370,6 +375,7 @@ public class Controleur implements Observer {
                 System.out.println("5");
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
+                        System.out.println("dans le if");
                         vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
 
                     }
