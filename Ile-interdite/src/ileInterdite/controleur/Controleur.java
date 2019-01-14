@@ -330,24 +330,28 @@ public class Controleur implements Observer {
         if (arg instanceof MessageCarte) {
             MessageCarte messageCarte = (MessageCarte) arg;
             CarteTirage carteSelection = null;
-            for (CarteTirage carte : aventurierCourant.getCartes()){
-                System.out.print(carte.getNom());
+            for (CarteTirage carte : joueurs.get(messageCarte.getRole()).getCartes()){
                 if (carte.getNom().equals(messageCarte.getNomCarte())) {
                     carteSelection=carte;
-                }
+                } 
+                
             }
-               
-            
             if (carteSelection.getUtilisable()){
                 if(carteSelection instanceof CarteHelicoptere){
                     //à compléter
                 } else {
                     //à compléter
                 }
-            }
+            } 
+            
             defausseTirage.add(carteSelection);
-            aventurierCourant.getCartes().remove(carteSelection);
+            joueurs.get(messageCarte.getRole()).getCartes().remove(carteSelection);
+            vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
+            System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
+            joueurs.get(messageCarte.getRole()).getVueDefausse().close();
+            
         }
+        
         
         
         
@@ -451,7 +455,6 @@ public class Controleur implements Observer {
         Boolean trigger = false;
         //Pour le nombre de cartes qu'on veut donner
         for (int i=0;i<2;i++){
-            System.out.println(piocheTirage.get(piocheTirage.size()-1));
             //Si la pioche n'est pas vide
             if (!piocheTirage.isEmpty()) {
                 //Si la prochaine carte est une carte montée des eaux
@@ -487,6 +490,7 @@ public class Controleur implements Observer {
             aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) { 
             aventurierCourant.defausseCartes();
+            
         }
         
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
@@ -502,7 +506,6 @@ public class Controleur implements Observer {
             }
         }
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(cartesCliquables);
-        
     }
     
 
