@@ -142,7 +142,7 @@ public class Controleur implements Observer {
             if (aventurierCourant.getRole()==Role.Navigateur){
                 for (Role r : listeRoles){
                     if (r != Role.Navigateur){
-                        
+                        vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur();
                     }
                 }
             }
@@ -377,6 +377,9 @@ public class Controleur implements Observer {
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
                         System.out.println("dans le if");
                         vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
+
+                        vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
+
 
                     }
                 }
