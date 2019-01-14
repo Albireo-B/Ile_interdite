@@ -5,6 +5,7 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.model.aventurier.IAventurier;
 import ileInterdite.model.cartes.ICartes;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -29,7 +30,7 @@ public class VueAventurier extends JPanel{
     private JButton recuperer;
     private JButton donner;
 
-    private JButton carteJoueur;
+    private IAventurier carteJoueur;
 
     private JPanel panelPrincipal;
 
@@ -65,7 +66,7 @@ public class VueAventurier extends JPanel{
         
 
         paneClass=new JPanel(new BorderLayout());
-        carteJoueur=new JButton("icone");
+        carteJoueur=new IAventurier(new JButton("icone"),null,roleAventurier);
 
         paneTresor=new JPanel(new GridLayout(1,4));
         
@@ -80,7 +81,7 @@ public class VueAventurier extends JPanel{
         
        
         //=============================================
-        paneClass.add(carteJoueur);
+        paneClass.add(carteJoueur.getBoutonAventurier());
 
         for(int i=0;i<5;i++){
                 if((i==0 && !gauche) || (i==2 && gauche)){
@@ -115,12 +116,9 @@ public class VueAventurier extends JPanel{
         }
     }
             
-    public void rendreAventuriersCliquables(ArrayList<Integer> aventuriers){
-        for (Integer aventurier : aventuriers){
-            
+    public void rendreAventurierCliquable(){
+            carteJoueur.rendreAventurierCliquable();
         }
-        //carteJoueur.addActionListener(new ActionListener);
-    }
             
     //Getters et Setters :
      

@@ -358,19 +358,23 @@ public class Controleur implements Observer {
             defausseTirage.add(carteSelection);
             joueurs.get(messageCarte.getRole()).getCartes().remove(carteSelection);
             vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
-            System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
             joueurs.get(messageCarte.getRole()).getVueDefausse().close();
                  
             //Si l'action est donner
             } else if (messageCarte.getAction()==Action.DONNER){
                 for (Role aventurier : joueurs.keySet()){
                     if (aventurier!=aventurierCourant.getRole()){
-               //         vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable();
+                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable();
                     }
-               }
+                }
+                //àcompléter
                 
                 
             }
+            
+        }
+        if (arg instanceof MessageAventurier){
+            MessageAventurier messageAventurier = (MessageAventurier) arg;
             
         }
         
