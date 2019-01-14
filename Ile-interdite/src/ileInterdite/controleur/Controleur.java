@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -279,6 +281,9 @@ public class Controleur implements Observer {
                     case TERMINER:
                         nextTurn();
                         break;
+                    case DONNER:
+                        gererDon();
+                        break;
                     default:
                         break;
                 }
@@ -339,7 +344,7 @@ public class Controleur implements Observer {
                 
             }
             if (carteSelection.getUtilisable()){
-                if(carteSelection instanceof CarteHelicoptere){
+                if (carteSelection instanceof CarteHelicoptere){
                     //à compléter
                 } else {
                     //à compléter
@@ -353,21 +358,32 @@ public class Controleur implements Observer {
                  
             //Si l'action est donner
             } else if (messageCarte.getAction()==Action.DONNER){
+                
                 for (Role aventurier : joueurs.keySet()){
-                    if (aventurier!=aventurierCourant.getRole()){
-                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable();
+                    if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
+                        vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
                     }
                 }
-                //àcompléter
                 
                 
+                
+            } else if (messageCarte.getAction()==Action.RECEVOIR){
+                CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
+                ArrayList<CarteTirage> cartes= new ArrayList<>();
+                cartes.add(carte);
+                aventurierCourant.getCartes().remove(carte);
+                try {
+                    joueurs.get(messageCarte.getRole()).addCartes(cartes);
+                } catch (ExceptionAventurier ex) {
+                    joueurs.get(messageCarte.getRole()).defausseCartes();
+                    vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
+                    vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
+                    System.out.println("3");
+                }
+                    
             }
-            
         }
-        if (arg instanceof MessageAventurier){
-            MessageAventurier messageAventurier = (MessageAventurier) arg;
-            
-        }
+
         
   
         vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
@@ -386,6 +402,16 @@ public class Controleur implements Observer {
         {
             nextTurn();
         }
+    }
+    
+    public CarteTirage stringToCarte(String nomCarte){
+        CarteTirage carteSelection = null;
+        for (CarteTirage carte : aventurierCourant.getCartes()){
+            if (carte.getNom()==nomCarte){
+                carteSelection=carte;
+            }
+        }
+        return carteSelection;
     }
     
     /**
@@ -515,6 +541,7 @@ public class Controleur implements Observer {
        
 
     public void gererDon(){
+        System.out.println("1");
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
     }
     

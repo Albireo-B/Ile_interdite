@@ -123,6 +123,8 @@ public abstract class Aventurier {
         return cartes;
     }
     
+  
+    
     public void removeCartes(CarteTirage carte){
         
     }

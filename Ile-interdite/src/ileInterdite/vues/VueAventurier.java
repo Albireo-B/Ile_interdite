@@ -6,8 +6,10 @@
 package ileInterdite.vues;
 
 import ileInterdite.model.aventurier.IAventurier;
+import ileInterdite.model.cartes.CarteTirage;
 import ileInterdite.model.cartes.ICartes;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -113,11 +115,14 @@ public class VueAventurier extends JPanel{
     public void rendreCartesCliquables(ArrayList<Integer> listePos){
         for (Integer carteCliquable : listePos){
             buttonCartes.get(carteCliquable).rendreCarteCliquable();
+            buttonCartes.get(carteCliquable).getBoutonCarte().setBackground(Color.red);
         }
     }
             
-    public void rendreAventurierCliquable(){
-            carteJoueur.rendreAventurierCliquable();
+    public void rendreAventurierCliquable(String carte){
+            carteJoueur.rendreAventurierCliquable(carte);
+            carteJoueur.getBoutonAventurier().setBackground(Color.red);
+            
         }
             
     //Getters et Setters :

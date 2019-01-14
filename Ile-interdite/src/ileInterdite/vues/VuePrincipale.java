@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -116,6 +117,11 @@ public class VuePrincipale extends Observable {
             clearChanged();
         });
         
+        btnDonner.addActionListener((ActionEvent arg0) -> {
+            setChanged();
+            notifyObservers(new Message(Action.DONNER));
+            clearChanged();
+        });
         
         
         //===================pour chaque aventurier different=================

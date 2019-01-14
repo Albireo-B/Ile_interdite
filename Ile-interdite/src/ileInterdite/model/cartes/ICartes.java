@@ -39,6 +39,7 @@ public class ICartes extends Observable {
                setChanged();
                notifyObservers(new MessageCarte(boutonCarte.getText(),Action.DONNER,getRole()));
                clearChanged();
+               System.out.println("3");
            }
        });
         
