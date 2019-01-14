@@ -500,7 +500,8 @@ public class Controleur implements Observer {
                 cartesCliquables.add(carte);
             }
         }
-        vueAventurier.rendreCartesCliquables(cartesCliquables);
+        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(cartesCliquables);
+        
     }
     
 
