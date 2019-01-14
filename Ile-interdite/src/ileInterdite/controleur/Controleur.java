@@ -132,8 +132,16 @@ public class Controleur implements Observer {
      */
     public void gererDeplacement() {
         if (aventurierCourant.getNbAction()>0){
-            if (aventurierCourant.getRole()==Role.Navigateur)
-            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
+            if (aventurierCourant.getRole()==Role.Navigateur){
+                for (Role r : listeRoles){
+                    if (r != Role.Navigateur){
+                        
+                    }
+                }
+            }
+            else{
+                proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
+            } 
         }
     }
 
