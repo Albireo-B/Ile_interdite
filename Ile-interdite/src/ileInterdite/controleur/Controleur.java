@@ -134,7 +134,16 @@ public class Controleur implements Observer {
      */
     public void gererDeplacement() {
         if (aventurierCourant.getNbAction()>0){
-            proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
+            if (aventurierCourant.getRole()==Role.Navigateur){
+                for (Role r : listeRoles){
+                    if (r != Role.Navigateur){
+                        
+                    }
+                }
+            }
+            else{
+                proposerTuiles(aventurierCourant.calculDeplacement(grille), Action.DEPLACER,aventurierCourant.getRole());
+            } 
         }
     }
 
@@ -360,8 +369,10 @@ public class Controleur implements Observer {
             } else if (messageCarte.getAction()==Action.DONNER){
                 
                 for (Role aventurier : joueurs.keySet()){
+
                     if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
                         vuePrincipale.getPanelAventuriers().get(aventurier).rendreAventurierCliquable(messageCarte.getNomCarte());
+
                     }
                 }
                 

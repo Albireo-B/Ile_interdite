@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utilitaires.Action;
 import utilitaires.Role;
 
         
@@ -119,12 +120,12 @@ public class VueAventurier extends JPanel{
         }
     }
             
+
     public void rendreAventurierCliquable(String carte){
             carteJoueur.rendreAventurierCliquable(carte);
             carteJoueur.getBoutonAventurier().setBackground(Color.red);
-            
-        }
-            
+    }
+
     //Getters et Setters :
      
     /**

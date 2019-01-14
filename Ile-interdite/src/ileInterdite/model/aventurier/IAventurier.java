@@ -30,12 +30,14 @@ public class IAventurier extends Observable{
     }
 
     public void rendreAventurierCliquable(String carte){
+
          
         setActions(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent arg0) {
                setChanged();
                notifyObservers(new MessageCarte(carte,Action.RECEVOIR,role));
+
                clearChanged();
            }
        });
