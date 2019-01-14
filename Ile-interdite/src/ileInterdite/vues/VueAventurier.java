@@ -5,13 +5,14 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.model.cartes.CarteTirage;
+import ileInterdite.model.cartes.ICartes;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utilitaires.Role;
 
         
 /**
@@ -26,23 +27,26 @@ public class VueAventurier extends JPanel{
     private JButton assecher;
     private JButton recuperer;
     private JButton donner;
+    private JPanel panelPrincipal;
 
-    private ArrayList<JButton> buttonCartes;
+    private ArrayList<ICartes> buttonCartes;
   
     private ArrayList<JLabel> lampes;
-    private String nomAventurier;
+    private Role roleAventurier;
 
     
     
     
-    public VueAventurier(String nomAventurier,boolean gauche) {
+
+    public VueAventurier(Role roleAventurier,boolean gauche) {
+
         super(new BorderLayout());
-        this.nomAventurier = nomAventurier;
+        this.roleAventurier = roleAventurier;
         
         
         //====================== principal========================
         
-        JPanel pannelPrincipal = new JPanel(new GridLayout(2,3));
+        panelPrincipal = new JPanel(new GridLayout(2,3));
         
         
         //===================pannel en haut avec les button et la classe====
@@ -72,68 +76,58 @@ public class VueAventurier extends JPanel{
        
         //=============================================
         paneClass.add(carteJoueur);
-        if(!gauche){
-        
-        
-        
-        
-        pannelPrincipal.add(paneClass);
+
         for(int i=0;i<5;i++){
-            
-                buttonCartes.add(new JButton("Carte"));
-                pannelPrincipal.add(buttonCartes.get(i));
-        
-            }
-        
-        
-        }
-        else{
-        for(int i=0;i<5;i++){
-                if(i==2)
-                    pannelPrincipal.add(paneClass);
-                
-                    buttonCartes.add(new JButton("Carte"));
-                    pannelPrincipal.add(buttonCartes.get(i));
-                
+                if((i==0 && gauche) || (i==2 && !gauche)){
+                    panelPrincipal.add(paneClass);
                 }
+                buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+                panelPrincipal.add(buttonCartes.get(i).getBoutonCarte());
+
+            }
+
+
         
         
+
+            buttonCartes.add(new ICartes(new JButton("Carte"),null,roleAventurier));
+            this.add(panelPrincipal,BorderLayout.CENTER);
+            this.add(paneTresor,BorderLayout.SOUTH);
+
         }
+    
         
-        
-        //===============================================
-        this.add(pannelPrincipal,BorderLayout.CENTER);
-        this.add(paneTresor,BorderLayout.SOUTH);
-    }
-        
-     public void actualiserVueAventurier(ArrayList<String> listeCarte){
-         for (int i = 0 ;i<listeCarte.size();i++){
-            getButtonCartes().get(i).setText(listeCarte.get(i));
+    public void actualiserVueAventurier(ArrayList<String> listeCarte){
+         for (int i = 0 ;i<5 && i<listeCarte.size();i++){
+            getButtonCartes().get(i).getBoutonCarte().setText(listeCarte.get(i));
          }
      
     } 
-     
-     
-       
 
-    public void rendreCartesCliquables(ArrayList<CarteTirage> cartesCliquables){
-       
+    public void rendreCartesCliquables(ArrayList<Integer> listePos){
+        for (Integer carteCliquable : listePos){
+            buttonCartes.get(carteCliquable).rendreCarteCliquable();
+        }
     }
-    
+            
+    public void rendreAventurierCliquable(){
+        
+    }
+            
     //Getters et Setters :
      
     /**
      * @return the nomAventurier
      */
-    public String getNomAventurier() {
-        return nomAventurier;
+    public Role getRoleAventurier() {
+        return roleAventurier;
     }
 
     /**
      * @param nomAventurier the nomAventurier to set
      */
-    public void setNomAventurier(String nomAventurier) {
-        this.nomAventurier = nomAventurier;
+    public void setRoleAventurier(Role roleAventurier) {
+        this.roleAventurier = roleAventurier;
     }
 
     /**
@@ -155,7 +149,7 @@ public class VueAventurier extends JPanel{
         return donner;
     }
 
-    public ArrayList<JButton> getButtonCartes() {
+    public ArrayList<ICartes> getButtonCartes() {
         return buttonCartes;
     }
 
@@ -187,7 +181,7 @@ public class VueAventurier extends JPanel{
         this.donner = donner;
     }
 
-    public void setButtonCartes(ArrayList<JButton> buttonCartes) {
+    public void setButtonCartes(ArrayList<ICartes> buttonCartes) {
         this.buttonCartes = buttonCartes;
     }
 

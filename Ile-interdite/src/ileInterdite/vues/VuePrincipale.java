@@ -123,7 +123,7 @@ public class VuePrincipale extends Observable {
         panelAventuriers=new HashMap<>();
         Integer i = 0;
         for(Role role : roleAventurier){
-           VueAventurier va = new VueAventurier(role.toString(),i==0 || i==3);
+           VueAventurier va = new VueAventurier(role,i==0 || i==3);
            i ++;
            panelAventuriers.put(role,va);
         }
