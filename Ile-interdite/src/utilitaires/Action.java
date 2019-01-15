@@ -17,6 +17,8 @@ public enum Action {
     RECUPERER_TRESOR,
     DEFAUSSER,
     RECEVOIR,
-    SUIVRE;
+    CARTESPECIALE,
+    SUIVRE,
+    ASSECHERSACDESABLE;
 
 }

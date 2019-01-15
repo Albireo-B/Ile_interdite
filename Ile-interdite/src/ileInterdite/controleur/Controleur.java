@@ -31,7 +31,7 @@ public class Controleur implements Observer {
     private HashMap<Role, Aventurier> joueurs = new HashMap<>();
     private Grille grille;
     private Aventurier aventurierCourant;
-    ArrayList<CarteInondation> piocheInondation = new ArrayList<>();
+    private ArrayList<CarteInondation> piocheInondation = new ArrayList<>();
     private ArrayList<CarteInondation> defausseInondation = new ArrayList<>();
     private ArrayList<CarteTirage> piocheTirage = new ArrayList<>();
     private ArrayList<CarteTirage> defausseTirage = new ArrayList<>();
@@ -220,7 +220,6 @@ public class Controleur implements Observer {
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
 
         //Si l'aventurier n'est pas un ingénieur qui as pas son pouvoir
-        System.out.println(aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir());
         if (aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir()) {
             aventurierCourant.setPouvoir(true);
         } else {
@@ -299,7 +298,6 @@ public class Controleur implements Observer {
      */
     public void proposerTuiles(ArrayList<Tuile> ct, Action act, Role role) {
         ArrayList<Position> posTuiles = new ArrayList();
-
         for (Tuile t : ct) {
             posTuiles.add(t.getPosition());
         }
@@ -373,9 +371,9 @@ public class Controleur implements Observer {
         }
         if (carteSelection.getUtilisable()) {
             if (carteSelection instanceof CarteHelicoptere) {
-                //à compléter
+                gererHelicoptere(carteSelection);
             } else {
-                //à compléter
+                gererSacDeSable(carteSelection,messageCarte.getRole());
             }
         }
 
@@ -401,7 +399,46 @@ public class Controleur implements Observer {
 
         aventurierCourant.decremente();
     }
+    
+    
+    
+    public void appliquerCartesSpeciales(String nomCarte,Role role) {
+        if (nomCarte.equals("SacDeSable")) {
+            gererSacDeSable(stringToCarte(nomCarte),role);
+            joueurs.get(role).removeCarte(stringToCarte(nomCarte));
+            defausseTirage.add(stringToCarte(nomCarte));
+            vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
+        } else {
+            gererHelicoptere(stringToCarte(nomCarte));
+        }
+    }
 
+    public void gererSacDeSable(CarteTirage carte,Role role){
+        ArrayList<Tuile> liste = new ArrayList();
+        for (Tuile t : grille.tuilesNonCoulees(null)) {
+            if (t.getEtat() == EtatTuile.INONDEE) {
+                liste.add(t);
+            }
+        }
+        proposerTuiles(liste,Action.ASSECHERSACDESABLE,aventurierCourant.getRole());
+        joueurs.get(role).removeCarte(carte);
+        defausseTirage.add(carte);
+        vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
+    }
+
+    
+    private void appliquerAssechementSacDeSable(MessagePos messagepos) {
+        grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
+        vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
+    }
+
+
+    
+    public void gererHelicoptere(CarteTirage nomCarte){
+        //à compléter
+    }
+  
+    
     /**
      * S'occupe de toute les opérations(logique applicative)
      *
@@ -442,7 +479,7 @@ public class Controleur implements Observer {
                     case RECUPERER_TRESOR:
                         gererRecupTresor();
                         break;
-
+                
                 }
             }
         }
@@ -463,6 +500,10 @@ public class Controleur implements Observer {
                 case ASSECHER:
                     appliquerAssechement(messagepos);
                     break;
+                //Si le message possède l'action ASSECHERSACDESABLE
+                case ASSECHERSACDESABLE:
+                    appliquerAssechementSacDeSable(messagepos);
+                    break;
             }
         }
         //Si arg est de type messageCarte
@@ -482,6 +523,12 @@ public class Controleur implements Observer {
                 case RECEVOIR:
                     appliquerRecevoir(messageCarte);
                     break;
+                //Si le message possède l'action CARTESPECIALE
+                case CARTESPECIALE:
+                    appliquerCartesSpeciales(messageCarte.getNomCarte(),messageCarte.getRole());
+                    break;
+
+             
             }
         }
         actualiserVue(arg);

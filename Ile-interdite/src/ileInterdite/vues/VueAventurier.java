@@ -5,8 +5,8 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -54,16 +54,28 @@ public class VueAventurier extends Observable {
             panelPrincipal.add(buttonCartes.get(i));
 
         }
+        
+        panelGeneral.add(panelPrincipal);
     }
     
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
         for (int i = 0; i < 5 && i < listeCarte.size(); i++) {
             getButtonCartes().get(i).setNom(listeCarte.get(i));
-            getButtonCartes().get(i).removeActionListener();
+            getButtonCartes().get(i).removeActionListener();                //A ROLE IS NEEDED MY BOY
             j = i;
-            if (buttonCartes.get(i).getNom().equals("Helicoptere") || buttonCartes.get(i).getNom().equals("SacDeSable")){
-            buttonCartes.get(i);
+            if (buttonCartes.get(i).getNom().equals("Helicoptere") ){
+                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+                    setChanged();
+                    notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
+                    clearChanged();
+                });
+            }else if (buttonCartes.get(i).getNom().equals("SacDeSable")){
+                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+                    setChanged();
+                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
+                    clearChanged();
+                });
             }
         }
         for (int i = j + 1; i < 5; i++) {
