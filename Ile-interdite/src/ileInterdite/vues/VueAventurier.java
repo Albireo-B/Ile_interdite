@@ -12,7 +12,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Action;
@@ -77,9 +76,12 @@ public class VueAventurier extends Observable {
         
     public void actualiserVueAventurier(ArrayList<String> listeCarte){
         int j= 0;
-         for (int i=0 ;i<5 && i<listeCarte.size();i++){
+        for (int i=0 ;i<5 && i<listeCarte.size();i++){
             getButtonCartes().get(i).setNom(listeCarte.get(i));
             j=i;
+            if (buttonCartes.get(i).getNom().equals("Helicoptere") || buttonCartes.get(i).getNom().equals("SacDeSable")){
+            buttonCartes.get(i)
+            }
          }
          for (int i=j+1;i<5;i++){
              getButtonCartes().get(i).setNom("_");

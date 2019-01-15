@@ -155,7 +155,7 @@ public class Controleur implements Observer {
         }
         return a;
     }
-
+vive les pokémons.
     public void initCartes() {
         for (Role role : joueurs.keySet()) {
             ArrayList<CarteTirage> cartes = new ArrayList<>();
