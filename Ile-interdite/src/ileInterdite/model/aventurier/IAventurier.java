@@ -7,6 +7,7 @@ package ileInterdite.model.aventurier;
 
 import ileInterdite.message.Message;
 import ileInterdite.message.MessageCarte;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
