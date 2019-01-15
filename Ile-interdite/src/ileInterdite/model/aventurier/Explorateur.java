@@ -38,6 +38,22 @@ public class Explorateur extends Aventurier {
     public ArrayList<Tuile> calculDeplacement(Grille g){
         return g.tuilesAdjacentesCarre(getTuile());
     }
+    @Override
+    public ArrayList<Tuile> calculGuide(Grille g){
+        ArrayList<Tuile> tuiles = new ArrayList<>();
+        for (Tuile t : g.tuilesAdjacentesCarre(getTuile())) {
+            if (t.getEtat()!=EtatTuile.COULEE){
+                if (!tuiles.contains(t)){
+                tuiles.add(t);}
+                for (Tuile tt : g.tuilesAdjacentesCarre(t)) {
+                    if (tt !=getTuile()&& !tuiles.contains(tt)){
+                        tuiles.add(tt);
+                    }
+                }
+            }
+        }
+        return tuiles;
+    }
     
     /**
      * On renvoie une liste des tuiles adjacentes en carré

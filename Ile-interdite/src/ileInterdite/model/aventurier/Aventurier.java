@@ -47,6 +47,21 @@ public abstract class Aventurier {
         return g.tuilesAdjacentesCroix(getTuile()); 
     }
     
+    public ArrayList<Tuile> calculGuide(Grille g){
+        ArrayList<Tuile> tuiles = new ArrayList<>();
+        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
+            if (t.getEtat()!=EtatTuile.COULEE){
+                tuiles.add(t);
+                for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
+                    if (tt !=getTuile()&& !tuiles.contains(tt)){
+                        tuiles.add(tt);
+                    }
+                }
+            }
+        }
+        return tuiles;
+    }
+    
     /**
      * On renvoie la liste des tuiles adjacentes en croix
      * @param g
@@ -77,6 +92,7 @@ public abstract class Aventurier {
         setNbAction(3);
         setPouvoir(true);
     }
+    
     public ArrayList<Integer> cartesTresor(){
         ArrayList<Integer> cartesTresor = new ArrayList<>();
         for (CarteTirage carte : cartes){
@@ -105,38 +121,108 @@ public abstract class Aventurier {
     }
 
     
-    public void addCartes(ArrayList<CarteTirage> cartes) throws ExceptionAventurier{
-        for (CarteTirage c : cartes){
-        this.cartes.add(c);
+    public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier{
+        for (CarteTirage c : listeCartes){
+        cartes.add(c);
         }
-        if (this.cartes.size()>5){
+        if (cartes.size()>5){
             throw new ExceptionAventurier(this);
         }
     }
         
         
     public ArrayList<String> cartesToString(){
-        ArrayList<String> cartes = new ArrayList<>();
-        for(CarteTirage carte : this.cartes){
-            cartes.add(carte.getNom());
-        } 
-        return cartes;
-    }
-    
-    public void removeCartes(CarteTirage carte){
+        ArrayList<String> listeCarte = new ArrayList<>();
+            for(CarteTirage carte : this.cartes){
+                System.out.print(carte);
+                listeCarte.add(carte.getNom());
+            }
+        return listeCarte;
         
     }
     
-    
-    public void recupererTresor(){
-       
+    public void removeCarte(CarteTirage carte){
+        cartes.remove(carte);
+        System.out.println(cartes);
     }
+    
     
     public Boolean peutRecupererTresor(){
-
-       return true;
        
-    }
+        Boolean recuperable = null;
+        if (tuile.getNom().equals("Le Temple de La Lune") || tuile.getNom().equals("Le Temple du Soleil")){
+            if (!Tresor.PIERRE.getRecuperé()){
+                int nbTresor=0;
+                for (CarteTirage carte : cartes){
+                    if (carte.getNom().equals(Tresor.PIERRE.toString())){
+                        nbTresor+=1;
+                    }
+                }
+                if(nbTresor>=4){
+                    recuperable=true;
+                } else { 
+                recuperable=false;
+                }
+            } else { 
+                recuperable=false;
+            }
+            
+        } else if (tuile.getNom().equals("Le Palais des Marees") || tuile.getNom().equals("Le Palais de Corail")){
+            if (!Tresor.CALICE.getRecuperé()){
+                int nbTresor=0;
+                for (CarteTirage carte : cartes){
+                    if (carte.getNom().equals(Tresor.CALICE.toString())){
+                        nbTresor+=1;
+                    }
+                }
+                if(nbTresor>=4){
+                    recuperable=true;
+                } else { 
+                recuperable=false;
+                }
+            }  else { 
+                recuperable=false;
+            }
+        } else if (tuile.getNom().equals("La Caverne des Ombres") || tuile.getNom().equals("La Caverne du Brasier")){
+            if (!Tresor.CRISTAL.getRecuperé()){
+                int nbTresor=0;
+                for (CarteTirage carte : cartes){
+                    if (carte.getNom().equals(Tresor.CRISTAL.toString())){
+                        nbTresor+=1;
+                    }
+                }
+                if(nbTresor>=4){
+                    recuperable=true;
+                } else { 
+                recuperable=false;
+                }
+            }  else { 
+                recuperable=false;
+            }
+        } else if (tuile.getNom().equals("Le Jardin des Hurlements") || tuile.getNom().equals("Le Jardin des Murmures")){
+            if (!Tresor.ZEPHYR.getRecuperé()){
+                int nbTresor=0;
+                for (CarteTirage carte : cartes){
+                    if (carte.getNom().equals(Tresor.ZEPHYR.toString())){
+                        nbTresor+=1;
+                    }
+                }
+                if(nbTresor>=4){
+                    recuperable=true;
+                } else { 
+                recuperable=false;
+                }
+            }  else { 
+                recuperable=false;
+            }
+        } else { 
+            recuperable=false;
+       }
+         System.out.println("peut recup?" + recuperable);
+        return recuperable;
+        
+    }       
+        
    
     //Getters et Setters :
     
@@ -195,7 +281,7 @@ public abstract class Aventurier {
     }
 
     /**
-     * @param Role the Role to set
+     * @param role
      */
     public void setRole(Role role) {
         this.role = role;
@@ -242,4 +328,5 @@ public abstract class Aventurier {
     public VueDefausse getVueDefausse() {
         return vueDefausse;
     }
+
 }

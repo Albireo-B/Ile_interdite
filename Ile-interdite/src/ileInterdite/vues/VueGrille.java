@@ -91,6 +91,7 @@ public class VueGrille extends Observable {
      * @param act
      */
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act,Role role) {
+        
         joueurSelectionné=role;
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
@@ -100,7 +101,7 @@ public class VueGrille extends Observable {
                 
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
-                    notifyObservers(new MessagePos(act, pos,joueurSelectionné));
+                    notifyObservers(new MessagePos(act, pos,joueurSelectionné));     
                     clearChanged();
                 });
             }

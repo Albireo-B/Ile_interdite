@@ -15,6 +15,8 @@ public enum Action {
     TERMINER,
     DONNER,
     RECUPERER_TRESOR,
-    DEFAUSSER;
+    DEFAUSSER,
+    RECEVOIR,
+    SUIVRE;
     
 }

@@ -5,27 +5,66 @@
  */
 package ileInterdite.model.aventurier;
 
+import ileInterdite.message.Message;
+import ileInterdite.message.MessageCarte;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 import javax.swing.JButton;
+import utilitaires.Action;
+import utilitaires.Role;
 
 /**
  *
  * @author vinetg
  */
-public class IAventurier {
+public class IAventurier extends Observable{
     private JButton boutonAventurier;
-    private ActionListener actions;
+    private Role role;
+    private ActionListener l;
     
-    public IAventurier(JButton boutonAventurier,ActionListener actions){
-        this.actions=actions;
+    public IAventurier(JButton boutonAventurier,Role role){
         this.boutonAventurier=boutonAventurier;
+        this.role=role;
+        
     }
 
-//    public rendreAventurierCliquable(){
-//        
-//    }
+    public void devenirReceveur(String carte,Boolean suivre){
+        l = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new MessageCarte(carte,Action.RECEVOIR, getRole()));
+                clearChanged();
+            }
+        };       
+        devenirCliquable(l,suivre);
+    }
+
+    public void devenirSuiveur(Boolean suivre){
+        l = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new Message(Action.SUIVRE, getRole()));
+                clearChanged();
+            }
+        };
+        devenirCliquable(l,suivre);
+    }
     
-   
+    public void devenirCliquable(ActionListener al,Boolean b){
+        if (b){
+           boutonAventurier.addActionListener(al);
+           boutonAventurier.setForeground(Color.RED);
+        }
+        else{
+           boutonAventurier.removeActionListener(al);
+           boutonAventurier.setForeground(null);
+        }
+    }
+    
     /**
      * @return the boutonAventurier
      */
@@ -34,16 +73,11 @@ public class IAventurier {
     }
 
     /**
-     * @return the actions
+     * @return the role
      */
-    public ActionListener getActions() {
-        return actions;
+    public Role getRole() {
+        return role;
     }
 
-    /**
-     * @param actions the actions to set
-     */
-    public void setActions(ActionListener actions) {
-        this.actions = actions;
-    }
+
 }
