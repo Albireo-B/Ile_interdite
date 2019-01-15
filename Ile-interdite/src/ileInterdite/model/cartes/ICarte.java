@@ -36,6 +36,7 @@ public class ICarte extends Observable {
                 notifyObservers(new MessageCarte(boutonCarte.getText(),Action.DONNER,getRole()));
                 clearChanged();
                 boutonCarte.removeActionListener(this);
+                boutonCarte.setBackground(null);
             }
         };
         
