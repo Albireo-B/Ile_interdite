@@ -100,12 +100,15 @@ public class VuePrincipale extends Observable {
         
         panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
         
+        btnBouger.setVisible(true);
+        
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.DEPLACER,null));
             clearChanged();
         });
-
+        
+        btnAssecher.setVisible(true);
         btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.ASSECHER,null));
@@ -118,12 +121,13 @@ public class VuePrincipale extends Observable {
             clearChanged();
         });
         
+        btnDonner.setVisible(false);
         btnDonner.addActionListener((ActionEvent arg0) -> {
             setChanged();
             notifyObservers(new Message(Action.DONNER,null));
             clearChanged();
         });
-        
+        btnRecuperer.setVisible(false);
         btnRecuperer.addActionListener((ActionEvent arg) -> {
             setChanged();
             notifyObservers(new Message(Action.RECUPERER_TRESOR,null));
@@ -240,6 +244,23 @@ public class VuePrincipale extends Observable {
     public JLabel getLabelNomJoueur() {
         return labelNomJoueur;
     }
+    
+    
+     public void afficherDonner(){
+         btnDonner.setVisible(true);
+     }
+     public void afficherRecuper(){
+         btnRecuperer.setVisible(true);
+     }
+     
+     public void cacherBouger(){
+         btnBouger.setVisible(false);
+     }
+     public void cacherAssecher(){
+         btnAssecher.setVisible(false);
+     
+     }
+    
 }
 
  

@@ -22,8 +22,6 @@ import utilitaires.Role;
  * @author grosa
  */
 public class VueAventurier extends JPanel{
-   
-    private JButton bouger;
     private JPanel paneClass;
 
     private IAventurier carteJoueur;
@@ -44,6 +42,7 @@ public class VueAventurier extends JPanel{
         super(new BorderLayout());
         this.roleAventurier = roleAventurier;
         
+    
         
         //====================== principal========================
         
@@ -51,10 +50,7 @@ public class VueAventurier extends JPanel{
         
         
         //===================pannel en haut avec les button et la classe====
-        
-       
-        
-        bouger=new JButton("bouger");
+
  
 
         paneClass=new JPanel(new BorderLayout());
@@ -133,9 +129,6 @@ public class VueAventurier extends JPanel{
     /**
      * @return the bouger
      */
-    public JButton getBouger() {
-        return bouger;
-    }
 
 
     public ArrayList<ICarte> getButtonCartes() {
@@ -143,9 +136,7 @@ public class VueAventurier extends JPanel{
     }
 
 
-    public void setBouger(JButton bouger) {
-        this.bouger = bouger;
-    }
+
 
     /**
      * @param paneClass the paneClass to set
@@ -183,6 +174,4 @@ public class VueAventurier extends JPanel{
     }
 
 
-     
-     
 }
