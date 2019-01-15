@@ -113,7 +113,7 @@ public abstract class Aventurier {
      * position précédente
      *
      * @param tuile
-    */
+     */
     public void setTuile(Grille grille, Tuile tuile) {
         tuile.removeAventurier(this);
         tuile.addAventurier(this);
@@ -137,7 +137,7 @@ public abstract class Aventurier {
         return listeCarte;
 
     }
-    
+
     public void recupererTresor() {
 
     }
@@ -145,82 +145,82 @@ public abstract class Aventurier {
     public void removeCarte(CarteTirage carte) {
         cartes.remove(carte);
     }
-    
-    public Boolean peutRecupererTresor(){
-       
+
+    public Boolean peutRecupererTresor() {
+
         Boolean recuperable = null;
-        if (tuile.getNom().equals("Le Temple de La Lune") || tuile.getNom().equals("Le Temple du Soleil")){
-            if (!Tresor.PIERRE.getRecuperé()){
-                int nbTresor=0;
-                for (CarteTirage carte : cartes){
-                    if (carte.getNom().equals(Tresor.PIERRE.toString())){
-                        nbTresor+=1;
+        if (tuile.getNom().equals("Le Temple de La Lune") || tuile.getNom().equals("Le Temple du Soleil")) {
+            if (!Tresor.PIERRE.getRecuperé()) {
+                int nbTresor = 0;
+                for (CarteTirage carte : cartes) {
+                    if (carte.getNom().equals(Tresor.PIERRE.toString())) {
+                        nbTresor += 1;
                     }
                 }
-                if(nbTresor>=4){
-                    recuperable=true;
-                } else { 
-                recuperable=false;
+                if (nbTresor >= 4) {
+                    recuperable = true;
+                } else {
+                    recuperable = false;
                 }
-            } else { 
-                recuperable=false;
+            } else {
+                recuperable = false;
             }
-            
-        } else if (tuile.getNom().equals("Le Palais des Marees") || tuile.getNom().equals("Le Palais de Corail")){
-            if (!Tresor.CALICE.getRecuperé()){
-                int nbTresor=0;
-                for (CarteTirage carte : cartes){
-                    if (carte.getNom().equals(Tresor.CALICE.toString())){
-                        nbTresor+=1;
+
+        } else if (tuile.getNom().equals("Le Palais des Marees") || tuile.getNom().equals("Le Palais de Corail")) {
+            if (!Tresor.CALICE.getRecuperé()) {
+                int nbTresor = 0;
+                for (CarteTirage carte : cartes) {
+                    if (carte.getNom().equals(Tresor.CALICE.toString())) {
+                        nbTresor += 1;
                     }
                 }
-                if(nbTresor>=4){
-                    recuperable=true;
-                } else { 
-                recuperable=false;
+                if (nbTresor >= 4) {
+                    recuperable = true;
+                } else {
+                    recuperable = false;
                 }
-            }  else { 
-                recuperable=false;
+            } else {
+                recuperable = false;
             }
-        } else if (tuile.getNom().equals("La Caverne des Ombres") || tuile.getNom().equals("La Caverne du Brasier")){
-            if (!Tresor.CRISTAL.getRecuperé()){
-                int nbTresor=0;
-                for (CarteTirage carte : cartes){
-                    if (carte.getNom().equals(Tresor.CRISTAL.toString())){
-                        nbTresor+=1;
+        } else if (tuile.getNom().equals("La Caverne des Ombres") || tuile.getNom().equals("La Caverne du Brasier")) {
+            if (!Tresor.CRISTAL.getRecuperé()) {
+                int nbTresor = 0;
+                for (CarteTirage carte : cartes) {
+                    if (carte.getNom().equals(Tresor.CRISTAL.toString())) {
+                        nbTresor += 1;
                     }
                 }
-                if(nbTresor>=4){
-                    recuperable=true;
-                } else { 
-                recuperable=false;
+                if (nbTresor >= 4) {
+                    recuperable = true;
+                } else {
+                    recuperable = false;
                 }
-            }  else { 
-                recuperable=false;
+            } else {
+                recuperable = false;
             }
-        } else if (tuile.getNom().equals("Le Jardin des Hurlements") || tuile.getNom().equals("Le Jardin des Murmures")){
-            if (!Tresor.ZEPHYR.getRecuperé()){
-                int nbTresor=0;
-                for (CarteTirage carte : cartes){
-                    if (carte.getNom().equals(Tresor.ZEPHYR.toString())){
-                        nbTresor+=1;
+        } else if (tuile.getNom().equals("Le Jardin des Hurlements") || tuile.getNom().equals("Le Jardin des Murmures")) {
+            if (!Tresor.ZEPHYR.getRecuperé()) {
+                int nbTresor = 0;
+                for (CarteTirage carte : cartes) {
+                    if (carte.getNom().equals(Tresor.ZEPHYR.toString())) {
+                        nbTresor += 1;
                     }
                 }
-                if(nbTresor>=4){
-                    recuperable=true;
-                } else { 
-                recuperable=false;
+                if (nbTresor >= 4) {
+                    recuperable = true;
+                } else {
+                    recuperable = false;
                 }
-            }  else { 
-                recuperable=false;
+            } else {
+                recuperable = false;
             }
-        } else { 
-            recuperable=false;
-       }
+        } else {
+            recuperable = false;
+        }
         return recuperable;
-        
-    }       
-        
+
+    }
+
     //Getters et Setters :
     public Position getPosition() {
         return getTuile().getPosition();
@@ -323,6 +323,5 @@ public abstract class Aventurier {
     public VueDefausse getVueDefausse() {
         return vueDefausse;
     }
-
 
 }

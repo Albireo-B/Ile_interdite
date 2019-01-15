@@ -11,13 +11,12 @@ package ileInterdite.model.cartes;
  */
 public class CarteInondation {
 
-
     private String nom;
 
-    public CarteInondation(String nom){
-        this.nom=nom;
+    public CarteInondation(String nom) {
+        this.nom = nom;
     }
-    
+
     /**
      * @return the nom
      */

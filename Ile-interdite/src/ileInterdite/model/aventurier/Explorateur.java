@@ -17,36 +17,41 @@ import java.util.ArrayList;
  * @author vinetg
  */
 public class Explorateur extends Aventurier {
-    
+
     /**
-     * On définit le constructeur de Explorateur avec une tuile Tuile et un nom String 
+     * On définit le constructeur de Explorateur avec une tuile Tuile et un nom
+     * String
+     *
      * @param tuile
-     * @param nom 
+     * @param nom
      */
-    public Explorateur(String nom,Tuile tuile){
-       super(nom,tuile);   
-       setRole(Role.Explorateur);
-       setPion(Pion.VERT);
+    public Explorateur(String nom, Tuile tuile) {
+        super(nom, tuile);
+        setRole(Role.Explorateur);
+        setPion(Pion.VERT);
     }
-    
+
     /**
      * On renvoie une liste des tuiles adjacentes en carré
+     *
      * @param g
-     * @return 
-     */    
+     * @return
+     */
     @Override
-    public ArrayList<Tuile> calculDeplacement(Grille g){
+    public ArrayList<Tuile> calculDeplacement(Grille g) {
         return g.tuilesAdjacentesCarre(getTuile());
     }
+
     @Override
-    public ArrayList<Tuile> calculGuide(Grille g){
+    public ArrayList<Tuile> calculGuide(Grille g) {
         ArrayList<Tuile> tuiles = new ArrayList<>();
         for (Tuile t : g.tuilesAdjacentesCarre(getTuile())) {
-            if (t.getEtat()!=EtatTuile.COULEE){
-                if (!tuiles.contains(t)){
-                tuiles.add(t);}
+            if (t.getEtat() != EtatTuile.COULEE) {
+                if (!tuiles.contains(t)) {
+                    tuiles.add(t);
+                }
                 for (Tuile tt : g.tuilesAdjacentesCarre(t)) {
-                    if (tt !=getTuile()&& !tuiles.contains(tt)){
+                    if (tt != getTuile() && !tuiles.contains(tt)) {
                         tuiles.add(tt);
                     }
                 }
@@ -54,22 +59,23 @@ public class Explorateur extends Aventurier {
         }
         return tuiles;
     }
-    
+
     /**
      * On renvoie une liste des tuiles adjacentes en carré
+     *
      * @param g
-     * @return 
+     * @return
      */
     @Override
-      public ArrayList<Tuile> calculAssechement(Grille g){
+    public ArrayList<Tuile> calculAssechement(Grille g) {
         ArrayList<Tuile> liste = new ArrayList<Tuile>();
-        
-        if (getTuile().getEtat() == EtatTuile.INONDEE){
+
+        if (getTuile().getEtat() == EtatTuile.INONDEE) {
             liste.add(getTuile());
         }
-        
-        for (Tuile t : g.tuilesAdjacentesCarre(getTuile())){
-            if (t.getEtat() == EtatTuile.INONDEE){
+
+        for (Tuile t : g.tuilesAdjacentesCarre(getTuile())) {
+            if (t.getEtat() == EtatTuile.INONDEE) {
                 liste.add(t);
             }
         }

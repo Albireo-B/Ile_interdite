@@ -13,23 +13,23 @@ import utilitaires.Role;
  *
  * @author vinetg
  */
-public class MessagePos extends Message{
+public class MessagePos extends Message {
+
     private Position pos;
-    
 
     /**
-     * On définit le constructeur de MessagePos avec une action Action
-     * et une position Position
+     * On définit le constructeur de MessagePos avec une action Action et une
+     * position Position
+     *
      * @param action
-     * @param pos 
+     * @param pos
      */
-    public MessagePos(Action action, Position pos,Role role){
-       super(action,role);
-       this.pos = pos;
+    public MessagePos(Action action, Position pos, Role role) {
+        super(action, role);
+        this.pos = pos;
     }
-    
+
     //Getters et Setters :
-    
     /**
      * @return the pos
      */

@@ -10,8 +10,8 @@ package ileInterdite.model.cartes;
  * @author vinetg
  */
 public class CarteMonteeDesEaux extends CarteTirage {
-    
-    public CarteMonteeDesEaux(){
+
+    public CarteMonteeDesEaux() {
         super(false);
         setNom("MonteeDesEaux");
     }

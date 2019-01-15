@@ -21,15 +21,14 @@ public enum Tresor {
     public void setRecuperé(Boolean recuperé) {
         this.recuperé = recuperé;
     }
-        
+
     private Boolean recuperé;
-       
-    Tresor (Boolean recuperé) {
-        this.recuperé = recuperé ;
+
+    Tresor(Boolean recuperé) {
+        this.recuperé = recuperé;
     }
 
-
-    public Boolean  getRecuperé() {
-        return this.recuperé ;
+    public Boolean getRecuperé() {
+        return this.recuperé;
     }
 }

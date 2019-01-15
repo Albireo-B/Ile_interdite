@@ -10,8 +10,8 @@ package ileInterdite.model.cartes;
  * @author vinetg
  */
 public class CarteHelicoptere extends CarteTirage {
-    
-    public CarteHelicoptere(){
+
+    public CarteHelicoptere() {
         super(true);
         setNom("Helicoptere");
     }

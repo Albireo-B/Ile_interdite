@@ -16,10 +16,10 @@ public enum Role {
     Pilote("Heliport"),
     Navigateur("La Porte d'Or"),
     Plongeur("La Porte de Fer");
-    
+
     private String caseDepart;
-    
-    Role (String caseDepart){
+
+    Role(String caseDepart) {
         this.caseDepart = caseDepart;
     }
 

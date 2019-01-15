@@ -13,12 +13,12 @@ import utilitaires.Action;
  * @author vinetg
  */
 public class MessageCarte extends Message {
-    
+
     private String nomCarte;
-    
-    public MessageCarte(String nomCarte,Action a,Role role){
-        super(a,role);
-        this.nomCarte=nomCarte;
+
+    public MessageCarte(String nomCarte, Action a, Role role) {
+        super(a, role);
+        this.nomCarte = nomCarte;
     }
 
     /**

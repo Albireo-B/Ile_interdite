@@ -14,17 +14,18 @@ import ileInterdite.model.Tuile;
  * @author vinetg
  */
 public class Navigateur extends Aventurier {
-    
+
     /**
-     * On définit un constructeur de Navigateur avec une Tuile tuile et un nom String
+     * On définit un constructeur de Navigateur avec une Tuile tuile et un nom
+     * String
+     *
      * @param tuile
-     * @param nom 
+     * @param nom
      */
-    public Navigateur(String nom, Tuile tuile){
-       super(nom,tuile);   
-       setRole(Role.Navigateur);
-       setPion(Pion.JAUNE);
+    public Navigateur(String nom, Tuile tuile) {
+        super(nom, tuile);
+        setRole(Role.Navigateur);
+        setPion(Pion.JAUNE);
     }
-    
 
 }

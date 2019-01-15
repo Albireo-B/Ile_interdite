@@ -16,33 +16,34 @@ import utilitaires.Role;
  * @author vinetg
  */
 public class ICarte extends JButton {
+
     private String nom;
     private Action action;
     private Role role;
-    
+
     private ActionListener actionListener = null;
-    
-    public ICarte(String nom, Action action, Role role){
+
+    public ICarte(String nom, Action action, Role role) {
         this.nom = nom;
         this.action = action;
         this.role = role;
     }
-    
+
     public void removeActionListener() {
         removeActionListener(actionListener);
         actionListener = null;
     }
-    
+
     @Override
     public void addActionListener(ActionListener act) {
         if (actionListener == null) {
             actionListener = act;
             super.addActionListener(act);
-        }
-        else
+        } else {
             System.out.println("ERREUR: N'essayez pas d'ajouter deux actionlisteners");
+        }
     }
-    
+
     public MessageCarte getMessage() {
         return new MessageCarte(nom, action, role);
     }
@@ -75,5 +76,5 @@ public class ICarte extends JButton {
     public void setAction(Action action) {
         this.action = action;
     }
-    
+
 }

@@ -18,5 +18,5 @@ public enum Action {
     DEFAUSSER,
     RECEVOIR,
     SUIVRE;
-    
+
 }
