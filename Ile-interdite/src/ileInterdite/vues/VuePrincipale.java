@@ -99,15 +99,15 @@ public class VuePrincipale extends Observable {
         
         panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
         
-     
-        btnBouger.setVisible(false);
+        
+        btnBouger.setVisible(true);
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.DEPLACER,null));
             clearChanged();
         });
         
-        btnAssecher.setVisible(false);
+        btnAssecher.setVisible(true);
         btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.ASSECHER,null));
@@ -121,14 +121,14 @@ public class VuePrincipale extends Observable {
             clearChanged();
         });
         
-        btnDonner.setVisible(false);
+        btnDonner.setVisible(true);
         btnDonner.addActionListener((ActionEvent arg0) -> {
             setChanged();
             notifyObservers(new Message(Action.DONNER,null));
             clearChanged();
         });
         
-        btnRecuperer.setVisible(false);
+        btnRecuperer.setVisible(true);
         btnRecuperer.addActionListener((ActionEvent arg) -> {
             setChanged();
             notifyObservers(new Message(Action.RECUPERER_TRESOR,null));
