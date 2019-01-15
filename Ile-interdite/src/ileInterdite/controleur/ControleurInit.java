@@ -31,9 +31,9 @@ public class ControleurInit {
             
             ArrayList<Role> roles = new ArrayList();
             roles.add(Role.Navigateur);
-            roles.add(Role.Plongeur);
+            roles.add(Role.Pilote);
             roles.add(Role.Messager);
-            roles.add(Role.Explorateur);
+            roles.add(Role.Ingénieur);
             
             
             Controleur ctrl = new Controleur(avens,roles, nomsDesTuiles(), cartesPioche(), 2);

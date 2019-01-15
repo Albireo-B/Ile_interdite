@@ -32,13 +32,13 @@ public class Pilote extends Aventurier {
      * On passe le pouvoir du Pilote à utilisé et on change sa position
      * @param g
      * @param t
-     */ 
-    public void setPositionPilote(Grille g, Tuile t) {
-
-        if (!(g.tuilesAdjacentesCroix(getTuile()).contains(t))){
+     */
+    @Override
+    public void setTuile(Grille g,Tuile tuile) {
+        if (!(g.tuilesAdjacentesCroix(getTuile()).contains(tuile))){
             setPouvoir(false);
         }
-        setTuile(t);
+        super.setTuile(g,tuile);
     }
      
     /**
