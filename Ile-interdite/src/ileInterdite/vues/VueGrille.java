@@ -19,6 +19,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Role;
 
@@ -71,6 +72,16 @@ public class VueGrille extends Observable {
                 }
             }
         }
+        
+//        Position posPierre = new Position(0,0);
+//        Position calice = new Position(0,5);
+//        Position zephyr = new Position(1,0);
+//        Position cristal = new Position(1,0);
+//        
+//        JButton boutonPierre = new JButton("La Pierre Sacrée");
+//        panelGrille.add(boutonPierre);
+        
+        
     }
     
     /**

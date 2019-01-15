@@ -325,7 +325,7 @@ public class Controleur implements Observer {
         );
     }
 
-    public void appliquerDeffausse(MessageCarte messageCarte) {
+    public void appliquerDefausse(MessageCarte messageCarte) {
         CarteTirage carteSelection = null;
         for (CarteTirage carte : joueurs.get(messageCarte.getRole()).getCartes()) {
             if (carte.getNom().equals(messageCarte.getNomCarte())) {
@@ -400,14 +400,18 @@ public class Controleur implements Observer {
                     case TERMINER:
                         nextTurn();
                         break;
+                    //Si le message possède l'action DONNER
                     case DONNER:
                         gererDon();
                         break;
+                    //Si le message possède l'action SUIVRE
                     case SUIVRE:
                         gererNaviguation(message.getRole());
                         break;
+                    //Si le message possède l'action RECUPERER
                     case RECUPERER_TRESOR:
                         gererRecupTresor();
+                        break;
 
                 }
             }
@@ -416,26 +420,33 @@ public class Controleur implements Observer {
         if (arg instanceof MessagePos) {
             MessagePos messagepos = (MessagePos) arg;
             switch (messagepos.getAction()) {
+                //Si le message possède l'action DONNER
                 case DEPLACER:
                     appliquerDeplacement(messagepos);
                     break;
+                //Si le message possède l'action SUIVRE
                 case SUIVRE:
                     appliquerNavigation(messagepos);
                     break;
+                //Si le message possède l'action ASSECHER
                 case ASSECHER:
                     appliquerAssechement(messagepos);
                     break;
             }
         }
+        //Si arg est de type messageCarte
         if (arg instanceof MessageCarte) {
             MessageCarte messageCarte = (MessageCarte) arg;
             switch (messageCarte.getAction()) {
+                //Si le message possède l'action DEFAUSSER
                 case DEFAUSSER:
-                    appliquerDeffausse(messageCarte);
+                    appliquerDefausse(messageCarte);
                     break;
+                //Si le message possède l'action DONNER
                 case DONNER:
                     appliquerDon(messageCarte);
                     break;
+                //Si le message possède l'action RECEVOIR
                 case RECEVOIR:
                     appliquerRecevoir(messageCarte);
                     break;
@@ -447,7 +458,7 @@ public class Controleur implements Observer {
     public CarteTirage stringToCarte(String nomCarte) {
         CarteTirage carteSelection = null;
         for (CarteTirage carte : aventurierCourant.getCartes()) {
-            if (carte.getNom() == nomCarte) {
+            if (carte.getNom().equals(nomCarte)) {
                 carteSelection = carte;
             }
         }
@@ -474,21 +485,27 @@ public class Controleur implements Observer {
     public Aventurier créerAventurier(Tuile t, String n, Role r) {
         Aventurier a = null;
         switch (r) {
+            //Si l'aventurier est un explorateur
             case Explorateur:
                 a = new Explorateur(n, t);
                 break;
+            //Si l'aventurier est un messager
             case Messager:
                 a = new Messager(n, t);
                 break;
+            //Si l'aventurier est un plongeur
             case Plongeur:
                 a = new Plongeur(n, t);
                 break;
+            //Si l'aventurier est un navigateur
             case Navigateur:
                 a = new Navigateur(n, t);
                 break;
+            //Si l'aventurier est un pilote
             case Pilote:
                 a = new Pilote(n, t);
                 break;
+            //Si l'aventurier est un ingénieur
             case Ingénieur:
                 a = new Ingenieur(n, t);
                 break;
@@ -547,12 +564,12 @@ public class Controleur implements Observer {
                     trigger = true;
                     niveauEau += 1;
                     defausseTirage.add(piocheTirage.get(piocheTirage.size() - 1));
-                } //Si la prochaine carte n'est pas une carte montée des eaux
-                else {
+                //Si la prochaine carte n'est pas une carte montée des eaux    
+                } else {
                     cartes.add(piocheTirage.get(piocheTirage.size() - 1));
                 }
                 piocheTirage.remove(piocheTirage.get(piocheTirage.size() - 1));
-                // Si la pioche est vide    
+            // Si la pioche est vide    
             } else {
                 Collections.shuffle(defausseTirage);
                 piocheTirage.addAll(defausseTirage);
@@ -592,7 +609,6 @@ public class Controleur implements Observer {
 
     private void gererRecupTresor() {
         if (aventurierCourant.peutRecupererTresor()){
-            System.out.println("on passe a recup");
             recupererTresor();
         }
             
@@ -600,56 +616,45 @@ public class Controleur implements Observer {
     
 
     public void recupererTresor(){
-        System.out.println("debut recup");
         ArrayList<CarteTirage>  listeCartesTresor=new ArrayList<>();
         if (aventurierCourant.getTuile().getNom().equals("Le Temple de La Lune") || aventurierCourant.getTuile().getNom().equals("Le Temple du Soleil")){
-            System.out.println("1p");
             Tresor.PIERRE.setRecuperé(true);
             checkImage(Tresor.PIERRE);
             for (CarteTirage carte :aventurierCourant.getCartes()){
-                System.out.println("2p");
                     if (carte.getNom().equals(Tresor.PIERRE.toString()) && listeCartesTresor.size()<=4){
                         listeCartesTresor.add(carte);
                     }
                 }
             System.out.println("Pierre Récupérée");
         } else if (aventurierCourant.getTuile().getNom().equals("Le Palais des Marees") ||aventurierCourant.getTuile().getNom().equals("Le Palais de Corail")){
-            System.out.println("1ca");
             Tresor.CALICE.setRecuperé(true);
             checkImage(Tresor.CALICE);
             for (CarteTirage carte :aventurierCourant.getCartes()){
-                System.out.println("2ca");
                     if (carte.getNom().equals(Tresor.CALICE.toString()) && listeCartesTresor.size()<=4){
                         listeCartesTresor.add(carte);
                     }
                 }
             System.out.println("Calice Récupéré");
         }else if (aventurierCourant.getTuile().getNom().equals("La Caverne des Ombres") || aventurierCourant.getTuile().getNom().equals("La Caverne du Brasier")){
-            System.out.println("1cr");
             Tresor.CRISTAL.setRecuperé(true);
             checkImage(Tresor.CRISTAL); 
             for (CarteTirage carte :aventurierCourant.getCartes()){
-                System.out.println("2cr");
                     if (carte.getNom().equals(Tresor.CRISTAL.toString()) && listeCartesTresor.size()<=4){
                         listeCartesTresor.add(carte);
                     }
                 }
             System.out.println("Cristal Récupéré");
         } else if (aventurierCourant.getTuile().getNom().equals("Le Jardin des Hurlements") || aventurierCourant.getTuile().getNom().equals("Le Jardin des Murmures")){
-            System.out.println("1z");
             Tresor.ZEPHYR.setRecuperé(true);
             checkImage(Tresor.ZEPHYR); 
             
                 for (CarteTirage carte :aventurierCourant.getCartes()){
-                System.out.println("2z");
                     if (carte.getNom().equals(Tresor.ZEPHYR.toString()) && listeCartesTresor.size()<=4){
                         listeCartesTresor.add(carte);
                     }
                 }
             System.out.println("Zephyr Récupéré");
-        }
-            System.out.println("fin de recuperer");
-            
+        }      
         for (CarteTirage carte : listeCartesTresor){    
             aventurierCourant.removeCarte(carte);
         }
@@ -660,8 +665,11 @@ public class Controleur implements Observer {
         
     private void checkImage(Tresor tresor) {
         //à compléter
+        
     }
 
+    
+    
     //Getters et Setters :
     /**
      * @return the joueurs

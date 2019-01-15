@@ -25,7 +25,6 @@ public class VueAventurier extends JPanel{
    
     private JButton bouger;
     private JPanel paneClass;
-    private JPanel paneTresor;
 
     private IAventurier carteJoueur;
 
@@ -34,7 +33,6 @@ public class VueAventurier extends JPanel{
 
     private ArrayList<ICarte> buttonCartes;
   
-    private ArrayList<JLabel> lampes;
     private Role roleAventurier;
 
     
@@ -62,16 +60,6 @@ public class VueAventurier extends JPanel{
         paneClass=new JPanel(new BorderLayout());
         carteJoueur=new IAventurier(new JButton(roleAventurier.toString()),roleAventurier);
        
-
-        paneTresor=new JPanel(new GridLayout(1,4));
-        
-        lampes=new ArrayList<>();
-       
-        for (int i=0;i<4;i++){
-            lampes.add(new JLabel("AA"));
-            paneTresor.add(lampes.get(i));
-    
-        }
         buttonCartes=new ArrayList<>();
         
        
@@ -93,7 +81,6 @@ public class VueAventurier extends JPanel{
 
             buttonCartes.add(new ICarte(new JButton("Carte"),roleAventurier));
             this.add(panelPrincipal,BorderLayout.CENTER);
-            this.add(paneTresor,BorderLayout.SOUTH);
 
         }
     
@@ -155,9 +142,6 @@ public class VueAventurier extends JPanel{
         return buttonCartes;
     }
 
-    public ArrayList<JLabel> getLampes() {
-        return lampes;
-    }
 
     public void setBouger(JButton bouger) {
         this.bouger = bouger;
@@ -175,24 +159,13 @@ public class VueAventurier extends JPanel{
     public void setButtonCartes(ArrayList<ICarte> buttonCartes) {
         this.buttonCartes = buttonCartes;
     }
-
-
-    public void setLampes(ArrayList<JLabel> lampes) {
-        this.lampes = lampes;
-    }
-
+    
+    
     /**
      * @return the paneClass
      */
     public JPanel getPaneClass() {
         return paneClass;
-    }
-
-    /**
-     * @return the paneTresor
-     */
-    public JPanel getPaneTresor() {
-        return paneTresor;
     }
 
     /**
