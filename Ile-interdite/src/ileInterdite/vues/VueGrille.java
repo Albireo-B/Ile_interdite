@@ -22,6 +22,7 @@ import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Role;
+import utilitaires.Tresor;
 
 /**
  *
@@ -36,6 +37,8 @@ public class VueGrille extends Observable {
     private Color myRed = new Color(255, 77, 77);    
     private Color myBackgroundColor = new Color(12, 143, 181);
     private Role joueurSelectionné;
+    
+    private HashMap<Tresor, ITresor> tresors = new HashMap();
     
     /**
      * On définit le constructeur de VueGrille
@@ -66,21 +69,34 @@ public class VueGrille extends Observable {
                     }
                 }
                 else {
-                    JPanel panel = new JPanel();
-                    panel.setBackground(myBackgroundColor);
-                    panelGrille.add(panel);
+                    if (pos.getX() == 0 && pos.getY() == 0) {
+                        ITresor tresor = new ITresor(Tresor.ZEPHYR);
+                        panelGrille.add(tresor);
+                        tresors.put(Tresor.ZEPHYR, tresor);
+                    }
+                    else if (pos.getX() == 5 && pos.getY() == 0) {
+                        ITresor tresor = new ITresor(Tresor.PIERRE);
+                        panelGrille.add(tresor);
+                        tresors.put(Tresor.PIERRE, tresor);
+                    }
+                    else if (pos.getX() == 0 && pos.getY() == 5) {
+                        ITresor tresor = new ITresor(Tresor.CALICE);
+                        panelGrille.add(tresor);
+                        tresors.put(Tresor.CALICE, tresor);
+                    }
+                    else if (pos.getX() == 5 && pos.getY() == 5) {
+                        ITresor tresor = new ITresor(Tresor.CRISTAL);
+                        panelGrille.add(tresor);
+                        tresors.put(Tresor.CRISTAL, tresor);
+                    }
+                    else {
+                        JPanel panel = new JPanel();
+                        panel.setBackground(myBackgroundColor);
+                        panelGrille.add(panel);
+                    }
                 }
             }
         }
-        
-//        Position posPierre = new Position(0,0);
-//        Position calice = new Position(0,5);
-//        Position zephyr = new Position(1,0);
-//        Position cristal = new Position(1,0);
-//        
-//        JButton boutonPierre = new JButton("La Pierre Sacrée");
-//        panelGrille.add(boutonPierre);
-        
         
     }
     

@@ -39,6 +39,7 @@ public class VueAventurier extends Observable {
     public VueAventurier(Role roleAventurier,boolean gauche) {
 
         panelGeneral = new JPanel(new BorderLayout());
+        
         this.roleAventurier = roleAventurier;
         
     
@@ -72,7 +73,6 @@ public class VueAventurier extends Observable {
 
             buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
             panelGeneral.add(panelPrincipal,BorderLayout.CENTER);
-
         }
     
         
@@ -102,8 +102,8 @@ public class VueAventurier extends Observable {
     }
             
 
-    public void devenirReceveur(String carte,Boolean suivre){
-            getCarteJoueur().devenirReceveur(carte,suivre);
+    public void devenirReceveur(String carte){
+            getCarteJoueur().devenirReceveur(carte);
     }
     
     public void devenirSuiveur(boolean suivre){
