@@ -120,11 +120,11 @@ public abstract class Aventurier {
     }
 
     
-    public void addCartes(ArrayList<CarteTirage> cartes) throws ExceptionAventurier{
-        for (CarteTirage c : cartes){
-        this.cartes.add(c);
+    public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier{
+        for (CarteTirage c : listeCartes){
+        cartes.add(c);
         }
-        if (this.cartes.size()>5){
+        if (cartes.size()>5){
             throw new ExceptionAventurier(this);
         }
     }
@@ -137,6 +137,7 @@ public abstract class Aventurier {
                 listeCarte.add(carte.getNom());
             }
         return listeCarte;
+        
     }
     
     public void recupererTresor(){
@@ -213,7 +214,7 @@ public abstract class Aventurier {
     }
 
     /**
-     * @param Role the Role to set
+     * @param role
      */
     public void setRole(Role role) {
         this.role = role;
