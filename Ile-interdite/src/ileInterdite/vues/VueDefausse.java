@@ -64,12 +64,12 @@ public class VueDefausse extends Observable {
 
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
-            ICarte buttonCarte = new ICarte(nomCarte, Action.DONNER, role);
+            ICarte buttonCarte = new ICarte(nomCarte, Action.DONNER);
             buttonCarte.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
-                    notifyObservers(buttonCarte.getMessage());
+                    notifyObservers(buttonCarte.getMessage(role));
                     clearChanged();
                 }
             });

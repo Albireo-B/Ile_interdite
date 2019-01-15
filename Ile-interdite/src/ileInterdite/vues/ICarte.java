@@ -6,6 +6,7 @@
 package ileInterdite.vues;
 
 import ileInterdite.message.MessageCarte;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import utilitaires.Action;
@@ -19,19 +20,18 @@ public class ICarte extends JButton {
 
     private String nom;
     private Action action;
-    private Role role;
 
     private ActionListener actionListener = null;
 
-    public ICarte(String nom, Action action, Role role) {
+    public ICarte(String nom, Action action) {
         this.nom = nom;
         this.action = action;
-        this.role = role;
     }
 
     public void removeActionListener() {
         removeActionListener(actionListener);
         actionListener = null;
+        setForeground(null);
     }
 
     @Override
@@ -39,21 +39,16 @@ public class ICarte extends JButton {
         if (actionListener == null) {
             actionListener = act;
             super.addActionListener(act);
+            setForeground(Color.red);
         } else {
             System.out.println("ERREUR: N'essayez pas d'ajouter deux actionlisteners");
         }
     }
 
-    public MessageCarte getMessage() {
+    public MessageCarte getMessage(Role role) {
         return new MessageCarte(nom, action, role);
     }
 
-    /**
-     * @return the role
-     */
-    public Role getRole() {
-        return role;
-    }
 
     /**
      * @return the nom

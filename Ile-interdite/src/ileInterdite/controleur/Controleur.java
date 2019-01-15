@@ -314,9 +314,8 @@ public class Controleur implements Observer {
     }
 
     public void actualiserVue(Object arg) {
-
+        //Si l'ingénieur fait une autre action au lieu d'assecher une seconde fois
         if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingénieur) {
-            System.out.println("réinitialisation");
             aventurierCourant.setPouvoir(true);
         }
 

@@ -51,12 +51,12 @@ public class VueAventurier extends Observable {
             if ((i == 0 && !gauche) || (i == 2 && gauche)) {
                 panelPrincipal.add(paneClass);
             }
-            buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
+            buttonCartes.add(new ICarte("_", Action.DONNER));
             panelPrincipal.add(buttonCartes.get(i));
 
         }
 
-        buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
+        buttonCartes.add(new ICarte("_", Action.DONNER));
         panelGeneral.add(panelPrincipal, BorderLayout.CENTER);
 
     }
@@ -76,14 +76,13 @@ public class VueAventurier extends Observable {
 
     public void rendreCartesCliquables(ArrayList<Integer> listePos) {
         for (Integer carteCliquable : listePos) {
-
+            System.out.println(carteCliquable);
             ICarte carte = buttonCartes.get(carteCliquable);
             carte.addActionListener((ActionEvent e) -> {
                 setChanged();
-                notifyObservers(carte.getMessage());
+                notifyObservers(carte.getMessage(roleAventurier));
                 clearChanged();
             });
-            buttonCartes.get(carteCliquable).setBackground(Color.red);
         }
     }
 
