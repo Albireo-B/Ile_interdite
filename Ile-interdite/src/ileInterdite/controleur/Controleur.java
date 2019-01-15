@@ -5,7 +5,6 @@
  */
 package ileInterdite.controleur;
 
-import ileInterdite.vues.ICarte;
 import utilitaires.Role;
 import ileInterdite.model.aventurier.*;
 import utilitaires.*;
@@ -196,7 +195,7 @@ public class Controleur implements Observer {
         //Si l'aventurier en train de jouer est un pilote
         aventurierCourant.setTuile(grille, grille.getTuile(messagepos.getPos()));
         aventurierCourant.decremente();
-        resetBoutons();
+       
     }
 
     public void gererNaviguation(Role r) {
@@ -220,7 +219,7 @@ public class Controleur implements Observer {
         grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
 
-        //
+        
         //Si l'aventurier n'est pas un ingénieur qui as pas son pouvoir
         System.out.println(aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir());
         if (aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir()) {
@@ -231,6 +230,7 @@ public class Controleur implements Observer {
                 gererAssechement();
             } 
             aventurierCourant.decremente();
+            
         }
 
     }
@@ -346,7 +346,7 @@ public class Controleur implements Observer {
                 && !casesAssechables.isEmpty())) {
             nextTurn();
         }
-        resetBoutons();
+        //resetBoutons();
     }
 
     /**
