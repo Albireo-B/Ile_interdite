@@ -19,44 +19,45 @@ public class Pilote extends Aventurier {
 
     /**
      * On définit le constructeur de Pilote avec une tuile Tuile et nom String
+     *
      * @param tuile
      * @param nom
-     */ 
-    public Pilote(String nom,Tuile tuile){
-      super(nom,tuile);   
-      setRole(Role.Pilote);
-      setPion(Pion.BLEU);
+     */
+    public Pilote(String nom, Tuile tuile) {
+        super(nom, tuile);
+        setRole(Role.Pilote);
+        setPion(Pion.BLEU);
     }
 
     /**
      * On passe le pouvoir du Pilote à utilisé et on change sa position
+     *
      * @param g
      * @param t
      */
     @Override
-    public void setTuile(Grille g,Tuile tuile) {
-        if (!(g.tuilesAdjacentesCroix(getTuile()).contains(tuile))){
+    public void setTuile(Grille g, Tuile tuile) {
+        if (!(g.tuilesAdjacentesCroix(getTuile()).contains(tuile))) {
             setPouvoir(false);
         }
-        super.setTuile(g,tuile);
+        super.setTuile(g, tuile);
     }
-     
+
     /**
      * On renvoit la liste de toutes les tuiles non-coulées
+     *
      * @param g
-     * @return 
-     */ 
+     * @return
+     */
     @Override
-    public ArrayList<Tuile> calculDeplacement(Grille g){
+    public ArrayList<Tuile> calculDeplacement(Grille g) {
         ArrayList<Tuile> liste;
-        if (getPouvoir()){
+        if (getPouvoir()) {
             liste = g.tuilesNonCoulees(getTuile());
-        }
-        else{
+        } else {
             liste = g.tuilesAdjacentesCroix(getTuile());
         }
         return liste;
     }
-    
 
 }

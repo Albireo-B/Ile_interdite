@@ -14,16 +14,18 @@ import ileInterdite.model.Tuile;
  * @author vinetg
  */
 public class Ingenieur extends Aventurier {
-    
+
     /**
-     * On définit le constructeur de Ingenieur avec une tuile Tuile et un nom String
+     * On définit le constructeur de Ingenieur avec une tuile Tuile et un nom
+     * String
+     *
      * @param tuile
-     * @param nom 
+     * @param nom
      */
-    public Ingenieur(String nom, Tuile tuile){
-       super(nom, tuile);   
-       setRole(Role.Ingénieur);
-       setPion(Pion.ROUGE);
+    public Ingenieur(String nom, Tuile tuile) {
+        super(nom, tuile);
+        setRole(Role.Ingénieur);
+        setPion(Pion.ROUGE);
     }
-      
+
 }

@@ -5,7 +5,6 @@
  */
 package ileInterdite.vues;
 
-
 import utilitaires.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
@@ -29,19 +28,20 @@ import utilitaires.Tresor;
  * @author vinetg
  */
 public class VueGrille extends Observable {
-   
+
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
     private Color myBlue = new Color(30, 73, 158);
     private Color myCyan = new Color(20, 136, 148);
-    private Color myRed = new Color(255, 77, 77);    
+    private Color myRed = new Color(255, 77, 77);
     private Color myBackgroundColor = new Color(12, 143, 181);
     private Role joueurSelectionné;
-    
+
     private HashMap<Tresor, ITresor> tresors = new HashMap();
-    
+
     /**
      * On définit le constructeur de VueGrille
+     *
      * @param positions
      * @param noms
      */
@@ -49,9 +49,9 @@ public class VueGrille extends Observable {
         panelGrille = new JPanel(new GridLayout(6, 6));
         panelGrille.setBackground(myBackgroundColor);
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
-        
+
         for (int y = 0; y < 6; y++) {
-            for (int x = 5; x >-1 ; x--) {
+            for (int x = 5; x > -1; x--) {
                 Position pos = new Position(x, y);
                 if (positionTuiles.contains(pos)) {
                     if (positions.contains(pos)) {
@@ -60,36 +60,30 @@ public class VueGrille extends Observable {
                         bTuiles.put(pos, bouton);
                         bouton.setButtonBackground(Color.WHITE);
                         panelGrille.add(bouton);
-                    }
-                    else {
+                    } else {
                         System.out.println("Il vous manque une case ou quoi?");
                         JPanel panel = new JPanel();
                         panel.setBackground(myRed);
                         panelGrille.add(panel);
                     }
-                }
-                else {
+                } else {
                     if (pos.getX() == 0 && pos.getY() == 0) {
                         ITresor tresor = new ITresor(Tresor.ZEPHYR);
                         panelGrille.add(tresor);
                         tresors.put(Tresor.ZEPHYR, tresor);
-                    }
-                    else if (pos.getX() == 5 && pos.getY() == 0) {
+                    } else if (pos.getX() == 5 && pos.getY() == 0) {
                         ITresor tresor = new ITresor(Tresor.PIERRE);
                         panelGrille.add(tresor);
                         tresors.put(Tresor.PIERRE, tresor);
-                    }
-                    else if (pos.getX() == 0 && pos.getY() == 5) {
+                    } else if (pos.getX() == 0 && pos.getY() == 5) {
                         ITresor tresor = new ITresor(Tresor.CALICE);
                         panelGrille.add(tresor);
                         tresors.put(Tresor.CALICE, tresor);
-                    }
-                    else if (pos.getX() == 5 && pos.getY() == 5) {
+                    } else if (pos.getX() == 5 && pos.getY() == 5) {
                         ITresor tresor = new ITresor(Tresor.CRISTAL);
                         panelGrille.add(tresor);
                         tresors.put(Tresor.CRISTAL, tresor);
-                    }
-                    else {
+                    } else {
                         JPanel panel = new JPanel();
                         panel.setBackground(myBackgroundColor);
                         panelGrille.add(panel);
@@ -97,11 +91,11 @@ public class VueGrille extends Observable {
                 }
             }
         }
-        
+
     }
-    
+
     /**
-     * 
+     *
      */
     public void tousBoutonsInertes() {
         for (BoutonTuile bouton : bTuiles.values()) {
@@ -111,34 +105,36 @@ public class VueGrille extends Observable {
             }
         }
     }
-    
+
     /**
-     * Rend toutes les positions de la liste cliquables 
+     * Rend toutes les positions de la liste cliquables
+     *
      * @param posBoutons
      * @param act
      */
-    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act,Role role) {
-        
-        joueurSelectionné=role;
+    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act, Role role) {
+
+        joueurSelectionné = role;
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
 
                 bouton.getBouton().setForeground(myRed);
-                
+
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
-                    notifyObservers(new MessagePos(act, pos,joueurSelectionné));     
+                    notifyObservers(new MessagePos(act, pos, joueurSelectionné));
                     clearChanged();
                 });
             }
         }
     }
-    
+
     /**
      * On définit l'état d'une Position (Tuile)
+     *
      * @param etat
-     * @param pos 
+     * @param pos
      */
     public void actualiserEtatTuile(Position pos, EtatTuile etat) {
         BoutonTuile bouton = bTuiles.get(pos);
@@ -161,23 +157,21 @@ public class VueGrille extends Observable {
         }
     }
 
-     /**
+    /**
      * @param position
      * @param posAv
      * @param p
      */
-
     public void actualiserPositionJoueur(Position position, Position posAv, Pion p) {
         if (bTuiles.keySet().contains(posAv)) {
             bTuiles.get(posAv).removeAventurier(p.getCouleur());
         }
         bTuiles.get(position).addAventurier(p.getCouleur());
     }
-    
+
     //Getters et Setters :
-    
     /**
-     * 
+     *
      * @return the panelGrille
      */
     public JPanel getPanelGrille() {
@@ -191,5 +185,3 @@ public class VueGrille extends Observable {
         this.panelGrille = panelGrille;
     }
 }
-
-

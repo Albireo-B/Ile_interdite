@@ -5,7 +5,6 @@
  */
 package ileInterdite.vues;
 
-
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -26,75 +25,65 @@ import utilitaires.Role;
  *
  * @author PC
  */
-public class VueDefausse extends Observable{
+public class VueDefausse extends Observable {
+
     private JFrame fenetre;
     private ArrayList<ICarte> buttonCartes;
     private JPanel panelCarte;
     private JPanel panelPrincipal;
 
-    public VueDefausse(){
+    public VueDefausse() {
 
-        
-        fenetre=new JFrame();
+        fenetre = new JFrame();
         fenetre.setTitle("cartes");
-        
+
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         fenetre.setSize(600, 300);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        fenetre.setLocation(dim.width/2-fenetre.getSize().width/2, dim.height/2-fenetre.getSize().height/2);
+        fenetre.setLocation(dim.width / 2 - fenetre.getSize().width / 2, dim.height / 2 - fenetre.getSize().height / 2);
         fenetre.setResizable(true);
-        
-        
-        panelPrincipal=new JPanel(new BorderLayout());
-        JLabel explication=new JLabel("on met les explications ici");
-        
-        
 
-        
-        panelCarte=new JPanel(new GridLayout(1,1)); 
-        
-        panelPrincipal.add(explication,BorderLayout.NORTH);
-        panelPrincipal.add(panelCarte,BorderLayout.CENTER);
-        
-        
-        actualiser(new ArrayList<>(),null);
-        
-        
-        
+        panelPrincipal = new JPanel(new BorderLayout());
+        JLabel explication = new JLabel("on met les explications ici");
+
+        panelCarte = new JPanel(new GridLayout(1, 1));
+
+        panelPrincipal.add(explication, BorderLayout.NORTH);
+        panelPrincipal.add(panelCarte, BorderLayout.CENTER);
+
+        actualiser(new ArrayList<>(), null);
+
         close();
         fenetre.add(panelPrincipal);
     }
-    
-      public void actualiser(ArrayList<String> listeCartes,Role role){ 
+
+    public void actualiser(ArrayList<String> listeCartes, Role role) {
         panelPrincipal.remove(panelCarte);
-          
-        buttonCartes=new ArrayList<>();
-        
-        panelCarte=new JPanel(new GridLayout(1,listeCartes.size()));
-        for(String nomCarte: listeCartes){
-            ICarte buttonCarte=new ICarte(nomCarte, Action.DONNER, role);
+
+        buttonCartes = new ArrayList<>();
+
+        panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
+        for (String nomCarte : listeCartes) {
+            ICarte buttonCarte = new ICarte(nomCarte, Action.DONNER);
             buttonCarte.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
-                    notifyObservers(buttonCarte.getMessage());
+                    notifyObservers(buttonCarte.getMessage(role));
                     clearChanged();
                 }
             });
             panelCarte.add(buttonCarte);
         }
-        panelPrincipal.add(panelCarte,BorderLayout.CENTER);
+        panelPrincipal.add(panelCarte, BorderLayout.CENTER);
         afficher();
     }
-      
-    
-    
-      
-      public void afficher(){
+
+    public void afficher() {
         this.fenetre.setVisible(true);
     }
-      
-      public void close(){
+
+    public void close() {
         this.fenetre.dispose();
     }
 

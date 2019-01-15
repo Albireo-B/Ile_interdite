@@ -10,11 +10,12 @@ package ileInterdite.model.cartes;
  * @author vinetg
  */
 public class CarteTirage {
+
     private String nom;
     private Boolean utilisable;
-    
-    public CarteTirage(Boolean utilisable){
-        this.utilisable=utilisable;
+
+    public CarteTirage(Boolean utilisable) {
+        this.utilisable = utilisable;
     }
 
     /**

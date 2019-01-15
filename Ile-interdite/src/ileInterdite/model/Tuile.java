@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,13 +14,16 @@ import ileInterdite.model.aventurier.Aventurier;
  * @author grosa
  */
 public class Tuile {
+
     private EtatTuile etat = EtatTuile.SECHE;
     private ArrayList<Aventurier> aventuriers = new ArrayList();
     private Position position;
     private String nom;
-    
+
     /**
-     * On définit le constructeur de Tuile avec un string nom et une Position pos
+     * On définit le constructeur de Tuile avec un string nom et une Position
+     * pos
+     *
      * @param nom
      * @param pos
      */
@@ -29,25 +32,26 @@ public class Tuile {
         this.position = pos;
         etat = EtatTuile.SECHE;
     }
-    
+
     /**
-     * Ajoute un aventurier a la liste des aventuriers 
+     * Ajoute un aventurier a la liste des aventuriers
+     *
      * @param av
      */
     public void addAventurier(Aventurier av) {
         aventuriers.add(av);
     }
-    
+
     /**
-     * Supprime un aventurier de la liste des aventuriers 
+     * Supprime un aventurier de la liste des aventuriers
+     *
      * @param av
      */
     public void removeAventurier(Aventurier av) {
         aventuriers.remove(av);
     }
-    
+
     //Getters et Setters :
-    
     /**
      * @return the aventuriers
      */

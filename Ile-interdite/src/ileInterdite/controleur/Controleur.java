@@ -37,7 +37,7 @@ public class Controleur implements Observer {
     private ArrayList<CarteTirage> defausseTirage = new ArrayList<>();
     private int niveauEau;
     private ArrayList<Role> listeRoles;
-    private Boolean peutDonner=true;
+    private Boolean peutDonner = true;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -155,7 +155,7 @@ public class Controleur implements Observer {
         }
         return a;
     }
-vive les pokémons.
+
     public void initCartes() {
         for (Role role : joueurs.keySet()) {
             ArrayList<CarteTirage> cartes = new ArrayList<>();
@@ -195,7 +195,7 @@ vive les pokémons.
         //Si l'aventurier en train de jouer est un pilote
         aventurierCourant.setTuile(grille, grille.getTuile(messagepos.getPos()));
         aventurierCourant.decremente();
-       
+
     }
 
     public void gererNaviguation(Role r) {
@@ -219,7 +219,6 @@ vive les pokémons.
         grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
 
-        
         //Si l'aventurier n'est pas un ingénieur qui as pas son pouvoir
         System.out.println(aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir());
         if (aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir()) {
@@ -228,9 +227,9 @@ vive les pokémons.
             if (aventurierCourant instanceof Ingenieur) {
                 aventurierCourant.setPouvoir(false);
                 gererAssechement();
-            } 
+            }
             aventurierCourant.decremente();
-            
+
         }
 
     }
@@ -291,7 +290,6 @@ vive les pokémons.
         }
     }
 
-    
     /**
      * Affiche les cases possibles en les rendant cliquables avec une liste de
      * tuiles et une action
@@ -316,9 +314,8 @@ vive les pokémons.
     }
 
     public void actualiserVue(Object arg) {
-        
+        //Si l'ingénieur fait une autre action au lieu d'assecher une seconde fois
         if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingénieur) {
-            System.out.println("réinitialisation");
             aventurierCourant.setPouvoir(true);
         }
 
@@ -501,7 +498,6 @@ vive les pokémons.
         return carteSelection;
     }
 
-
     /**
      * On remet les cartes de la défausse sur le haut de la pioche des cartes
      * d'inondation puis on pioches dans cette pioche un nombre de cartes
@@ -553,12 +549,12 @@ vive les pokémons.
                     trigger = true;
                     niveauEau += 1;
                     defausseTirage.add(piocheTirage.get(piocheTirage.size() - 1));
-                //Si la prochaine carte n'est pas une carte montée des eaux    
+                    //Si la prochaine carte n'est pas une carte montée des eaux    
                 } else {
                     cartes.add(piocheTirage.get(piocheTirage.size() - 1));
                 }
                 piocheTirage.remove(piocheTirage.get(piocheTirage.size() - 1));
-            // Si la pioche est vide    
+                // Si la pioche est vide    
             } else {
                 Collections.shuffle(defausseTirage);
                 piocheTirage.addAll(defausseTirage);
@@ -605,63 +601,62 @@ vive les pokémons.
     }
 
     private void gererRecupTresor() {
-        if (aventurierCourant.peutRecupererTresor()){
+        if (aventurierCourant.peutRecupererTresor()) {
             recupererTresor();
         }
 
     }
 
-
-    public void recupererTresor(){
-        ArrayList<CarteTirage>  listeCartesTresor=new ArrayList<>();
-        if (aventurierCourant.getTuile().getNom().equals("Le Temple de La Lune") || aventurierCourant.getTuile().getNom().equals("Le Temple du Soleil")){
+    public void recupererTresor() {
+        ArrayList<CarteTirage> listeCartesTresor = new ArrayList<>();
+        if (aventurierCourant.getTuile().getNom().equals("Le Temple de La Lune") || aventurierCourant.getTuile().getNom().equals("Le Temple du Soleil")) {
             Tresor.PIERRE.setRecuperé(true);
             checkImage(Tresor.PIERRE);
-            for (CarteTirage carte :aventurierCourant.getCartes()){
-                    if (carte.getNom().equals(Tresor.PIERRE.toString()) && listeCartesTresor.size()<=4){
-                        listeCartesTresor.add(carte);
-                    }
-
+            for (CarteTirage carte : aventurierCourant.getCartes()) {
+                if (carte.getNom().equals(Tresor.PIERRE.toString()) && listeCartesTresor.size() <= 4) {
+                    listeCartesTresor.add(carte);
                 }
-            
+
+            }
+
             System.out.println("Pierre Récupérée");
 
-    } else if (aventurierCourant.getTuile().getNom().equals("Le Palais des Marees") || aventurierCourant.getTuile().getNom().equals("Le Palais de Corail")){
+        } else if (aventurierCourant.getTuile().getNom().equals("Le Palais des Marees") || aventurierCourant.getTuile().getNom().equals("Le Palais de Corail")) {
             Tresor.CALICE.setRecuperé(true);
             checkImage(Tresor.CALICE);
-            for (CarteTirage carte :aventurierCourant.getCartes()){
-                    if (carte.getNom().equals(Tresor.CALICE.toString()) && listeCartesTresor.size()<=4){
-                        listeCartesTresor.add(carte);
-                    }
-
+            for (CarteTirage carte : aventurierCourant.getCartes()) {
+                if (carte.getNom().equals(Tresor.CALICE.toString()) && listeCartesTresor.size() <= 4) {
+                    listeCartesTresor.add(carte);
                 }
-            
+
+            }
+
             System.out.println("Calice Récupéré");
 
-    } else if (aventurierCourant.getTuile().getNom().equals("La Caverne des Ombres") || aventurierCourant.getTuile().getNom().equals("La Caverne du Brasier")){
+        } else if (aventurierCourant.getTuile().getNom().equals("La Caverne des Ombres") || aventurierCourant.getTuile().getNom().equals("La Caverne du Brasier")) {
             Tresor.CRISTAL.setRecuperé(true);
-            checkImage(Tresor.CRISTAL); 
-            for (CarteTirage carte :aventurierCourant.getCartes()){
-                    if (carte.getNom().equals(Tresor.CRISTAL.toString()) && listeCartesTresor.size()<=4){
-                        listeCartesTresor.add(carte);
-                    }
-                }
-            
-            System.out.println("Cristal Récupéré");
-
-    }else if (aventurierCourant.getTuile().getNom().equals("Le Jardin des Hurlements") || aventurierCourant.getTuile().getNom().equals("Le Jardin des Murmures")){
-            Tresor.ZEPHYR.setRecuperé(true);
-            checkImage(Tresor.ZEPHYR); 
-            
-                for (CarteTirage carte :aventurierCourant.getCartes()){
-                    if (carte.getNom().equals(Tresor.ZEPHYR.toString()) && listeCartesTresor.size()<=4){
-                        listeCartesTresor.add(carte);
-                    }
+            checkImage(Tresor.CRISTAL);
+            for (CarteTirage carte : aventurierCourant.getCartes()) {
+                if (carte.getNom().equals(Tresor.CRISTAL.toString()) && listeCartesTresor.size() <= 4) {
+                    listeCartesTresor.add(carte);
                 }
             }
-            System.out.println("Zephyr Récupéré");
-              
-        for (CarteTirage carte : listeCartesTresor){    
+
+            System.out.println("Cristal Récupéré");
+
+        } else if (aventurierCourant.getTuile().getNom().equals("Le Jardin des Hurlements") || aventurierCourant.getTuile().getNom().equals("Le Jardin des Murmures")) {
+            Tresor.ZEPHYR.setRecuperé(true);
+            checkImage(Tresor.ZEPHYR);
+
+            for (CarteTirage carte : aventurierCourant.getCartes()) {
+                if (carte.getNom().equals(Tresor.ZEPHYR.toString()) && listeCartesTresor.size() <= 4) {
+                    listeCartesTresor.add(carte);
+                }
+            }
+        }
+        System.out.println("Zephyr Récupéré");
+
+        for (CarteTirage carte : listeCartesTresor) {
             aventurierCourant.removeCarte(carte);
         }
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
@@ -670,62 +665,56 @@ vive les pokémons.
 
     private void checkImage(Tresor tresor) {
         //à compléter
-        
+
     }
-   
-    
+
     private void resetBoutons() {
         //pouvoirs non pris en compte
-        System.out.println("resetBoutons::" + (aventurierCourant.calculDeplacement(grille)==null ? "Déplacement impossible" : "Déplacements possibles"));
-        
-        if (aventurierCourant.calculDeplacement(grille)==null){
+        System.out.println("resetBoutons::" + (aventurierCourant.calculDeplacement(grille) == null ? "Déplacement impossible" : "Déplacements possibles"));
+
+        if (aventurierCourant.calculDeplacement(grille) == null) {
             vuePrincipale.cacherBouton(Bouton.DEPLACER);
-            
+
         } else {
             vuePrincipale.afficherBouton(Bouton.DEPLACER);
         }
-        
-        System.out.println("resetBoutons::" + (aventurierCourant.calculAssechement(grille)==null ? "Asséchement impossible" : "Asséchement possibles"));
-        
-        if (aventurierCourant.calculAssechement(grille)==null){
-            
+
+        System.out.println("resetBoutons::" + (aventurierCourant.calculAssechement(grille) == null ? "Asséchement impossible" : "Asséchement possibles"));
+
+        if (aventurierCourant.calculAssechement(grille) == null) {
+
             vuePrincipale.cacherBouton(Bouton.ASSECHER);
-        } else { 
+        } else {
             vuePrincipale.afficherBouton(Bouton.ASSECHER);
         }
-        
-        
-        for(Role av : joueurs.keySet()){
+
+        for (Role av : joueurs.keySet()) {
             System.out.println(aventurierCourant.getTuile());
             System.out.println(joueurs.get(av).getTuile());
             System.out.println(aventurierCourant);
             System.out.println(joueurs.get(av));
             System.out.println(aventurierCourant.getCartes().size());
-            if (aventurierCourant.getTuile().equals(joueurs.get(av).getTuile()) && aventurierCourant!=joueurs.get(av) && aventurierCourant.getCartes().size()!=0){
+            if (aventurierCourant.getTuile().equals(joueurs.get(av).getTuile()) && aventurierCourant != joueurs.get(av) && aventurierCourant.getCartes().size() != 0) {
                 peutDonner = true;
-               
+
             } else {
-                peutDonner=false;
+                peutDonner = false;
             }
         }
-        if (peutDonner){    
-                vuePrincipale.afficherBouton(Bouton.DONNER);
-            } else {
-                vuePrincipale.cacherBouton(Bouton.DONNER);
-            }
-       
-        
-        
-        if (aventurierCourant.peutRecupererTresor()){
+        if (peutDonner) {
+            vuePrincipale.afficherBouton(Bouton.DONNER);
+        } else {
+            vuePrincipale.cacherBouton(Bouton.DONNER);
+        }
+
+        if (aventurierCourant.peutRecupererTresor()) {
             System.out.println("Recuperer possible");
             vuePrincipale.afficherBouton(Bouton.RECUPERER);
         } else {
             vuePrincipale.cacherBouton(Bouton.RECUPERER);
         }
     }
-    
-    
-    
+
     //Getters et Setters :
     /**
      * @return the joueurs
@@ -845,6 +834,5 @@ vive les pokémons.
     public ArrayList<CarteInondation> getPiocheInondation() {
         return piocheInondation;
     }
-
 
 }

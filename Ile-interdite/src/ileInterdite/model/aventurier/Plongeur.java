@@ -18,33 +18,36 @@ import java.util.ArrayList;
 public class Plongeur extends Aventurier {
 
     /**
-     * On définit le constructeur de Plongeur avec une tuile Tuile et un nom String
+     * On définit le constructeur de Plongeur avec une tuile Tuile et un nom
+     * String
+     *
      * @param tuile
-     * @param nom 
+     * @param nom
      */
-    public Plongeur(String nom,Tuile tuile){
-       super(nom,tuile);
-       setRole(Role.Plongeur);
-       setPion(Pion.NOIR);
+    public Plongeur(String nom, Tuile tuile) {
+        super(nom, tuile);
+        setRole(Role.Plongeur);
+        setPion(Pion.NOIR);
     }
-        
+
     /**
      * Renvoie une liste de tuiles où peut aller le plongeur
+     *
      * @param g
-     * @return 
-     */  
+     * @return
+     */
     @Override
-    public ArrayList<Tuile> calculDeplacement(Grille g){
+    public ArrayList<Tuile> calculDeplacement(Grille g) {
         return g.tuilesAccessiblesPlongeur(getTuile());
     }
-    
+
     @Override
-    public ArrayList<Tuile> calculGuide(Grille g){
+    public ArrayList<Tuile> calculGuide(Grille g) {
         ArrayList<Tuile> tuiles = new ArrayList<>();
         for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
             tuiles.add(t);
             for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
-                if (tt !=getTuile()&& !tuiles.contains(tt)){
+                if (tt != getTuile() && !tuiles.contains(tt)) {
                     tuiles.add(tt);
                 }
             }

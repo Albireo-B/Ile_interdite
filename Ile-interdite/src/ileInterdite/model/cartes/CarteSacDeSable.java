@@ -10,8 +10,8 @@ package ileInterdite.model.cartes;
  * @author vinetg
  */
 public class CarteSacDeSable extends CarteTirage {
-    
-    public CarteSacDeSable(){
+
+    public CarteSacDeSable() {
         super(true);
         setNom("SacDeSable");
     }

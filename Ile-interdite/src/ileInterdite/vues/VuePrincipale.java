@@ -30,195 +30,186 @@ import utilitaires.Action;
  * @author vinetg
  */
 public class VuePrincipale extends Observable {
-    public enum Bouton{DONNER,RECUPERER,ASSECHER, DEPLACER};
-    
+
+    public enum Bouton {
+        DONNER, RECUPERER, ASSECHER, DEPLACER
+    };
+
     private JFrame window;
-    
-    private JPanel panelPlateau =  new JPanel(new BorderLayout());
-    
-    private HashMap<Role,VueAventurier> panelAventuriers;
+
+    private JPanel panelPlateau = new JPanel(new BorderLayout());
+
+    private HashMap<Role, VueAventurier> panelAventuriers;
     private JPanel panelPrincipal = new JPanel(new BorderLayout());
-    
+
     private JButton btnBouger = new JButton("Bouger");
-    private JButton btnAssecher=new JButton("Assecher");
-    private JButton btnDonner=new JButton("Donner");
-    private JButton btnRecuperer=new JButton("Récuper");
+    private JButton btnAssecher = new JButton("Assecher");
+    private JButton btnDonner = new JButton("Donner");
+    private JButton btnRecuperer = new JButton("Récuper");
     private JButton btnTerminerTour = new JButton("Terminer Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
-    
+
     private String path = "src/images/";
-    
-    private ImageIcon imgNiveau = new ImageIcon(new ImageIcon(path+"Niveau.png").getImage().getScaledInstance(130, 400, Image.SCALE_DEFAULT));
-    
+
+    private ImageIcon imgNiveau = new ImageIcon(new ImageIcon(path + "Niveau.png").getImage().getScaledInstance(130, 400, Image.SCALE_DEFAULT));
+
     /**
      * On définit un constructeur de VueAventurier avec une VueGrille v
+     *
      * @param v
      * @param roleAventurier
      */
-    public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers){
+    public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers) {
         window = new JFrame();
-        window.setSize(1600,800);
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
+        window.setSize(1600, 800);
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setTitle("Ile interdite");
         window.add(panelPrincipal);
-        
+
         JPanel panelCentre = new JPanel(new BorderLayout());
-        
+
         panelPlateau.add(v.getPanelGrille(), BorderLayout.CENTER);
-        
+
         labelNomJoueur.setForeground(Color.WHITE);
-        
-        JPanel paneGauche=new JPanel(new GridLayout(2,1));
-      
-        
-        JPanel paneDroite=new JPanel(new GridLayout(2,1));
-        
-        panelPrincipal.add(paneGauche,BorderLayout.WEST);
-        panelPrincipal.add(paneDroite,BorderLayout.EAST);
-        
-       
-        
+
+        JPanel paneGauche = new JPanel(new GridLayout(2, 1));
+
+        JPanel paneDroite = new JPanel(new GridLayout(2, 1));
+
+        panelPrincipal.add(paneGauche, BorderLayout.WEST);
+        panelPrincipal.add(paneDroite, BorderLayout.EAST);
+
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
-        
+
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
-        panelBoutons = new JPanel(new GridLayout(3,2));
-        
-        
-        
+        panelBoutons = new JPanel(new GridLayout(3, 2));
+
         panelBoutons.add(btnDonner);
         panelBoutons.add(btnRecuperer);
         panelBoutons.add(btnBouger);
         panelBoutons.add(btnAssecher);
         panelBoutons.add(btnTerminerTour);
         panelBoutons.add(labelNbPA);
-        
+
         panelPlateau.add(new JLabel(imgNiveau), BorderLayout.EAST);
-        
+
         panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
-        
-        
+
         btnBouger.setVisible(true);
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.DEPLACER,null));
-            clearChanged();
-        });
-        
-        btnAssecher.setVisible(true);
-        btnAssecher.addActionListener((ActionEvent e) -> {
-            setChanged();
-            notifyObservers(new Message(Action.ASSECHER,null));
+            notifyObservers(new Message(Action.DEPLACER, null));
             clearChanged();
         });
 
-        
-        btnTerminerTour.addActionListener((ActionEvent e) -> {
+        btnAssecher.setVisible(true);
+        btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
-            notifyObservers(new Message(Action.TERMINER,null));
+            notifyObservers(new Message(Action.ASSECHER, null));
             clearChanged();
         });
-        
+
+        btnTerminerTour.addActionListener((ActionEvent e) -> {
+            setChanged();
+            notifyObservers(new Message(Action.TERMINER, null));
+            clearChanged();
+        });
+
         btnDonner.setVisible(true);
         btnDonner.addActionListener((ActionEvent arg0) -> {
             setChanged();
-            notifyObservers(new Message(Action.DONNER,null));
+            notifyObservers(new Message(Action.DONNER, null));
             clearChanged();
         });
-        
+
         btnRecuperer.setVisible(true);
         btnRecuperer.addActionListener((ActionEvent arg) -> {
             setChanged();
-            notifyObservers(new Message(Action.RECUPERER_TRESOR,null));
+            notifyObservers(new Message(Action.RECUPERER_TRESOR, null));
             clearChanged();
         });
-        
+
         //===================pour chaque aventurier different=================
-        
-        panelAventuriers=vuesAventuriers;
-        
+        panelAventuriers = vuesAventuriers;
+
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
-        
+
         paneGauche.add(listeVuesAv.get(0).getPanelGeneral());
         paneGauche.add(listeVuesAv.get(3).getPanelGeneral());
-        
+
         paneDroite.add(listeVuesAv.get(1).getPanelGeneral());
         paneDroite.add(listeVuesAv.get(2).getPanelGeneral());
     }
-    
+
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
-        for (Role roleVueAventurier : panelAventuriers.keySet()){
+        for (Role roleVueAventurier : panelAventuriers.keySet()) {
             panelAventuriers.get(roleVueAventurier).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.WHITE));
         }
         if (nombrePA == 0) {
             getBtnBouger().setVisible(false);
-        }
-        else {
+        } else {
             getBtnBouger().setVisible(true);
         }
-        
+
         getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
-        
 
         getPanelAventuriers().get(classe).getPanelGeneral().setBackground(couleur);
         getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
-        
+
         panelPlateau.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
-        
+
         getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
-        
+
         panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
         getWindow().setVisible(true);
     }
-    
 
-    public void cacherBouton(Bouton bouton){
-        switch (bouton){
-            case DEPLACER :
+    public void cacherBouton(Bouton bouton) {
+        switch (bouton) {
+            case DEPLACER:
                 btnBouger.setVisible(false);
-                System.out.println("bouger"+btnBouger.isVisible());
+                System.out.println("bouger" + btnBouger.isVisible());
                 break;
-            case ASSECHER :
+            case ASSECHER:
                 btnAssecher.setVisible(false);
-                System.out.println("Assecher"+btnAssecher.isVisible());
+                System.out.println("Assecher" + btnAssecher.isVisible());
                 break;
-            case DONNER :
+            case DONNER:
                 btnDonner.setVisible(false);
-                System.out.println("Donner"+btnDonner.isVisible());
+                System.out.println("Donner" + btnDonner.isVisible());
                 break;
             case RECUPERER:
                 btnRecuperer.setVisible(false);
-                System.out.println("Recuperer"+btnRecuperer.isVisible());
+                System.out.println("Recuperer" + btnRecuperer.isVisible());
                 break;
         }
     }
-    
-    public void afficherBouton(Bouton bouton){
-         switch (bouton){
-            case DEPLACER :
+
+    public void afficherBouton(Bouton bouton) {
+        switch (bouton) {
+            case DEPLACER:
                 btnBouger.setVisible(true);
-                System.out.println("bouger"+btnBouger.isVisible());
+                System.out.println("bouger" + btnBouger.isVisible());
                 break;
-            case ASSECHER :
+            case ASSECHER:
                 btnAssecher.setVisible(true);
-                System.out.println("Assecher"+btnAssecher.isVisible());
+                System.out.println("Assecher" + btnAssecher.isVisible());
                 break;
-            case DONNER :
+            case DONNER:
                 btnDonner.setVisible(true);
-                System.out.println("Donner"+btnDonner.isVisible());
+                System.out.println("Donner" + btnDonner.isVisible());
                 break;
             case RECUPERER:
                 btnRecuperer.setVisible(true);
-                System.out.println("Recuperer"+btnRecuperer.isVisible());
+                System.out.println("Recuperer" + btnRecuperer.isVisible());
                 break;
         }
     }
-    
-     //Getters et Setters :
-    
-     
+
+    //Getters et Setters :
     /**
      * Ferme la fenêtre
      */
@@ -236,7 +227,7 @@ public class VuePrincipale extends Observable {
     /**
      * @return the panelAventuriers
      */
-    public HashMap<Role,VueAventurier> getPanelAventuriers() {
+    public HashMap<Role, VueAventurier> getPanelAventuriers() {
         return panelAventuriers;
     }
 
@@ -289,11 +280,4 @@ public class VuePrincipale extends Observable {
         return labelNomJoueur;
     }
 
-    
-
 }
-
- 
-
-
-

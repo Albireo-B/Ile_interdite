@@ -12,10 +12,10 @@ import utilitaires.*;
  * @author vinetg
  */
 public class CarteTresor extends CarteTirage {
-    
+
     private Tresor tresor;
-    
-    public CarteTresor(Tresor tresor){
+
+    public CarteTresor(Tresor tresor) {
         super(false);
         this.tresor = tresor;
         setNom(tresor.name());

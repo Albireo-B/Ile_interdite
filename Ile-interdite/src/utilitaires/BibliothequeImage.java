@@ -10,5 +10,5 @@ package utilitaires;
  * @author grosa
  */
 public class BibliothequeImage {
-    
+
 }
