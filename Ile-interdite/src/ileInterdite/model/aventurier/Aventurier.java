@@ -114,7 +114,7 @@ public abstract class Aventurier {
     * en supprimant sa position précédente
      * @param tuile
     */
-    public void setTuile(Tuile tuile) {
+    public void setTuile(Grille grille, Tuile tuile) {
         tuile.removeAventurier(this);
         tuile.addAventurier(this);
         this.tuile = tuile;
