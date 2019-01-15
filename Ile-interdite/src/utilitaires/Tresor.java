@@ -17,6 +17,13 @@ public enum Tresor {
     ZEPHYR(false),
     CRISTAL(false),
     CALICE(false);
+
+    /**
+     * @param recuperé the recuperé to set
+     */
+    public void setRecuperé(Boolean recuperé) {
+        this.recuperé = recuperé;
+    }
         
     private Boolean recuperé;
        

@@ -26,9 +26,6 @@ public class VueAventurier extends JPanel{
     private JButton bouger;
     private JPanel paneClass;
     private JPanel paneTresor;
-    private JButton assecher;
-    private JButton recuperer;
-    private JButton donner;
 
     private IAventurier carteJoueur;
 
@@ -60,10 +57,7 @@ public class VueAventurier extends JPanel{
        
         
         bouger=new JButton("bouger");
-        assecher=new JButton("assecher");
-        recuperer=new JButton("recuperer");
-        donner=new JButton("donner");
-        
+ 
 
         paneClass=new JPanel(new BorderLayout());
         carteJoueur=new IAventurier(new JButton(roleAventurier.toString()),roleAventurier);
@@ -158,17 +152,6 @@ public class VueAventurier extends JPanel{
         return bouger;
     }
 
-    public JButton getAssecher() {
-        return assecher;
-    }
-
-    public JButton getRecuperer() {
-        return recuperer;
-    }
-
-    public JButton getDonner() {
-        return donner;
-    }
 
     public ArrayList<ICarte> getButtonCartes() {
         return buttonCartes;
@@ -190,17 +173,6 @@ public class VueAventurier extends JPanel{
     }
 
 
-    public void setAssecher(JButton assecher) {
-        this.assecher = assecher;
-    }
-
-    public void setRecuperer(JButton recuperer) {
-        this.recuperer = recuperer;
-    }
-
-    public void setDonner(JButton donner) {
-        this.donner = donner;
-    }
 
     public void setButtonCartes(ArrayList<ICarte> buttonCartes) {
         this.buttonCartes = buttonCartes;
