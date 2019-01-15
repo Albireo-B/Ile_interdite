@@ -10,9 +10,6 @@ package utilitaires;
  * @author vinetg
  */
 public enum Tresor {
-    
-    
-    
     PIERRE(false),
     ZEPHYR(false),
     CRISTAL(false),
