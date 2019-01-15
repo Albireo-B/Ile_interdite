@@ -320,10 +320,9 @@ public class Controleur implements Observer {
         }
 
         //Si l'aventurier veux bouger ou suivre le navigateur ou donner une carte, on n'enlève pas la possiblilité de faire déplacer un autre joueur
-        if (!(((Message) arg).getAction() == Action.DEPLACER 
+        if (!((((Message) arg).getAction() == Action.DEPLACER || ((Message) arg).getAction() == Action.SUIVRE)
                 && !(arg instanceof MessagePos)) 
-                && !(((Message) arg).getAction() == Action.SUIVRE)
-                && !(((Message) arg).getAction() == Action.DONNER)) {
+                && !(arg instanceof MessageCarte && ((Message) arg).getAction() == Action.DONNER)) {
             for (Role r : listeRoles) {
                 vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur(false);
             }
@@ -396,7 +395,6 @@ public class Controleur implements Observer {
         try {
             joueurs.get(messageCarte.getRole()).addCartes(cartes);
         } catch (ExceptionAventurier ex) {
-
             joueurs.get(messageCarte.getRole()).defausseCartes();
         }
         vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
