@@ -31,7 +31,7 @@ public abstract class Aventurier {
     public Aventurier(String nomJoueur, Tuile tuile) {
         this.tuile = tuile;
         this.nomJoueur = nomJoueur;
-        this.tuile = tuile;
+        tuile.addAventurier(this);
         reset();
     }
 

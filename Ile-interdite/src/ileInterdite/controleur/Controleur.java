@@ -320,7 +320,10 @@ public class Controleur implements Observer {
         }
 
         //Si l'aventurier veux bouger ou suivre le navigateur ou donner une carte, on n'enlève pas la possiblilité de faire déplacer un autre joueur
-        if (!(((Message) arg).getAction() == Action.DEPLACER && !(arg instanceof MessagePos)) && !(((Message) arg).getAction() == Action.SUIVRE && !(arg instanceof MessagePos))) {
+        if (!(((Message) arg).getAction() == Action.DEPLACER 
+                && !(arg instanceof MessagePos)) 
+                && !(((Message) arg).getAction() == Action.SUIVRE)
+                && !(((Message) arg).getAction() == Action.DONNER)) {
             for (Role r : listeRoles) {
                 vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur(false);
             }
@@ -410,7 +413,47 @@ public class Controleur implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
+        
+        //Si arg est de type messageCarte        
+        if (arg instanceof MessageCarte) {
+            MessageCarte messageCarte = (MessageCarte) arg;
 
+            switch (messageCarte.getAction()) {
+                //Si le message possède l'action DEFAUSSER
+                case DEFAUSSER:
+                    appliquerDefausse(messageCarte);
+                    break;
+                //Si le message possède l'action DONNER
+                case DONNER:
+                    appliquerDon(messageCarte);
+                    break;
+                //Si le message possède l'action RECEVOIR
+                case RECEVOIR:
+                    appliquerRecevoir(messageCarte);
+                    break;
+            }
+        }
+        else
+        //Si arg est de type MessagePos
+        if (arg instanceof MessagePos) {
+            MessagePos messagepos = (MessagePos) arg;
+            vueGrille.tousBoutonsInertes();
+            switch (messagepos.getAction()) {
+                //Si le message possède l'action DONNER
+                case DEPLACER:
+                    appliquerDeplacement(messagepos);
+                    break;
+                //Si le message possède l'action SUIVRE
+                case SUIVRE:
+                    appliquerNavigation(messagepos);
+                    break;
+                //Si le message possède l'action ASSECHER
+                case ASSECHER:
+                    appliquerAssechement(messagepos);
+                    break;
+            }
+        }
+        else
         if (arg instanceof Message) {
             Message message = (Message) arg;
 
@@ -446,44 +489,7 @@ public class Controleur implements Observer {
                 }
             }
         }
-        //Si arg est de type MessagePos
-        if (arg instanceof MessagePos) {
-            MessagePos messagepos = (MessagePos) arg;
-            vueGrille.tousBoutonsInertes();
-            switch (messagepos.getAction()) {
-                //Si le message possède l'action DONNER
-                case DEPLACER:
-                    appliquerDeplacement(messagepos);
-                    break;
-                //Si le message possède l'action SUIVRE
-                case SUIVRE:
-                    appliquerNavigation(messagepos);
-                    break;
-                //Si le message possède l'action ASSECHER
-                case ASSECHER:
-                    appliquerAssechement(messagepos);
-                    break;
-            }
-        }
-        //Si arg est de type messageCarte
-        if (arg instanceof MessageCarte) {
-            MessageCarte messageCarte = (MessageCarte) arg;
-
-            switch (messageCarte.getAction()) {
-                //Si le message possède l'action DEFAUSSER
-                case DEFAUSSER:
-                    appliquerDefausse(messageCarte);
-                    break;
-                //Si le message possède l'action DONNER
-                case DONNER:
-                    appliquerDon(messageCarte);
-                    break;
-                //Si le message possède l'action RECEVOIR
-                case RECEVOIR:
-                    appliquerRecevoir(messageCarte);
-                    break;
-            }
-        }
+        
         actualiserVue(arg);
         actualiserModele(arg);
     }

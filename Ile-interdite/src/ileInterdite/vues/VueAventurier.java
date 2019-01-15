@@ -70,13 +70,13 @@ public class VueAventurier extends Observable {
         }
         for (int i = j + 1; i < 5; i++) {
             getButtonCartes().get(i).setNom("_");
+            getButtonCartes().get(i).removeActionListener();
         }
 
     }
 
     public void rendreCartesCliquables(ArrayList<Integer> listePos) {
         for (Integer carteCliquable : listePos) {
-            System.out.println(carteCliquable);
             ICarte carte = buttonCartes.get(carteCliquable);
             carte.addActionListener((ActionEvent e) -> {
                 setChanged();
