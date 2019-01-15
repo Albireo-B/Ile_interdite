@@ -21,13 +21,12 @@ import utilitaires.Role;
  * @author grosa
  */
 public class VueAventurier extends JPanel{
-   
-    private JButton bouger;
     private JPanel paneClass;
     private JPanel paneTresor;
-    private JButton assecher;
-    private JButton recuperer;
-    private JButton donner;
+    private JButton bouger=new JButton("bouger");;
+    private JButton assecher=new JButton("assecher");;
+    private JButton recuperer=new JButton("recuperer");;
+    private JButton donner=new JButton("donner");;
 
     private JButton carteJoueur;
 
@@ -48,6 +47,12 @@ public class VueAventurier extends JPanel{
         super(new BorderLayout());
         this.roleAventurier = roleAventurier;
         
+        bouger.setVisible(true);
+        assecher.setVisible(true);
+        
+        donner.setVisible(false);
+        recuperer.setVisible(false);
+        
         
         //====================== principal========================
         
@@ -55,14 +60,7 @@ public class VueAventurier extends JPanel{
         
         
         //===================pannel en haut avec les button et la classe====
-        
-       
-        
-        bouger=new JButton("bouger");
-        assecher=new JButton("assecher");
-        recuperer=new JButton("recuperer");
-        donner=new JButton("donner");
-        
+ 
 
         paneClass=new JPanel(new BorderLayout());
         carteJoueur=new JButton("icone");
@@ -199,6 +197,18 @@ public class VueAventurier extends JPanel{
     }
 
 
+     public void afficherDonner(){
+         donner.setVisible(true);
+     }
+     public void afficherRecuper(){
+         recuperer.setVisible(true);
+     }
      
+     public void cacherBouger(){
+         bouger.setVisible(false);
+     }
+     public void cacherAssecher(){
+         assecher.setVisible(false);
      
+     }
 }
