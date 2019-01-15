@@ -5,6 +5,7 @@
  */
 package ileInterdite.controleur;
 
+import ileInterdite.vues.ICarte;
 import utilitaires.Role;
 import ileInterdite.model.aventurier.*;
 import utilitaires.*;
@@ -75,20 +76,19 @@ public class Controleur implements Observer {
         setRoles(nomsjoueurs, roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
 
+        HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
+        int cptr = 0;
         for (Role role : joueurs.keySet()) {
             vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
+            VueAventurier newVueAv = new VueAventurier(role, cptr == 0 || cptr == 3);
+            newVueAv.addObserver(this);
+            vuesAventuriers.put(role, newVueAv);
+            cptr++;
         }
 
         // Création des vues
-        vuePrincipale = new VuePrincipale(vueGrille, listeRoles);
+        vuePrincipale = new VuePrincipale(vueGrille, vuesAventuriers);
         vuePrincipale.addObserver(this);
-
-        //Ecoute des ICarte
-        for (VueAventurier vav : vuePrincipale.getPanelAventuriers().values()) {
-            for (ICarte c : vav.getButtonCartes()) {
-                c.addObserver(this);
-            }
-        }
 
         //Ecoute des IAventurier
         for (VueAventurier av : vuePrincipale.getPanelAventuriers().values()) {
@@ -459,6 +459,7 @@ public class Controleur implements Observer {
         }
         if (arg instanceof MessageCarte) {
             MessageCarte messageCarte = (MessageCarte) arg;
+
             switch (messageCarte.getAction()) {
                 case DEFAUSSER:
                     appliquerDeffausse(messageCarte);
