@@ -6,7 +6,6 @@
 package ileInterdite.vues;
 
 import ileInterdite.message.MessagePos;
-import ileInterdite.model.aventurier.IAventurier;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -80,6 +79,7 @@ public class VueAventurier extends Observable {
         int j= 0;
          for (int i=0 ;i<5 && i<listeCarte.size();i++){
             getButtonCartes().get(i).setNom(listeCarte.get(i));
+            getButtonCartes().get(i).removeActionListener();
             j=i;
          }
          for (int i=j+1;i<5;i++){

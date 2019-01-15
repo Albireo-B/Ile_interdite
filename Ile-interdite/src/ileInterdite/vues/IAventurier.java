@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ileInterdite.model.aventurier;
+package ileInterdite.vues;
 
 import ileInterdite.message.Message;
 import ileInterdite.message.MessageCarte;
