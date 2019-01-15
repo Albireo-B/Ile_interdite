@@ -42,6 +42,7 @@ public class VueAventurier extends Observable {
     public VueAventurier(Role roleAventurier,boolean gauche) {
 
         panelGeneral = new JPanel(new BorderLayout());
+        
         this.roleAventurier = roleAventurier;
         
     
@@ -58,16 +59,6 @@ public class VueAventurier extends Observable {
         paneClass=new JPanel(new BorderLayout());
         carteJoueur=new IAventurier(new JButton(roleAventurier.toString()),roleAventurier);
        
-
-        paneTresor=new JPanel(new GridLayout(1,4));
-        
-        lampes=new ArrayList<>();
-       
-        for (int i=0;i<4;i++){
-            lampes.add(new JLabel("AA"));
-            paneTresor.add(lampes.get(i));
-    
-        }
         buttonCartes=new ArrayList<>();
         
        
@@ -85,8 +76,6 @@ public class VueAventurier extends Observable {
 
             buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
             panelGeneral.add(panelPrincipal,BorderLayout.CENTER);
-            panelGeneral.add(paneTresor,BorderLayout.SOUTH);
-
         }
     
         
