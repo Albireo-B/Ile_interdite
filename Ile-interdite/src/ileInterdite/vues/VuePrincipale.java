@@ -149,6 +149,9 @@ public class VuePrincipale extends Observable {
     }
     
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
+        for (Role roleVueAventurier : panelAventuriers.keySet()){
+            panelAventuriers.get(roleVueAventurier).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        }
         if (nombrePA == 0) {
             getBtnBouger().setVisible(false);
         }
@@ -166,6 +169,7 @@ public class VuePrincipale extends Observable {
         
         getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
         
+        panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
         getWindow().setVisible(true);
     }
     

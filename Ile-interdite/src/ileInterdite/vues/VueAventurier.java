@@ -5,7 +5,6 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.message.MessagePos;
 import ileInterdite.model.aventurier.IAventurier;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Action;
@@ -25,14 +25,9 @@ import utilitaires.Role;
  */
 public class VueAventurier extends Observable {
     private JPanel paneClass;
-
     private IAventurier carteJoueur;
-    
     private JPanel panelGeneral;
-
-
     private ArrayList<ICarte> buttonCartes;
-  
     private Role roleAventurier;
 
 
@@ -71,8 +66,12 @@ public class VueAventurier extends Observable {
 
             }
 
-            buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
-            panelGeneral.add(panelPrincipal,BorderLayout.CENTER);
+        buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
+        panelGeneral.add(panelPrincipal,BorderLayout.CENTER);
+            
+       
+        
+        
         }
     
         
