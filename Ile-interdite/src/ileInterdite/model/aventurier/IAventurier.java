@@ -22,10 +22,19 @@ import utilitaires.Role;
 public class IAventurier extends Observable{
     private JButton boutonAventurier;
     private Role role;
+    private ActionListener l;
     
     public IAventurier(JButton boutonAventurier,Role role){
         this.boutonAventurier=boutonAventurier;
         this.role=role;
+        l = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new Message(Action.SUIVRE, getRole()));
+                clearChanged();
+            }
+        };
     }
 
     public void devenirReceveur(String carte){
@@ -43,19 +52,15 @@ public class IAventurier extends Observable{
         boutonAventurier.addActionListener(l);
     }
 
-    
-    public void devenirSuiveur(){         
-           ActionListener l = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setChanged();
-                notifyObservers(new Message(Action.SUIVRE, getRole()));
-                clearChanged();
-                boutonAventurier.removeActionListener(this);
-                boutonAventurier.setBackground(null);
-            }
-        };
-        boutonAventurier.addActionListener(l);
+    public void devenirSuiveur(Boolean suivre){
+        if (suivre){
+           boutonAventurier.addActionListener(l);
+           boutonAventurier.setForeground(Color.RED);
+        }
+        else{
+           boutonAventurier.removeActionListener(l);
+           boutonAventurier.setForeground(null);
+        }
     }
    
     /**

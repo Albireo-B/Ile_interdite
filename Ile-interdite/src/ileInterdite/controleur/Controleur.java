@@ -151,7 +151,7 @@ public class Controleur implements Observer {
             if (aventurierCourant.getRole()==Role.Navigateur){
                 for (Role r : listeRoles){
                     if (r != Role.Navigateur){
-                        vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur();
+                        vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur(true);
                     }
                 }
             }
@@ -247,6 +247,7 @@ public class Controleur implements Observer {
         for (Tuile t : ct) {
             posTuiles.add(t.getPosition());
         }
+        System.out.println("");
         getVueGrille().actualiserBoutonsCliquables(posTuiles, act,role);
     }
 
@@ -341,6 +342,8 @@ public class Controleur implements Observer {
                 joueurs.get(messagepos.getRole()).setTuile(grille.getTuile(messagepos.getPos()));
                 aventurierCourant.decremente();
                 System.out.println(aventurierCourant.getNbAction());
+                System.out.println(messagepos.getRole());
+                System.out.println(messagepos.getPos());
             }
             //Si le messagePos possède l'action ASSECHER
             else if (messagepos.getAction() == Action.ASSECHER) {
@@ -419,8 +422,11 @@ public class Controleur implements Observer {
             }
            
         }
-
-        
+        //Si l'aventurier veux bouger ou suivre le navigateur, on n'enlève pas la possiblilité de faire déplacer un autre joueur
+        if (!(((Message) arg).getAction()==Action.DEPLACER && !(arg instanceof MessagePos))&&!(((Message) arg).getAction()==Action.SUIVRE && !(arg instanceof MessagePos))){
+        for (Role r : listeRoles){
+            vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur(false);
+        }}
   
         vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
@@ -430,7 +436,6 @@ public class Controleur implements Observer {
     
         ArrayList<Tuile> casesAssechables = getAventurierCourant().calculAssechement(getGrille());
         // Si l'aventurier a moins de 1 action ou qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
-        System.out.println(aventurierCourant.getNbAction());
         if (getAventurierCourant().getNbAction() < 1 && 
                 !( aventurierCourant instanceof Ingenieur &&
                  !(aventurierCourant.getPouvoir()) &&
