@@ -203,7 +203,7 @@ public class Controleur implements Observer {
 
     public void appliquerNavigation(MessagePos messagepos) {
         vueGrille.actualiserPositionJoueur(messagepos.getPos(), joueurs.get(messagepos.getRole()).getPosition(), joueurs.get(messagepos.getRole()).getPion());
-        joueurs.get(messagepos.getRole()).setTuile(grille,grille.getTuile(messagepos.getPos()));
+        joueurs.get(messagepos.getRole()).setTuile(grille, grille.getTuile(messagepos.getPos()));
         aventurierCourant.decremente();
     }
 
@@ -217,23 +217,20 @@ public class Controleur implements Observer {
     public void appliquerAssechement(MessagePos messagepos) {
         grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
-        
-        //
-        
-        //Si l'aventurier en train de jouer est un ingénieur
-        if (aventurierCourant instanceof Ingenieur) {
-            //Si le pouvoir de l'ingénieur est utilisable
-            if (aventurierCourant.getPouvoir()) {
-                aventurierCourant.decremente();
-                aventurierCourant.setPouvoir(false);
 
-                gererAssechement();
-            } else {
-                aventurierCourant.setPouvoir(true);
-            }
+        //
+        //Si l'aventurier n'est pas un ingénieur qui as pas son pouvoir
+        System.out.println(aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir());
+        if (aventurierCourant instanceof Ingenieur && !aventurierCourant.getPouvoir()) {
+            aventurierCourant.setPouvoir(true);
         } else {
+            if (aventurierCourant instanceof Ingenieur) {
+                aventurierCourant.setPouvoir(false);
+                gererAssechement();
+            } 
             aventurierCourant.decremente();
         }
+
     }
 
     /**
@@ -316,10 +313,11 @@ public class Controleur implements Observer {
         aventurierCourant = joueurs.get(listeRoles.get((listeRoles.indexOf(aventurierCourant.getRole()) + 1) % joueurs.size()));
     }
 
-    public void actualiserModeleEtVue(Object arg) {
-
-        if (arg instanceof MessagePos) {
-            vueGrille.tousBoutonsInertes();
+    public void actualiserVue(Object arg) {
+        
+        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingénieur) {
+            System.out.println("réinitialisation");
+            aventurierCourant.setPouvoir(true);
         }
 
         //Si l'aventurier veux bouger ou suivre le navigateur ou donner une carte, on n'enlève pas la possiblilité de faire déplacer un autre joueur
@@ -334,9 +332,11 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+    }
 
+    public void actualiserModele(Object arg) {
         ArrayList<Tuile> casesAssechables = aventurierCourant.calculAssechement(grille);
-        
+
         // Si l'aventurier a moins de 1 action et qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
         if (aventurierCourant.getNbAction() < 1
                 && !(aventurierCourant instanceof Ingenieur
@@ -445,6 +445,7 @@ public class Controleur implements Observer {
         //Si arg est de type MessagePos
         if (arg instanceof MessagePos) {
             MessagePos messagepos = (MessagePos) arg;
+            vueGrille.tousBoutonsInertes();
             switch (messagepos.getAction()) {
                 case DEPLACER:
                     appliquerDeplacement(messagepos);
@@ -472,7 +473,8 @@ public class Controleur implements Observer {
                     break;
             }
         }
-        actualiserModeleEtVue(arg);
+        actualiserVue(arg);
+        actualiserModele(arg);
     }
 
     public CarteTirage stringToCarte(String nomCarte) {
@@ -582,7 +584,7 @@ public class Controleur implements Observer {
     public void appliquerDon(MessageCarte messageCarte) {
         for (Role aventurier : joueurs.keySet()) {
             if (aventurier != aventurierCourant.getRole() && (aventurierCourant.getTuile() == joueurs.get(aventurier).getTuile() || aventurierCourant.getRole() == Role.Messager)) {
-                vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte(), true);
+                vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
             }
         }
     }
