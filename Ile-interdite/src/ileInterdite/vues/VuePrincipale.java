@@ -44,7 +44,8 @@ public class VuePrincipale extends Observable {
     private JButton btnBouger = new JButton("Bouger");
     private JButton btnAssecher=new JButton("Assecher");
     private JButton btnDonner=new JButton("Donner");
-    private JButton btnRecuper=new JButton("Récuper");
+    private JButton btnRecuperer=new JButton("Récuper");
+    private JButton btnTerminerTour = new JButton("Terminer Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     
@@ -86,11 +87,10 @@ public class VuePrincipale extends Observable {
         //=====================================================================
         JPanel panelBoutons = new JPanel(new GridLayout(3,2));
         
-        JButton btnAssecher= new JButton("Assecher");
-        JButton btnTerminerTour = new JButton("Terminer Tour");
+        
         
         panelBoutons.add(btnDonner);
-        panelBoutons.add(btnRecuper);
+        panelBoutons.add(btnRecuperer);
         panelBoutons.add(btnBouger);
         panelBoutons.add(btnAssecher);
         panelBoutons.add(btnTerminerTour);
@@ -124,6 +124,11 @@ public class VuePrincipale extends Observable {
             clearChanged();
         });
         
+        btnRecuperer.addActionListener((ActionEvent arg) -> {
+            setChanged();
+            notifyObservers(new Message(Action.RECUPERER_TRESOR,null));
+            clearChanged();
+        });
         
         //===================pour chaque aventurier different=================
         
@@ -218,8 +223,8 @@ public class VuePrincipale extends Observable {
     /**
      * @return the btnRecuper
      */
-    public JButton getBtnRecuper() {
-        return btnRecuper;
+    public JButton getBtnRecuperer() {
+        return btnRecuperer;
     }
 
     /**

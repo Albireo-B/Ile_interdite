@@ -314,7 +314,6 @@ public class Controleur implements Observer {
      * aventurier
      */
     public void nextTurn() {
-        System.out.println("NExtturn triggered");
         aventurierCourant.reset();
         tirerCartes();
         gererInondation();
@@ -407,6 +406,9 @@ public class Controleur implements Observer {
                     case SUIVRE:
                         gererNaviguation(message.getRole());
                         break;
+                    case RECUPERER_TRESOR:
+                        gererRecupTresor();
+
                 }
             }
         }
@@ -534,7 +536,6 @@ public class Controleur implements Observer {
      * On tire 2 cartes qu'on donne a l'aventurier courant
      */
     public void tirerCartes() {
-        System.out.println("Tirage triggered");
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         Boolean trigger = false;
         //Pour le nombre de cartes qu'on veut donner
@@ -587,6 +588,78 @@ public class Controleur implements Observer {
         if (yes) {
             vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
         }
+    }
+
+    private void gererRecupTresor() {
+        if (aventurierCourant.peutRecupererTresor()){
+            System.out.println("on passe a recup");
+            recupererTresor();
+        }
+            
+    }
+    
+
+    public void recupererTresor(){
+        System.out.println("debut recup");
+        ArrayList<CarteTirage>  listeCartesTresor=new ArrayList<>();
+        if (aventurierCourant.getTuile().getNom().equals("Le Temple de La Lune") || aventurierCourant.getTuile().getNom().equals("Le Temple du Soleil")){
+            System.out.println("1p");
+            Tresor.PIERRE.setRecuperé(true);
+            checkImage(Tresor.PIERRE);
+            for (CarteTirage carte :aventurierCourant.getCartes()){
+                System.out.println("2p");
+                    if (carte.getNom().equals(Tresor.PIERRE.toString()) && listeCartesTresor.size()<=4){
+                        listeCartesTresor.add(carte);
+                    }
+                }
+            System.out.println("Pierre Récupérée");
+        } else if (aventurierCourant.getTuile().getNom().equals("Le Palais des Marees") ||aventurierCourant.getTuile().getNom().equals("Le Palais de Corail")){
+            System.out.println("1ca");
+            Tresor.CALICE.setRecuperé(true);
+            checkImage(Tresor.CALICE);
+            for (CarteTirage carte :aventurierCourant.getCartes()){
+                System.out.println("2ca");
+                    if (carte.getNom().equals(Tresor.CALICE.toString()) && listeCartesTresor.size()<=4){
+                        listeCartesTresor.add(carte);
+                    }
+                }
+            System.out.println("Calice Récupéré");
+        }else if (aventurierCourant.getTuile().getNom().equals("La Caverne des Ombres") || aventurierCourant.getTuile().getNom().equals("La Caverne du Brasier")){
+            System.out.println("1cr");
+            Tresor.CRISTAL.setRecuperé(true);
+            checkImage(Tresor.CRISTAL); 
+            for (CarteTirage carte :aventurierCourant.getCartes()){
+                System.out.println("2cr");
+                    if (carte.getNom().equals(Tresor.CRISTAL.toString()) && listeCartesTresor.size()<=4){
+                        listeCartesTresor.add(carte);
+                    }
+                }
+            System.out.println("Cristal Récupéré");
+        } else if (aventurierCourant.getTuile().getNom().equals("Le Jardin des Hurlements") || aventurierCourant.getTuile().getNom().equals("Le Jardin des Murmures")){
+            System.out.println("1z");
+            Tresor.ZEPHYR.setRecuperé(true);
+            checkImage(Tresor.ZEPHYR); 
+            
+                for (CarteTirage carte :aventurierCourant.getCartes()){
+                System.out.println("2z");
+                    if (carte.getNom().equals(Tresor.ZEPHYR.toString()) && listeCartesTresor.size()<=4){
+                        listeCartesTresor.add(carte);
+                    }
+                }
+            System.out.println("Zephyr Récupéré");
+        }
+            System.out.println("fin de recuperer");
+            
+        for (CarteTirage carte : listeCartesTresor){    
+            aventurierCourant.removeCarte(carte);
+        }
+        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
+        aventurierCourant.decremente();
+    }
+    
+        
+    private void checkImage(Tresor tresor) {
+        //à compléter
     }
 
     //Getters et Setters :
