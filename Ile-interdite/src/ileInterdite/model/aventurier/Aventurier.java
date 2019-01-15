@@ -134,7 +134,6 @@ public abstract class Aventurier {
     public ArrayList<String> cartesToString(){
         ArrayList<String> listeCarte = new ArrayList<>();
             for(CarteTirage carte : this.cartes){
-                System.out.print(carte);
                 listeCarte.add(carte.getNom());
             }
         return listeCarte;
@@ -143,9 +142,7 @@ public abstract class Aventurier {
     
     public void removeCarte(CarteTirage carte){
         cartes.remove(carte);
-        System.out.println(cartes);
     }
-    
     
     public Boolean peutRecupererTresor(){
        
@@ -218,12 +215,10 @@ public abstract class Aventurier {
         } else { 
             recuperable=false;
        }
-         System.out.println("peut recup?" + recuperable);
         return recuperable;
         
     }       
         
-   
     //Getters et Setters :
     
     
@@ -328,5 +323,6 @@ public abstract class Aventurier {
     public VueDefausse getVueDefausse() {
         return vueDefausse;
     }
+
 
 }

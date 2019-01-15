@@ -12,7 +12,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -30,9 +29,8 @@ import utilitaires.Action;
  *
  * @author vinetg
  */
-
- 
 public class VuePrincipale extends Observable {
+    public enum Bouton{DONNER,RECUPERER,ASSECHER, DEPLACER};
     
     private JFrame window;
     
@@ -48,6 +46,7 @@ public class VuePrincipale extends Observable {
     private JButton btnTerminerTour = new JButton("Terminer Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
+    private JPanel panelBoutons;
     
     private String path = "src/images/";
     
@@ -85,7 +84,7 @@ public class VuePrincipale extends Observable {
         
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
-        JPanel panelBoutons = new JPanel(new GridLayout(3,2));
+        panelBoutons = new JPanel(new GridLayout(3,2));
         
         
         
@@ -100,21 +99,22 @@ public class VuePrincipale extends Observable {
         
         panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
         
-        btnBouger.setVisible(true);
-        
+     
+        btnBouger.setVisible(false);
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.DEPLACER,null));
             clearChanged();
         });
         
-        btnAssecher.setVisible(true);
+        btnAssecher.setVisible(false);
         btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.ASSECHER,null));
             clearChanged();
         });
 
+        
         btnTerminerTour.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.TERMINER,null));
@@ -127,6 +127,7 @@ public class VuePrincipale extends Observable {
             notifyObservers(new Message(Action.DONNER,null));
             clearChanged();
         });
+        
         btnRecuperer.setVisible(false);
         btnRecuperer.addActionListener((ActionEvent arg) -> {
             setChanged();
@@ -174,6 +175,52 @@ public class VuePrincipale extends Observable {
         
         getWindow().setVisible(true);
     }
+    
+
+    public void cacherBouton(Bouton bouton){
+        switch (bouton){
+            case DEPLACER :
+                btnBouger.setVisible(false);
+                System.out.println("bouger"+btnBouger.isVisible());
+                break;
+            case ASSECHER :
+                btnAssecher.setVisible(false);
+                System.out.println("Assecher"+btnAssecher.isVisible());
+                break;
+            case DONNER :
+                btnDonner.setVisible(false);
+                System.out.println("Donner"+btnDonner.isVisible());
+                break;
+            case RECUPERER:
+                btnRecuperer.setVisible(false);
+                System.out.println("Recuperer"+btnRecuperer.isVisible());
+                break;
+        }
+    }
+    
+    public void afficherBouton(Bouton bouton){
+         switch (bouton){
+            case DEPLACER :
+                btnBouger.setVisible(true);
+                System.out.println("bouger"+btnBouger.isVisible());
+                break;
+            case ASSECHER :
+                btnAssecher.setVisible(true);
+                System.out.println("Assecher"+btnAssecher.isVisible());
+                break;
+            case DONNER :
+                btnDonner.setVisible(true);
+                System.out.println("Donner"+btnDonner.isVisible());
+                break;
+            case RECUPERER:
+                btnRecuperer.setVisible(true);
+                System.out.println("Recuperer"+btnRecuperer.isVisible());
+                break;
+        }
+    }
+    
+     //Getters et Setters :
+    
      
     /**
      * Ferme la fenêtre
@@ -244,23 +291,9 @@ public class VuePrincipale extends Observable {
     public JLabel getLabelNomJoueur() {
         return labelNomJoueur;
     }
+
     
-    
-     public void afficherDonner(){
-         btnDonner.setVisible(true);
-     }
-     public void afficherRecuper(){
-         btnRecuperer.setVisible(true);
-     }
-     
-     public void cacherBouger(){
-         btnBouger.setVisible(false);
-     }
-     public void cacherAssecher(){
-         btnAssecher.setVisible(false);
-     
-     }
-    
+
 }
 
  

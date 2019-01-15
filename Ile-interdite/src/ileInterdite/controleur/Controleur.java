@@ -14,6 +14,7 @@ import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
+import ileInterdite.vues.VuePrincipale.Bouton;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
@@ -27,7 +28,7 @@ public class Controleur implements Observer {
 
     private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
-    private HashMap<Role, Aventurier> joueurs = new HashMap<>();//à modifier en [4]
+    private HashMap<Role, Aventurier> joueurs = new HashMap<>();
     private Grille grille;
     private Aventurier aventurierCourant;
     private ArrayList<CarteInondation> piocheInondation = new ArrayList<>();
@@ -36,6 +37,7 @@ public class Controleur implements Observer {
     private ArrayList<CarteTirage> defausseTirage = new ArrayList<>();
     private int niveauEau;
     private ArrayList<Role> listeRoles;
+    private Boolean peutDonner=true;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -105,7 +107,7 @@ public class Controleur implements Observer {
         for (Role role : joueurs.keySet()) {
             joueurs.get(role).getVueDefausse().addObserver(this);
         }
-
+        resetBoutons();
     }
 
     public void initCoule() {
@@ -159,6 +161,7 @@ public class Controleur implements Observer {
             aventurierCourant.setTuile(grille.getTuile(messagepos.getPos()));
         }
         aventurierCourant.decremente();
+        resetBoutons();
     }
 
     public void gererNaviguation(Role r) {
@@ -254,7 +257,7 @@ public class Controleur implements Observer {
         }
     }
 
-    //OBLIGERDEPLAEMENT A FAIRE AVEC MESSAGE URGENCE (AZventurier, pos) et TOUS BOUTONS NOIRS SEULEMENT ANNULER
+    
     /**
      * Affiche les cases possibles en les rendant cliquables avec une liste de
      * tuiles et une action
@@ -306,6 +309,7 @@ public class Controleur implements Observer {
                 && !casesAssechables.isEmpty())) {
             nextTurn();
         }
+        resetBoutons();
     }
 
     /**
@@ -667,7 +671,61 @@ public class Controleur implements Observer {
         //à compléter
         
     }
+   
+    
+    private void resetBoutons() {
+        //pouvoirs non pris en compte
+        System.out.println("resetBoutons::" + (aventurierCourant.calculDeplacement(grille)==null ? "Déplacement impossible" : "Déplacements possibles"));
+        
+        if (aventurierCourant.calculDeplacement(grille)==null){
+            vuePrincipale.cacherBouton(Bouton.DEPLACER);
+            
+        } else {
+            vuePrincipale.afficherBouton(Bouton.DEPLACER);
+        }
+        
+        System.out.println("resetBoutons::" + (aventurierCourant.calculAssechement(grille)==null ? "Asséchement impossible" : "Asséchement possibles"));
+        
+        if (aventurierCourant.calculAssechement(grille)==null){
+            
+            vuePrincipale.cacherBouton(Bouton.ASSECHER);
+        } else { 
+            vuePrincipale.afficherBouton(Bouton.ASSECHER);
+        }
+        
+        
+        for(Role av : joueurs.keySet()){
+            System.out.println(aventurierCourant.getTuile());
+            System.out.println(joueurs.get(av).getTuile());
+            System.out.println(aventurierCourant);
+            System.out.println(joueurs.get(av));
+            System.out.println(aventurierCourant.getCartes().size());
+            if (aventurierCourant.getTuile().equals(joueurs.get(av).getTuile()) && aventurierCourant!=joueurs.get(av) && aventurierCourant.getCartes().size()!=0){
+                peutDonner = true;
+               
+            } else {
+                peutDonner=false;
+            }
+        }
+        if (peutDonner){    
+                vuePrincipale.afficherBouton(Bouton.DONNER);
+            } else {
+                vuePrincipale.cacherBouton(Bouton.DONNER);
+            }
+       
+        
+        
+        if (aventurierCourant.peutRecupererTresor()){
+            System.out.println("Recuperer possible");
+            vuePrincipale.afficherBouton(Bouton.RECUPERER);
+        } else {
+            vuePrincipale.cacherBouton(Bouton.RECUPERER);
+        }
+    }
+    
 
+    
+    
     
     
     //Getters et Setters :
@@ -810,5 +868,6 @@ public class Controleur implements Observer {
     public ArrayList<CarteTirage> getDefausseTirage() {
         return defausseTirage;
     }
+
 
 }

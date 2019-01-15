@@ -12,7 +12,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import utilitaires.Role;
 
@@ -83,7 +82,6 @@ public class VueAventurier extends JPanel{
         
     public void actualiserVueAventurier(ArrayList<String> listeCarte){
         int j= 0;
-        System.out.println(listeCarte);
          for (int i=0 ;i<5 && i<listeCarte.size();i++){
             getButtonCartes().get(i).getBoutonCarte().setText(listeCarte.get(i));
             j=i;
@@ -126,11 +124,7 @@ public class VueAventurier extends JPanel{
         this.roleAventurier = roleAventurier;
     }
 
-    /**
-     * @return the bouger
-     */
-
-
+    
     public ArrayList<ICarte> getButtonCartes() {
         return buttonCartes;
     }
