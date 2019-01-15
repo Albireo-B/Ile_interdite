@@ -395,10 +395,8 @@ public class Controleur implements Observer {
             //Si l'action est donner
             } else if (messageCarte.getAction()==Action.DONNER){
                 for (Role aventurier : joueurs.keySet()){
-                    if (aventurier!=aventurierCourant.getRole() && aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()){
-                        vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte());
-
-
+                    if (aventurier!=aventurierCourant.getRole() && (aventurierCourant.getTuile()==joueurs.get(aventurier).getTuile()||aventurierCourant.getRole()==Role.Messager)){
+                        vuePrincipale.getPanelAventuriers().get(aventurier).devenirReceveur(messageCarte.getNomCarte(),true);
                     }
                 }
                 
@@ -422,12 +420,12 @@ public class Controleur implements Observer {
             }
            
         }
-        //Si l'aventurier veux bouger ou suivre le navigateur, on n'enlève pas la possiblilité de faire déplacer un autre joueur
+        //Si l'aventurier veux bouger ou suivre le navigateur ou donner une carte, on n'enlève pas la possiblilité de faire déplacer un autre joueur
         if (!(((Message) arg).getAction()==Action.DEPLACER && !(arg instanceof MessagePos))&&!(((Message) arg).getAction()==Action.SUIVRE && !(arg instanceof MessagePos))){
         for (Role r : listeRoles){
             vuePrincipale.getPanelAventuriers().get(r).devenirSuiveur(false);
         }}
-  
+        
         vuePrincipale.actualiserVue(getAventurierCourant().getNomJoueur(),
                                     getAventurierCourant().getRole(),
                                     getAventurierCourant().getPion().getCouleur(),
@@ -583,12 +581,12 @@ public class Controleur implements Observer {
 
     public void gererDon(){
         Boolean yes = false;
+        if (aventurierCourant.getRole()==Role.Messager){yes=true;}
         for (Role role : joueurs.keySet()){
             if (joueurs.get(role).getTuile().equals(aventurierCourant.getTuile()) && !joueurs.get(role).equals(aventurierCourant)){
                 yes=true;
             }
         }
-        
         if(yes){
             vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
         }

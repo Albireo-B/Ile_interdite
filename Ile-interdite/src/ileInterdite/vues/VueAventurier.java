@@ -125,9 +125,8 @@ public class VueAventurier extends JPanel{
     }
             
 
-    public void devenirReceveur(String carte){
-            getCarteJoueur().devenirReceveur(carte);
-            getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
+    public void devenirReceveur(String carte,Boolean suivre){
+            getCarteJoueur().devenirReceveur(carte,suivre);
     }
     
     public void devenirSuiveur(boolean suivre){
