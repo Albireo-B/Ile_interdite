@@ -35,6 +35,7 @@ public class IAventurier extends Observable{
                 notifyObservers(new MessageCarte(carte,Action.RECEVOIR, getRole()));
                 clearChanged();
                 boutonAventurier.removeActionListener(this);
+                boutonAventurier.setBackground(null);
             }
         };
         
@@ -50,6 +51,7 @@ public class IAventurier extends Observable{
                 notifyObservers(new Message(Action.SUIVRE, getRole()));
                 clearChanged();
                 boutonAventurier.removeActionListener(this);
+                boutonAventurier.setBackground(null);
             }
         };
         boutonAventurier.addActionListener(l);

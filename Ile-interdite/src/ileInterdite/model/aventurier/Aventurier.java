@@ -91,6 +91,7 @@ public abstract class Aventurier {
         setNbAction(3);
         setPouvoir(true);
     }
+    
     public ArrayList<Integer> cartesTresor(){
         ArrayList<Integer> cartesTresor = new ArrayList<>();
         for (CarteTirage carte : cartes){
@@ -130,13 +131,12 @@ public abstract class Aventurier {
         
         
     public ArrayList<String> cartesToString(){
-        ArrayList<String> cartes = new ArrayList<>();
-        if (!this.cartes.isEmpty()){
+        ArrayList<String> listeCarte = new ArrayList<>();
             for(CarteTirage carte : this.cartes){
-                cartes.add(carte.getNom());
+                System.out.print(carte);
+                listeCarte.add(carte.getNom());
             }
-        } else { cartes =null;}
-        return cartes;
+        return listeCarte;
     }
     
     public void recupererTresor(){

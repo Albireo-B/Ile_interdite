@@ -139,8 +139,6 @@ public class Controleur implements Observer {
             joueurs.get(role).addCartes(cartes);
             }
             catch (ExceptionAventurier ex){};
-                System.out.println(joueurs.get(role).getCartes());
-                System.out.println(joueurs.get(role).cartesToString());
                 vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
     }
@@ -336,7 +334,7 @@ public class Controleur implements Observer {
                 }
                 aventurierCourant.decremente();
 
-                //Si le messagePos possède l'action ASSECHER
+                
             }
             else if (messagepos.getAction() == Action.SUIVRE) {
                 vueGrille.actualiserPositionJoueur(messagepos.getPos(),joueurs.get(messagepos.getRole()).getPosition(), joueurs.get(messagepos.getRole()).getPion());
@@ -344,6 +342,7 @@ public class Controleur implements Observer {
                 aventurierCourant.decremente();
                 System.out.println(aventurierCourant.getNbAction());
             }
+            //Si le messagePos possède l'action ASSECHER
             else if (messagepos.getAction() == Action.ASSECHER) {
                 grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
                 vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
@@ -580,7 +579,6 @@ public class Controleur implements Observer {
     public void gererDon(){
         Boolean yes = false;
         for (Role role : joueurs.keySet()){
-            System.out.println(role);
             if (joueurs.get(role).getTuile().equals(aventurierCourant.getTuile()) && !joueurs.get(role).equals(aventurierCourant)){
                 yes=true;
             }
