@@ -133,7 +133,6 @@ public abstract class Aventurier {
         ArrayList<String> listeCarte = new ArrayList<>();
 
         for (CarteTirage carte : this.cartes) {
-            System.out.println(carte.getNom());
             listeCarte.add(carte.getNom());
         }
         return listeCarte;
@@ -146,7 +145,6 @@ public abstract class Aventurier {
 
     public void removeCarte(CarteTirage carte) {
         cartes.remove(carte);
-        System.out.println(cartes);
     }
     
     public Boolean peutRecupererTresor(){

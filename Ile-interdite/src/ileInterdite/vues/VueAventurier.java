@@ -92,7 +92,6 @@ public class VueAventurier extends Observable {
         
     public void actualiserVueAventurier(ArrayList<String> listeCarte){
         int j= 0;
-        System.out.println(listeCarte);
          for (int i=0 ;i<5 && i<listeCarte.size();i++){
             getButtonCartes().get(i).setNom(listeCarte.get(i));
             j=i;
@@ -117,8 +116,8 @@ public class VueAventurier extends Observable {
     }
             
 
-    public void devenirReceveur(String carte,Boolean suivre){
-            getCarteJoueur().devenirReceveur(carte,suivre);
+    public void devenirReceveur(String carte){
+            getCarteJoueur().devenirReceveur(carte);
     }
     
     public void devenirSuiveur(boolean suivre){

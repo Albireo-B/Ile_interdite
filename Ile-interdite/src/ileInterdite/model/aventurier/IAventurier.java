@@ -22,28 +22,13 @@ import utilitaires.Role;
 public class IAventurier extends Observable{
     private JButton boutonAventurier;
     private Role role;
-    private ActionListener l;
+    private ActionListener triggerDeplacement;
+    private ActionListener triggerCarte;
     
     public IAventurier(JButton boutonAventurier,Role role){
         this.boutonAventurier=boutonAventurier;
         this.role=role;
-        
-    }
-
-    public void devenirReceveur(String carte,Boolean suivre){
-        l = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setChanged();
-                notifyObservers(new MessageCarte(carte,Action.RECEVOIR, getRole()));
-                clearChanged();
-            }
-        };       
-        devenirCliquable(l,suivre);
-    }
-
-    public void devenirSuiveur(Boolean suivre){
-        l = new ActionListener() {
+        triggerDeplacement = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 setChanged();
@@ -51,7 +36,27 @@ public class IAventurier extends Observable{
                 clearChanged();
             }
         };
-        devenirCliquable(l,suivre);
+    }
+
+    public void devenirReceveur(String carte){
+        if (carte!=null){
+        triggerCarte = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new MessageCarte(carte,Action.RECEVOIR, getRole()));
+                clearChanged();
+            }
+        };       
+        devenirCliquable(triggerCarte,true);
+        }
+        else{
+            devenirCliquable(triggerCarte,false);
+        }
+    }
+    
+    public void devenirSuiveur(Boolean suivre){
+        devenirCliquable(triggerDeplacement,suivre);
     }
     
     public void devenirCliquable(ActionListener al,Boolean b){
