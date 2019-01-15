@@ -51,9 +51,6 @@ public class VueDefausse extends Observable {
         panelPrincipal.add(explication, BorderLayout.NORTH);
         panelPrincipal.add(panelCarte, BorderLayout.CENTER);
 
-        actualiser(new ArrayList<>(), null);
-
-        close();
         fenetre.add(panelPrincipal);
     }
 
@@ -64,7 +61,7 @@ public class VueDefausse extends Observable {
 
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
-            ICarte buttonCarte = new ICarte(nomCarte, Action.DONNER);
+            ICarte buttonCarte = new ICarte(nomCarte, Action.DEFAUSSER);
             buttonCarte.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {

@@ -23,52 +23,59 @@ public class IAventurier extends Observable {
 
     private JButton boutonAventurier;
     private Role role;
-    private ActionListener triggerDeplacement;
-    private ActionListener triggerCarte;
+    private ActionListener actionListener;
 
     public IAventurier(JButton boutonAventurier, Role role) {
         this.boutonAventurier = boutonAventurier;
         this.role = role;
-        triggerDeplacement = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setChanged();
-                notifyObservers(new Message(Action.SUIVRE, getRole()));
-                clearChanged();
-            }
-        };
     }
 
     public void devenirReceveur(String carte) {
         if (carte != null) {
-            triggerCarte = new ActionListener() {
+            addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
                     notifyObservers(new MessageCarte(carte, Action.RECEVOIR, getRole()));
                     clearChanged();
                 }
-            };
-            devenirCliquable(triggerCarte, true);
+            });
         } else {
-            devenirCliquable(triggerCarte, false);
+            removeActionListener();
         }
     }
 
     public void devenirSuiveur(Boolean suivre) {
-        devenirCliquable(triggerDeplacement, suivre);
-    }
-
-    public void devenirCliquable(ActionListener al, Boolean b) {
-        if (b) {
-            boutonAventurier.addActionListener(al);
-            boutonAventurier.setForeground(Color.RED);
-        } else {
-            boutonAventurier.removeActionListener(al);
-            boutonAventurier.setForeground(null);
+        if (suivre){
+        addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new Message(Action.SUIVRE, getRole()));
+                clearChanged();
+            }
+        });}else{
+            removeActionListener();
         }
     }
+    
+    public void removeActionListener() {
+        boutonAventurier.removeActionListener(actionListener);
+        actionListener = null;
+        boutonAventurier.setForeground(null);
+    }
 
+
+    public void addActionListener(ActionListener act) {
+        if (actionListener == null) {
+            actionListener = act;
+            boutonAventurier.addActionListener(act);
+            boutonAventurier.setForeground(Color.red);
+        } else {
+            System.out.println("ERREUR IAventure: N'essayez pas d'ajouter deux actionlisteners");
+        }
+    }
+    
     /**
      * @return the boutonAventurier
      */
