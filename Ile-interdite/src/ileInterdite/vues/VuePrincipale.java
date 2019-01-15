@@ -57,7 +57,7 @@ public class VuePrincipale extends Observable {
      * @param v
      * @param roleAventurier
      */
-    public VuePrincipale(VueGrille v, ArrayList<Role> roleAventurier){
+    public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers){
         window = new JFrame();
         window.setSize(1600,800);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE); 
@@ -127,25 +127,18 @@ public class VuePrincipale extends Observable {
         
         //===================pour chaque aventurier different=================
         
-        panelAventuriers=new HashMap<>();
-        Integer i = 0;
-        for(Role role : roleAventurier){
-           VueAventurier va = new VueAventurier(role,i==0 || i==3);
-           i ++;
-           panelAventuriers.put(role,va);
-        }
+        panelAventuriers=vuesAventuriers;
         
+        ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
         
-         paneGauche.add(panelAventuriers.get(roleAventurier.get(0)));
-         paneGauche.add(panelAventuriers.get(roleAventurier.get(3)));
+        paneGauche.add(listeVuesAv.get(0).getPanelGeneral());
+        paneGauche.add(listeVuesAv.get(3).getPanelGeneral());
         
-         paneDroite.add(panelAventuriers.get(roleAventurier.get(1)));
-         paneDroite.add(panelAventuriers.get(roleAventurier.get(2)));
-        
-        
+        paneDroite.add(listeVuesAv.get(1).getPanelGeneral());
+        paneDroite.add(listeVuesAv.get(2).getPanelGeneral());
     }
     
-    public void actualiserVue( String nomJoueur, Role classe, Color couleur, int nombrePA) {
+    public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
         if (nombrePA == 0) {
             getBtnBouger().setVisible(false);
         }
@@ -156,7 +149,7 @@ public class VuePrincipale extends Observable {
         getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
         
 
-        getPanelAventuriers().get(classe).setBackground(couleur);
+        getPanelAventuriers().get(classe).getPanelGeneral().setBackground(couleur);
         getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
         
         panelPlateau.setBorder(new MatteBorder(0, 0, 2, 0, couleur));

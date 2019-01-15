@@ -5,15 +5,18 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.message.MessagePos;
 import ileInterdite.model.aventurier.IAventurier;
-import ileInterdite.model.cartes.ICarte;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utilitaires.Action;
 import utilitaires.Role;
 
         
@@ -21,7 +24,7 @@ import utilitaires.Role;
  *
  * @author grosa
  */
-public class VueAventurier extends JPanel{
+public class VueAventurier extends Observable {
    
     private JButton bouger;
     private JPanel paneClass;
@@ -31,8 +34,8 @@ public class VueAventurier extends JPanel{
     private JButton donner;
 
     private IAventurier carteJoueur;
-
-    private JPanel panelPrincipal;
+    
+    private JPanel panelGeneral;
 
 
     private ArrayList<ICarte> buttonCartes;
@@ -40,19 +43,16 @@ public class VueAventurier extends JPanel{
     private ArrayList<JLabel> lampes;
     private Role roleAventurier;
 
-    
-    
-    
 
     public VueAventurier(Role roleAventurier,boolean gauche) {
 
-        super(new BorderLayout());
+        panelGeneral = new JPanel(new BorderLayout());
         this.roleAventurier = roleAventurier;
         
         
         //====================== principal========================
         
-        panelPrincipal = new JPanel(new GridLayout(2,3));
+        JPanel panelPrincipal = new JPanel(new GridLayout(2,3));
         
         
         //===================pannel en haut avec les button et la classe====
@@ -88,18 +88,14 @@ public class VueAventurier extends JPanel{
                 if((i==0 && !gauche) || (i==2 && gauche)){
                     panelPrincipal.add(paneClass);
                 }
-                buttonCartes.add(new ICarte(new JButton("Carte"),roleAventurier));
-                panelPrincipal.add(buttonCartes.get(i).getBoutonCarte());
+                buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
+                panelPrincipal.add(buttonCartes.get(i));
 
             }
 
-
-        
-        
-
-            buttonCartes.add(new ICarte(new JButton("Carte"),roleAventurier));
-            this.add(panelPrincipal,BorderLayout.CENTER);
-            this.add(paneTresor,BorderLayout.SOUTH);
+            buttonCartes.add(new ICarte("_", Action.DONNER, roleAventurier));
+            panelGeneral.add(panelPrincipal,BorderLayout.CENTER);
+            panelGeneral.add(paneTresor,BorderLayout.SOUTH);
 
         }
     
@@ -108,19 +104,25 @@ public class VueAventurier extends JPanel{
         int j= 0;
         System.out.println(listeCarte);
          for (int i=0 ;i<5 && i<listeCarte.size();i++){
-            getButtonCartes().get(i).getBoutonCarte().setText(listeCarte.get(i));
+            getButtonCartes().get(i).setNom(listeCarte.get(i));
             j=i;
          }
          for (int i=j+1;i<5;i++){
-             getButtonCartes().get(i).getBoutonCarte().setText("carte");
+             getButtonCartes().get(i).setNom("_");
          }
      
     } 
 
     public void rendreCartesCliquables(ArrayList<Integer> listePos){
         for (Integer carteCliquable : listePos){
-            buttonCartes.get(carteCliquable).rendreCarteCliquable();
-            buttonCartes.get(carteCliquable).getBoutonCarte().setBackground(Color.red);
+            
+            ICarte carte = buttonCartes.get(carteCliquable);
+            carte.addActionListener((ActionEvent e) -> {
+                    setChanged();
+                    notifyObservers(carte.getMessage());     
+                    clearChanged();
+                });
+            buttonCartes.get(carteCliquable).setBackground(Color.red);
         }
     }
             
@@ -232,10 +234,10 @@ public class VueAventurier extends JPanel{
     }
 
     /**
-     * @return the panelPrincipal
+     * @return the panelGeneral
      */
-    public JPanel getPanelPrincipal() {
-        return panelPrincipal;
+    public JPanel getPanelGeneral() {
+        return panelGeneral;
     }
 
 

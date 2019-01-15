@@ -6,6 +6,7 @@
 package ileInterdite.controleur;
 
 
+import ileInterdite.vues.ICarte;
 import utilitaires.Role;
 import ileInterdite.model.aventurier.*;
 import utilitaires.*;
@@ -80,21 +81,24 @@ public class Controleur implements Observer {
         setRoles(nomsjoueurs,roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
 
-        
+        HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
+        int cptr = 0;
         for (Role role : joueurs.keySet()) {
             vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
+            VueAventurier newVueAv = new VueAventurier(role, cptr == 0 || cptr == 3);
+            newVueAv.addObserver(this);
+            vuesAventuriers.put(role, newVueAv);
+            cptr++;
         }
         
 
         // Création des vues
-        vuePrincipale = new VuePrincipale(getVueGrille(),listeRoles);
+        vuePrincipale = new VuePrincipale(getVueGrille(), vuesAventuriers);
         vuePrincipale.addObserver(this);
         
         //Ecoute des ICarte
         for (VueAventurier vav : vuePrincipale.getPanelAventuriers().values()){
-            for (ICarte c : vav.getButtonCartes()){
-                c.addObserver(this);
-            }
+            vuePrincipale.addObserver(this);
         }
         
         //Ecoute des IAventurier
@@ -404,7 +408,7 @@ public class Controleur implements Observer {
                 
                 
                 
-            } else if (messageCarte.getAction()==Action.RECEVOIR){
+            } else if (messageCarte.getAction()==Action.RECEVOIR) {
                 CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
                 ArrayList<CarteTirage> cartes= new ArrayList<>();
                 cartes.add(carte);
@@ -448,7 +452,10 @@ public class Controleur implements Observer {
     
     public CarteTirage stringToCarte(String nomCarte){
         CarteTirage carteSelection = null;
+        System.out.println("sdfssdf: "+nomCarte);
         for (CarteTirage carte : aventurierCourant.getCartes()){
+            
+            System.out.println("LLALA: "+carte.getNom());
             if (carte.getNom()==nomCarte){
                 carteSelection=carte;
             }

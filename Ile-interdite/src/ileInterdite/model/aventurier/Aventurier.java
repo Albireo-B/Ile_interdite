@@ -5,7 +5,6 @@
  */
 package ileInterdite.model.aventurier;
 
-
 import utilitaires.*;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
@@ -14,46 +13,45 @@ import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author vinetg
  */
 public abstract class Aventurier {
+
     private int nbAction;
     private Tuile tuile;
     private Boolean pouvoir = true;
     private Role role;
     private String nomJoueur;
     private Pion pion;
-    private ArrayList<CarteTirage> cartes=new ArrayList<>();
+    private ArrayList<CarteTirage> cartes = new ArrayList<>();
     private VueDefausse vueDefausse = new VueDefausse();
-    
-    
-    public Aventurier(String nomJoueur,Tuile tuile) {
-        this.tuile=tuile;
-        this.nomJoueur=nomJoueur;
+
+    public Aventurier(String nomJoueur, Tuile tuile) {
+        this.tuile = tuile;
+        this.nomJoueur = nomJoueur;
         this.tuile = tuile;
         reset();
     }
-    
-    
+
     /**
      * On renvoie la liste des tuiles adjacentes en croix
+     *
      * @param g
-     * @return 
+     * @return
      */
-    public ArrayList<Tuile> calculDeplacement(Grille g){
-        return g.tuilesAdjacentesCroix(getTuile()); 
+    public ArrayList<Tuile> calculDeplacement(Grille g) {
+        return g.tuilesAdjacentesCroix(getTuile());
     }
-    
-    public ArrayList<Tuile> calculGuide(Grille g){
+
+    public ArrayList<Tuile> calculGuide(Grille g) {
         ArrayList<Tuile> tuiles = new ArrayList<>();
         for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
-            if (t.getEtat()!=EtatTuile.COULEE){
+            if (t.getEtat() != EtatTuile.COULEE) {
                 tuiles.add(t);
                 for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
-                    if (tt !=getTuile()&& !tuiles.contains(tt)){
+                    if (tt != getTuile() && !tuiles.contains(tt)) {
                         tuiles.add(tt);
                     }
                 }
@@ -61,124 +59,121 @@ public abstract class Aventurier {
         }
         return tuiles;
     }
-    
+
     /**
      * On renvoie la liste des tuiles adjacentes en croix
+     *
      * @param g
-     * @return CarteTirage> 
+     * @return CarteTirage>
      */
-    public ArrayList<Tuile> calculAssechement(Grille g){
+    public ArrayList<Tuile> calculAssechement(Grille g) {
         ArrayList<Tuile> liste = new ArrayList();
-        if (getTuile().getEtat() == EtatTuile.INONDEE){
+        if (getTuile().getEtat() == EtatTuile.INONDEE) {
             liste.add(getTuile());
         }
-        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())){
-            if (t.getEtat() == EtatTuile.INONDEE){
+        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
+            if (t.getEtat() == EtatTuile.INONDEE) {
                 liste.add(t);
             }
         }
         return liste;
     }
-    
-    public void defausseCartes(){
-        vueDefausse.actualiser(cartesToString(),role);
+
+    public void defausseCartes() {
+        vueDefausse.actualiser(cartesToString(), role);
     }
- 
-    
+
     /**
      * On remet le nombre d'actions à 3
      */
-    public void reset(){
+    public void reset() {
         setNbAction(3);
         setPouvoir(true);
     }
-    
-    public ArrayList<Integer> cartesTresor(){
+
+    public ArrayList<Integer> cartesTresor() {
         ArrayList<Integer> cartesTresor = new ArrayList<>();
-        for (CarteTirage carte : cartes){
-            if(!carte.getUtilisable()){
+        for (CarteTirage carte : cartes) {
+            if (!carte.getUtilisable()) {
                 cartesTresor.add(cartes.indexOf(carte));
             }
         }
         return cartesTresor;
     }
+
     /**
      * Fais diminuer le nombre d'actions de 1
      */
-    public void decremente(){
+    public void decremente() {
         setNbAction(getNbAction() - 1);
     }
 
     /**
-    * Permet de déplacer un aventurier sur une nouvelle Tuile
-    * en supprimant sa position précédente
+     * Permet de déplacer un aventurier sur une nouvelle Tuile en supprimant sa
+     * position précédente
+     *
      * @param tuile
-    */
+     */
     public void setTuile(Tuile tuile) {
         tuile.removeAventurier(this);
         tuile.addAventurier(this);
         this.tuile = tuile;
     }
 
-    
-    public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier{
-        for (CarteTirage c : listeCartes){
-        cartes.add(c);
+    public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier {
+        for (CarteTirage c : listeCartes) {
+            cartes.add(c);
         }
-        if (cartes.size()>5){
+        if (cartes.size() > 5) {
             throw new ExceptionAventurier(this);
         }
     }
-        
-        
-    public ArrayList<String> cartesToString(){
+
+    public ArrayList<String> cartesToString() {
         ArrayList<String> listeCarte = new ArrayList<>();
-            for(CarteTirage carte : this.cartes){
-                System.out.print(carte);
-                listeCarte.add(carte.getNom());
-            }
+
+        for (CarteTirage carte : this.cartes) {
+            System.out.println(carte.getNom());
+            listeCarte.add(carte.getNom());
+        }
         return listeCarte;
-        
+
     }
-    
-    public void recupererTresor(){
-       
+
+    public void recupererTresor() {
+
     }
-    
-    
-    public void removeCarte(CarteTirage carte){
+
+    public void removeCarte(CarteTirage carte) {
         cartes.remove(carte);
         System.out.println(cartes);
     }
-    
-    
-    public Boolean peutRecupererTresor(){
 
-       return true;
-       
+    public Boolean peutRecupererTresor() {
+
+        return true;
+
     }
-   
+
     //Getters et Setters :
-    
-    
     public Position getPosition() {
         return getTuile().getPosition();
     }
-    
-      /**
+
+    /**
      * @return the tuile
-     */   
-    public Tuile getTuile(){
+     */
+    public Tuile getTuile() {
         return tuile;
     }
-    
-     /**
+
+    /**
      * @return the nbAction
      */
     public int getNbAction() {
         return nbAction;
     }
-    
+
     /**
      * @return the pouvoir
      */
