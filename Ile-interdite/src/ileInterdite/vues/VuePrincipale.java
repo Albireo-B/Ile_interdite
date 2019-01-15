@@ -44,7 +44,8 @@ public class VuePrincipale extends Observable {
     private JButton btnBouger = new JButton("Bouger");
     private JButton btnAssecher=new JButton("Assecher");
     private JButton btnDonner=new JButton("Donner");
-    private JButton btnRecuper=new JButton("Récuper");
+    private JButton btnRecuperer=new JButton("Récuper");
+    private JButton btnTerminerTour = new JButton("Terminer Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     
@@ -86,11 +87,10 @@ public class VuePrincipale extends Observable {
         //=====================================================================
         JPanel panelBoutons = new JPanel(new GridLayout(3,2));
         
-        JButton btnAssecher= new JButton("Assecher");
-        JButton btnTerminerTour = new JButton("Terminer Tour");
+        
         
         panelBoutons.add(btnDonner);
-        panelBoutons.add(btnRecuper);
+        panelBoutons.add(btnRecuperer);
         panelBoutons.add(btnBouger);
         panelBoutons.add(btnAssecher);
         panelBoutons.add(btnTerminerTour);
@@ -100,12 +100,15 @@ public class VuePrincipale extends Observable {
         
         panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
         
+        btnBouger.setVisible(true);
+        
         btnBouger.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.DEPLACER,null));
             clearChanged();
         });
-
+        
+        btnAssecher.setVisible(true);
         btnAssecher.addActionListener((ActionEvent e) -> {
             setChanged();
             notifyObservers(new Message(Action.ASSECHER,null));
@@ -118,12 +121,18 @@ public class VuePrincipale extends Observable {
             clearChanged();
         });
         
+        btnDonner.setVisible(false);
         btnDonner.addActionListener((ActionEvent arg0) -> {
             setChanged();
             notifyObservers(new Message(Action.DONNER,null));
             clearChanged();
         });
-        
+        btnRecuperer.setVisible(false);
+        btnRecuperer.addActionListener((ActionEvent arg) -> {
+            setChanged();
+            notifyObservers(new Message(Action.RECUPERER_TRESOR,null));
+            clearChanged();
+        });
         
         //===================pour chaque aventurier different=================
         
@@ -211,8 +220,8 @@ public class VuePrincipale extends Observable {
     /**
      * @return the btnRecuper
      */
-    public JButton getBtnRecuper() {
-        return btnRecuper;
+    public JButton getBtnRecuperer() {
+        return btnRecuperer;
     }
 
     /**
@@ -228,6 +237,23 @@ public class VuePrincipale extends Observable {
     public JLabel getLabelNomJoueur() {
         return labelNomJoueur;
     }
+    
+    
+     public void afficherDonner(){
+         btnDonner.setVisible(true);
+     }
+     public void afficherRecuper(){
+         btnRecuperer.setVisible(true);
+     }
+     
+     public void cacherBouger(){
+         btnBouger.setVisible(false);
+     }
+     public void cacherAssecher(){
+         btnAssecher.setVisible(false);
+     
+     }
+    
 }
 
  

@@ -25,13 +25,8 @@ import utilitaires.Role;
  * @author grosa
  */
 public class VueAventurier extends Observable {
-   
-    private JButton bouger;
     private JPanel paneClass;
     private JPanel paneTresor;
-    private JButton assecher;
-    private JButton recuperer;
-    private JButton donner;
 
     private IAventurier carteJoueur;
     
@@ -49,6 +44,7 @@ public class VueAventurier extends Observable {
         panelGeneral = new JPanel(new BorderLayout());
         this.roleAventurier = roleAventurier;
         
+    
         
         //====================== principal========================
         
@@ -56,14 +52,8 @@ public class VueAventurier extends Observable {
         
         
         //===================pannel en haut avec les button et la classe====
-        
-       
-        
-        bouger=new JButton("bouger");
-        assecher=new JButton("assecher");
-        recuperer=new JButton("recuperer");
-        donner=new JButton("donner");
-        
+
+ 
 
         paneClass=new JPanel(new BorderLayout());
         carteJoueur=new IAventurier(new JButton(roleAventurier.toString()),roleAventurier);
@@ -127,9 +117,8 @@ public class VueAventurier extends Observable {
     }
             
 
-    public void devenirReceveur(String carte){
-            getCarteJoueur().devenirReceveur(carte);
-            getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
+    public void devenirReceveur(String carte,Boolean suivre){
+            getCarteJoueur().devenirReceveur(carte,suivre);
     }
     
     public void devenirSuiveur(boolean suivre){
@@ -155,21 +144,7 @@ public class VueAventurier extends Observable {
     /**
      * @return the bouger
      */
-    public JButton getBouger() {
-        return bouger;
-    }
 
-    public JButton getAssecher() {
-        return assecher;
-    }
-
-    public JButton getRecuperer() {
-        return recuperer;
-    }
-
-    public JButton getDonner() {
-        return donner;
-    }
 
     public ArrayList<ICarte> getButtonCartes() {
         return buttonCartes;
@@ -179,9 +154,7 @@ public class VueAventurier extends Observable {
         return lampes;
     }
 
-    public void setBouger(JButton bouger) {
-        this.bouger = bouger;
-    }
+
 
     /**
      * @param paneClass the paneClass to set
@@ -191,17 +164,6 @@ public class VueAventurier extends Observable {
     }
 
 
-    public void setAssecher(JButton assecher) {
-        this.assecher = assecher;
-    }
-
-    public void setRecuperer(JButton recuperer) {
-        this.recuperer = recuperer;
-    }
-
-    public void setDonner(JButton donner) {
-        this.donner = donner;
-    }
 
     public void setButtonCartes(ArrayList<ICarte> buttonCartes) {
         this.buttonCartes = buttonCartes;
@@ -241,6 +203,4 @@ public class VueAventurier extends Observable {
     }
 
 
-     
-     
 }
