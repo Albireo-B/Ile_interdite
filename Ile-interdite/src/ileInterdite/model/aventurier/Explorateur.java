@@ -43,9 +43,10 @@ public class Explorateur extends Aventurier {
         ArrayList<Tuile> tuiles = new ArrayList<>();
         for (Tuile t : g.tuilesAdjacentesCarre(getTuile())) {
             if (t.getEtat()!=EtatTuile.COULEE){
-                tuiles.add(t);
+                if (!tuiles.contains(t)){
+                tuiles.add(t);}
                 for (Tuile tt : g.tuilesAdjacentesCarre(t)) {
-                    if (tt !=getTuile()){
+                    if (tt !=getTuile()&& !tuiles.contains(tt)){
                         tuiles.add(tt);
                     }
                 }

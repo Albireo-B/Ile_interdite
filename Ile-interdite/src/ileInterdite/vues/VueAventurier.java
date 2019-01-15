@@ -119,14 +119,12 @@ public class VueAventurier extends JPanel{
     }
             
 
-    public void devenirReceveur(String carte){
-            getCarteJoueur().devenirReceveur(carte);
-            getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
+    public void devenirReceveur(String carte,Boolean suivre){
+            getCarteJoueur().devenirReceveur(carte,suivre);
     }
     
-    public void devenirSuiveur(){
-            getCarteJoueur().devenirSuiveur();
-            getCarteJoueur().getBoutonAventurier().setForeground(Color.red);
+    public void devenirSuiveur(boolean suivre){
+            getCarteJoueur().devenirSuiveur(suivre);
     }
     
     //Getters et Setters :

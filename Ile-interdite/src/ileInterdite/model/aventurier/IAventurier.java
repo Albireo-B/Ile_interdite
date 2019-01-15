@@ -22,42 +22,49 @@ import utilitaires.Role;
 public class IAventurier extends Observable{
     private JButton boutonAventurier;
     private Role role;
+    private ActionListener l;
     
     public IAventurier(JButton boutonAventurier,Role role){
         this.boutonAventurier=boutonAventurier;
         this.role=role;
+        
     }
 
-    public void devenirReceveur(String carte){
-        ActionListener l = new ActionListener() {
+    public void devenirReceveur(String carte,Boolean suivre){
+        l = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 setChanged();
                 notifyObservers(new MessageCarte(carte,Action.RECEVOIR, getRole()));
                 clearChanged();
-                boutonAventurier.removeActionListener(this);
-                boutonAventurier.setBackground(null);
             }
-        };
-        
-        boutonAventurier.addActionListener(l);
+        };       
+        devenirCliquable(l,suivre);
     }
 
-    
-    public void devenirSuiveur(){         
-           ActionListener l = new ActionListener() {
+    public void devenirSuiveur(Boolean suivre){
+        l = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 setChanged();
                 notifyObservers(new Message(Action.SUIVRE, getRole()));
                 clearChanged();
-                boutonAventurier.removeActionListener(this);
-                boutonAventurier.setBackground(null);
             }
         };
-        boutonAventurier.addActionListener(l);
+        devenirCliquable(l,suivre);
     }
-   
+    
+    public void devenirCliquable(ActionListener al,Boolean b){
+        if (b){
+           boutonAventurier.addActionListener(al);
+           boutonAventurier.setForeground(Color.RED);
+        }
+        else{
+           boutonAventurier.removeActionListener(al);
+           boutonAventurier.setForeground(null);
+        }
+    }
+    
     /**
      * @return the boutonAventurier
      */

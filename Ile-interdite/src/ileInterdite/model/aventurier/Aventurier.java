@@ -53,7 +53,7 @@ public abstract class Aventurier {
             if (t.getEtat()!=EtatTuile.COULEE){
                 tuiles.add(t);
                 for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
-                    if (tt !=getTuile()){
+                    if (tt !=getTuile()&& !tuiles.contains(tt)){
                         tuiles.add(tt);
                     }
                 }

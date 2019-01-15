@@ -44,7 +44,7 @@ public class Plongeur extends Aventurier {
         for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
             tuiles.add(t);
             for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
-                if (tt !=getTuile()){
+                if (tt !=getTuile()&& !tuiles.contains(tt)){
                     tuiles.add(tt);
                 }
             }
