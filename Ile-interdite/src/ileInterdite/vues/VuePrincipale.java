@@ -65,8 +65,6 @@ public class VuePrincipale extends Observable {
         this.btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
         this.btnDonner = new JButton(new ImageIcon(path+"icones/iconGive.png"));
         this.btnAssecher = new JButton(new ImageIcon(path+"icones/iconDry.png"));
-        
-        
         this.btnBouger = new JButton(new ImageIcon(path+"icones/iconMove.png"));
         
         
@@ -144,7 +142,6 @@ public class VuePrincipale extends Observable {
         panelAventuriers = vuesAventuriers;
 
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
-        System.out.println(vuesAventuriers.values());
         paneGauche.add(listeVuesAv.get(0).getPanelGeneral());
         paneGauche.add(listeVuesAv.get(3).getPanelGeneral());
 

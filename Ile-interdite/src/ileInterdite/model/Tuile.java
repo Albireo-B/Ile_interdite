@@ -8,6 +8,7 @@ package ileInterdite.model;
 import utilitaires.EtatTuile;
 import java.util.ArrayList;
 import ileInterdite.model.aventurier.Aventurier;
+import utilitaires.Role;
 import utilitaires.Tresor;
 
 /**
@@ -73,6 +74,13 @@ public class Tuile {
      */
     public ArrayList<Aventurier> getAventuriers() {
         return aventuriers;
+    }
+    public ArrayList<Role> getRoleAventuriers() {
+        ArrayList<Role> roles = new ArrayList();
+        for (Aventurier a:aventuriers){
+            roles.add(a.getRole());
+        }
+                return roles;
     }
 
     /**
