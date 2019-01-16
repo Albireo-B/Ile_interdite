@@ -372,11 +372,7 @@ public class Controleur implements Observer {
 
         }
         if (carteSelection.getUtilisable()) {
-            if (carteSelection instanceof CarteHelicoptere) {
-                gererHelicoptere(carteSelection,messageCarte.getRole());
-            } else {
-                gererSacDeSable(carteSelection,messageCarte.getRole());
-            }
+            appliquerCartesSpeciales(carteSelection.getNom(),messageCarte.getRole());
         }
 
         defausseTirage.add(carteSelection);
@@ -385,7 +381,7 @@ public class Controleur implements Observer {
         if (joueurs.get(messageCarte.getRole()).getCartes().size()>5){
             joueurs.get(messageCarte.getRole()).defausseCartes();
         }
-        //vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
+        vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
         
     }
 
@@ -426,14 +422,17 @@ public class Controleur implements Observer {
             }
         }
         proposerTuiles(liste,Action.ASSECHERSACDESABLE,role);
-        joueurs.get(role).removeCarte(carte);
-        defausseTirage.add(carte);
     }
 
     
     private void appliquerAssechementSacDeSable(MessagePos messagepos) {
         grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
+        
+        joueurs.get(messagepos.getRole()).removeCarte(stringToCarte("SacDeSable"));
+        defausseTirage.add(stringToCarte("SacDeSable"));
+        System.out.println(joueurs.get(messagepos.getRole()).cartesToString());
+        vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
     }
 
 
@@ -502,7 +501,6 @@ public class Controleur implements Observer {
                      //Si le message possède l'action ASSECHERSACDESABLE
                 case ASSECHERSACDESABLE:
                     appliquerAssechementSacDeSable(messagepos);
-                    vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
                     break;
             }
         }
