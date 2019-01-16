@@ -40,7 +40,6 @@ public class Controleur implements Observer {
     private ArrayList<CarteTirage> defausseTirage = new ArrayList<>();
     private int niveauEau;
     private ArrayList<Role> listeRoles;
-    private Boolean peutDonner = true;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -69,9 +68,6 @@ public class Controleur implements Observer {
         }
 
         piocheTirage = pioche;
-
-        //initialiser main des joueurs
-        initCartes();
 
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
@@ -109,7 +105,6 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
-
     }
 
     public void initInondation() {
@@ -175,6 +170,7 @@ public class Controleur implements Observer {
             };
             vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
+        updateBoutons();
     }
 
     /**
@@ -334,6 +330,7 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+        updateBoutons();
     }
 
     public void actualiserModele(Object arg) {
@@ -346,7 +343,6 @@ public class Controleur implements Observer {
                 && !casesAssechables.isEmpty())) {
             nextTurn();
         }
-        //resetBoutons();
     }
 
     /**
@@ -389,7 +385,7 @@ public class Controleur implements Observer {
     }
 
     public void appliquerRecevoir(MessageCarte messageCarte) {
-        CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
+        CarteTirage carte = stringToCarte(messageCarte.getNomCarte(),messageCarte.getRole());
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         cartes.add(carte);
         aventurierCourant.getCartes().remove(carte);
@@ -404,18 +400,17 @@ public class Controleur implements Observer {
         aventurierCourant.decremente();
     }
     
-    
-    
+
     public void appliquerCartesSpeciales(MessageCarte messageCarte) {
         if (messageCarte.getNomCarte().equals("SacDeSable")) {
-            gererSacDeSable(stringToCarte(messageCarte.getNomCarte()),messageCarte.getRole());
+            gererSacDeSable(messageCarte.getRole());
         } else {
-            gererGroupeHelicoptere(stringToCarte(messageCarte.getNomCarte()),messageCarte.getRole());  
-        }
+            gererGroupeHelicoptere(messageCarte.getRole());  
         
     }
+        }
 
-    public void gererSacDeSable(CarteTirage carte,Role role){
+    public void gererSacDeSable(Role role){
         ArrayList<Tuile> liste = new ArrayList();
         for (Tuile t : grille.tuilesNonCoulees(null)) {
             if (t.getEtat() == EtatTuile.INONDEE) {
@@ -429,25 +424,20 @@ public class Controleur implements Observer {
     private void appliquerAssechementSacDeSable(MessagePos messagepos) {
         grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
-        
-        joueurs.get(messagepos.getRole()).removeCarte(stringToCarte("SacDeSable"));
-        defausseTirage.add(stringToCarte("SacDeSable"));
-        System.out.println(joueurs.get(messagepos.getRole()).cartesToString());
+        joueurs.get(messagepos.getRole()).removeCarte(stringToCarte("SacDeSable",messagepos.getRole()));
+        defausseTirage.add(stringToCarte("SacDeSable",messagepos.getRole()));
         vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
     }
 
 
     
-    public void gererGroupeHelicoptere(CarteTirage carte,Role role){
+    public void gererGroupeHelicoptere(Role role){
         for (Role roleAventurier : joueurs.keySet()){
             vuePrincipale.getPanelAventuriers().get(roleAventurier).getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
         }
-        
-        
-        
-        
-        joueurs.get(role).removeCarte(carte);
-        defausseTirage.add(carte);
+//        joueurs.get(role).removeCarte(carte);
+//        defausseTirage.add(carte);
+
     }
     
     public void gererDeplacementHelicoptere(Role role){
@@ -564,9 +554,9 @@ public class Controleur implements Observer {
         actualiserModele(arg);
     }
 
-    public CarteTirage stringToCarte(String nomCarte) {
+    public CarteTirage stringToCarte(String nomCarte, Role role) {
         CarteTirage carteSelection = null;
-        for (CarteTirage carte : aventurierCourant.getCartes()) {
+        for (CarteTirage carte : joueurs.get(role).getCartes()) {
             if (carte.getNom().equals(nomCarte)) {
                 carteSelection = carte;
             }
@@ -743,40 +733,30 @@ public class Controleur implements Observer {
         //à compléter
 
     }
+    
+    private void resetButtons() {
+        vuePrincipale.cacherBouton(Bouton.DEPLACER);
+        vuePrincipale.cacherBouton(Bouton.ASSECHER);
+        vuePrincipale.cacherBouton(Bouton.DONNER);
+        vuePrincipale.cacherBouton(Bouton.RECUPERER);
+    }
 
-    private void resetBoutons() {
-        //pouvoirs non pris en compte
-        System.out.println("resetBoutons::" + (aventurierCourant.calculDeplacement(grille) == null ? "Déplacement impossible" : "Déplacements possibles"));
-
-        if (aventurierCourant.calculDeplacement(grille) == null) {
+    private void updateBoutons() {
+        if (aventurierCourant.calculDeplacement(grille).isEmpty())
             vuePrincipale.cacherBouton(Bouton.DEPLACER);
-
-        } else {
+        else
             vuePrincipale.afficherBouton(Bouton.DEPLACER);
-        }
-
-        System.out.println("resetBoutons::" + (aventurierCourant.calculAssechement(grille) == null ? "Asséchement impossible" : "Asséchement possibles"));
-
-        if (aventurierCourant.calculAssechement(grille) == null) {
-
+        
+        if (aventurierCourant.calculAssechement(grille).isEmpty())
             vuePrincipale.cacherBouton(Bouton.ASSECHER);
-        } else {
+        else
             vuePrincipale.afficherBouton(Bouton.ASSECHER);
-        }
-
-        for (Role av : joueurs.keySet()) {
-            System.out.println(aventurierCourant.getTuile());
-            System.out.println(joueurs.get(av).getTuile());
-            System.out.println(aventurierCourant);
-            System.out.println(joueurs.get(av));
-            System.out.println(aventurierCourant.getCartes().size());
-            if (aventurierCourant.getTuile().equals(joueurs.get(av).getTuile()) && aventurierCourant != joueurs.get(av) && aventurierCourant.getCartes().size() != 0) {
-                peutDonner = true;
-
-            } else {
-                peutDonner = false;
-            }
-        }
+        
+        Boolean peutDonner = true;
+        ArrayList<Aventurier> avSurCase = aventurierCourant.getTuile().getAventuriers();
+        if (avSurCase.size() <= 1 || aventurierCourant.getCartes().isEmpty())
+            peutDonner = false;
+        
         if (peutDonner) {
             vuePrincipale.afficherBouton(Bouton.DONNER);
         } else {
