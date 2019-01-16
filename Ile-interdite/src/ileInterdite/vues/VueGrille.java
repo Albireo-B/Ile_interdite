@@ -18,7 +18,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Role;
 import utilitaires.Tresor;
@@ -113,14 +112,11 @@ public class VueGrille extends Observable {
      * @param act
      */
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act, Role role) {
-
         joueurSelectionné = role;
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-
                 bouton.getBouton().setForeground(myRed);
-
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
                     notifyObservers(new MessagePos(act, pos, joueurSelectionné));

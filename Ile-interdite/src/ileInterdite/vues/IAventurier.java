@@ -36,7 +36,7 @@ public class IAventurier extends Observable {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     setChanged();
-                    notifyObservers(new MessageCarte(carte, Action.RECEVOIR, getRole()));
+                    notifyObservers(new MessageCarte(carte, Action.RECEVOIR, role));
                     clearChanged();
                 }
             });
@@ -51,13 +51,25 @@ public class IAventurier extends Observable {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 setChanged();
-                notifyObservers(new Message(Action.SUIVRE, getRole()));
+                notifyObservers(new Message(Action.SUIVRE, role));
                 clearChanged();
             }
         });}else{
             removeActionListener();
         }
     }
+    
+    public void devenirLeader(String carte){
+        addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new MessageCarte(carte,Action.GROUPEHELICO, role));
+                clearChanged();
+            }
+        });
+    }
+    
     
     public void removeActionListener() {
         boutonAventurier.removeActionListener(actionListener);
@@ -72,7 +84,7 @@ public class IAventurier extends Observable {
             boutonAventurier.addActionListener(act);
             boutonAventurier.setForeground(Color.red);
         } else {
-            System.out.println("ERREUR IAventure: N'essayez pas d'ajouter deux actionlisteners");
+            System.out.println("ERREUR IAventurier: N'essayez pas d'ajouter deux actionlisteners");
         }
     }
     

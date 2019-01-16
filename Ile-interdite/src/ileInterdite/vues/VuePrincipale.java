@@ -163,7 +163,7 @@ public class VuePrincipale extends Observable {
 
         getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
 
-        panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
+        panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA,10));
         getWindow().setVisible(true);
     }
 

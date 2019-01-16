@@ -49,7 +49,8 @@ public abstract class Aventurier {
         ArrayList<Tuile> tuiles = new ArrayList<>();
         for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
             if (t.getEtat() != EtatTuile.COULEE) {
-                tuiles.add(t);
+                if (!(tuiles.contains(t))){
+                tuiles.add(t);}
                 for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
                     if (tt != getTuile() && !tuiles.contains(tt)) {
                         tuiles.add(tt);
@@ -137,11 +138,7 @@ public abstract class Aventurier {
         return listeCarte;
 
     }
-
-    public void recupererTresor() {
-
-    }
-
+    
     public void removeCarte(CarteTirage carte) {
         cartes.remove(carte);
     }
