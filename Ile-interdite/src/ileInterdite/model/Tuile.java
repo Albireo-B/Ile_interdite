@@ -8,6 +8,7 @@ package ileInterdite.model;
 import utilitaires.EtatTuile;
 import java.util.ArrayList;
 import ileInterdite.model.aventurier.Aventurier;
+import utilitaires.Tresor;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Tuile {
     private ArrayList<Aventurier> aventuriers = new ArrayList();
     private Position position;
     private String nom;
+    private Tresor tresor = null;
 
     /**
      * On définit le constructeur de Tuile avec un string nom et une Position
@@ -31,6 +33,20 @@ public class Tuile {
         this.nom = nom;
         this.position = pos;
         etat = EtatTuile.SECHE;
+    }
+    
+    /**
+     * On définit le constructeur de Tuile avec un string nom et une Position
+     * pos
+     *
+     * @param nom
+     * @param pos
+     */
+    public Tuile(String nom, Position pos, Tresor tresor) {
+        this.nom = nom;
+        this.position = pos;
+        etat = EtatTuile.SECHE;
+        this.tresor = tresor;
     }
 
     /**
@@ -106,5 +122,19 @@ public class Tuile {
      */
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    /**
+     * @return the tresor
+     */
+    public Tresor getTresor() {
+        return tresor;
+    }
+
+    /**
+     * @param tresor the tresor to set
+     */
+    public void setTresor(Tresor tresor) {
+        this.tresor = tresor;
     }
 }
