@@ -389,7 +389,7 @@ public class Controleur implements Observer {
     }
 
     public void appliquerRecevoir(MessageCarte messageCarte) {
-        CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
+        CarteTirage carte = stringToCarte(messageCarte.getNomCarte(),messageCarte.getRole());
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         cartes.add(carte);
         aventurierCourant.getCartes().remove(carte);
@@ -408,14 +408,14 @@ public class Controleur implements Observer {
     
     public void appliquerCartesSpeciales(String nomCarte,Role role) {
         if (nomCarte.equals("SacDeSable")) {
-            gererSacDeSable(stringToCarte(nomCarte),role);
+            gererSacDeSable(role);
         } else {
-            gererGroupeHelicoptere(stringToCarte(nomCarte),role);  
+            gererGroupeHelicoptere(role);  
         }
         
     }
 
-    public void gererSacDeSable(CarteTirage carte,Role role){
+    public void gererSacDeSable(Role role){
         ArrayList<Tuile> liste = new ArrayList();
         for (Tuile t : grille.tuilesNonCoulees(null)) {
             if (t.getEtat() == EtatTuile.INONDEE) {
@@ -429,22 +429,20 @@ public class Controleur implements Observer {
     private void appliquerAssechementSacDeSable(MessagePos messagepos) {
         grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
-        
-        joueurs.get(messagepos.getRole()).removeCarte(stringToCarte("SacDeSable"));
-        defausseTirage.add(stringToCarte("SacDeSable"));
-        System.out.println(joueurs.get(messagepos.getRole()).cartesToString());
+        joueurs.get(messagepos.getRole()).removeCarte(stringToCarte("SacDeSable",messagepos.getRole()));
+        defausseTirage.add(stringToCarte("SacDeSable",messagepos.getRole()));
         vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
     }
 
 
     
-    public void gererGroupeHelicoptere(CarteTirage carte,Role role){
+    public void gererGroupeHelicoptere(Role role){
         for (Role roleAventurier : joueurs.keySet()){
             vuePrincipale.getPanelAventuriers().get(roleAventurier).getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
         }
         
-        joueurs.get(role).removeCarte(carte);
-        defausseTirage.add(carte);
+//        joueurs.get(role).removeCarte(carte);
+//        defausseTirage.add(carte);
     }
     
     public void gererDeplacementHelicoptere(String carte,Role role){
@@ -560,9 +558,9 @@ public class Controleur implements Observer {
         actualiserModele(arg);
     }
 
-    public CarteTirage stringToCarte(String nomCarte) {
+    public CarteTirage stringToCarte(String nomCarte, Role role) {
         CarteTirage carteSelection = null;
-        for (CarteTirage carte : aventurierCourant.getCartes()) {
+        for (CarteTirage carte : joueurs.get(role).getCartes()) {
             if (carte.getNom().equals(nomCarte)) {
                 carteSelection = carte;
             }
