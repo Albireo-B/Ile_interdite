@@ -10,6 +10,7 @@ import utilitaires.Role;
 import ileInterdite.model.cartes.*;
 import java.util.ArrayList;
 import static java.util.Collections.reverse;
+import java.util.HashMap;
 import utilitaires.ExceptionAventurier;
 import utilitaires.Tresor;
 
@@ -33,8 +34,18 @@ public class ControleurInit {
         roles.add(Role.Pilote);
         roles.add(Role.Messager);
         roles.add(Role.Ingénieur);
+        
+        HashMap<String, Tresor> tuilesTresor = new HashMap();
+        tuilesTresor.put("Le Temple de La Lune", Tresor.PIERRE);
+        tuilesTresor.put("Le Temple du Soleil", Tresor.PIERRE);
+        tuilesTresor.put("Le Palais des Marees", Tresor.CALICE);
+        tuilesTresor.put("Le Palais de Corail", Tresor.CALICE);
+        tuilesTresor.put("La Caverne des Ombres", Tresor.CRISTAL);
+        tuilesTresor.put("La Caverne du Brasier", Tresor.CRISTAL);
+        tuilesTresor.put("Le Jardin des Hurlements", Tresor.ZEPHYR);
+        tuilesTresor.put("Le Jardin des Murmures", Tresor.ZEPHYR);
 
-        Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), cartesPioche(), 2);
+        Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
 
         //initialisation inondation debut de partie
         try {
