@@ -103,6 +103,7 @@ public class VueGrille extends Observable {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
                 bouton.setButtonBorder(null);
+                bouton.getBouton().setBorderPainted(false);
             }
         }
     }
@@ -120,12 +121,11 @@ public class VueGrille extends Observable {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
                 bouton.setButtonBorder(Color.red);
+                
+                bouton.getBouton().setBorderPainted(true);
                 bouton.addActionListener((ActionEvent e) -> {
                 setChanged();
                 notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
-                  for(Position posBouton  : bTuiles.keySet()){
-            bTuiles.get(posBouton).setButtonBorder(null);
-        }
                 clearChanged();
                 });
             }
@@ -136,7 +136,8 @@ public class VueGrille extends Observable {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-                bouton.getBouton().setForeground(Color.red);
+                bouton.setButtonBorder(Color.red);
+                bouton.getBouton().setBorderPainted(true);
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
                     notifyObservers(new MessageGroupePos(act, pos, joueurSelectionné,roles));

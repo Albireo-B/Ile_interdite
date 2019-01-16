@@ -21,7 +21,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 /**
  *
@@ -108,6 +110,13 @@ public class Controleur implements Observer {
             joueurs.get(role).getVueDefausse().addObserver(this);
         }
 
+        
+        for (Role role : joueurs.keySet()){
+            Border border = BorderFactory.createLineBorder(joueurs.get(role).getPion().getCouleur(),10);
+            vuePrincipale.getPanelAventuriers().get(role).getPanelGeneral().setBorder(border);
+        }
+        
+        
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -415,6 +424,10 @@ public class Controleur implements Observer {
         tirerCartes();
         gererInondation();
         aventurierSuivant();
+        for (Role role : joueurs.keySet()){
+            Border border = BorderFactory.createLineBorder(joueurs.get(role).getPion().getCouleur(),10);
+            vuePrincipale.getPanelAventuriers().get(role).getPanelGeneral().setBorder(border);
+        }
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -437,8 +450,10 @@ public class Controleur implements Observer {
         defausseTirage.add(carteSelection);
         joueurs.get(messageCarte.getRole()).removeCarte(carteSelection);
         joueurs.get(messageCarte.getRole()).getVueDefausse().close();
+        enableGame(true);
         if (joueurs.get(messageCarte.getRole()).getCartes().size() > 5) {
             joueurs.get(messageCarte.getRole()).defausseCartes();
+            enableGame(false);
         }
         vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
 
@@ -454,12 +469,15 @@ public class Controleur implements Observer {
             joueurs.get(messageCarte.getRole()).addCartes(cartes);
         } catch (ExceptionAventurier ex) {
             joueurs.get(messageCarte.getRole()).defausseCartes();
+            enableGame(false);
         }
         vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
 
         aventurierCourant.decrementeNbActions();
     }
+    
+    
 
     public void appliquerCartesSpeciales(MessageCarte messageCarte) {
         if (messageCarte.getNomCarte().equals("SacDeSable")) {
@@ -532,6 +550,13 @@ public class Controleur implements Observer {
         System.out.println("Let's go !");
     }
 
+     
+    public void enableGame(boolean b) {
+
+        vuePrincipale.getWindow().setEnabled(b);
+    }
+    
+    
     /**
      * S'occupe de toute les opérations(logique applicative)
      *
@@ -729,6 +754,7 @@ public class Controleur implements Observer {
             aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) {
             aventurierCourant.defausseCartes();
+            enableGame(false);
         }
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }

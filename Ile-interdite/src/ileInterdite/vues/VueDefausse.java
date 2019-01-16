@@ -42,7 +42,7 @@ public class VueDefausse extends Observable {
         fenetre.setResizable(true);
 
         panelPrincipal = new JPanel(new BorderLayout());
-        JLabel explication = new JLabel("on met les explications ici");
+        JLabel explication = new JLabel("Vous avez plus de cinq cartes veuillez en défausser une :");
 
         panelCarte = new JPanel(new GridLayout(1, 1));
 
@@ -53,7 +53,7 @@ public class VueDefausse extends Observable {
     }
 
     public void actualiser(ArrayList<String> listeCartes, Role role) {
-        panelPrincipal.remove(panelCarte);
+        getPanelPrincipal().remove(getPanelCarte());
 
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
@@ -66,19 +66,40 @@ public class VueDefausse extends Observable {
                     clearChanged();
                 }
             });
-            panelCarte.add(buttonCarte);
+            getPanelCarte().add(buttonCarte);
         }
         JButton b= new JButton();
-        panelPrincipal.add(panelCarte, BorderLayout.CENTER);
+        getPanelPrincipal().add(getPanelCarte(), BorderLayout.CENTER);
         afficher();
     }
 
     public void afficher() {
-        this.fenetre.setVisible(true);
+        this.getFenetre().setVisible(true);
     }
 
     public void close() {
-        this.fenetre.dispose();
+        this.getFenetre().dispose();
+    }
+
+    /**
+     * @return the fenetre
+     */
+    public JFrame getFenetre() {
+        return fenetre;
+    }
+
+    /**
+     * @return the panelCarte
+     */
+    public JPanel getPanelCarte() {
+        return panelCarte;
+    }
+
+    /**
+     * @return the panelPrincipal
+     */
+    public JPanel getPanelPrincipal() {
+        return panelPrincipal;
     }
 
 }

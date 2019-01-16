@@ -103,7 +103,7 @@ public class IAventurier extends Observable {
     public void removeActionListener() {
         boutonAventurier.removeActionListener(actionListener);
         actionListener = null;
-        boutonAventurier.setBorder(bordureNoire);
+        boutonAventurier.setBorder(null);
     }
 
 

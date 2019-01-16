@@ -47,7 +47,7 @@ public class VuePrincipale extends Observable {
     private JButton btnAssecher;
     private JButton btnDonner;
     private JButton btnRecuperer;
-    private JButton btnTerminerTour = new JButton("Terminer Tour");
+    private JButton btnTerminerTour = new JButton("Terminer le Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
@@ -63,10 +63,14 @@ public class VuePrincipale extends Observable {
      * @param vuesAventuriers
      */
     public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers) {
-        this.btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
-        this.btnDonner = new JButton(new ImageIcon(path+"icones/iconGive.png"));
-        this.btnAssecher = new JButton(new ImageIcon(path+"icones/iconDry.png"));
-        this.btnBouger = new JButton(new ImageIcon(path+"icones/iconMove.png"));
+        btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
+        btnRecuperer.setText("Récupérer un trésor");
+        btnDonner = new JButton(new ImageIcon(path+"icones/iconGive.png"));
+        btnDonner.setText("Donner une carte trésor");
+        btnAssecher = new JButton(new ImageIcon(path+"icones/iconDry.png"));
+        btnAssecher.setText("Assécher une case");
+        btnBouger = new JButton(new ImageIcon(path+"icones/iconMove.png"));
+        btnBouger.setText("Se déplacer sur une case");
         
         window = new JFrame();
         window.setSize(1600, 800);
@@ -153,9 +157,6 @@ public class VuePrincipale extends Observable {
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
-        for (Role roleVueAventurier : panelAventuriers.keySet()) {
-            panelAventuriers.get(roleVueAventurier).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        }
         if (nombrePA == 0) {
             getBtnBouger().setVisible(false);
         } else {
@@ -167,11 +168,15 @@ public class VuePrincipale extends Observable {
         getPanelAventuriers().get(classe).getPanelGeneral().setBackground(couleur);
         getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
 
-        panelPlateau.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        panelPlateau.setBorder(new MatteBorder(0,0,2,0,couleur));
 
         getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
 
+        
         panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA,10));
+        
+        
+        
         getWindow().setVisible(true);
     }
 

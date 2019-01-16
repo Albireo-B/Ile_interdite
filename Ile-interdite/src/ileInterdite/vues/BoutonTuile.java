@@ -46,7 +46,6 @@ public class BoutonTuile extends JPanel {
         for (int c = 0; c < 4; c++) {
             JPanel p = new JPanel();
             panelCouleurs.add(p);
-            p.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
             couleurs.add(p);
         }
 
@@ -82,7 +81,7 @@ public class BoutonTuile extends JPanel {
     }
 
     public void setButtonBorder(Color c) {
-        bouton.setBorder(BorderFactory.createLineBorder(c,2));
+        bouton.setBorder(BorderFactory.createLineBorder(c,3));
     }
 
     public void setButtonEnabled(boolean e) {
