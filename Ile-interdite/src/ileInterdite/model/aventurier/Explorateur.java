@@ -39,7 +39,7 @@ public class Explorateur extends Aventurier {
      */
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g) {
-        return g.tuilesAdjacentesCarre(getTuile());
+        return enleverTuilesCoulees(g.tuilesAdjacentesCarre(getTuile()));
     }
 
     @Override

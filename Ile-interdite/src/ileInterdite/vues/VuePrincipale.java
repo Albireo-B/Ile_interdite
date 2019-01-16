@@ -32,7 +32,7 @@ import utilitaires.Action;
 public class VuePrincipale extends Observable {
 
     public enum Bouton {
-        DONNER, RECUPERER, ASSECHER, DEPLACER
+        DONNER, RECUPERER, ASSECHER, DEPLACER, TERMINER_TOUR;
     };
 
     private JFrame window;
@@ -167,24 +167,22 @@ public class VuePrincipale extends Observable {
         getWindow().setVisible(true);
     }
 
-    public void activerBouton(Bouton bouton,Boolean b) {
+    public void activerBouton(Bouton bouton, Boolean b) {
         switch (bouton) {
             case DEPLACER:
                 btnBouger.setEnabled(b);
-                
                 break;
             case ASSECHER:
                 btnAssecher.setEnabled(b);
-
                 break;
             case DONNER:
                 btnDonner.setEnabled(b);
-
                 break;
             case RECUPERER:
                 btnRecuperer.setEnabled(b);
-
                 break;
+            case TERMINER_TOUR:
+                btnTerminerTour.setEnabled(b);
         }
     }
 

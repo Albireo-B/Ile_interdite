@@ -42,7 +42,16 @@ public abstract class Aventurier {
      * @return
      */
     public ArrayList<Tuile> calculDeplacement(Grille g) {
-        return g.tuilesAdjacentesCroix(getTuile());
+        return enleverTuilesCoulees(g.tuilesAdjacentesCroix(getTuile()));
+    }
+    
+    protected ArrayList<Tuile> enleverTuilesCoulees(ArrayList<Tuile> array) {
+        ArrayList<Tuile> result = new ArrayList();
+        for (Tuile t : array) {
+            if(t.getEtat() != EtatTuile.COULEE)
+                result.add(t);
+        }
+        return result;
     }
 
     public ArrayList<Tuile> calculGuide(Grille g) {
@@ -89,7 +98,7 @@ public abstract class Aventurier {
      */
     public void reset() {
         nbAction = 3;
-        setPouvoir((Boolean) true);
+        setPouvoir(true);
     }
 
     public ArrayList<Integer> cartesTresor() {
@@ -146,7 +155,7 @@ public abstract class Aventurier {
     public Tresor tresorRecuperable() {
         Tresor tresor = getTuile().getTresor();
         if (tresor != null) {
-            if (!tresor.getRecuperé()) {
+            if (!tresor.isRecupere()) {
                 int nbTresor = 0;
                 for (CarteTirage carte : getCartes()) {
                     if (carte.getNom().equals(tresor.toString())) {
