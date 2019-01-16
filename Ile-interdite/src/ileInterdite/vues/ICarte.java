@@ -18,13 +18,12 @@ import utilitaires.Role;
  */
 public class ICarte extends JButton {
 
-    private String nom;
     private Action action;
 
     private ActionListener actionListener = null;
 
     public ICarte(String nom, Action action) {
-        this.nom = nom;
+        setNom(nom);
         this.action = action;
     }
 
@@ -46,7 +45,7 @@ public class ICarte extends JButton {
     }
 
     public MessageCarte getMessage(Role role) {
-        return new MessageCarte(nom, action, role);
+        return new MessageCarte(getNom(), action, role);
     }
 
 
@@ -54,14 +53,14 @@ public class ICarte extends JButton {
      * @return the nom
      */
     public String getNom() {
-        return nom;
+        return getName();
     }
 
     /**
      * @param nom the nom to set
      */
     public void setNom(String nom) {
-        this.nom = nom;
+        setName(nom);
         setText(nom);
     }
 

@@ -60,7 +60,6 @@ public class VueDefausse extends Observable {
         buttonCartes = new ArrayList<>();
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
-            System.out.println(nomCarte);
             ICarte buttonCarte = new ICarte(nomCarte, Action.DEFAUSSER);
             buttonCarte.addActionListener(new ActionListener() {
                 @Override
@@ -72,6 +71,7 @@ public class VueDefausse extends Observable {
             });
             panelCarte.add(buttonCarte);
         }
+        JButton b= new JButton();
         panelPrincipal.add(panelCarte, BorderLayout.CENTER);
         afficher();
     }

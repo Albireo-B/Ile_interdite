@@ -381,24 +381,24 @@ public class Controleur implements Observer {
 
         defausseTirage.add(carteSelection);
         joueurs.get(messageCarte.getRole()).removeCarte(carteSelection);
-        vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
         joueurs.get(messageCarte.getRole()).getVueDefausse().close();
+        if (joueurs.get(messageCarte.getRole()).getCartes().size()>5){
+            joueurs.get(messageCarte.getRole()).defausseCartes();
+        }
+        //vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
+        
     }
 
     public void appliquerRecevoir(MessageCarte messageCarte) {
         CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         cartes.add(carte);
-        System.out.println(aventurierCourant.getCartes());
         aventurierCourant.getCartes().remove(carte);
-        System.out.println(aventurierCourant.getCartes());
         try {
             joueurs.get(messageCarte.getRole()).addCartes(cartes);
         } catch (ExceptionAventurier ex) {
             joueurs.get(messageCarte.getRole()).defausseCartes();
         }
-        System.out.println(joueurs.get(messageCarte.getRole()).getCartes());
-        System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
         vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
 
