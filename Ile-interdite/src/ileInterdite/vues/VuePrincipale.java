@@ -170,19 +170,19 @@ public class VuePrincipale extends Observable {
     public void cacherBouton(Bouton bouton) {
         switch (bouton) {
             case DEPLACER:
-                btnBouger.setVisible(false);
+                btnBouger.setEnabled(false);
                 System.out.println("bouger" + btnBouger.isVisible());
                 break;
             case ASSECHER:
-                btnAssecher.setVisible(false);
+                btnAssecher.setEnabled(false);
                 System.out.println("Assecher" + btnAssecher.isVisible());
                 break;
             case DONNER:
-                btnDonner.setVisible(false);
+                btnDonner.setEnabled(false);
                 System.out.println("Donner" + btnDonner.isVisible());
                 break;
             case RECUPERER:
-                btnRecuperer.setVisible(false);
+                btnRecuperer.setEnabled(false);
                 System.out.println("Recuperer" + btnRecuperer.isVisible());
                 break;
         }
@@ -191,19 +191,19 @@ public class VuePrincipale extends Observable {
     public void afficherBouton(Bouton bouton) {
         switch (bouton) {
             case DEPLACER:
-                btnBouger.setVisible(true);
+                btnBouger.setEnabled(true);
                 System.out.println("bouger" + btnBouger.isVisible());
                 break;
             case ASSECHER:
-                btnAssecher.setVisible(true);
+                btnAssecher.setEnabled(true);
                 System.out.println("Assecher" + btnAssecher.isVisible());
                 break;
             case DONNER:
-                btnDonner.setVisible(true);
+                btnDonner.setEnabled(true);
                 System.out.println("Donner" + btnDonner.isVisible());
                 break;
             case RECUPERER:
-                btnRecuperer.setVisible(true);
+                btnRecuperer.setEnabled(true);
                 System.out.println("Recuperer" + btnRecuperer.isVisible());
                 break;
         }

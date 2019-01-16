@@ -102,7 +102,6 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
-        
     }
 
     public void initInondation() {
@@ -168,7 +167,7 @@ public class Controleur implements Observer {
             };
             vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
-        resetBoutons();
+        updateBoutons();
     }
 
     /**
@@ -331,7 +330,7 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
-        resetBoutons();
+        updateBoutons();
     }
 
     public void actualiserModele(Object arg) {
@@ -670,8 +669,15 @@ public class Controleur implements Observer {
         //à compléter
 
     }
+    
+    private void resetButtons() {
+        vuePrincipale.cacherBouton(Bouton.DEPLACER);
+        vuePrincipale.cacherBouton(Bouton.ASSECHER);
+        vuePrincipale.cacherBouton(Bouton.DONNER);
+        vuePrincipale.cacherBouton(Bouton.RECUPERER);
+    }
 
-    private void resetBoutons() {
+    private void updateBoutons() {
         if (aventurierCourant.calculDeplacement(grille).isEmpty())
             vuePrincipale.cacherBouton(Bouton.DEPLACER);
         else
