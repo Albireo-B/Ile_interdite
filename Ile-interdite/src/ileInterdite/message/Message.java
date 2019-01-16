@@ -15,12 +15,13 @@ import utilitaires.Role;
 public class Message {
 
     private Action action;
-    Role role;
+    private Role role;
 
     /**
      * On définit le constructeur de message avec une action Action
      *
      * @param action
+     * @param role
      */
     public Message(Action action, Role role) {
         this.action = action;
@@ -48,4 +49,6 @@ public class Message {
     public Role getRole() {
         return role;
     }
+
+
 }

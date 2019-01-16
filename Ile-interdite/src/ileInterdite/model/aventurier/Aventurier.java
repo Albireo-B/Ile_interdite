@@ -173,7 +173,7 @@ public abstract class Aventurier {
         }
         cartes = new ArrayList(nouveauDeck);
     }
-
+    
     //Getters et Setters :
     public Position getPosition() {
         return getTuile().getPosition();
