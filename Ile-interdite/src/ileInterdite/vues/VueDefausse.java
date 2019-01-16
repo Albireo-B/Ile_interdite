@@ -28,7 +28,6 @@ import utilitaires.Role;
 public class VueDefausse extends Observable {
 
     private JFrame fenetre;
-    private ArrayList<ICarte> buttonCartes;
     private JPanel panelCarte;
     private JPanel panelPrincipal;
 
@@ -57,7 +56,6 @@ public class VueDefausse extends Observable {
     public void actualiser(ArrayList<String> listeCartes, Role role) {
         panelPrincipal.remove(panelCarte);
 
-        buttonCartes = new ArrayList<>();
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
             ICarte buttonCarte = new ICarte(nomCarte, Action.DEFAUSSER);
