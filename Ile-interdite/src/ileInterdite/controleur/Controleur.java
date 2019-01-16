@@ -31,6 +31,7 @@ public class Controleur implements Observer {
 
     private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
+    private HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
     
     
     private HashMap<Role, Aventurier> joueurs = new HashMap<>();
@@ -84,13 +85,12 @@ public class Controleur implements Observer {
         setRoles(nomsjoueurs, roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
         
-        HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
         int cptr = 0;
         for (Role role : joueurs.keySet()) {
             vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
             VueAventurier newVueAv = new VueAventurier(role, cptr == 0 || cptr == 3);
-            newVueAv.addObserver(this);
             vuesAventuriers.put(role, newVueAv);
+            newVueAv.addObserver(this);
             cptr++;
         }
         
@@ -296,6 +296,9 @@ public class Controleur implements Observer {
     public void bougerJoueurUrgence(Aventurier av) {
         gererDeplacement(av);
         bloquerBoutons();
+        for (VueAventurier vueav : vuesAventuriers.values()) {
+            vueav.desactiverCartes();
+        }
     }
 
     /**
@@ -566,6 +569,8 @@ public class Controleur implements Observer {
         if (arg instanceof MessagePos) {
             if (!attenteMouvementUrgence.isEmpty())
                 attenteMouvementUrgence.remove(0);
+            for (VueAventurier vueAv : vuesAventuriers.values())
+                vueAv.actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
                 
             MessagePos messagepos = (MessagePos) arg;
             vueGrille.tousBoutonsInertes();
@@ -730,7 +735,7 @@ public class Controleur implements Observer {
         } catch (ExceptionAventurier e) {
             aventurierCourant.defausseCartes();
         }
-        vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
+        vuesAventuriers.get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
 
     public void gererDon() {

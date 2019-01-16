@@ -150,6 +150,13 @@ public class VueAventurier extends Observable {
     public void devenirSuiveur(boolean suivre) {
         carteJoueur.devenirSuiveur(suivre);
     }
+    
+    public void desactiverCartes() {
+        for (ICarte carte : buttonCartes) {
+            carte.removeActionListener();
+        }
+    }
+    
 
     //Getters et Setters :
     

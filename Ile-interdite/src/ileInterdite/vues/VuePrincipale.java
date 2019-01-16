@@ -70,7 +70,7 @@ public class VuePrincipale extends Observable {
         
         
         window = new JFrame();
-        window.setSize(1600, 800);
+        window.setSize(1400, 970);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setTitle("Ile interdite");
         window.add(panelPrincipal);
