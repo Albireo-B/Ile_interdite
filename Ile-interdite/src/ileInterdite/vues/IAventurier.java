@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import utilitaires.Action;
 import utilitaires.Role;
@@ -59,7 +60,7 @@ public class IAventurier extends Observable {
                 notifyObservers(new Message(Action.SUIVRE, role));
                 clearChanged();
             }
-        });}else{
+        });} else {
             removeActionListener();
         }
     }
@@ -106,6 +107,7 @@ public class IAventurier extends Observable {
             actionListener = act;
             boutonAventurier.addActionListener(act);
             boutonAventurier.setForeground(Color.red);
+            boutonAventurier.setBorder(BorderFactory.createLineBorder(Color.red,4));
         } else {
             System.out.println("ERREUR IAventurier: N'essayez pas d'ajouter deux actionlisteners");
         }

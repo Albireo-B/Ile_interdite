@@ -113,6 +113,7 @@ public abstract class Aventurier {
      * Permet de déplacer un aventurier sur une nouvelle Tuile en supprimant sa
      * position précédente
      *
+     * @param grille
      * @param tuile
      */
     public void setTuile(Grille grille, Tuile tuile) {

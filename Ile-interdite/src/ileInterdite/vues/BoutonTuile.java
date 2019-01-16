@@ -79,7 +79,7 @@ public class BoutonTuile extends JPanel {
     }
 
     public void setButtonForeground(Color c) {
-        bouton.setBorder(BorderFactory.createLineBorder(c,2));
+        bouton.setForeground(c);
     }
 
     public void setButtonBackground(Color c) {
