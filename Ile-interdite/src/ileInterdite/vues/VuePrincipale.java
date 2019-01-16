@@ -9,6 +9,7 @@ import utilitaires.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -42,10 +43,10 @@ public class VuePrincipale extends Observable {
     private HashMap<Role, VueAventurier> panelAventuriers;
     private JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-    private JButton btnBouger = new JButton("Bouger");
-    private JButton btnAssecher = new JButton("Assecher");
-    private JButton btnDonner = new JButton("Donner");
-    private JButton btnRecuperer = new JButton("Récuper");
+    private JButton btnBouger;
+    private JButton btnAssecher;
+    private JButton btnDonner;
+    private JButton btnRecuperer;
     private JButton btnTerminerTour = new JButton("Terminer Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
@@ -59,9 +60,15 @@ public class VuePrincipale extends Observable {
      * On définit un constructeur de VueAventurier avec une VueGrille v
      *
      * @param v
-     * @param roleAventurier
+     * @param vuesAventuriers
      */
     public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers) {
+        this.btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
+        this.btnDonner = new JButton(new ImageIcon(path+"icones/iconGive.png"));
+        this.btnAssecher = new JButton(new ImageIcon(path+"icones/iconDry.png"));
+        this.btnBouger = new JButton(new ImageIcon(path+"icones/iconMove.png"));
+        
+        
         window = new JFrame();
         window.setSize(1600, 800);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -69,17 +76,18 @@ public class VuePrincipale extends Observable {
         window.add(panelPrincipal);
 
         JPanel panelCentre = new JPanel(new BorderLayout());
-
         panelPlateau.add(v.getPanelGrille(), BorderLayout.CENTER);
+       
 
         labelNomJoueur.setForeground(Color.WHITE);
 
-        JPanel paneGauche = new JPanel(new GridLayout(2, 1));
+        JPanel paneGauche = new JPanel(new BorderLayout());
 
-        JPanel paneDroite = new JPanel(new GridLayout(2, 1));
+        JPanel paneDroite = new JPanel(new BorderLayout());
 
         panelPrincipal.add(paneGauche, BorderLayout.WEST);
         panelPrincipal.add(paneDroite, BorderLayout.EAST);
+        
 
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
 
@@ -136,12 +144,13 @@ public class VuePrincipale extends Observable {
         panelAventuriers = vuesAventuriers;
 
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
+        paneGauche.add(listeVuesAv.get(0).getPanelGeneral(),BorderLayout.NORTH);
+        paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
+        paneGauche.setPreferredSize(new Dimension(330,200));
 
-        paneGauche.add(listeVuesAv.get(0).getPanelGeneral());
-        paneGauche.add(listeVuesAv.get(3).getPanelGeneral());
-
-        paneDroite.add(listeVuesAv.get(1).getPanelGeneral());
-        paneDroite.add(listeVuesAv.get(2).getPanelGeneral());
+        paneDroite.add(listeVuesAv.get(1).getPanelGeneral(),BorderLayout.NORTH);
+        paneDroite.add(listeVuesAv.get(2).getPanelGeneral(),BorderLayout.SOUTH);
+        paneDroite.setPreferredSize(new Dimension(330, 200));
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {

@@ -17,7 +17,7 @@ import utilitaires.Tresor;
 public class Grille {
 
     private final int longueurTerrain = 6;
-    HashMap<Position, Tuile> tuiles = new HashMap();
+    private HashMap<Position, Tuile> tuiles = new HashMap();
     protected Tuile tuileHeliport = null;
 
     /**

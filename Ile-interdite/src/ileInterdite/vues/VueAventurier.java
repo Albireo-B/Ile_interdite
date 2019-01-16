@@ -8,9 +8,14 @@ package ileInterdite.vues;
 import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Action;
@@ -27,6 +32,10 @@ public class VueAventurier extends Observable {
     private JPanel panelGeneral;
     private ArrayList<ICarte> buttonCartes;
     private Role roleAventurier;
+    private String pathPerso = "src/images/personnages/";
+    private String pathCartes = "src/images/cartes/";
+    private int width=120;
+    private int height=200;
 
     public VueAventurier(Role roleAventurier, boolean gauche) {
 
@@ -39,7 +48,36 @@ public class VueAventurier extends Observable {
 
         //===================pannel en haut avec les button et la classe====
         paneClass = new JPanel(new BorderLayout());
-        carteJoueur = new IAventurier(new JButton(roleAventurier.toString()), roleAventurier);
+        
+       
+        switch (roleAventurier){
+            case Explorateur:
+                ImageIcon iconeAv = new ImageIcon(new ImageIcon(pathPerso+ "explorateur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeAv), roleAventurier);
+                break;
+            case Ingénieur:
+                ImageIcon iconeIng = new ImageIcon(new ImageIcon(pathPerso+ "ingenieur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeIng), roleAventurier);
+                break;
+                 
+            case Messager:
+                ImageIcon iconeMess = new ImageIcon(new ImageIcon(pathPerso+ "messager.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeMess), roleAventurier);
+                break;
+            case Navigateur:
+                ImageIcon iconeNav = new ImageIcon(new ImageIcon(pathPerso+ "navigateur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeNav), roleAventurier);
+                break;
+            case Pilote:
+                ImageIcon iconePil = new ImageIcon(new ImageIcon(pathPerso+ "pilote.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconePil), roleAventurier);
+                break;
+            case Plongeur:
+                ImageIcon iconePlong = new ImageIcon(new ImageIcon(pathPerso+ "plongeur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconePlong), roleAventurier);
+                break;
+        }
+       
 
         buttonCartes = new ArrayList<>();
 
@@ -50,41 +88,50 @@ public class VueAventurier extends Observable {
             if ((i == 0 && !gauche) || (i == 2 && gauche)) {
                 panelPrincipal.add(paneClass);
             }
-            buttonCartes.add(new ICarte("_", Action.DONNER));
+            buttonCartes.add(new ICarte(null, Action.DONNER));
             panelPrincipal.add(buttonCartes.get(i));
 
         }
         
         panelGeneral.add(panelPrincipal);
     }
+
     
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
-        for (int i = 0; i < 5 && i < listeCarte.size(); i++) {
-            getButtonCartes().get(i).setNom(listeCarte.get(i));
-            getButtonCartes().get(i).removeActionListener();                //A ROLE IS NEEDED MY BOY
-            j = i;
-            if (buttonCartes.get(i).getNom().equals("Helicoptere") ){
-                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+
+        while ( j < listeCarte.size() && j<5) {
+            getButtonCartes().get(j).setImage(listeCarte.get(j));
+            getButtonCartes().get(j).removeActionListener();                
+            if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
+                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
                     setChanged();
                     notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
-            }else if (buttonCartes.get(i).getNom().equals("SacDeSable")){
-                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+
+            }else if (buttonCartes.get(j).getNom().equals("SacsDeSable")){
+                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
+
                     setChanged();
-                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(new MessageCarte("SacsDeSable",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
             }
+            j++;
         }
         for (int i = j + 1; i < 5; i++) {
-            getButtonCartes().get(i).setNom("_");
+            getButtonCartes().get(i).setImage(null);
+
             getButtonCartes().get(i).removeActionListener();
         }
 
     }
 
+    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
+        
+    }
     public void rendreCartesCliquables(ArrayList<Integer> listePos) {
         for (Integer carteCliquable : listePos) {
             ICarte carte = buttonCartes.get(carteCliquable);
@@ -105,6 +152,7 @@ public class VueAventurier extends Observable {
     }
 
     //Getters et Setters :
+    
     /**
      * @return the nomAventurier
      */
@@ -153,6 +201,20 @@ public class VueAventurier extends Observable {
      */
     public JPanel getPanelGeneral() {
         return panelGeneral;
+    }
+
+    /**
+     * @param width the width to set
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * @param height the height to set
+     */
+    public void setHeight(int height) {
+        this.height = height;
     }
 
 }

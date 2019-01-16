@@ -5,7 +5,6 @@
  */
 package ileInterdite.message;
 
-import ileInterdite.model.Position;
 import java.util.ArrayList;
 import utilitaires.Action;
 import utilitaires.Role;
@@ -14,12 +13,28 @@ import utilitaires.Role;
  *
  * @author vinetg
  */
-public class MessageGroupe extends MessagePos {
-        
-    
-    
-    public MessageGroupe(Action action,Position pos,ArrayList<Role> roles){
-        super(action,pos,roles.get(0));
-        
+public class MessageGroupe extends Message {
+
+    private ArrayList<Role> roles = new ArrayList<>();
+
+    /**
+     * On définit le constructeur de message avec une action Action
+     *
+     * @param action
+     * @param role
+     */
+    public MessageGroupe(Action action,Role role, ArrayList<Role> roles) {
+        super(action,role);
+        this.roles = roles;
     }
+
+    //Getters et Setters :
+    /**
+     * @return the role
+     */
+    public ArrayList<Role> getRoles() {
+        return roles;
+    }
+
+
 }

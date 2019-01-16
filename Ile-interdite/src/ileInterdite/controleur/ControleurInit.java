@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+*Tochangethislicenseheader,chooseLicenseHeadersinProjectProperties.
+*Tochangethistemplatefile,chooseTools|Templates
+*andopenthetemplateintheeditor.
+*/
 package ileInterdite.controleur;
 
 import ileInterdite.model.Position;
@@ -13,115 +13,98 @@ import static java.util.Collections.reverse;
 import java.util.HashMap;
 import utilitaires.ExceptionAventurier;
 import utilitaires.Tresor;
-
-/**
- *
- * @author vinetg
- */
-public class ControleurInit {
-
-    public ControleurInit() {
-
-        // initialisation joueurs
-        ArrayList<String> avens = new ArrayList<>();
-        avens.add("Lois");
-        avens.add("Alexis");
-        avens.add("Guillaume");
-        avens.add("Clement");
-
-        ArrayList<Role> roles = new ArrayList();
-        roles.add(Role.Navigateur);
-        roles.add(Role.Pilote);
-        roles.add(Role.Messager);
-        roles.add(Role.Ingénieur);
         
-        HashMap<String, Tresor> tuilesTresor = new HashMap();
-        tuilesTresor.put("Le Temple de La Lune", Tresor.PIERRE);
-        tuilesTresor.put("Le Temple du Soleil", Tresor.PIERRE);
-        tuilesTresor.put("Le Palais des Marees", Tresor.CALICE);
-        tuilesTresor.put("Le Palais de Corail", Tresor.CALICE);
-        tuilesTresor.put("La Caverne des Ombres", Tresor.CRISTAL);
-        tuilesTresor.put("La Caverne du Brasier", Tresor.CRISTAL);
-        tuilesTresor.put("Le Jardin des Hurlements", Tresor.ZEPHYR);
-        tuilesTresor.put("Le Jardin des Murmures", Tresor.ZEPHYR);
 
-        Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
+/*
+*@authorvinetg
+*/
+public class ControleurInit{
 
-        //initialisation inondation debut de partie
-        ctrl.monteeDesEaux(new Position(2, 0));
-        ctrl.monteeDesEaux(new Position(4, 3));
-        ctrl.monteeDesEaux(new Position(2, 5));
-        ctrl.monteeDesEaux(new Position(2, 3));
-        ctrl.monteeDesEaux(new Position(0, 3));
+    public ControleurInit(){
 
-        ctrl.monteeDesEaux(new Position(3, 2));
-        ctrl.monteeDesEaux(new Position(3, 2));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 2)));
+    //initialisationjoueurs
+    ArrayList<String> avens=new ArrayList<>();
+    avens.add("Lois");
+    avens.add("Alexis");
+    avens.add("Guillaume");
+    avens.add("Clement");
 
-        ctrl.monteeDesEaux(new Position(3, 3));
-        ctrl.monteeDesEaux(new Position(3, 3));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 3)));
+    ArrayList<Role> roles=new ArrayList<>();
+    roles.add(Role.Navigateur);
+    roles.add(Role.Pilote);
+    roles.add(Role.Messager);
+    roles.add(Role.Ingénieur);
+    
+    HashMap<String, Tresor> tuilesTresor = new HashMap();
+    tuilesTresor.put("Le Temple de La Lune", Tresor.PIERRE);
+    tuilesTresor.put("Le Temple du Soleil", Tresor.PIERRE);
+    tuilesTresor.put("Le Palais des Marees", Tresor.CALICE);
+    tuilesTresor.put("Le Palais de Corail", Tresor.CALICE);
+    tuilesTresor.put("La Caverne des Ombres", Tresor.CRISTAL);
+    tuilesTresor.put("La Caverne du Brasier", Tresor.CRISTAL);
+    tuilesTresor.put("Le Jardin des Hurlements", Tresor.ZEPHYR);
+    tuilesTresor.put("Le Jardin des Murmures", Tresor.ZEPHYR);
 
-        ctrl.monteeDesEaux(new Position(3, 4));
-        ctrl.monteeDesEaux(new Position(3, 4));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3, 4)));
 
-        ctrl.monteeDesEaux(new Position(1, 3));
-        ctrl.monteeDesEaux(new Position(1, 3));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(1, 3)));
+    Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
 
-        ctrl.initCartes();
+    ctrl.initCartes();
     }
 
-    public ArrayList<String> nomsDesTuiles() {
-        ArrayList<String> ndt = new ArrayList<>();
-        ndt.add("Le Pont des Abimes");
-        ndt.add("La Porte de Bronze");
-        ndt.add("La Caverne des Ombres");
-        ndt.add("La Porte de Fer");
-        ndt.add("La Porte d'Or");
-        ndt.add("Les Falaises de l'Oubli");
-        ndt.add("Le Palais de Corail");
-        ndt.add("La Porte d'Argent");
-        ndt.add("Les Dunes de l'Illusion");
-        ndt.add("Heliport");
-        ndt.add("La Porte de Cuivre");
-        ndt.add("Le Jardin des Hurlements");
-        ndt.add("La Foret Pourpre");
-        ndt.add("Le Lagon Perdu");
-        ndt.add("Le Marais Brumeux");
-        ndt.add("Observatoire");
-        ndt.add("Le Rocher Fantome");
-        ndt.add("La Caverne du Brasier");
-        ndt.add("Le Temple du Soleil");
-        ndt.add("Le Temple de La Lune");
-        ndt.add("Le Palais des Marees");
-        ndt.add("Le Val du Crepuscule");
-        ndt.add("La Tour du Guet");
-        ndt.add("Le Jardin des Murmures");
-        reverse(ndt);
-        return ndt;
+    public ArrayList<String> nomsDesTuiles(){
+    ArrayList<String> ndt=new ArrayList<>();
+    ndt.add("LePontDesAbimes");
+    ndt.add("LaPorteDeBronze");
+    ndt.add("LaCaverneDesOmbres");
+    ndt.add("LaPorteDeFer");
+    ndt.add("LaPortedOr");
+    ndt.add("LesFalaisesDeLOubli");
+    ndt.add("LePalaisDeCorail");
+    ndt.add("LaPortedArgent");
+    ndt.add("LesDunesDeLIllusion");
+    ndt.add("Heliport");
+    ndt.add("LaPorteDeCuivre");
+    ndt.add("LeJardinDesHurlements");
+    ndt.add("LaForetPourpre");
+    ndt.add("LeLagonPerdu");
+    ndt.add("LeMaraisBrumeux");
+    ndt.add("Observatoire");
+    ndt.add("LeRocherFantome");
+    ndt.add("LaCaverneDuBrasier");
+    ndt.add("LeTempleDuSoleil");
+    ndt.add("LeTempleDeLaLune");
+    ndt.add("LePalaisDesMarees");
+    ndt.add("LeValDuCrepuscule");
+    ndt.add("LaTourDuGuet");
+    ndt.add("LeJardinDesMurmures");
+    reverse(ndt);
+    return ndt;
 
     }
 
-    public ArrayList<CarteTirage> cartesPioche() {
-        ArrayList<CarteTirage> pioche = new ArrayList<>();
+    public ArrayList<CarteTirage> cartesPioche(){
+        
+    ArrayList<CarteTirage> pioche=new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 5; j++) {
-                pioche.add(new CarteTresor(Tresor.values()[i]));
-            }
+    for(int i=0;i<4;i++){
+        for(int j=0;j<5;j++){
+            pioche.add(new CarteTresor(Tresor.values()[i]));
         }
-        for (int i = 0; i < 3; i++) {
-            pioche.add(new CarteHelicoptere());
-        }
+    }
+    
+    for(int i=0;i<3;i++){
+        pioche.add(new CarteHelicoptere());
+    }
 
-        for (int i = 0; i < 2; i++) {
-            pioche.add(new CarteSacDeSable());
-        }
-        for (int i = 0; i < 3; i++) {
-            pioche.add(new CarteMonteeDesEaux());
-        }
-        return pioche;
+    for(int i=0;i<2;i++){
+        pioche.add(new CarteSacDeSable());
+    } 
+    
+    for(int i=0;i<3;i++){
+        pioche.add(new CarteMonteeDesEaux());
+    }
+    
+    return pioche;
+    
     }
 }

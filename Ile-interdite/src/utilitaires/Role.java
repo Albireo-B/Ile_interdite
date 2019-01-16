@@ -10,12 +10,12 @@ package utilitaires;
  * @author deniaul
  */
 public enum Role {
-    Explorateur("La Porte de Cuivre"),
-    Ingénieur("La Porte de Bronze"),
-    Messager("La Porte d'Argent"),
+    Explorateur("LaPorteDeCuivre"),
+    Ingénieur("LaPorteDeBronze"),
+    Messager("LaPortedArgent"),
     Pilote("Heliport"),
-    Navigateur("La Porte d'Or"),
-    Plongeur("La Porte de Fer");
+    Navigateur("LaPortedOr"),
+    Plongeur("LaPorteDeFer");
 
     private String caseDepart;
 
