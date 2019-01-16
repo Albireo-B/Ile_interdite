@@ -15,6 +15,9 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
@@ -373,7 +376,7 @@ public class Controleur implements Observer {
         }
         if (carteSelection.getUtilisable()) {
             if (carteSelection instanceof CarteHelicoptere) {
-                gererHelicoptere(carteSelection,messageCarte.getRole());
+                gererGroupeHelicoptere(carteSelection,messageCarte.getRole());
             } else {
                 gererSacDeSable(carteSelection,messageCarte.getRole());
             }
@@ -411,9 +414,7 @@ public class Controleur implements Observer {
         if (nomCarte.equals("SacDeSable")) {
             gererSacDeSable(stringToCarte(nomCarte),role);
         } else {
-            gererHelicoptere(stringToCarte(nomCarte),role);      
-            joueurs.get(role).removeCarte(stringToCarte(nomCarte));
-            defausseTirage.add(stringToCarte(nomCarte));
+            gererGroupeHelicoptere(stringToCarte(nomCarte),role);  
         }
         
     }
@@ -438,16 +439,26 @@ public class Controleur implements Observer {
 
 
     
-    public void gererHelicoptere(CarteTirage carte,Role role){
-        ArrayList<Position> listePosAventuriers=new ArrayList<>();
+    public void gererGroupeHelicoptere(CarteTirage carte,Role role){
         for (Role roleAventurier : joueurs.keySet()){
-            listePosAventuriers.add(joueurs.get(roleAventurier).getPosition());
+            vuePrincipale.getPanelAventuriers().get(roleAventurier).getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
         }
-        vueGrille.actualiserBoutonsCliquables(listePosAventuriers, Action.DEPLACERHELICOPTERE, role);
+        
         joueurs.get(role).removeCarte(carte);
         defausseTirage.add(carte);
     }
-  
+    
+    public void gererDeplacementHelicoptere(String carte,Role role){
+       ArrayList<Position> listePos = new ArrayList<>();
+       for (Tuile t : grille.tuilesNonCoulees(null)){
+           listePos.add(t.getPosition());
+       }
+       vueGrille.actualiserBoutonsCliquables(listePos,Action.DEPLACERGROUPEHELICO,role);
+    }
+    
+    public void appliquerDeplacementhelicoptere(MessagePos messagepos){
+           
+    }
     
     /**
      * S'occupe de toute les opérations(logique applicative)
@@ -479,6 +490,10 @@ public class Controleur implements Observer {
                 case CARTESPECIALE:
                     appliquerCartesSpeciales(messageCarte.getNomCarte(),messageCarte.getRole());
                     break;
+                 //Si le message possède l'action GROUPEHELICO
+                case GROUPEHELICO:
+                    gererDeplacementHelicoptere(messageCarte.getNomCarte(),messageCarte.getRole());
+                    break;
             }
         }
         else
@@ -504,6 +519,7 @@ public class Controleur implements Observer {
                     appliquerAssechementSacDeSable(messagepos);
                     vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
                     break;
+              
             }
         }
         else
