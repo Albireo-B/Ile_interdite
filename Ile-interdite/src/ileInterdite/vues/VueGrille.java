@@ -13,6 +13,7 @@ import utilitaires.Action;
 import utilitaires.Pion;
 import ileInterdite.message.MessagePos;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.GridLayout;
@@ -90,7 +91,7 @@ public class VueGrille extends Observable {
                 }
             }
         }
-
+    
     }
 
     /**
@@ -100,7 +101,7 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
-                bouton.setButtonBackground(Color.white);
+                bouton.setButtonBorder(null);
             }
         }
     }
@@ -117,12 +118,12 @@ public class VueGrille extends Observable {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-                bouton.setButtonBackground(Color.red);
+                bouton.setButtonBorder(Color.red);
                 bouton.addActionListener((ActionEvent e) -> {
                 setChanged();
                 notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
                   for(Position posBouton  : bTuiles.keySet()){
-            bTuiles.get(posBouton).getBouton().setBorder(null);
+            bTuiles.get(posBouton).setButtonBorder(null);
         }
                 clearChanged();
                 });
