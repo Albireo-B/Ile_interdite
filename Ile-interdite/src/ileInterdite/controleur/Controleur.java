@@ -37,7 +37,6 @@ public class Controleur implements Observer {
     private ArrayList<CarteTirage> defausseTirage = new ArrayList<>();
     private int niveauEau;
     private ArrayList<Role> listeRoles;
-    private Boolean peutDonner = true;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -66,9 +65,6 @@ public class Controleur implements Observer {
         }
 
         piocheTirage = pioche;
-
-        //initialiser main des joueurs
-        initCartes();
 
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
@@ -106,7 +102,7 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
-
+        
     }
 
     public void initInondation() {
@@ -172,6 +168,7 @@ public class Controleur implements Observer {
             };
             vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
         }
+        resetBoutons();
     }
 
     /**
@@ -334,6 +331,7 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+        resetBoutons();
     }
 
     public void actualiserModele(Object arg) {
@@ -346,7 +344,6 @@ public class Controleur implements Observer {
                 && !casesAssechables.isEmpty())) {
             nextTurn();
         }
-        //resetBoutons();
     }
 
     /**
@@ -675,38 +672,21 @@ public class Controleur implements Observer {
     }
 
     private void resetBoutons() {
-        //pouvoirs non pris en compte
-        System.out.println("resetBoutons::" + (aventurierCourant.calculDeplacement(grille) == null ? "Déplacement impossible" : "Déplacements possibles"));
-
-        if (aventurierCourant.calculDeplacement(grille) == null) {
+        if (aventurierCourant.calculDeplacement(grille).isEmpty())
             vuePrincipale.cacherBouton(Bouton.DEPLACER);
-
-        } else {
+        else
             vuePrincipale.afficherBouton(Bouton.DEPLACER);
-        }
-
-        System.out.println("resetBoutons::" + (aventurierCourant.calculAssechement(grille) == null ? "Asséchement impossible" : "Asséchement possibles"));
-
-        if (aventurierCourant.calculAssechement(grille) == null) {
-
+        
+        if (aventurierCourant.calculAssechement(grille).isEmpty())
             vuePrincipale.cacherBouton(Bouton.ASSECHER);
-        } else {
+        else
             vuePrincipale.afficherBouton(Bouton.ASSECHER);
-        }
-
-        for (Role av : joueurs.keySet()) {
-            System.out.println(aventurierCourant.getTuile());
-            System.out.println(joueurs.get(av).getTuile());
-            System.out.println(aventurierCourant);
-            System.out.println(joueurs.get(av));
-            System.out.println(aventurierCourant.getCartes().size());
-            if (aventurierCourant.getTuile().equals(joueurs.get(av).getTuile()) && aventurierCourant != joueurs.get(av) && aventurierCourant.getCartes().size() != 0) {
-                peutDonner = true;
-
-            } else {
-                peutDonner = false;
-            }
-        }
+        
+        Boolean peutDonner = true;
+        ArrayList<Aventurier> avSurCase = aventurierCourant.getTuile().getAventuriers();
+        if (avSurCase.size() <= 1 || aventurierCourant.getCartes().isEmpty())
+            peutDonner = false;
+        
         if (peutDonner) {
             vuePrincipale.afficherBouton(Bouton.DONNER);
         } else {
