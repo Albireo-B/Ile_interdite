@@ -15,7 +15,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 /**
  *
@@ -36,7 +35,7 @@ public class BoutonTuile extends JPanel {
 
     public BoutonTuile(String nom) {
         super(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         bouton = new JButton(imgTuile);
         add(bouton, BorderLayout.CENTER);
@@ -82,7 +81,7 @@ public class BoutonTuile extends JPanel {
         bouton.setForeground(c);
     }
 
-    public void setButtonBackground(Color c) {
+    public void setButtonBorder(Color c) {
         bouton.setBorder(BorderFactory.createLineBorder(c,2));
     }
 

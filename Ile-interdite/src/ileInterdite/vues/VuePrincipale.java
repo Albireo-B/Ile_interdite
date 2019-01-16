@@ -68,7 +68,6 @@ public class VuePrincipale extends Observable {
         this.btnAssecher = new JButton(new ImageIcon(path+"icones/iconDry.png"));
         this.btnBouger = new JButton(new ImageIcon(path+"icones/iconMove.png"));
         
-        
         window = new JFrame();
         window.setSize(1400, 970);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
