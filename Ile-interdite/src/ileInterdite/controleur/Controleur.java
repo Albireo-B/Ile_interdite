@@ -126,8 +126,7 @@ public class Controleur implements Observer {
                 }
             }
         }
-        listeRoles = new ArrayList<>(joueurs.keySet());
-        
+        listeRoles = new ArrayList<>(joueurs.keySet());  
     }
 
     public Aventurier créerAventurier(Tuile t, String n, Role r) {
@@ -552,7 +551,6 @@ public class Controleur implements Observer {
                 }
             }
         }
-        
         actualiserVue(arg);
         actualiserModele(arg);
     }
@@ -586,7 +584,6 @@ public class Controleur implements Observer {
         } else {
             j = 5;
         }
-
         //Pour chauqe niveau d'eau
         for (int i = 0; i < j; i++) {
             //Si la pioche inondation n'est pas vide
@@ -629,7 +626,6 @@ public class Controleur implements Observer {
                 piocheTirage.addAll(defausseTirage);
                 defausseTirage.clear();
             }
-
         }
         if (trigger) {
             Collections.shuffle(defausseInondation);
@@ -640,9 +636,7 @@ public class Controleur implements Observer {
             aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) {
             aventurierCourant.defausseCartes();
-
         }
-
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
 
@@ -673,7 +667,6 @@ public class Controleur implements Observer {
         if (aventurierCourant.tresorRecuperable() != null) {
             recupererTresor();
         }
-
     }
 
     public void recupererTresor() {
@@ -682,16 +675,16 @@ public class Controleur implements Observer {
         if (tresor != null) {
             switch(tresor) {
                 case CALICE:
-                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"calice.png"));
+                    vueGrille.getTresors().get(tresor.CALICE).setTrouve(true);
                     break;
                 case CRISTAL:
-                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"cristal.png"));
+                    vueGrille.getTresors().get(tresor.CRISTAL).setTrouve(true);
                     break;
                 case PIERRE:
-                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"pierre.png"));
+                    vueGrille.getTresors().get(tresor.PIERRE).setTrouve(true);
                     break;
                 case ZEPHYR:
-                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"zephyr.png"));
+                    vueGrille.getTresors().get(tresor.ZEPHYR).setTrouve(true);
                     break;
 
             }

@@ -7,13 +7,11 @@ package ileInterdite.vues;
 
 import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -33,6 +31,8 @@ public class VueAventurier extends Observable {
     private Role roleAventurier;
     private String pathPerso = "src/images/personnages/";
     private String pathCartes = "src/images/cartes/";
+    private int width=120;
+    private int height=200;
 
     public VueAventurier(Role roleAventurier, boolean gauche) {
 
@@ -46,26 +46,33 @@ public class VueAventurier extends Observable {
         //===================pannel en haut avec les button et la classe====
         paneClass = new JPanel(new BorderLayout());
         
+       
         switch (roleAventurier){
             case Explorateur:
-                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"explorateur.png")), roleAventurier);
-                 break;
+                ImageIcon iconeAv = new ImageIcon(new ImageIcon(pathPerso+ "explorateur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeAv), roleAventurier);
+                break;
             case Ingénieur:
-                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"ingenieur.png")), roleAventurier);
-                 break;
+                ImageIcon iconeIng = new ImageIcon(new ImageIcon(pathPerso+ "ingenieur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeIng), roleAventurier);
+                break;
                  
             case Messager:
-                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"messager.png")), roleAventurier);
-                 break;
+                ImageIcon iconeMess = new ImageIcon(new ImageIcon(pathPerso+ "messager.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeMess), roleAventurier);
+                break;
             case Navigateur:
-                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"navigateur.png")), roleAventurier);
-                 break;
+                ImageIcon iconeNav = new ImageIcon(new ImageIcon(pathPerso+ "navigateur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconeNav), roleAventurier);
+                break;
             case Pilote:
-                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"pilote.png")), roleAventurier);
-                 break;
+                ImageIcon iconePil = new ImageIcon(new ImageIcon(pathPerso+ "pilote.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconePil), roleAventurier);
+                break;
             case Plongeur:
-                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"plongeur.png")), roleAventurier);
-                 break;
+                ImageIcon iconePlong = new ImageIcon(new ImageIcon(pathPerso+ "plongeur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                carteJoueur = new IAventurier(new JButton(iconePlong), roleAventurier);
+                break;
         }
        
 
@@ -95,7 +102,6 @@ public class VueAventurier extends Observable {
             getButtonCartes().get(j).removeActionListener();                
             if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
                 buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
-
                     setChanged();
                     notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
@@ -116,6 +122,10 @@ public class VueAventurier extends Observable {
 
     }
 
+    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
+        
+    }
     public void rendreCartesCliquables(ArrayList<Integer> listePos) {
         for (Integer carteCliquable : listePos) {
             ICarte carte = buttonCartes.get(carteCliquable);
@@ -184,6 +194,20 @@ public class VueAventurier extends Observable {
      */
     public JPanel getPanelGeneral() {
         return panelGeneral;
+    }
+
+    /**
+     * @param width the width to set
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * @param height the height to set
+     */
+    public void setHeight(int height) {
+        this.height = height;
     }
 
 }

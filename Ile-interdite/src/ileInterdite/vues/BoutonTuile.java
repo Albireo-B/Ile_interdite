@@ -8,9 +8,11 @@ package ileInterdite.vues;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -22,18 +24,24 @@ public class BoutonTuile extends JPanel {
 
     private JButton bouton;
     private Color myWhite = new Color(241, 241, 241);
-
     private Color couleurTexte = Color.BLACK;
     private ArrayList<Color> couleursJoueurs = new ArrayList();
     private ArrayList<JPanel> couleurs = new ArrayList();
+    private String path = "src/images/tuiles/";
+    private int width=100;
+    private int height=120;
+    private String nom;
+    
 
     public BoutonTuile(String nom) {
         super(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-
-        bouton = new JButton("[" + nom + "]");
+        ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        bouton = new JButton(imgTuile);
         add(bouton, BorderLayout.CENTER);
-
+        
+        this.nom=nom;
+        
         JPanel panelCouleurs = new JPanel(new GridLayout(1, 4));
         for (int c = 0; c < 4; c++) {
             JPanel p = new JPanel();
@@ -62,18 +70,19 @@ public class BoutonTuile extends JPanel {
             couleursJoueurs.add(new Color(j.getRGB()));
         }
     }
-
-    public void setButtonForeground(Color c) {
-        bouton.setForeground(c);
-        couleurTexte = c;
+    
+    
+    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
+        
     }
 
-    public void resetForeground() {
-        bouton.setForeground(couleurTexte);
+    public void setButtonForeground(Color c) {
+        bouton.setBorder(BorderFactory.createLineBorder(c,2));
     }
 
     public void setButtonBackground(Color c) {
-        bouton.setBackground(c);
+        bouton.setBorder(BorderFactory.createLineBorder(c,2));
     }
 
     public void setButtonEnabled(boolean e) {
@@ -93,5 +102,28 @@ public class BoutonTuile extends JPanel {
      */
     public JButton getBouton() {
         return bouton;
+    }
+
+    /**
+     * @return the width
+     */
+    @Override
+    public int getWidth() {
+        return this.width;
+    }
+
+    /**
+     * @return the height
+     */
+    @Override
+    public int getHeight() {
+        return this.height;
+    }
+
+    /**
+     * @return the nom
+     */
+    public String getNom() {
+        return nom;
     }
 }

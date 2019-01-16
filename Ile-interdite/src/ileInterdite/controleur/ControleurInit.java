@@ -51,31 +51,6 @@ public class ControleurInit{
 
     Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
 
-    //initialisation inondation debut de partie
-    try{
-        ctrl.monteeDesEaux(new Position(2,0));
-        ctrl.monteeDesEaux(new Position(4,3));
-        ctrl.monteeDesEaux(new Position(2,5));
-        ctrl.monteeDesEaux(new Position(2,3));
-        ctrl.monteeDesEaux(new Position(0,3));
-
-        ctrl.monteeDesEaux(new Position(3,2));
-        ctrl.monteeDesEaux(new Position(3,2));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3,2)));
-
-        ctrl.monteeDesEaux(new Position(3,3));
-        ctrl.monteeDesEaux(new Position(3,3));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3,3)));
-
-        ctrl.monteeDesEaux(new Position(3,4));
-        ctrl.monteeDesEaux(new Position(3,4));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(3,4)));
-
-        ctrl.monteeDesEaux(new Position(1,3));
-        ctrl.monteeDesEaux(new Position(1,3));
-        ctrl.getPiocheInondation().remove(ctrl.getGrille().getTuile(new Position(1,3)));
-    }catch(ExceptionAventurier ex){
-    }
 
     ctrl.initCartes();
     }
