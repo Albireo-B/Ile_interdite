@@ -7,10 +7,14 @@ package ileInterdite.vues;
 
 import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import utilitaires.Action;
@@ -27,6 +31,8 @@ public class VueAventurier extends Observable {
     private JPanel panelGeneral;
     private ArrayList<ICarte> buttonCartes;
     private Role roleAventurier;
+    private String pathPerso = "src/images/personnages/";
+    private String pathCartes = "src/images/cartes/";
 
     public VueAventurier(Role roleAventurier, boolean gauche) {
 
@@ -39,7 +45,29 @@ public class VueAventurier extends Observable {
 
         //===================pannel en haut avec les button et la classe====
         paneClass = new JPanel(new BorderLayout());
-        carteJoueur = new IAventurier(new JButton(roleAventurier.toString()), roleAventurier);
+        
+        switch (roleAventurier){
+            case Explorateur:
+                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"explorateur.png")), roleAventurier);
+                 break;
+            case Ingénieur:
+                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"ingenieur.png")), roleAventurier);
+                 break;
+                 
+            case Messager:
+                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"messager.png")), roleAventurier);
+                 break;
+            case Navigateur:
+                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"navigateur.png")), roleAventurier);
+                 break;
+            case Pilote:
+                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"pilote.png")), roleAventurier);
+                 break;
+            case Plongeur:
+                 carteJoueur = new IAventurier(new JButton(new ImageIcon(pathPerso+"plongeur.png")), roleAventurier);
+                 break;
+        }
+       
 
         buttonCartes = new ArrayList<>();
 
@@ -57,29 +85,35 @@ public class VueAventurier extends Observable {
         
         panelGeneral.add(panelPrincipal);
     }
+
     
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
-        for (int i = 0; i < 5 && i < listeCarte.size(); i++) {
-            getButtonCartes().get(i).setNomImage(listeCarte.get(i));
-            getButtonCartes().get(i).removeActionListener();                //A ROLE IS NEEDED MY BOY
-            j = i;
-            if (buttonCartes.get(i).getNom().equals("Helicoptere") ){
-                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+
+        while ( j < listeCarte.size() && j<5) {
+            getButtonCartes().get(j).setNomImage(listeCarte.get(j));
+            getButtonCartes().get(j).removeActionListener();                
+            if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
+                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
+
                     setChanged();
                     notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
-            }else if (buttonCartes.get(i).getNom().equals("SacsDeSable")){
-                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+
+            }else if (buttonCartes.get(j).getNom().equals("SacsDeSable")){
+                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
+
                     setChanged();
                     notifyObservers(new MessageCarte("SacsDeSable",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
             }
+            j++;
         }
         for (int i = j + 1; i < 5; i++) {
             getButtonCartes().get(i).setNomImage(null);
+
             getButtonCartes().get(i).removeActionListener();
         }
 

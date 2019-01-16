@@ -42,10 +42,10 @@ public class VuePrincipale extends Observable {
     private HashMap<Role, VueAventurier> panelAventuriers;
     private JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-    private JButton btnBouger = new JButton("Bouger");
-    private JButton btnAssecher = new JButton("Assecher");
-    private JButton btnDonner = new JButton("Donner");
-    private JButton btnRecuperer = new JButton("Récuper");
+    private JButton btnBouger;
+    private JButton btnAssecher;
+    private JButton btnDonner;
+    private JButton btnRecuperer;
     private JButton btnTerminerTour = new JButton("Terminer Tour");
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
@@ -62,6 +62,14 @@ public class VuePrincipale extends Observable {
      * @param roleAventurier
      */
     public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers) {
+        this.btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
+        this.btnDonner = new JButton(new ImageIcon(path+"icones/iconGive.png"));
+        this.btnAssecher = new JButton(new ImageIcon(path+"icones/iconDry.png"));
+        
+        
+        this.btnBouger = new JButton(new ImageIcon(path+"icones/iconMove.png"));
+        
+        
         window = new JFrame();
         window.setSize(1600, 800);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -136,7 +144,7 @@ public class VuePrincipale extends Observable {
         panelAventuriers = vuesAventuriers;
 
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
-
+        System.out.println(vuesAventuriers.values());
         paneGauche.add(listeVuesAv.get(0).getPanelGeneral());
         paneGauche.add(listeVuesAv.get(3).getPanelGeneral());
 

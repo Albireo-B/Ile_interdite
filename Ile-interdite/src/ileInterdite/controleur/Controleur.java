@@ -16,12 +16,11 @@ import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -73,9 +72,10 @@ public class Controleur implements Observer {
         vueGrille.addObserver(this);
 
         //Initialisation des joueurs et du joueur courant
+       
         setRoles(nomsjoueurs, roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
-
+        
         HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
         int cptr = 0;
         for (Role role : joueurs.keySet()) {
@@ -85,7 +85,7 @@ public class Controleur implements Observer {
             vuesAventuriers.put(role, newVueAv);
             cptr++;
         }
-
+        
         // Création des vues
         vuePrincipale = new VuePrincipale(vueGrille, vuesAventuriers);
         vuePrincipale.addObserver(this);
@@ -127,6 +127,7 @@ public class Controleur implements Observer {
             }
         }
         listeRoles = new ArrayList<>(joueurs.keySet());
+        
     }
 
     public Aventurier créerAventurier(Tuile t, String n, Role r) {
@@ -676,21 +677,23 @@ public class Controleur implements Observer {
     }
 
     public void recupererTresor() {
+        String path = "src/images/tresors/";
         Tresor tresor = aventurierCourant.tresorRecuperable();
         if (tresor != null) {
             switch(tresor) {
                 case CALICE:
-                    System.out.println("Calice Récupéré");
+                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"calice.png"));
                     break;
                 case CRISTAL:
-                    System.out.println("Cristal Récupéré");
+                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"cristal.png"));
                     break;
                 case PIERRE:
-                    System.out.println("Pierre Récupérée");
+                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"pierre.png"));
                     break;
                 case ZEPHYR:
-                    System.out.println("Zephyr Récupéré");
+                    vueGrille.getTresors().get(tresor.CALICE).setIcon(new ImageIcon(path+"zephyr.png"));
                     break;
+
             }
             aventurierCourant.removeCartesTresor(tresor);
 
@@ -699,10 +702,8 @@ public class Controleur implements Observer {
         }
     }
 
-    private void checkImage(Tresor tresor) {
-        //à compléter
+        
 
-    }
     
     private void resetButtons() {
         for (Bouton b: Bouton.values()){
