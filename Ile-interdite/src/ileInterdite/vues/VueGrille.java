@@ -18,6 +18,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import utilitaires.Role;
 import utilitaires.Tresor;
@@ -55,6 +56,9 @@ public class VueGrille extends Observable {
                 if (positionTuiles.contains(pos)) {
                     if (positions.contains(pos)) {
                         String nom = noms.get(positions.indexOf(pos));
+                        
+                        //bouton.getBouton().setIcon(new ImageIcon("src/images/tuiles/"+bouton.getName().trim()+"_Inonde.png"));
+                        System.out.println(nom.trim());
                         BoutonTuile bouton = new BoutonTuile(nom);
                         bTuiles.put(pos, bouton);
                         bouton.setButtonBackground(Color.WHITE);
@@ -112,14 +116,14 @@ public class VueGrille extends Observable {
      * @param act
      */
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act, Role role) {
-        joueurSelectionné = role;
+        setJoueurSelectionné(role);
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
                 bouton.getBouton().setForeground(myRed);
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
-                    notifyObservers(new MessagePos(act, pos, joueurSelectionné));
+                    notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
                     clearChanged();
                 });
             }
@@ -179,5 +183,26 @@ public class VueGrille extends Observable {
      */
     public void setPanelGrille(JPanel panelGrille) {
         this.panelGrille = panelGrille;
+    }
+
+    /**
+     * @return the joueurSelectionné
+     */
+    public Role getJoueurSelectionné() {
+        return joueurSelectionné;
+    }
+
+    /**
+     * @param joueurSelectionné the joueurSelectionné to set
+     */
+    public void setJoueurSelectionné(Role joueurSelectionné) {
+        this.joueurSelectionné = joueurSelectionné;
+    }
+
+    /**
+     * @return the tresors
+     */
+    public HashMap<Tresor, ITresor> getTresors() {
+        return tresors;
     }
 }

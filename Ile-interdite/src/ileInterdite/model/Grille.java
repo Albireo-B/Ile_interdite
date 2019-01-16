@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Grille {
 
     private final int longueurTerrain = 6;
-    HashMap<Position, Tuile> tuiles = new HashMap();
+    private HashMap<Position, Tuile> tuiles = new HashMap();
 
     /**
      * Voici l'organisation de la grille (x = tuile): x -----> 0 1 2 3 4 5 y 0 x

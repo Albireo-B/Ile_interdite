@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
@@ -73,9 +71,10 @@ public class Controleur implements Observer {
         vueGrille.addObserver(this);
 
         //Initialisation des joueurs et du joueur courant
+       
         setRoles(nomsjoueurs, roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
-
+        
         HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
         int cptr = 0;
         for (Role role : joueurs.keySet()) {
@@ -85,7 +84,7 @@ public class Controleur implements Observer {
             vuesAventuriers.put(role, newVueAv);
             cptr++;
         }
-
+        
         // Création des vues
         vuePrincipale = new VuePrincipale(vueGrille, vuesAventuriers);
         vuePrincipale.addObserver(this);
@@ -127,6 +126,7 @@ public class Controleur implements Observer {
             }
         }
         listeRoles = new ArrayList<>(joueurs.keySet());
+        
     }
 
     public Aventurier créerAventurier(Tuile t, String n, Role r) {
@@ -677,7 +677,7 @@ public class Controleur implements Observer {
         ArrayList<CarteTirage> listeCartesTresor = new ArrayList<>();
         if (aventurierCourant.getTuile().getNom().equals("Le Temple de La Lune") || aventurierCourant.getTuile().getNom().equals("Le Temple du Soleil")) {
             Tresor.PIERRE.setRecuperé(true);
-            checkImage(Tresor.PIERRE);
+            vueGrille.getTresors().get(Tresor.PIERRE).setTrouve(true);
             for (CarteTirage carte : aventurierCourant.getCartes()) {
                 if (carte.getNom().equals(Tresor.PIERRE.toString()) && listeCartesTresor.size() <= 4) {
                     listeCartesTresor.add(carte);
@@ -689,7 +689,7 @@ public class Controleur implements Observer {
 
         } else if (aventurierCourant.getTuile().getNom().equals("Le Palais des Marees") || aventurierCourant.getTuile().getNom().equals("Le Palais de Corail")) {
             Tresor.CALICE.setRecuperé(true);
-            checkImage(Tresor.CALICE);
+            vueGrille.getTresors().get(Tresor.CALICE).setTrouve(true);
             for (CarteTirage carte : aventurierCourant.getCartes()) {
                 if (carte.getNom().equals(Tresor.CALICE.toString()) && listeCartesTresor.size() <= 4) {
                     listeCartesTresor.add(carte);
@@ -701,7 +701,7 @@ public class Controleur implements Observer {
 
         } else if (aventurierCourant.getTuile().getNom().equals("La Caverne des Ombres") || aventurierCourant.getTuile().getNom().equals("La Caverne du Brasier")) {
             Tresor.CRISTAL.setRecuperé(true);
-            checkImage(Tresor.CRISTAL);
+            vueGrille.getTresors().get(Tresor.CRISTAL).setTrouve(true);
             for (CarteTirage carte : aventurierCourant.getCartes()) {
                 if (carte.getNom().equals(Tresor.CRISTAL.toString()) && listeCartesTresor.size() <= 4) {
                     listeCartesTresor.add(carte);
@@ -712,7 +712,7 @@ public class Controleur implements Observer {
 
         } else if (aventurierCourant.getTuile().getNom().equals("Le Jardin des Hurlements") || aventurierCourant.getTuile().getNom().equals("Le Jardin des Murmures")) {
             Tresor.ZEPHYR.setRecuperé(true);
-            checkImage(Tresor.ZEPHYR);
+            vueGrille.getTresors().get(Tresor.ZEPHYR).setTrouve(true);
 
             for (CarteTirage carte : aventurierCourant.getCartes()) {
                 if (carte.getNom().equals(Tresor.ZEPHYR.toString()) && listeCartesTresor.size() <= 4) {
@@ -729,10 +729,8 @@ public class Controleur implements Observer {
         aventurierCourant.decremente();
     }
 
-    private void checkImage(Tresor tresor) {
-        //à compléter
+        
 
-    }
     
     private void resetButtons() {
         vuePrincipale.cacherBouton(Bouton.DEPLACER);
