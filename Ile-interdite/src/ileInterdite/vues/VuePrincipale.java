@@ -175,44 +175,23 @@ public class VuePrincipale extends Observable {
         getWindow().setVisible(true);
     }
 
-    public void cacherBouton(Bouton bouton) {
+    public void activerBouton(Bouton bouton,Boolean b) {
         switch (bouton) {
             case DEPLACER:
-                btnBouger.setEnabled(false);
-                System.out.println("bouger" + btnBouger.isVisible());
+                btnBouger.setEnabled(b);
+                
                 break;
             case ASSECHER:
-                btnAssecher.setEnabled(false);
-                System.out.println("Assecher" + btnAssecher.isVisible());
-                break;
-            case DONNER:
-                btnDonner.setEnabled(false);
-                System.out.println("Donner" + btnDonner.isVisible());
-                break;
-            case RECUPERER:
-                btnRecuperer.setEnabled(false);
-                System.out.println("Recuperer" + btnRecuperer.isVisible());
-                break;
-        }
-    }
+                btnAssecher.setEnabled(b);
 
-    public void afficherBouton(Bouton bouton) {
-        switch (bouton) {
-            case DEPLACER:
-                btnBouger.setEnabled(true);
-                System.out.println("bouger" + btnBouger.isVisible());
-                break;
-            case ASSECHER:
-                btnAssecher.setEnabled(true);
-                System.out.println("Assecher" + btnAssecher.isVisible());
                 break;
             case DONNER:
-                btnDonner.setEnabled(true);
-                System.out.println("Donner" + btnDonner.isVisible());
+                btnDonner.setEnabled(b);
+
                 break;
             case RECUPERER:
-                btnRecuperer.setEnabled(true);
-                System.out.println("Recuperer" + btnRecuperer.isVisible());
+                btnRecuperer.setEnabled(b);
+
                 break;
         }
     }
