@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.border.Border;
 import utilitaires.Action;
 import utilitaires.Role;
 
@@ -27,11 +28,15 @@ public class IAventurier extends Observable {
     private JButton boutonAventurier;
     private Role role;
     private ActionListener actionListener;
+    private Border bordureNoire;
+    private Border bordureRouge;
     
     
     
 
     public IAventurier(JButton boutonAventurier, Role role) {
+        bordureNoire = BorderFactory.createLineBorder(Color.black,3);
+        bordureRouge = BorderFactory.createLineBorder(Color.red,3);
         this.boutonAventurier = boutonAventurier;
         this.role = role;
     }
@@ -78,7 +83,7 @@ public class IAventurier extends Observable {
                 clearChanged();
             }
         });
-        boutonAventurier.setBackground(Color.WHITE);
+        boutonAventurier.setBackground(null);
         }else{
             newRoles.remove(role);
             removeActionListener();
@@ -98,7 +103,7 @@ public class IAventurier extends Observable {
     public void removeActionListener() {
         boutonAventurier.removeActionListener(actionListener);
         actionListener = null;
-        boutonAventurier.setForeground(null);
+        boutonAventurier.setBorder(bordureNoire);
     }
 
 
@@ -106,8 +111,7 @@ public class IAventurier extends Observable {
         if (actionListener == null) {
             actionListener = act;
             boutonAventurier.addActionListener(act);
-            boutonAventurier.setForeground(Color.red);
-            boutonAventurier.setBorder(BorderFactory.createLineBorder(Color.red,4));
+            boutonAventurier.setBorder(bordureRouge);
         } else {
             System.out.println("ERREUR IAventurier: N'essayez pas d'ajouter deux actionlisteners");
         }

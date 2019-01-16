@@ -23,26 +23,29 @@ import utilitaires.Role;
 public class ICarte extends JButton {
 
     private Action action;
-    
     private String nomCarte;
-
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";
     private int imgWidth = 120;
     private int imgHeigh = 200;
-
     private ImageIcon image = null;
+    private Border bordureNoire;
+    private Border bordureRouge;
+    
+    
 
     public ICarte(String nomImage, Action action) {
+        bordureNoire = BorderFactory.createLineBorder(Color.black,3);
+        bordureRouge = BorderFactory.createLineBorder(Color.red,3);
         setImage(nomImage);
         this.action = action;
+        
     }
 
     public void removeActionListener() {
         removeActionListener(actionListener);
         actionListener = null;
-        setForeground(null);
-        setBorder(BorderFactory.createLineBorder(null,4));
+        setBorder(bordureNoire);
     }
 
     @Override
@@ -50,8 +53,7 @@ public class ICarte extends JButton {
         if (actionListener == null) {
             actionListener = act;
             super.addActionListener(act);
-            setForeground(Color.red);
-            setBorder(BorderFactory.createLineBorder(Color.red,4));
+            setBorder(bordureRouge);
         } else {
             System.out.println("ERREUR: N'essayez pas d'ajouter deux actionlisteners");
         }

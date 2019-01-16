@@ -59,7 +59,7 @@ public class VuePrincipale extends Observable {
      * On définit un constructeur de VueAventurier avec une VueGrille v
      *
      * @param v
-     * @param roleAventurier
+     * @param vuesAventuriers
      */
     public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers) {
         this.btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
