@@ -10,6 +10,7 @@ import utilitaires.Pion;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Tuile;
 import java.util.ArrayList;
+import utilitaires.EtatTuile;
 
 /**
  *
@@ -52,7 +53,7 @@ public class Pilote extends Aventurier {
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g) {
         ArrayList<Tuile> liste;
-        if (getPouvoir()) {
+        if (getPouvoir() && getTuile().getEtat() != EtatTuile.COULEE) {
             liste = g.tuilesNonCoulees(getTuile());
         } else {
             liste = g.tuilesAdjacentesCroix(getTuile());
