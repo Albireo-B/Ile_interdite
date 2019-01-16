@@ -89,25 +89,27 @@ public class VueAventurier extends Observable {
     
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
-        for (int i = 0; i < 5 && i < listeCarte.size(); i++) {
-            getButtonCartes().get(i).setNom(listeCarte.get(i));
-            getButtonCartes().get(i).removeActionListener();                
-            j = i;
-            if (buttonCartes.get(i).getNom().equals("Helicoptere") ){
-                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+
+        while ( j < listeCarte.size() && j<5) {
+            getButtonCartes().get(j).setNom(listeCarte.get(j));
+            getButtonCartes().get(j).removeActionListener();                
+            if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
+                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
+
                     setChanged();
                     notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
-            }else if (buttonCartes.get(i).getNom().equals("SacDeSable")){
-                buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
+            }else if (buttonCartes.get(j).getNom().equals("SacDeSable")){
+                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
                     setChanged();
                     notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
             }
+            j++;
         }
-        for (int i = j + 1; i < 5; i++) {
+        for (int i = j ; i < 5; i++) {
             getButtonCartes().get(i).setNom("_");
             getButtonCartes().get(i).removeActionListener();
         }
