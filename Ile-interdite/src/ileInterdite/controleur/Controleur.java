@@ -375,7 +375,7 @@ public class Controleur implements Observer {
 
         }
         if (carteSelection.getUtilisable()) {
-            appliquerCartesSpeciales(carteSelection.getNom(),messageCarte.getRole());
+            appliquerCartesSpeciales(messageCarte);
         }
 
         defausseTirage.add(carteSelection);
@@ -406,11 +406,11 @@ public class Controleur implements Observer {
     
     
     
-    public void appliquerCartesSpeciales(String nomCarte,Role role) {
-        if (nomCarte.equals("SacDeSable")) {
-            gererSacDeSable(stringToCarte(nomCarte),role);
+    public void appliquerCartesSpeciales(MessageCarte messageCarte) {
+        if (messageCarte.getNomCarte().equals("SacDeSable")) {
+            gererSacDeSable(stringToCarte(messageCarte.getNomCarte()),messageCarte.getRole());
         } else {
-            gererGroupeHelicoptere(stringToCarte(nomCarte),role);  
+            gererGroupeHelicoptere(stringToCarte(messageCarte.getNomCarte()),messageCarte.getRole());  
         }
         
     }
@@ -443,11 +443,14 @@ public class Controleur implements Observer {
             vuePrincipale.getPanelAventuriers().get(roleAventurier).getCarteJoueur().getBoutonAventurier().setBackground(Color.red);
         }
         
+        
+        
+        
         joueurs.get(role).removeCarte(carte);
         defausseTirage.add(carte);
     }
     
-    public void gererDeplacementHelicoptere(String carte,Role role){
+    public void gererDeplacementHelicoptere(Role role){
        ArrayList<Position> listePos = new ArrayList<>();
        for (Tuile t : grille.tuilesNonCoulees(null)){
            listePos.add(t.getPosition());
@@ -487,12 +490,9 @@ public class Controleur implements Observer {
                     break;
                 //Si le message possède l'action CARTESPECIALE
                 case CARTESPECIALE:
-                    appliquerCartesSpeciales(messageCarte.getNomCarte(),messageCarte.getRole());
+                    appliquerCartesSpeciales(messageCarte);
                     break;
-                 //Si le message possède l'action GROUPEHELICO
-                case GROUPEHELICO:
-                    gererDeplacementHelicoptere(messageCarte.getNomCarte(),messageCarte.getRole());
-                    break;
+              
             }
         }
         else
@@ -551,6 +551,10 @@ public class Controleur implements Observer {
                     //Si le message possède l'action RECUPERER
                     case RECUPERER_TRESOR:
                         gererRecupTresor();
+                        break;
+                    //Si le message possède l'action GROUPEHELICO
+                    case GROUPEHELICO:
+                        gererDeplacementHelicoptere(message.getRole());
                         break;
                 }
             }
