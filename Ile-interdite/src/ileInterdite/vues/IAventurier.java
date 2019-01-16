@@ -72,7 +72,7 @@ public class IAventurier extends Observable {
             boutonAventurier.addActionListener(act);
             boutonAventurier.setForeground(Color.red);
         } else {
-            System.out.println("ERREUR IAventure: N'essayez pas d'ajouter deux actionlisteners");
+            System.out.println("ERREUR IAventurier: N'essayez pas d'ajouter deux actionlisteners");
         }
     }
     

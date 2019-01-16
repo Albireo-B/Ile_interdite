@@ -97,11 +97,11 @@ public class VueAventurier extends Observable {
     }
 
     public void devenirReceveur(String carte) {
-        getCarteJoueur().devenirReceveur(carte);
+        carteJoueur.devenirReceveur(carte);
     }
 
     public void devenirSuiveur(boolean suivre) {
-        getCarteJoueur().devenirSuiveur(suivre);
+        carteJoueur.devenirSuiveur(suivre);
     }
 
     //Getters et Setters :

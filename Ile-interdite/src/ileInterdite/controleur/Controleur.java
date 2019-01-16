@@ -373,7 +373,7 @@ public class Controleur implements Observer {
         }
         if (carteSelection.getUtilisable()) {
             if (carteSelection instanceof CarteHelicoptere) {
-                gererHelicoptere(carteSelection);
+                gererHelicoptere(carteSelection,messageCarte.getRole());
             } else {
                 gererSacDeSable(carteSelection,messageCarte.getRole());
             }
@@ -389,12 +389,16 @@ public class Controleur implements Observer {
         CarteTirage carte = stringToCarte(messageCarte.getNomCarte());
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         cartes.add(carte);
+        System.out.println(aventurierCourant.getCartes());
         aventurierCourant.getCartes().remove(carte);
+        System.out.println(aventurierCourant.getCartes());
         try {
             joueurs.get(messageCarte.getRole()).addCartes(cartes);
         } catch (ExceptionAventurier ex) {
             joueurs.get(messageCarte.getRole()).defausseCartes();
         }
+        System.out.println(joueurs.get(messageCarte.getRole()).getCartes());
+        System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
         vuePrincipale.getPanelAventuriers().get(messageCarte.getRole()).actualiserVueAventurier(joueurs.get(messageCarte.getRole()).cartesToString());
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
 
@@ -406,12 +410,12 @@ public class Controleur implements Observer {
     public void appliquerCartesSpeciales(String nomCarte,Role role) {
         if (nomCarte.equals("SacDeSable")) {
             gererSacDeSable(stringToCarte(nomCarte),role);
+        } else {
+            gererHelicoptere(stringToCarte(nomCarte),role);      
             joueurs.get(role).removeCarte(stringToCarte(nomCarte));
             defausseTirage.add(stringToCarte(nomCarte));
-            vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
-        } else {
-            gererHelicoptere(stringToCarte(nomCarte));
         }
+        
     }
 
     public void gererSacDeSable(CarteTirage carte,Role role){
@@ -421,10 +425,9 @@ public class Controleur implements Observer {
                 liste.add(t);
             }
         }
-        proposerTuiles(liste,Action.ASSECHERSACDESABLE,aventurierCourant.getRole());
+        proposerTuiles(liste,Action.ASSECHERSACDESABLE,role);
         joueurs.get(role).removeCarte(carte);
         defausseTirage.add(carte);
-        vuePrincipale.getPanelAventuriers().get(role).actualiserVueAventurier(joueurs.get(role).cartesToString());
     }
 
     
@@ -435,8 +438,14 @@ public class Controleur implements Observer {
 
 
     
-    public void gererHelicoptere(CarteTirage nomCarte){
-        //à compléter
+    public void gererHelicoptere(CarteTirage carte,Role role){
+        ArrayList<Position> listePosAventuriers=new ArrayList<>();
+        for (Role roleAventurier : joueurs.keySet()){
+            listePosAventuriers.add(joueurs.get(roleAventurier).getPosition());
+        }
+        vueGrille.actualiserBoutonsCliquables(listePosAventuriers, Action.DEPLACERHELICOPTERE, role);
+        joueurs.get(role).removeCarte(carte);
+        defausseTirage.add(carte);
     }
   
     
@@ -544,6 +553,7 @@ public class Controleur implements Observer {
                 //Si le message possède l'action ASSECHERSACDESABLE
                 case ASSECHERSACDESABLE:
                     appliquerAssechementSacDeSable(messagepos);
+                    vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
                     break;
             }
         }

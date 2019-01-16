@@ -137,11 +137,7 @@ public abstract class Aventurier {
         return listeCarte;
 
     }
-
-    public void recupererTresor() {
-
-    }
-
+    
     public void removeCarte(CarteTirage carte) {
         cartes.remove(carte);
     }
