@@ -62,7 +62,7 @@ public class VueAventurier extends Observable {
         int j = 0;
         while ( j < listeCarte.size() && j<5) {
             getButtonCartes().get(j).setNom(listeCarte.get(j));
-            getButtonCartes().get(j).removeActionListener();                //A ROLE IS NEEDED MY BOY
+            getButtonCartes().get(j).removeActionListener();         
             if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
                 buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
                     setChanged();

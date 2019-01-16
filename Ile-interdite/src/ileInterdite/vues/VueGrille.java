@@ -5,6 +5,7 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.message.MessageGroupePos;
 import utilitaires.EtatTuile;
 import ileInterdite.model.Grille;
 import ileInterdite.model.Position;
@@ -120,6 +121,20 @@ public class VueGrille extends Observable {
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
                     notifyObservers(new MessagePos(act, pos, joueurSelectionné));
+                    clearChanged();
+                });
+            }
+        }
+    }
+    public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act, Role role,ArrayList<Role> roles) {
+        joueurSelectionné = role;
+        for (Position pos : posBoutons) {
+            if (bTuiles.keySet().contains(pos)) {
+                BoutonTuile bouton = bTuiles.get(pos);
+                bouton.getBouton().setForeground(myRed);
+                bouton.addActionListener((ActionEvent e) -> {
+                    setChanged();
+                    notifyObservers(new MessageGroupePos(act, pos, joueurSelectionné,roles));
                     clearChanged();
                 });
             }

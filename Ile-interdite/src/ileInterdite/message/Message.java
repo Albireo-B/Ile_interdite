@@ -12,11 +12,14 @@ import utilitaires.Role;
  *
  * @author vinetg
  */
-public class Message {
+public class Message{
 
-    private Action action;
+    
     private Role role;
+    private Action action;
 
+    
+        
     /**
      * On définit le constructeur de message avec une action Action
      *
@@ -24,8 +27,9 @@ public class Message {
      * @param role
      */
     public Message(Action action, Role role) {
-        this.action = action;
+
         this.role = role;
+        this.action = action;
     }
 
     //Getters et Setters :
@@ -35,14 +39,6 @@ public class Message {
     public Action getAction() {
         return action;
     }
-
-    /**
-     * @param action the action to set
-     */
-    public void setAction(Action action) {
-        this.action = action;
-    }
-
     /**
      * @return the role
      */

@@ -7,9 +7,11 @@ package ileInterdite.vues;
 
 import ileInterdite.message.Message;
 import ileInterdite.message.MessageCarte;
+import ileInterdite.message.MessageGroupe;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.JButton;
 import utilitaires.Action;
@@ -59,15 +61,33 @@ public class IAventurier extends Observable {
         }
     }
     
-    public void devenirLeader(String carte){
+    public void proposerHelico(Role possesseurCarte, ArrayList<Role> roles,Boolean suivre){
+        ArrayList<Role> newRoles = new ArrayList(roles);
+        if (suivre){
+        newRoles.add(role);
+        removeActionListener();
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 setChanged();
-                notifyObservers(new MessageCarte(carte,Action.GROUPEHELICO, role));
+                notifyObservers(new MessageGroupe(Action.GROUPEHELICO,possesseurCarte, newRoles));
                 clearChanged();
             }
         });
+        boutonAventurier.setBackground(Color.WHITE);
+        }else{
+            newRoles.remove(role);
+            removeActionListener();
+             addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                setChanged();
+                notifyObservers(new MessageGroupe(Action.GROUPEHELICO,possesseurCarte, newRoles));
+                clearChanged();
+            }
+        });
+            boutonAventurier.setBackground(Color.red);
+        }
     }
     
     
