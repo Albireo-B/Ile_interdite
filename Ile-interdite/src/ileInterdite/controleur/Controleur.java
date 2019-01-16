@@ -475,6 +475,10 @@ public class Controleur implements Observer {
                 case RECEVOIR:
                     appliquerRecevoir(messageCarte);
                     break;
+                //Si le message possède l'action CARTESPECIALE
+                case CARTESPECIALE:
+                    appliquerCartesSpeciales(messageCarte.getNomCarte(),messageCarte.getRole());
+                    break;
             }
         }
         else
@@ -494,6 +498,11 @@ public class Controleur implements Observer {
                 //Si le message possède l'action ASSECHER
                 case ASSECHER:
                     appliquerAssechement(messagepos);
+                    break;
+                     //Si le message possède l'action ASSECHERSACDESABLE
+                case ASSECHERSACDESABLE:
+                    appliquerAssechementSacDeSable(messagepos);
+                    vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
                     break;
             }
         }
@@ -529,59 +538,10 @@ public class Controleur implements Observer {
                     case RECUPERER_TRESOR:
                         gererRecupTresor();
                         break;
-                
                 }
             }
         }
-        //Si arg est de type MessagePos
-        if (arg instanceof MessagePos) {
-            MessagePos messagepos = (MessagePos) arg;
-            vueGrille.tousBoutonsInertes();
-            switch (messagepos.getAction()) {
-                //Si le message possède l'action DONNER
-                case DEPLACER:
-                    appliquerDeplacement(messagepos);
-                    break;
-                //Si le message possède l'action SUIVRE
-                case SUIVRE:
-                    appliquerNavigation(messagepos);
-                    break;
-                //Si le message possède l'action ASSECHER
-                case ASSECHER:
-                    appliquerAssechement(messagepos);
-                    break;
-                //Si le message possède l'action ASSECHERSACDESABLE
-                case ASSECHERSACDESABLE:
-                    appliquerAssechementSacDeSable(messagepos);
-                    vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
-                    break;
-            }
-        }
-        //Si arg est de type messageCarte
-        if (arg instanceof MessageCarte) {
-            MessageCarte messageCarte = (MessageCarte) arg;
-
-            switch (messageCarte.getAction()) {
-                //Si le message possède l'action DEFAUSSER
-                case DEFAUSSER:
-                    appliquerDefausse(messageCarte);
-                    break;
-                //Si le message possède l'action DONNER
-                case DONNER:
-                    appliquerDon(messageCarte);
-                    break;
-                //Si le message possède l'action RECEVOIR
-                case RECEVOIR:
-                    appliquerRecevoir(messageCarte);
-                    break;
-                //Si le message possède l'action CARTESPECIALE
-                case CARTESPECIALE:
-                    appliquerCartesSpeciales(messageCarte.getNomCarte(),messageCarte.getRole());
-                    break;
-
-             
-            }
-        }
+        
         actualiserVue(arg);
         actualiserModele(arg);
     }
