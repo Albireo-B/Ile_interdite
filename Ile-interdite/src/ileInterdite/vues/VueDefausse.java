@@ -58,9 +58,9 @@ public class VueDefausse extends Observable {
         panelPrincipal.remove(panelCarte);
 
         buttonCartes = new ArrayList<>();
-
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
+            System.out.println(nomCarte);
             ICarte buttonCarte = new ICarte(nomCarte, Action.DEFAUSSER);
             buttonCarte.addActionListener(new ActionListener() {
                 @Override
