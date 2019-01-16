@@ -385,8 +385,9 @@ public class Controleur implements Observer {
     }
 
     public void appliquerRecevoir(MessageCarte messageCarte) {
-        CarteTirage carte = stringToCarte(messageCarte.getNomCarte(),messageCarte.getRole());
+        CarteTirage carte = stringToCarte(messageCarte.getNomCarte(),aventurierCourant.getRole());
         ArrayList<CarteTirage> cartes = new ArrayList<>();
+        
         cartes.add(carte);
         aventurierCourant.removeCarte(carte);
         try {
@@ -484,7 +485,6 @@ public class Controleur implements Observer {
                     break;
               
             }
-            System.out.println(joueurs.get(messageCarte.getRole()).cartesToString());
         }
         else
         //Si arg est de type MessagePos
@@ -511,7 +511,6 @@ public class Controleur implements Observer {
                     break;
               
             }
-            System.out.println(joueurs.get(messagepos.getRole()).cartesToString());
         }
         else
         if (arg instanceof Message) {
