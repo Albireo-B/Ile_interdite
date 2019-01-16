@@ -81,22 +81,22 @@ public abstract class Aventurier {
     }
 
     public void defausseCartes() {
-        vueDefausse.actualiser(cartesToString(), role);
+        getVueDefausse().actualiser(cartesToString(), getRole());
     }
 
     /**
      * On remet le nombre d'actions à 3
      */
     public void reset() {
-        setNbAction(3);
-        setPouvoir(true);
+        nbAction = 3;
+        setPouvoir((Boolean) true);
     }
 
     public ArrayList<Integer> cartesTresor() {
         ArrayList<Integer> cartesTresor = new ArrayList<>();
-        for (CarteTirage carte : cartes) {
+        for (CarteTirage carte : getCartes()) {
             if (!carte.getUtilisable()) {
-                cartesTresor.add(cartes.indexOf(carte));
+                cartesTresor.add(getCartes().indexOf(carte));
             }
         }
         return cartesTresor;
@@ -105,8 +105,8 @@ public abstract class Aventurier {
     /**
      * Fais diminuer le nombre d'actions de 1
      */
-    public void decremente() {
-        setNbAction(getNbAction() - 1);
+    public void decrementeNbActions() {
+        nbAction--;
     }
 
     /**
@@ -123,16 +123,16 @@ public abstract class Aventurier {
 
     public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier {
         for (CarteTirage c : listeCartes) {
-            cartes.add(c);
+            getCartes().add(c);
         }
-        if (cartes.size() > 5) {
+        if (getCartes().size() > 5) {
             throw new ExceptionAventurier(this);
         }
     }
 
     public ArrayList<String> cartesToString() {
         ArrayList<String> listeCarte = new ArrayList<>();
-        for (CarteTirage carte : this.cartes) {
+        for (CarteTirage carte : this.getCartes()) {
             listeCarte.add(carte.getNom());
         }
         return listeCarte;
@@ -140,15 +140,15 @@ public abstract class Aventurier {
     }
     
     public void removeCarte(CarteTirage carte) {
-        cartes.remove(carte);
+        getCartes().remove(carte);
     }
 
     public Tresor tresorRecuperable() {
-        Tresor tresor = tuile.getTresor();
+        Tresor tresor = getTuile().getTresor();
         if (tresor != null) {
             if (!tresor.getRecuperé()) {
                 int nbTresor = 0;
-                for (CarteTirage carte : cartes) {
+                for (CarteTirage carte : getCartes()) {
                     if (carte.getNom().equals(tresor.toString())) {
                         nbTresor += 1;
                     }
@@ -163,7 +163,7 @@ public abstract class Aventurier {
     
     public void removeCartesTresor(Tresor tresor) {
         ArrayList<CarteTirage> nouveauDeck = new ArrayList();
-        for (CarteTirage carte : cartes) {
+        for (CarteTirage carte : getCartes()) {
             if (carte instanceof CarteTresor ) {
                 if (((CarteTresor)carte).getTresor() != tresor)
                     nouveauDeck.add(carte);
@@ -174,9 +174,8 @@ public abstract class Aventurier {
         cartes = new ArrayList(nouveauDeck);
     }
     
-    //Getters et Setters :
     public Position getPosition() {
-        return getTuile().getPosition();
+        return tuile.getPosition();
     }
 
     /**
@@ -187,10 +186,45 @@ public abstract class Aventurier {
     }
 
     /**
+     * @return the cartes
+     */
+    public ArrayList<CarteTirage> getCartes() {
+        return cartes;
+    }
+
+    /**
+     * @return the role
+     */
+    public Role getRole() {
+        return role;
+    }
+
+    /**
+     * @return the vueDefausse
+     */
+    public VueDefausse getVueDefausse() {
+        return vueDefausse;
+    }
+
+    /**
      * @return the nbAction
      */
     public int getNbAction() {
         return nbAction;
+    }
+
+    /**
+     * @return the nomJoueur
+     */
+    public String getNomJoueur() {
+        return nomJoueur;
+    }
+
+    /**
+     * @return the pion
+     */
+    public Pion getPion() {
+        return pion;
     }
 
     /**
@@ -208,74 +242,16 @@ public abstract class Aventurier {
     }
 
     /**
-     * @return the Role
+     * @param role the role to set
      */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * @return the nomJoueur
-     */
-    public String getNomJoueur() {
-        return nomJoueur;
-    }
-
-    /**
-     * @param nomJoueur the nomJoueur to set
-     */
-    public void setNomJoueur(String nomJoueur) {
-        this.nomJoueur = nomJoueur;
-    }
-
-    /**
-     * @param role
-     */
-    public void setRole(Role role) {
+    protected void setRole(Role role) {
         this.role = role;
-    }
-
-    /**
-     * @return the pion
-     */
-    public Pion getPion() {
-        return pion;
     }
 
     /**
      * @param pion the pion to set
      */
-    public void setPion(Pion pion) {
+    protected void setPion(Pion pion) {
         this.pion = pion;
     }
-
-    /**
-     * @param nbAction the nbAction to set
-     */
-    public void setNbAction(int nbAction) {
-        this.nbAction = nbAction;
-    }
-
-    /**
-     * @return the cartes
-     */
-    public ArrayList<CarteTirage> getCartes() {
-        return cartes;
-    }
-
-    /**
-     * @param cartes the cartes to set
-     */
-    public void setCartes(ArrayList<CarteTirage> cartes) {
-        this.cartes = cartes;
-    }
-
-    /**
-     * @return the vueDefausse
-     */
-    public VueDefausse getVueDefausse() {
-        return vueDefausse;
-    }
-
-
 }
