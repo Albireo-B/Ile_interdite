@@ -9,8 +9,10 @@ import ileInterdite.message.MessageCarte;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.border.Border;
 import utilitaires.Action;
 import utilitaires.Role;
 
@@ -40,6 +42,7 @@ public class ICarte extends JButton {
         removeActionListener(actionListener);
         actionListener = null;
         setForeground(null);
+        setBorder(BorderFactory.createLineBorder(null,4));
     }
 
     @Override
@@ -48,6 +51,7 @@ public class ICarte extends JButton {
             actionListener = act;
             super.addActionListener(act);
             setForeground(Color.red);
+            setBorder(BorderFactory.createLineBorder(Color.red,4));
         } else {
             System.out.println("ERREUR: N'essayez pas d'ajouter deux actionlisteners");
         }
