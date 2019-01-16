@@ -16,12 +16,11 @@ import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -73,9 +72,10 @@ public class Controleur implements Observer {
         vueGrille.addObserver(this);
 
         //Initialisation des joueurs et du joueur courant
+       
         setRoles(nomsjoueurs, roles);
         aventurierCourant = joueurs.get(listeRoles.get(0));
-
+        
         HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
         int cptr = 0;
         for (Role role : joueurs.keySet()) {
@@ -85,7 +85,7 @@ public class Controleur implements Observer {
             vuesAventuriers.put(role, newVueAv);
             cptr++;
         }
-
+        
         // Création des vues
         vuePrincipale = new VuePrincipale(vueGrille, vuesAventuriers);
         vuePrincipale.addObserver(this);
@@ -126,7 +126,7 @@ public class Controleur implements Observer {
                 }
             }
         }
-        listeRoles = new ArrayList<>(joueurs.keySet());
+        listeRoles = new ArrayList<>(joueurs.keySet());  
     }
 
     public Aventurier créerAventurier(Tuile t, String n, Role r) {
@@ -579,7 +579,6 @@ public class Controleur implements Observer {
         } else {
             System.out.println("Message non traité");
         }
-
         actualiserVue(arg);
         actualiserModele(arg);
     }
@@ -613,7 +612,6 @@ public class Controleur implements Observer {
         } else {
             j = 5;
         }
-
         //Pour chauqe niveau d'eau
         for (int i = 0; i < j; i++) {
             //Si la pioche inondation n'est pas vide
@@ -656,7 +654,6 @@ public class Controleur implements Observer {
                 piocheTirage.addAll(defausseTirage);
                 defausseTirage.clear();
             }
-
         }
         if (trigger) {
             Collections.shuffle(defausseInondation);
@@ -667,9 +664,7 @@ public class Controleur implements Observer {
             aventurierCourant.addCartes(cartes);
         } catch (ExceptionAventurier e) {
             aventurierCourant.defausseCartes();
-
         }
-
         vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
 
@@ -700,36 +695,32 @@ public class Controleur implements Observer {
         if (aventurierCourant.tresorRecuperable() != null) {
             recupererTresor();
         }
-
     }
 
     public void recupererTresor() {
+        String path = "src/images/tresors/";
         Tresor tresor = aventurierCourant.tresorRecuperable();
         if (tresor != null) {
             switch (tresor) {
                 case CALICE:
-                    System.out.println("Calice Récupéré");
+                    vueGrille.getTresors().get(tresor.CALICE).setTrouve(true);
                     break;
                 case CRISTAL:
-                    System.out.println("Cristal Récupéré");
+                    vueGrille.getTresors().get(tresor.CRISTAL).setTrouve(true);
                     break;
                 case PIERRE:
-                    System.out.println("Pierre Récupérée");
+                    vueGrille.getTresors().get(tresor.PIERRE).setTrouve(true);
                     break;
                 case ZEPHYR:
-                    System.out.println("Zephyr Récupéré");
+                    vueGrille.getTresors().get(tresor.ZEPHYR).setTrouve(true);
                     break;
+
             }
             aventurierCourant.removeCartesTresor(tresor);
 
             vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
             aventurierCourant.decrementeNbActions();
         }
-    }
-
-    private void checkImage(Tresor tresor) {
-        //à compléter
-
     }
 
     private void resetButtons() {

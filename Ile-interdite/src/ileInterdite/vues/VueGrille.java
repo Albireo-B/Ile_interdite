@@ -16,9 +16,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import utilitaires.Role;
 import utilitaires.Tresor;
@@ -36,6 +38,7 @@ public class VueGrille extends Observable {
     private Color myRed = new Color(255, 77, 77);
     private Color myBackgroundColor = new Color(12, 143, 181);
     private Role joueurSelectionné;
+    private String path = "src/images/tuiles/";
 
     private HashMap<Tresor, ITresor> tresors = new HashMap();
 
@@ -58,7 +61,6 @@ public class VueGrille extends Observable {
                         String nom = noms.get(positions.indexOf(pos));
                         BoutonTuile bouton = new BoutonTuile(nom);
                         bTuiles.put(pos, bouton);
-                        bouton.setButtonBackground(Color.WHITE);
                         panelGrille.add(bouton);
                     } else {
                         System.out.println("Il vous manque une case ou quoi?");
@@ -101,7 +103,6 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
-                bouton.resetForeground();
             }
         }
     }
@@ -113,15 +114,15 @@ public class VueGrille extends Observable {
      * @param act
      */
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act, Role role) {
-        joueurSelectionné = role;
+        setJoueurSelectionné(role);
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-                bouton.getBouton().setForeground(myRed);
+                bouton.getBouton().setIcon(new ImageIcon(new ImageIcon(path+bouton.getName()+".png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT)));;
                 bouton.addActionListener((ActionEvent e) -> {
-                    setChanged();
-                    notifyObservers(new MessagePos(act, pos, joueurSelectionné));
-                    clearChanged();
+                setChanged();
+                notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
+                clearChanged();
                 });
             }
         }
@@ -152,18 +153,17 @@ public class VueGrille extends Observable {
         switch (etat) {
             case COULEE:
                 bouton.setButtonEnabled(false);
-                bouton.setButtonBackground(myBlue);
-                bouton.setButtonForeground(Color.WHITE);
                 break;
             case SECHE:
+                
+                ImageIcon tuileSeche = new ImageIcon(new ImageIcon(path+bouton.getNom()+".png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT));
+                bouton.getBouton().setIcon(tuileSeche);
                 bouton.setButtonEnabled(true);
-                bouton.setButtonForeground(Color.BLACK);
-                bouton.setButtonBackground(Color.WHITE);
                 break;
             case INONDEE:
+                ImageIcon tuileSInonde = new ImageIcon(new ImageIcon(path+bouton.getNom()+"_Inonde.png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT));
+                bouton.getBouton().setIcon(tuileSInonde);
                 bouton.setButtonEnabled(true);
-                bouton.setButtonBackground(myCyan);
-                bouton.setButtonForeground(Color.WHITE);
                 break;
         }
     }
@@ -194,5 +194,26 @@ public class VueGrille extends Observable {
      */
     public void setPanelGrille(JPanel panelGrille) {
         this.panelGrille = panelGrille;
+    }
+
+    /**
+     * @return the joueurSelectionné
+     */
+    public Role getJoueurSelectionné() {
+        return joueurSelectionné;
+    }
+
+    /**
+     * @param joueurSelectionné the joueurSelectionné to set
+     */
+    public void setJoueurSelectionné(Role joueurSelectionné) {
+        this.joueurSelectionné = joueurSelectionné;
+    }
+
+    /**
+     * @return the tresors
+     */
+    public HashMap<Tresor, ITresor> getTresors() {
+        return tresors;
     }
 }

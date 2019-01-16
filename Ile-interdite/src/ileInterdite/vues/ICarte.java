@@ -7,7 +7,9 @@ package ileInterdite.vues;
 
 import ileInterdite.message.MessageCarte;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import utilitaires.Action;
 import utilitaires.Role;
@@ -19,11 +21,18 @@ import utilitaires.Role;
 public class ICarte extends JButton {
 
     private Action action;
+    
+    private String nomCarte;
 
     private ActionListener actionListener = null;
+    private String path = "src/images/cartes/";
+    private int imgWidth = 140;
+    private int imgHeigh = 180;
 
-    public ICarte(String nom, Action action) {
-        setNom(nom);
+    private ImageIcon image = null;
+
+    public ICarte(String nomImage, Action action) {
+        setNomImage(nomImage);
         this.action = action;
     }
 
@@ -48,20 +57,26 @@ public class ICarte extends JButton {
         return new MessageCarte(getNom(), action, role);
     }
 
-
     /**
      * @return the nom
      */
     public String getNom() {
-        return getName();
+        return nomCarte;
     }
 
     /**
      * @param nom the nom to set
      */
-    public void setNom(String nom) {
-        setName(nom);
-        setText(nom);
+    public void setNomImage(String nomImage) {
+        if (nomImage != null) {
+            nomCarte = nomImage;
+            image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
+            setIcon(image);
+        }
+        else {
+            setIcon(null);
+            nomCarte = "";
+        }
     }
 
     /**
