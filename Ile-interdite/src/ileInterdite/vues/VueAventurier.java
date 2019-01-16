@@ -98,7 +98,7 @@ public class VueAventurier extends Observable {
         int j = 0;
 
         while ( j < listeCarte.size() && j<5) {
-            getButtonCartes().get(j).setNomImage(listeCarte.get(j));
+            getButtonCartes().get(j).setImage(listeCarte.get(j));
             getButtonCartes().get(j).removeActionListener();                
             if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
                 buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
@@ -118,7 +118,7 @@ public class VueAventurier extends Observable {
             j++;
         }
         for (int i = j + 1; i < 5; i++) {
-            getButtonCartes().get(i).setNomImage(null);
+            getButtonCartes().get(i).setImage(null);
 
             getButtonCartes().get(i).removeActionListener();
         }
@@ -149,6 +149,7 @@ public class VueAventurier extends Observable {
     }
 
     //Getters et Setters :
+    
     /**
      * @return the nomAventurier
      */

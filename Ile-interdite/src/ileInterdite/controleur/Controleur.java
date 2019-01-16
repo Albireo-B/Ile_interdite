@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.ImageIcon;
 
 /**
  *

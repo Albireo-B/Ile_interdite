@@ -26,13 +26,13 @@ public class ICarte extends JButton {
 
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";
-    private int imgWidth = 140;
-    private int imgHeigh = 180;
+    private int imgWidth = 120;
+    private int imgHeigh = 200;
 
     private ImageIcon image = null;
 
     public ICarte(String nomImage, Action action) {
-        setNomImage(nomImage);
+        setImage(nomImage);
         this.action = action;
     }
 
@@ -64,10 +64,17 @@ public class ICarte extends JButton {
         return nomCarte;
     }
 
+    
+        
+    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);    
+    }
+    
+    
     /**
      * @param nom the nom to set
      */
-    public void setNomImage(String nomImage) {
+    public void setImage(String nomImage) {
         if (nomImage != null) {
             nomCarte = nomImage;
             image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));

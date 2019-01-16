@@ -32,9 +32,6 @@ public class VueGrille extends Observable {
 
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
-    private Color myBlue = new Color(30, 73, 158);
-    private Color myCyan = new Color(20, 136, 148);
-    private Color myRed = new Color(255, 77, 77);
     private Color myBackgroundColor = new Color(12, 143, 181);
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
@@ -64,7 +61,7 @@ public class VueGrille extends Observable {
                     } else {
                         System.out.println("Il vous manque une case ou quoi?");
                         JPanel panel = new JPanel();
-                        panel.setBackground(myRed);
+                        panel.setBackground(Color.red);
                         panelGrille.add(panel);
                     }
                 } else {
@@ -102,6 +99,8 @@ public class VueGrille extends Observable {
         for (BoutonTuile bouton : bTuiles.values()) {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
+                bouton.setButtonBackground(Color.white);
+                //bouton.BorderFactory;
             }
         }
     }
@@ -113,14 +112,18 @@ public class VueGrille extends Observable {
      * @param act
      */
     public void actualiserBoutonsCliquables(ArrayList<Position> posBoutons, Action act, Role role) {
+      
         setJoueurSelectionné(role);
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-                bouton.getBouton().setIcon(new ImageIcon(new ImageIcon(path+bouton.getName()+".png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT)));;
+                bouton.setButtonBackground(Color.red);
                 bouton.addActionListener((ActionEvent e) -> {
                 setChanged();
                 notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
+                  for(Position posBouton  : bTuiles.keySet()){
+            bTuiles.get(posBouton).getBouton().setBorder(null);
+        }
                 clearChanged();
                 });
             }
