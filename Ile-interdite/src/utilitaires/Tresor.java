@@ -10,11 +10,27 @@ package utilitaires;
  * @author vinetg
  */
 public enum Tresor {
-    PIERRE(false),
-    ZEPHYR(false),
-    CRISTAL(false),
-    CALICE(false);
+    PIERRE(false, "Pierre"),
+    ZEPHYR(false, "Cristal"),
+    CRISTAL(false, "Cristal"),
+    CALICE(false, "Calice");
+    
+    private String nomTresor;
+    private Boolean recuperé;
 
+    Tresor(Boolean recuperé, String nom) {
+        this.recuperé = recuperé;
+        nomTresor = nom;
+    }
+    
+    public String getName() {
+        return nomTresor;
+    }
+
+    public Boolean getRecuperé() {
+        return this.recuperé;
+    }
+    
     /**
      * @param recuperé the recuperé to set
      */
@@ -22,13 +38,5 @@ public enum Tresor {
         this.recuperé = recuperé;
     }
 
-    private Boolean recuperé;
-
-    Tresor(Boolean recuperé) {
-        this.recuperé = recuperé;
-    }
-
-    public Boolean getRecuperé() {
-        return this.recuperé;
-    }
+    
 }

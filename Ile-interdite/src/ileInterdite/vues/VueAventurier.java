@@ -50,7 +50,7 @@ public class VueAventurier extends Observable {
             if ((i == 0 && !gauche) || (i == 2 && gauche)) {
                 panelPrincipal.add(paneClass);
             }
-            buttonCartes.add(new ICarte("_", Action.DONNER));
+            buttonCartes.add(new ICarte(null, Action.DONNER));
             panelPrincipal.add(buttonCartes.get(i));
 
         }
@@ -61,7 +61,7 @@ public class VueAventurier extends Observable {
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
         for (int i = 0; i < 5 && i < listeCarte.size(); i++) {
-            getButtonCartes().get(i).setNom(listeCarte.get(i));
+            getButtonCartes().get(i).setNomImage(listeCarte.get(i));
             getButtonCartes().get(i).removeActionListener();                //A ROLE IS NEEDED MY BOY
             j = i;
             if (buttonCartes.get(i).getNom().equals("Helicoptere") ){
@@ -70,16 +70,16 @@ public class VueAventurier extends Observable {
                     notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
-            }else if (buttonCartes.get(i).getNom().equals("SacDeSable")){
+            }else if (buttonCartes.get(i).getNom().equals("SacsDeSable")){
                 buttonCartes.get(i).addActionListener((ActionEvent arg0) -> {
                     setChanged();
-                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(new MessageCarte("SacsDeSable",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
             }
         }
         for (int i = j + 1; i < 5; i++) {
-            getButtonCartes().get(i).setNom("_");
+            getButtonCartes().get(i).setNomImage(null);
             getButtonCartes().get(i).removeActionListener();
         }
 

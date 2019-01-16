@@ -24,6 +24,9 @@ public class IAventurier extends Observable {
     private JButton boutonAventurier;
     private Role role;
     private ActionListener actionListener;
+    
+    
+    
 
     public IAventurier(JButton boutonAventurier, Role role) {
         this.boutonAventurier = boutonAventurier;
