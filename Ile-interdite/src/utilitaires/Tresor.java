@@ -27,7 +27,7 @@ public enum Tresor {
         return nomTresor;
     }
 
-    public Boolean getRecuperé() {
+    public Boolean isRecupere() {
         return this.recuperé;
     }
     

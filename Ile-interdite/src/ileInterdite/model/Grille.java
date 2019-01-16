@@ -18,6 +18,7 @@ public class Grille {
 
     private final int longueurTerrain = 6;
     private HashMap<Position, Tuile> tuiles = new HashMap();
+    protected Tuile tuileHeliport = null;
 
     /**
      * Voici l'organisation de la grille (x = tuile): x -----> 0 1 2 3 4 5 y 0 x
@@ -30,6 +31,9 @@ public class Grille {
         ArrayList<String> listeTresors = new ArrayList(tuilesTresor.keySet());
         for (String nomTuile : nomTuiles) {
             Tuile t = new Tuile(nomTuile, positionTuiles.get(0));
+            if (nomTuile.equals("Heliport"))
+                tuileHeliport = t;
+            
             if (listeTresors.contains(nomTuile))
                 t.setTresor(tuilesTresor.get(nomTuile));
             
@@ -211,5 +215,12 @@ public class Grille {
      */
     public HashMap<Position, Tuile> getTuiles() {
         return tuiles;
+    }
+
+    /**
+     * @return the tuileHeliport
+     */
+    public Tuile getTuileHeliport() {
+        return tuileHeliport;
     }
 }

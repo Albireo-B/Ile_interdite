@@ -13,10 +13,9 @@ import static java.util.Collections.reverse;
 import java.util.HashMap;
 import utilitaires.ExceptionAventurier;
 import utilitaires.Tresor;
+        
 
-/**
-<<<<<<< HEAD
-*
+/*
 *@authorvinetg
 */
 public class ControleurInit{
@@ -47,10 +46,7 @@ public class ControleurInit{
     tuilesTresor.put("Le Jardin des Murmures", Tresor.ZEPHYR);
 
 
-
-
     Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
-
 
     ctrl.initCartes();
     }

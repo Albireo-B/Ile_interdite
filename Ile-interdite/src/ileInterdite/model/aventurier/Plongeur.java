@@ -38,7 +38,7 @@ public class Plongeur extends Aventurier {
      */
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g) {
-        return g.tuilesAccessiblesPlongeur(getTuile());
+        return enleverTuilesCoulees(g.tuilesAccessiblesPlongeur(getTuile()));
     }
 
     @Override

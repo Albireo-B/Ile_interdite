@@ -57,7 +57,7 @@ public class Pilote extends Aventurier {
         } else {
             liste = g.tuilesAdjacentesCroix(getTuile());
         }
-        return liste;
+        return enleverTuilesCoulees(liste);
     }
 
 }
