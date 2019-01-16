@@ -9,6 +9,7 @@ import utilitaires.Role;
 import ileInterdite.message.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -75,17 +76,18 @@ public class VuePrincipale extends Observable {
         window.add(panelPrincipal);
 
         JPanel panelCentre = new JPanel(new BorderLayout());
-
         panelPlateau.add(v.getPanelGrille(), BorderLayout.CENTER);
+       
 
         labelNomJoueur.setForeground(Color.WHITE);
 
-        JPanel paneGauche = new JPanel(new GridLayout(2, 1));
+        JPanel paneGauche = new JPanel(new BorderLayout());
 
-        JPanel paneDroite = new JPanel(new GridLayout(2, 1));
+        JPanel paneDroite = new JPanel(new BorderLayout());
 
         panelPrincipal.add(paneGauche, BorderLayout.WEST);
         panelPrincipal.add(paneDroite, BorderLayout.EAST);
+        
 
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
 
@@ -142,11 +144,13 @@ public class VuePrincipale extends Observable {
         panelAventuriers = vuesAventuriers;
 
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
-        paneGauche.add(listeVuesAv.get(0).getPanelGeneral());
-        paneGauche.add(listeVuesAv.get(3).getPanelGeneral());
+        paneGauche.add(listeVuesAv.get(0).getPanelGeneral(),BorderLayout.NORTH);
+        paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
+        paneGauche.setPreferredSize(new Dimension(330,200));
 
-        paneDroite.add(listeVuesAv.get(1).getPanelGeneral());
-        paneDroite.add(listeVuesAv.get(2).getPanelGeneral());
+        paneDroite.add(listeVuesAv.get(1).getPanelGeneral(),BorderLayout.NORTH);
+        paneDroite.add(listeVuesAv.get(2).getPanelGeneral(),BorderLayout.SOUTH);
+        paneDroite.setPreferredSize(new Dimension(330, 200));
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
