@@ -86,7 +86,7 @@ public class Controleur implements Observer {
         int cptr = 0;
         for (Role role : joueurs.keySet()) {
             vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
-            VueAventurier newVueAv = new VueAventurier(role,joueurs.get(role).getNomJoueur(), cptr == 0 || cptr == 3);
+            VueAventurier newVueAv = new VueAventurier(role, joueurs.get(role).getNomJoueur(), cptr == 0 || cptr == 3);
             vuesAventuriers.put(role, newVueAv);
             newVueAv.addObserver(this);
             cptr++;
@@ -240,7 +240,10 @@ public class Controleur implements Observer {
         vueGrille.actualiserPositionJoueur(messagePos.getPos(), av.getPosition(), av.getPion());
 
         av.setTuile(grille, grille.getTuile(messagePos.getPos()));
-        av.decrementeNbActions();
+        if (!attenteMouvementUrgence.isEmpty()) {
+            av.decrementeNbActions();
+            attenteMouvementUrgence.remove(0);
+        }
 
         if (victoireJoueur()) {
             terminerPartie(true, ListeFin.VICTOIRE);
@@ -435,13 +438,12 @@ public class Controleur implements Observer {
             }
         }
         //regarde si les cartes tresors sont encore utiles
-        if(((Message)arg).getAction()!=Action.DONNER){
-            for(Aventurier av : joueurs.values()){
+        if (((Message) arg).getAction() != Action.DONNER) {
+            for (Aventurier av : joueurs.values()) {
                 vuePrincipale.getPanelAventuriers().get(av.getRole()).actualiserVueAventurier(av.cartesToString());
             }
         }
-        
-        
+
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -588,7 +590,6 @@ public class Controleur implements Observer {
 
     }
 
-
     public void terminerPartie(boolean gagne, ListeFin fin) {
         if (this.fin) {
             switch (fin) {
@@ -667,10 +668,6 @@ public class Controleur implements Observer {
             }
         } else //Si arg est de type MessagePos
         if (arg instanceof MessagePos) {
-            if (!attenteMouvementUrgence.isEmpty()) {
-                attenteMouvementUrgence.remove(0);
-            }
-
             for (VueAventurier vueAv : vuesAventuriers.values()) {
                 vueAv.actualiserVueAventurier(joueurs.get(vueAv.getRoleAventurier()).cartesToString());
             }
