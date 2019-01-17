@@ -43,8 +43,8 @@ public class VueGrille extends Observable {
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
     
-    private int grilleWidth = 620;
-    private int grilleHeigh = 730;
+    private int grilleWidth = 790;
+    private int grilleHeight = 800;
 
     private HashMap<Tresor, ITresor> tresors = new HashMap();
 
@@ -59,7 +59,7 @@ public class VueGrille extends Observable {
         panelGeneral.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         
         panelGrille = new JPanel(new GridLayout(6, 6));
-        panelGrille.setPreferredSize(new Dimension(grilleWidth, grilleHeigh));
+        panelGrille.setPreferredSize(new Dimension(grilleWidth, grilleHeight));
         panelGeneral.add(panelGrille);
         panelGrille.setBackground(myBackgroundColor);
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
@@ -115,6 +115,7 @@ public class VueGrille extends Observable {
             for (ActionListener ac : bouton.getBouton().getActionListeners()) {
                 bouton.removeActionListener(ac);
                 bouton.setButtonBorder(null);
+                bouton.getBouton().setBorderPainted(false);
             }
         }
     }
@@ -132,12 +133,11 @@ public class VueGrille extends Observable {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
                 bouton.setButtonBorder(Color.red);
+                
+                bouton.getBouton().setBorderPainted(true);
                 bouton.addActionListener((ActionEvent e) -> {
                 setChanged();
                 notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
-                  for(Position posBouton  : bTuiles.keySet()){
-            bTuiles.get(posBouton).setButtonBorder(null);
-        }
                 clearChanged();
                 });
             }
@@ -148,7 +148,8 @@ public class VueGrille extends Observable {
         for (Position pos : posBoutons) {
             if (bTuiles.keySet().contains(pos)) {
                 BoutonTuile bouton = bTuiles.get(pos);
-                bouton.getBouton().setForeground(Color.red);
+                bouton.setButtonBorder(Color.red);
+                bouton.getBouton().setBorderPainted(true);
                 bouton.addActionListener((ActionEvent e) -> {
                     setChanged();
                     notifyObservers(new MessageGroupePos(act, pos, joueurSelectionné,roles));
@@ -178,6 +179,7 @@ public class VueGrille extends Observable {
                 break;
             case INONDEE:
                 ImageIcon tuileSInonde = new ImageIcon(new ImageIcon(path+bouton.getNom()+"_Inonde.png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT));
+
                 bouton.getBouton().setIcon(tuileSInonde);
                 bouton.setButtonEnabled(true);
                 break;

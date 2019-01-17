@@ -11,7 +11,7 @@ package utilitaires;
  */
 public enum Tresor {
     PIERRE(false, "Pierre"),
-    ZEPHYR(false, "Cristal"),
+    ZEPHYR(false, "Zephyr"),
     CRISTAL(false, "Cristal"),
     CALICE(false, "Calice");
     

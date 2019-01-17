@@ -11,7 +11,9 @@ import ileInterdite.model.Position;
 import ileInterdite.model.Tuile;
 import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
+import java.awt.Cursor;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -91,6 +93,11 @@ public abstract class Aventurier {
 
     public void defausseCartes() {
         getVueDefausse().actualiser(cartesToString(), getRole());
+        getVueDefausse().getFenetre().setAlwaysOnTop(true);
+        getVueDefausse().getFenetre().setCursor(Cursor.HAND_CURSOR);
+        
+        
+        
     }
 
     /**
@@ -159,7 +166,7 @@ public abstract class Aventurier {
             if (!tresor.isRecupere()) {
                 int nbTresor = 0;
                 for (CarteTirage carte : getCartes()) {
-                    if (carte.getNom().equals(tresor.toString())) {
+                    if (carte.getNom().equals(tresor.getName())) {
                         nbTresor += 1;
                     }
                 }
@@ -184,6 +191,7 @@ public abstract class Aventurier {
         cartes = new ArrayList(nouveauDeck);
     }
     
+   
     public Position getPosition() {
         return tuile.getPosition();
     }
@@ -264,4 +272,5 @@ public abstract class Aventurier {
     protected void setPion(Pion pion) {
         this.pion = pion;
     }
+
 }

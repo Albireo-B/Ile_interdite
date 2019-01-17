@@ -45,7 +45,7 @@ public class ICarte extends JButton {
     public void removeActionListener() {
         removeActionListener(actionListener);
         actionListener = null;
-        setBorder(bordureNoire);
+        setBorder(null);
     }
 
     @Override

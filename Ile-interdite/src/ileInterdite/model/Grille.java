@@ -29,13 +29,14 @@ public class Grille {
     public Grille(ArrayList<String> nomTuiles, HashMap<String, Tresor> tuilesTresor) {
         ArrayList<Position> positionTuiles = getAllTilesPositions();
         ArrayList<String> listeTresors = new ArrayList(tuilesTresor.keySet());
+
         for (String nomTuile : nomTuiles) {
             Tuile t = new Tuile(nomTuile, positionTuiles.get(0));
             if (nomTuile.equals("Heliport"))
                 tuileHeliport = t;
             
-            if (listeTresors.contains(nomTuile))
-                t.setTresor(tuilesTresor.get(nomTuile));
+            if (listeTresors.contains(nomTuile)){
+                t.setTresor(tuilesTresor.get(nomTuile));}
             
             tuiles.put(positionTuiles.get(0), t);
             positionTuiles.remove(0);
