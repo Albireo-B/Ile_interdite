@@ -33,20 +33,15 @@ public class Controleur implements Observer {
 
     private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
-    
-    
     private HashMap<Role, Aventurier> joueurs = new HashMap<>();
     private Grille grille;
     private Aventurier aventurierCourant;
-    
     private ArrayList<CarteInondation> piocheInondation = new ArrayList<>();
     private ArrayList<CarteInondation> defausseInondation = new ArrayList<>();
     private ArrayList<CarteTirage> piocheTirage = new ArrayList<>();
     private ArrayList<CarteTirage> defausseTirage = new ArrayList<>();
-    
     private int niveauEau;
     private ArrayList<Role> listeRoles;
-    
     private ArrayList<Aventurier> attenteMouvementUrgence = new ArrayList();
     private boolean bloquerBoutons = false;
 
@@ -57,6 +52,9 @@ public class Controleur implements Observer {
      * @param nomsjoueurs
      * @param roles
      * @param nomTuiles
+     * @param tuilesTresor
+     * @param pioche
+     * @param niveauEau
      */
     public Controleur(ArrayList<String> nomsjoueurs, ArrayList<Role> roles, ArrayList<String> nomTuiles, HashMap<String, Tresor> tuilesTresor, ArrayList<CarteTirage> pioche, int niveauEau) {
         //Initialisation du niveau d'eau
@@ -75,6 +73,8 @@ public class Controleur implements Observer {
         for (String nom : nomsTuiles) {
             piocheInondation.add(new CarteInondation(nom));
         }
+       
+        Collections.shuffle(piocheInondation);
 
         piocheTirage = pioche;
 
@@ -125,9 +125,25 @@ public class Controleur implements Observer {
     }
 
     public void initInondation() {
+        ArrayList<CarteInondation> cartesAInonder=new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            piocheInondation.get(piocheInondation.size() - 1);
+            piocheInondation.remove(piocheInondation.size() - 1);
+            cartesAInonder.add(piocheInondation.get(piocheInondation.size() - 1));
         }
+        for (CarteInondation carte : cartesAInonder){
+            for (Tuile tuile : grille.getToutesTuiles()) {
+                //Si La tuile a le même nom que la carte à inonder
+                if (tuile.getNom().equals(carte.getNom())) {
+                    monteeDesEaux(tuile.getPosition());
+                    //Si la tuile est coulée
+                    if (tuile.getEtat() != EtatTuile.COULEE){
+                        defausseInondation.add(carte);
+                    }
+                }
+            }
+        }
+        
+        
     }
 
     /**
@@ -267,6 +283,7 @@ public class Controleur implements Observer {
             aventurierCourant.decrementeNbActions();
         }
     }
+
 
     /**
      * Fonction globale qui gère l'inondation de fin de tour
@@ -747,7 +764,7 @@ public class Controleur implements Observer {
         }
         if (trigger) {
             Collections.shuffle(defausseInondation);
-            getPiocheInondation().addAll(defausseInondation);
+            piocheInondation.addAll(defausseInondation);
             defausseInondation.clear();
         }
         try {
