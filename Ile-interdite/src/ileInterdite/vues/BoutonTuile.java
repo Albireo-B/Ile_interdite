@@ -97,7 +97,6 @@ public class BoutonTuile extends JPanel {
 
     public void addAventurier(Pion pJoueur) {
         if (labelsAventuriers.size() < 4) {
-            System.out.println(pJoueur.toString());
             JLabel label = labels.get(labelsAventuriers.size());
             label.setIcon(pJoueur.getImage());
             labelsAventuriers.put(pJoueur, label);

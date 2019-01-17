@@ -83,12 +83,14 @@ public class ICarte extends JButton {
     public void setImage(String nomImage) {
         if (nomImage != null) {
             nomCarte = nomImage;
-            image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
+            image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
             setIcon(image);
         }
-        else {
-            setIcon(null);
+        else{
+            
             nomCarte = "";
+            image = new ImageIcon(new ImageIcon(path +"Fond bleu.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+            setIcon(image);
         }
     }
 
