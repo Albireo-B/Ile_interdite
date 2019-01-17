@@ -85,7 +85,6 @@ public class VuePrincipale extends Observable {
         window.add(panelPrincipal);
         window.setResizable(true);
         
-        
         labelNbPA.setFont(new Font("Arial", Font.BOLD, 20));
         labelNbPA.setForeground(Color.yellow);
         btnTerminerTour.setFont(new Font("Arial", Font.BOLD, 25));
