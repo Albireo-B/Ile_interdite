@@ -40,17 +40,17 @@ public class BoutonTuile extends JPanel {
     
 
     public BoutonTuile(String nom) {
-        super();
+        super(new BorderLayout());
         
         this.nom=nom;
         
         JLayeredPane layeredPane = new JLayeredPane();
         
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
         ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
         
         bouton = new JButton(imgTuile);
-        bouton.setBounds(0, 0, width, height);
+        bouton.setBounds(1, 1, width-4, height-4);
         
         layeredPane.setPreferredSize(new Dimension(width-4, height-4));
         
@@ -87,7 +87,7 @@ public class BoutonTuile extends JPanel {
         layeredPane.add(bouton, new Integer(0));
         layeredPane.add(panelAventuriers, new Integer(1));
         
-        add(layeredPane);
+        add(layeredPane, BorderLayout.CENTER);
     }
 
     public void removeAventurier(Pion pJoueur) {
@@ -106,10 +106,6 @@ public class BoutonTuile extends JPanel {
     
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
         image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
-    }
-
-    public void setButtonForeground(Color c) {
-        bouton.setForeground(c);
     }
 
     public void setButtonBorder(Color c) {
