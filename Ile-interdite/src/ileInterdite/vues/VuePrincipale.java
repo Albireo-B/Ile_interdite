@@ -69,7 +69,7 @@ public class VuePrincipale extends Observable {
      * @param v
      * @param vuesAventuriers
      */
-    public VuePrincipale(VueGrille v, HashMap<Role, VueAventurier> vuesAventuriers) {
+    public VuePrincipale(VueGrille v, HashMap<Role,VueAventurier> vuesAventuriers) {
         btnRecuperer = new JButton(new ImageIcon(path+"icones/iconGet.png"));
         btnRecuperer.setText("Récupérer un trésor");
         btnDonner = new JButton(new ImageIcon(path+"icones/iconGive.png"));
@@ -191,21 +191,21 @@ public class VuePrincipale extends Observable {
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
 
-        getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
+        panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
 
-        getPanelAventuriers().get(classe).getPanelGeneral().setBackground(couleur);
-        getLabelNomJoueur().setText(classe + " ( " + nomJoueur + " ) ");
+        panelAventuriers.get(classe).getPanelGeneral().setBackground(couleur);
+        labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
 
         panelPlateau.setBorder(new MatteBorder(0,0,2,0,couleur));
 
-        getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
+        labelNbPA.setText("Nombre d'actions restantes : " + nombrePA);
 
         
         panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA,10));
         
         
         
-        getWindow().setVisible(true);
+        window.setVisible(true);
     }
 
     public void activerBouton(Bouton bouton, Boolean b) {
@@ -226,15 +226,17 @@ public class VuePrincipale extends Observable {
                 btnTerminerTour.setEnabled(b);
         }
     }
-
-    //Getters et Setters :
-    /**
+    
+     /**
      * Ferme la fenêtre
      */
     public void close() {
         getWindow().dispose();
     }
 
+
+    //Getters et Setters :
+ 
     /**
      * @return the window
      */
@@ -247,55 +249,6 @@ public class VuePrincipale extends Observable {
      */
     public HashMap<Role, VueAventurier> getPanelAventuriers() {
         return panelAventuriers;
-    }
-
-    /**
-     * @return the panelPrincipal
-     */
-    public JPanel getPanelPrincipal() {
-        return panelPrincipal;
-    }
-
-    /**
-     * @return the btnBouger
-     */
-    public JButton getBtnBouger() {
-        return btnBouger;
-    }
-
-    /**
-     * @return the btnAssecher
-     */
-    public JButton getBtnAssecher() {
-        return btnAssecher;
-    }
-
-    /**
-     * @return the btnDonner
-     */
-    public JButton getBtnDonner() {
-        return btnDonner;
-    }
-
-    /**
-     * @return the btnRecuper
-     */
-    public JButton getBtnRecuperer() {
-        return btnRecuperer;
-    }
-
-    /**
-     * @return the labelNbPA
-     */
-    public JLabel getLabelNbPA() {
-        return labelNbPA;
-    }
-
-    /**
-     * @return the labelNomJoueur
-     */
-    public JLabel getLabelNomJoueur() {
-        return labelNomJoueur;
     }
 
 }
