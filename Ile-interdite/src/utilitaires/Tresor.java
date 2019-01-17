@@ -10,16 +10,16 @@ package utilitaires;
  * @author vinetg
  */
 public enum Tresor {
-    PIERRE(false, "Pierre"),
-    ZEPHYR(false, "Zephyr"),
-    CRISTAL(false, "Cristal"),
-    CALICE(false, "Calice");
+    PIERRE("Pierre"),
+    ZEPHYR("Zephyr"),
+    CRISTAL("Cristal"),
+    CALICE("Calice");
     
     private String nomTresor;
     private Boolean recuperé;
 
-    Tresor(Boolean recuperé, String nom) {
-        this.recuperé = recuperé;
+    Tresor(String nom) {
+        this.recuperé = false;
         nomTresor = nom;
     }
     
