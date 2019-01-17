@@ -61,7 +61,7 @@ public class Controleur implements Observer {
     public Controleur(ArrayList<String> nomsjoueurs, ArrayList<Role> roles, ArrayList<String> nomTuiles, HashMap<String, Tresor> tuilesTresor, ArrayList<CarteTirage> pioche, int niveauEau) {
         //Initialisation du niveau d'eau
         this.niveauEau = niveauEau;
-        
+
         //Initialisation de la Grille
         grille = new Grille(nomTuiles, tuilesTresor);
 
@@ -244,7 +244,7 @@ public class Controleur implements Observer {
         av.decrementeNbActions();
 
         if (victoireJoueur()) {
-            terminerPartie(true,ListeFin.VICTOIRE);
+            terminerPartie(true, ListeFin.VICTOIRE);
         }
     }
 
@@ -276,6 +276,7 @@ public class Controleur implements Observer {
             if (aventurierCourant instanceof Ingenieur) {
                 aventurierCourant.setPouvoir(false);
                 gererAssechement();
+
             }
             aventurierCourant.decrementeNbActions();
         }
@@ -302,7 +303,7 @@ public class Controleur implements Observer {
         attenteMouvementUrgence = new ArrayList();
         for (Entry<Aventurier, Boolean> av : aventuriersPieges().entrySet()) {
             if (av.getValue()) {
-                terminerPartie(false,ListeFin.JOUEURCOULE);
+                terminerPartie(false, ListeFin.JOUEURCOULE);
             } else {
                 attenteMouvementUrgence.add(av.getKey());
             }
@@ -313,7 +314,7 @@ public class Controleur implements Observer {
         }
 
         if (grille.getTuileHeliport().getEtat() == EtatTuile.COULEE) {
-            terminerPartie(false,ListeFin.HELIPORTCOULE);
+            terminerPartie(false, ListeFin.HELIPORTCOULE);
         }
     }
 
@@ -347,7 +348,7 @@ public class Controleur implements Observer {
                         && t.getNom() != tuile.getNom()
                         && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
                         && t.getEtat() == EtatTuile.COULEE) {
-                    terminerPartie(false,ListeFin.TEMPLECOULE);
+                    terminerPartie(false, ListeFin.TEMPLECOULE);
                 }
             }
 
@@ -434,6 +435,8 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().getBoutonAventurier().setBackground(null);
             }
         }
+
+        //regarde si les cartes tresors sont encore utiles
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -470,6 +473,12 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+        int i = piocheTirage.size() + defausseTirage.size();
+        for (Aventurier av : joueurs.values()) {
+            i += av.getCartes().size();
+        }
+        System.out.println(i);
+        updateBoutons();
     }
 
     public void appliquerDefausse(MessageCarte messageCarte) {
@@ -574,28 +583,30 @@ public class Controleur implements Observer {
 
     }
 
-    public void terminerPartie(boolean gagne,ListeFin fin) {
-        if (this.fin){
-        switch (fin){
-            case VICTOIRE:
-                JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
-                break;
-            case TEMPLECOULE:
-                JOptionPane.showMessageDialog(null, "Dommage, les deux lieux vous permettant d'obtenir un trésor ont coulé avant que vous ne puissiez le récupérer !", "Fin du Jeu!", JOptionPane.OK_OPTION);
-                break;
-            case HELIPORTCOULE:
-                JOptionPane.showMessageDialog(null, "Dommage, l'héliport vient de couler vous ne pouvez plus vous enfuir !", "Fin du Jeu!", JOptionPane.OK_OPTION);
-                break;
-            case JOUEURCOULE:
-                JOptionPane.showMessageDialog(null, "Dommage, un de vos compagnons s'est noyé !", "Fin du Jeu!", JOptionPane.OK_OPTION);
-                break;
-            case NIVEAUDEAU:
-                JOptionPane.showMessageDialog(null, "Dommage, le niveau d'eau est trop élevé et a englouti l'ile et vous avec !", "Fin du Jeu!", JOptionPane.OK_OPTION);
-                break;
+    public void terminerPartie(boolean gagne, ListeFin fin) {
+        if (this.fin) {
+            switch (fin) {
+                case VICTOIRE:
+                    JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                    break;
+                case TEMPLECOULE:
+                    JOptionPane.showMessageDialog(null, "Dommage, les deux lieux vous permettant d'obtenir un trésor ont coulé avant que vous ne puissiez le récupérer !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                    break;
+                case HELIPORTCOULE:
+                    JOptionPane.showMessageDialog(null, "Dommage, l'héliport vient de couler vous ne pouvez plus vous enfuir !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                    break;
+                case JOUEURCOULE:
+                    JOptionPane.showMessageDialog(null, "Dommage, un de vos compagnons s'est noyé !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                    break;
+                case NIVEAUDEAU:
+                    JOptionPane.showMessageDialog(null, "Dommage, le niveau d'eau est trop élevé et a englouti l'ile et vous avec !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                    break;
+            }
+            enableGame(false);
+            for (Aventurier av : joueurs.values()) {
+                av.getVueDefausse().close();
+            }
         }
-        enableGame(false);
-        for (Aventurier av : joueurs.values()){
-        av.getVueDefausse().close();}}
         this.fin = true;
     }
 
@@ -746,6 +757,7 @@ public class Controleur implements Observer {
 
     public CarteTirage stringToCarte(String nomCarte, Role role) {
         CarteTirage carteSelection = null;
+        System.out.println(nomCarte);
         for (CarteTirage carte : joueurs.get(role).getCartes()) {
             if (carte.getNom().equals(nomCarte)) {
                 carteSelection = carte;
@@ -808,7 +820,7 @@ public class Controleur implements Observer {
                 niveauEau += 1;
                 vuePrincipale.setNiveau(niveauEau);
                 if (niveauEau >= 10) {
-                    terminerPartie(false,ListeFin.NIVEAUDEAU);
+                    terminerPartie(false, ListeFin.NIVEAUDEAU);
                 }
             } else {
                 cartes.add(piocheTirage.get(piocheTirage.size() - 1));
@@ -879,6 +891,9 @@ public class Controleur implements Observer {
                     break;
 
             }
+            for (int i = 0; i < 4; i++) {
+                defausseTirage.add(stringToCarte(tresor.getName(), aventurierCourant.getRole()));
+            }
             aventurierCourant.removeCartesTresor(tresor);
 
             vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
@@ -900,18 +915,32 @@ public class Controleur implements Observer {
     private void updateBoutons() {
         if (attenteMouvementUrgence.isEmpty()) {
             vuePrincipale.activerBouton(Bouton.TERMINER_TOUR, true);
-            vuePrincipale.activerBouton(Bouton.DEPLACER, !aventurierCourant.calculDeplacement(grille).isEmpty());
+            vuePrincipale.activerBouton(Bouton.DEPLACER, !aventurierCourant.calculDeplacement(grille).isEmpty() && !(aventurierCourant.getNbAction() < 1));
 
-            vuePrincipale.activerBouton(Bouton.ASSECHER, !aventurierCourant.calculAssechement(grille).isEmpty());
+            vuePrincipale.activerBouton(Bouton.ASSECHER, !aventurierCourant.calculAssechement(grille).isEmpty() && !(aventurierCourant.getNbAction() < 1));
 
             Boolean peutDonner = true;
             ArrayList<Aventurier> avSurCase = aventurierCourant.getTuile().getAventuriers();
-            if ((avSurCase.size() <= 1 || aventurierCourant.getCartes().isEmpty()) && aventurierCourant.getRole() != Role.Messager) {
-                peutDonner = false;
-            }
-            vuePrincipale.activerBouton(Bouton.DONNER, peutDonner);
+            if (aventurierCourant.getRole() == Role.Messager) {
+                if (aventurierCourant.getCartes().isEmpty()) {
+                    peutDonner = false;
+                }
+            } else {
+                System.out.println("----------");
+                ArrayList<CarteTirage> cartes = new ArrayList(aventurierCourant.getCartes());
+                for (CarteTirage carte : aventurierCourant.getCartes()) {
+                    if (!(carte instanceof CarteTresor)) {
+                        cartes.remove(carte);
+                    }
+                }
 
-            vuePrincipale.activerBouton(Bouton.RECUPERER, aventurierCourant.tresorRecuperable() != null);
+                if ((avSurCase.size() <= 1 || cartes.isEmpty())) {
+                    peutDonner = false;
+                }
+            }
+            vuePrincipale.activerBouton(Bouton.DONNER, peutDonner && !(aventurierCourant.getNbAction() < 1));
+
+            vuePrincipale.activerBouton(Bouton.RECUPERER, aventurierCourant.tresorRecuperable() != null && !(aventurierCourant.getNbAction() < 1));
         }
     }
 }
