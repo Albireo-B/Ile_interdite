@@ -350,7 +350,8 @@ public class Controleur implements Observer {
                 if (grille.getTuilesTresor().get(tuile) != null
                         && t.getNom() != tuile.getNom()
                         && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
-                        && t.getEtat() == EtatTuile.COULEE) {
+                        && t.getEtat() == EtatTuile.COULEE
+                        /*&& le tresor n'est pas récupéré*/ ) {
                     terminerPartie(false, ListeFin.TEMPLECOULE);
                 }
             }
