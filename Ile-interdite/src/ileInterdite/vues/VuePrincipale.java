@@ -55,7 +55,6 @@ public class VuePrincipale extends Observable {
     private JPanel panelBoutons;
     private JPanel paneNiveau;
     private JPanel paneBas;
-    private JPanel paneCursor=new JPanel(new GridLayout(1,7));
     private Color myNewBlue = new Color (30,144,255);
     
     private int width = 1600;
@@ -122,10 +121,10 @@ public class VuePrincipale extends Observable {
         panelBoutons.add(btnRecuperer);
         
         
-        paneNiveau=new JPanel(new BorderLayout());
+        paneNiveau=new JPanel();
         JLabel labImage=new JLabel(imgNiveau);
-        paneNiveau.add(labImage,BorderLayout.CENTER);
-        paneNiveau.add(paneCursor,BorderLayout.NORTH);
+        paneNiveau.add(labImage);
+
         
     
         panelPlateau.add(paneBas, BorderLayout.SOUTH);
