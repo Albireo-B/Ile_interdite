@@ -30,6 +30,7 @@ public class IAventurier extends Observable {
     private ActionListener actionListener;
     private Border bordureNoire;
     private Border bordureRouge;
+    private Border bordureViolette;
     
     
     
@@ -37,6 +38,7 @@ public class IAventurier extends Observable {
     public IAventurier(JButton boutonAventurier, Role role) {
         bordureNoire = BorderFactory.createLineBorder(Color.black,3);
         bordureRouge = BorderFactory.createLineBorder(Color.red,3);
+        bordureViolette = BorderFactory.createLineBorder(Color.PINK,3);
         this.boutonAventurier = boutonAventurier;
         this.role = role;
     }
@@ -83,7 +85,6 @@ public class IAventurier extends Observable {
                 clearChanged();
             }
         });
-        boutonAventurier.setBackground(null);
         }else{
             newRoles.remove(role);
             removeActionListener();
@@ -95,7 +96,7 @@ public class IAventurier extends Observable {
                 clearChanged();
             }
         });
-            boutonAventurier.setBackground(Color.red);
+            boutonAventurier.setBorder(bordureViolette);
         }
     }
     
