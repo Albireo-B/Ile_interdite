@@ -150,7 +150,11 @@ public abstract class Aventurier {
     public ArrayList<String> cartesToString() {
         ArrayList<String> listeCarte = new ArrayList<>();
         for (CarteTirage carte : this.getCartes()) {
-            listeCarte.add(carte.getNom());
+            if (carte != null){
+            listeCarte.add(carte.getNom());}
+            else{
+                System.out.println("Une carte vide  -->  WTF");
+            }
         }
         return listeCarte;
 

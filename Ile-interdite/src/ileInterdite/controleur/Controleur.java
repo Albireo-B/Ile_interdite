@@ -341,7 +341,7 @@ public class Controleur implements Observer {
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
             
             for (Tuile t : grille.getTuilesTresor().keySet()){
-                if (grille.getTuilesTresor()!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
+                if (grille.getTuilesTresor().get(t)!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
                     terminerPartie(false);
                 }
             }
