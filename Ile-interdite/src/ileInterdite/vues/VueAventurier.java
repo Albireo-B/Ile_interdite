@@ -106,11 +106,11 @@ public class VueAventurier extends Observable {
                     clearChanged();
                 });
 
-            }else if (buttonCartes.get(j).getNom().equals("SacsDeSable")){
+            }else if (buttonCartes.get(j).getNom().equals("SacDeSable")){
                 buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
 
                     setChanged();
-                    notifyObservers(new MessageCarte("SacsDeSable",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
             }
