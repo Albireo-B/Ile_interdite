@@ -560,7 +560,7 @@ public class Controleur implements Observer {
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
-        
+
         for(Role r:messageGroupePos.getRoles()){
             vueGrille.actualiserPositionJoueur(messageGroupePos.getPos(), joueurs.get(r).getPosition(), joueurs.get(r).getPion());
             joueurs.get(r).setTuile(getGrille(), getGrille().getTuile(messageGroupePos.getPos()));
@@ -637,6 +637,14 @@ public class Controleur implements Observer {
             }
             if (!attenteMouvementUrgence.isEmpty())
                 bougerJoueurUrgence(attenteMouvementUrgence.get(0));
+            } else if (arg instanceof MessageGroupePos) {
+            MessageGroupePos messageGroupePos = (MessageGroupePos) arg;
+            vueGrille.tousBoutonsInertes();
+            switch (messageGroupePos.getAction()) {
+                case GROUPEHELICO:
+                        appliquerDeplacementhelicoptere(messageGroupePos);
+                    break;
+            }    
         } else if (arg instanceof MessageGroupe) {
             MessageGroupe messageGroupe = (MessageGroupe) arg;
             vueGrille.tousBoutonsInertes();
@@ -645,14 +653,6 @@ public class Controleur implements Observer {
                     gererGroupeHelicoptere(messageGroupe.getRole(), messageGroupe.getRoles());
                     break;
             }
-        } else if (arg instanceof MessageGroupePos) {
-            MessageGroupePos messageGroupePos = (MessageGroupePos) arg;
-            vueGrille.tousBoutonsInertes();
-            switch (messageGroupePos.getAction()) {
-                case GROUPEHELICO:
-                        appliquerDeplacementhelicoptere(messageGroupePos);
-                    break;
-            }    
         } else if (arg instanceof MessageGroupe) {
             MessageGroupe messageGroupe = (MessageGroupe) arg;
             vueGrille.tousBoutonsInertes();
