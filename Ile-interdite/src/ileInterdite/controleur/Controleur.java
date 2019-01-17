@@ -336,7 +336,15 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().getBoutonAventurier().setBackground(null);
             }
         }
-
+        if (   //si l'aventurier déplace des joueurs
+                aventurierCourant.getRole() == Role.Navigateur && (((Message) arg).getAction()== Action.DEPLACER
+                ||(((Message) arg).getAction()== Action.SUIVRE && !(arg instanceof MessagePos)))
+                ){
+                vuePrincipale.getPanelAventuriers().get(Role.Navigateur).getCarteJoueur().removeActionListener();
+            for (Role r : listeRoles) {
+                vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().getBoutonAventurier().setBackground(null);
+            }   
+        }
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
