@@ -47,7 +47,6 @@ public class VueNiveau extends JPanel {
     
     public void setNiveau(int niveau) {
         this.niveau = niveau;
-        System.out.println(this.niveau);
-        curseur.setBounds(offsetDepart + (niveau) * 25, 0, imgCurseur.getIconWidth(), imgCurseur.getIconHeight());
+        curseur.setBounds(offsetDepart + (niveau-1) * 25, 0, imgCurseur.getIconWidth(), imgCurseur.getIconHeight());
     }
 }
