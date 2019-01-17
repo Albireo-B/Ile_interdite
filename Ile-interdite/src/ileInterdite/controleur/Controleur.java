@@ -204,7 +204,6 @@ public class Controleur implements Observer {
      * @param av
      */
     public void gererDeplacement(Aventurier av) {
-        if (av.getNbAction() > 0) {
             if (av.getRole() == Role.Navigateur) {
                 for (Role role : listeRoles) {
                     if (role != Role.Navigateur) {
@@ -214,7 +213,6 @@ public class Controleur implements Observer {
                 }
             }
             proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
-        }
     }
 
     public boolean victoireJoueur() {
@@ -343,7 +341,7 @@ public class Controleur implements Observer {
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
             
             for (Tuile t : grille.getTuilesTresor().keySet()){
-                if (t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
+                if (grille.getTuilesTresor()!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
                     terminerPartie(false);
                 }
             }
@@ -581,7 +579,7 @@ public class Controleur implements Observer {
         } else {
             JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
         }
-        vuePrincipale.getWindow().setEnabled(false);
+        enableGame(false);
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {

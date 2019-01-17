@@ -190,11 +190,6 @@ public class VuePrincipale extends Observable {
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
-        if (nombrePA == 0) {
-            getBtnBouger().setVisible(false);
-        } else {
-            getBtnBouger().setVisible(true);
-        }
 
         getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
 
