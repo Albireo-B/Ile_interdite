@@ -76,7 +76,7 @@ public class Controleur implements Observer {
         }
 
         piocheTirage = pioche;
-
+        
         vueGrille = new VueGrille(posTuiles, nomsTuiles);
         vueGrille.addObserver(this);
 
@@ -181,6 +181,8 @@ public class Controleur implements Observer {
                 piocheTirage.remove(piocheTirage.size() - 1);
             }
             try {
+                System.out.println(role);
+                System.out.println(cartes);
                 joueurs.get(role).addCartes(cartes);
             } catch (ExceptionAventurier ex) {
             };
@@ -882,4 +884,5 @@ public class Controleur implements Observer {
     public Grille getGrille() {
         return grille;
     }
+
 }
