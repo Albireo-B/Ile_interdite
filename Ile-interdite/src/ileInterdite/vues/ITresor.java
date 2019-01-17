@@ -22,14 +22,14 @@ public class ITresor extends JLabel {
     private int imgWidth = 50;
     private int imgHeigh = 70;
 
-    private ImageIcon pierreGrisee = new ImageIcon(new ImageIcon(path + "pierreGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon pierre = new ImageIcon(new ImageIcon(path + "pierre.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon caliceGrisee = new ImageIcon(new ImageIcon(path + "caliceGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon calice = new ImageIcon(new ImageIcon(path + "calice.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon zephyr = new ImageIcon(new ImageIcon(path + "zephyr.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon zephyrGrisee = new ImageIcon(new ImageIcon(path + "zephyrGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon cristal = new ImageIcon(new ImageIcon(path + "cristal.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
-    private ImageIcon cristalGrisee = new ImageIcon(new ImageIcon(path + "cristalGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
+    private ImageIcon pierreGrisee = new ImageIcon(new ImageIcon(path + "pierreGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon pierre = new ImageIcon(new ImageIcon(path + "pierre.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon caliceGrisee = new ImageIcon(new ImageIcon(path + "caliceGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon calice = new ImageIcon(new ImageIcon(path + "calice.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon zephyr = new ImageIcon(new ImageIcon(path + "zephyr.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon zephyrGrisee = new ImageIcon(new ImageIcon(path + "zephyrGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon cristal = new ImageIcon(new ImageIcon(path + "cristal.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+    private ImageIcon cristalGrisee = new ImageIcon(new ImageIcon(path + "cristalGrisee.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
 
     public ITresor(Tresor tresor) {
         super("", JLabel.CENTER);

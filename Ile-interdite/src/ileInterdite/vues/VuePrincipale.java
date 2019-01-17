@@ -53,7 +53,7 @@ public class VuePrincipale extends Observable {
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
-    private JPanel paneNiveau;
+    private VueNiveau vueNiveau;
     private JPanel paneBas;
     private JPanel paneCursor=new JPanel(new GridLayout(1,7));
     
@@ -118,17 +118,12 @@ public class VuePrincipale extends Observable {
         panelBoutons.add(btnAssecher);
         panelBoutons.add(btnRecuperer);
         
-        
-        paneNiveau=new JPanel(new BorderLayout());
-        JLabel labImage=new JLabel(imgNiveau);
-        paneNiveau.add(labImage,BorderLayout.CENTER);
-        paneNiveau.add(paneCursor,BorderLayout.NORTH);
-        
+        vueNiveau=new VueNiveau(0);
     
         panelPlateau.add(paneBas, BorderLayout.SOUTH);
         
         paneBas.add(panelBoutons,BorderLayout.EAST);
-        paneBas.add(paneNiveau,BorderLayout.CENTER);
+        paneBas.add(vueNiveau,BorderLayout.CENTER);
 
         btnBouger.setVisible(true);
         btnBouger.addActionListener((ActionEvent e) -> {
@@ -188,6 +183,10 @@ public class VuePrincipale extends Observable {
         
         panelPrincipal.add(paneSuperGauche, BorderLayout.WEST);
         panelPrincipal.add(paneSuperDroite, BorderLayout.EAST);
+    }
+    
+    public void setNiveau(int niveau) {
+        vueNiveau.setNiveau(niveau);
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {

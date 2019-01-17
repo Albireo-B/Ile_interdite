@@ -73,7 +73,7 @@ public class ICarte extends JButton {
     
         
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);    
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);    
     }
     
     
@@ -83,7 +83,7 @@ public class ICarte extends JButton {
     public void setImage(String nomImage) {
         if (nomImage != null) {
             nomCarte = nomImage;
-            image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_DEFAULT));
+            image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
             setIcon(image);
         }
         else {
