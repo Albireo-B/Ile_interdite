@@ -70,22 +70,26 @@ public class VueAventurier extends Observable {
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
         while ( j < listeCarte.size() && j<5) {
-            buttonCartes.get(j).setImage(listeCarte.get(j));
-            buttonCartes.get(j).removeActionListener();                
-            if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
-                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
+            ICarte carte = buttonCartes.get(j);
+            carte.setImage(listeCarte.get(j));
+            carte.removeActionListener();                
+            if (carte.getNom().equals("Helicoptere") ){
+                carte.setAction(Action.CARTESPECIALE);
+                carte.addActionListener((ActionEvent arg0) -> {
                     setChanged();
-                    notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(carte.getMessage(roleAventurier));
                     clearChanged();
                 });
 
-            }else if (buttonCartes.get(j).getNom().equals("SacDeSable")){
-                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
-
+            }else if (carte.getNom().equals("SacDeSable")){
+                carte.setAction(Action.CARTESPECIALE);
+                carte.addActionListener((ActionEvent arg0) -> {
                     setChanged();
-                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(carte.getMessage(roleAventurier));
                     clearChanged();
                 });
+            }else{
+                carte.setAction(Action.DONNER);
             }
             j++;
         }

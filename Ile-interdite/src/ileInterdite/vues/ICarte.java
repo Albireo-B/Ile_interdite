@@ -22,7 +22,7 @@ import utilitaires.Role;
  */
 public class ICarte extends JButton {
 
-    private Action action;
+    Action action;
     private String nomCarte;
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";
@@ -91,6 +91,13 @@ public class ICarte extends JButton {
      */
     public String getNom() {
         return nomCarte;
+    }
+
+    /**
+     * @param action the action to set
+     */
+    public void setAction(Action action) {
+        this.action = action;
     }
 
 

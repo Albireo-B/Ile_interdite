@@ -435,8 +435,15 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().getBoutonAventurier().setBackground(null);
             }
         }
-
+        System.out.println(((Message)arg).getAction());
         //regarde si les cartes tresors sont encore utiles
+        if(((Message)arg).getAction()!=Action.DONNER){
+            for(Aventurier av : joueurs.values()){
+                vuePrincipale.getPanelAventuriers().get(av.getRole()).actualiserVueAventurier(av.cartesToString());
+            }
+        }
+        
+        
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -926,7 +933,6 @@ public class Controleur implements Observer {
                     peutDonner = false;
                 }
             } else {
-                System.out.println("----------");
                 ArrayList<CarteTirage> cartes = new ArrayList(aventurierCourant.getCartes());
                 for (CarteTirage carte : aventurierCourant.getCartes()) {
                     if (!(carte instanceof CarteTresor)) {
