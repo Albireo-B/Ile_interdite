@@ -57,7 +57,7 @@ public class Explorateur extends Aventurier {
                 }
             }
         }
-        return tuiles;
+        return enleverTuilesCoulees(tuiles);
     }
 
     /**
