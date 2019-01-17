@@ -27,7 +27,7 @@ public class ICarte extends JButton {
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";
     private int imgWidth = 120;
-    private int imgHeigh = 200;
+    private int imgHeigh = 168;
     private ImageIcon image = null;
     private Border bordureNoire;
     private Border bordureRouge;
@@ -60,23 +60,14 @@ public class ICarte extends JButton {
     }
 
     public MessageCarte getMessage(Role role) {
-        return new MessageCarte(getNom(), action, role);
+        return new MessageCarte(nomCarte, action, role);
     }
-
-    /**
-     * @return the nom
-     */
-    public String getNom() {
-        return nomCarte;
-    }
-
     
         
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
         image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);    
     }
-    
-    
+
     /**
      * @param nom the nom to set
      */
@@ -86,17 +77,21 @@ public class ICarte extends JButton {
             image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
             setIcon(image);
         }
-        else {
-            setIcon(null);
+        else{
+            
             nomCarte = "";
+            image = new ImageIcon(new ImageIcon(path +"Fond bleu.png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
+            setIcon(image);
         }
     }
-
-    /**
-     * @param action the action to set
+    //Getters et Setters :
+    
+     /**
+     * @return the nomCarte
      */
-    public void setAction(Action action) {
-        this.action = action;
+    public String getNom() {
+        return nomCarte;
     }
+
 
 }

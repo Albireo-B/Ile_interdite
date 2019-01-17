@@ -39,7 +39,7 @@ public class VueGrille extends Observable {
     private Box panelGeneral;
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
-    private Color myBackgroundColor = new Color(12, 143, 181);
+    private Color myBackgroundColor = new Color(30,144,255);
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
     
@@ -136,7 +136,7 @@ public class VueGrille extends Observable {
                 bouton.getBouton().setBorderPainted(true);
                 bouton.addActionListener((ActionEvent e) -> {
                 setChanged();
-                notifyObservers(new MessagePos(act, pos, getJoueurSelectionné()));
+                notifyObservers(new MessagePos(act, pos, joueurSelectionné));
                 clearChanged();
                 });
             }
@@ -198,27 +198,14 @@ public class VueGrille extends Observable {
     }
 
     //Getters et Setters :
+    
     /**
-     *
-     * @return the panelGrille
+     *@return the panelGrille
      */
     public JPanel getPanelGrille() {
         return panelGrille;
     }
 
-    /**
-     * @param panelGrille the panelGrille to set
-     */
-    public void setPanelGrille(JPanel panelGrille) {
-        this.panelGrille = panelGrille;
-    }
-
-    /**
-     * @return the joueurSelectionné
-     */
-    public Role getJoueurSelectionné() {
-        return joueurSelectionné;
-    }
 
     /**
      * @param joueurSelectionné the joueurSelectionné to set

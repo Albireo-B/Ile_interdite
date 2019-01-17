@@ -54,8 +54,7 @@ public class VuePrincipale extends Observable {
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
     private VueNiveau vueNiveau;
-    private JPanel paneBas;
-    private JPanel paneCursor=new JPanel(new GridLayout(1,7));
+    private Color myNewBlue = new Color (30,144,255);
     
     private int width = 1600;
     private int height = 1000;
@@ -88,7 +87,8 @@ public class VuePrincipale extends Observable {
         window.setResizable(true);
         
         
-        labelNbPA.setFont(new Font("Arial", Font.BOLD, 25));
+        labelNbPA.setFont(new Font("Arial", Font.BOLD, 14));
+        labelNbPA.setForeground(Color.yellow);
         btnTerminerTour.setFont(new Font("Arial", Font.BOLD, 25));
 
         JPanel panelCentre = new JPanel(new BorderLayout());
@@ -96,7 +96,7 @@ public class VuePrincipale extends Observable {
         JPanel panelGrille = new JPanel();
         panelGrille.add(v.getPanelGrille());
         
-        
+        v.getPanelGrille().setPreferredSize(new Dimension(850,850));
         panelPlateau.add(panelGrille, BorderLayout.CENTER);
         labelNomJoueur.setForeground(Color.WHITE);
 
@@ -106,13 +106,16 @@ public class VuePrincipale extends Observable {
 
  
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
+        
 
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
-        paneBas=new JPanel(new BorderLayout());
         
         
+        
+      
         panelBoutons = new JPanel(new GridLayout(2, 2));
+        panelBoutons.setPreferredSize(new Dimension(30, 120));
         panelBoutons.add(btnBouger);
         panelBoutons.add(btnDonner);
         panelBoutons.add(btnAssecher);
@@ -120,10 +123,9 @@ public class VuePrincipale extends Observable {
         
         vueNiveau=new VueNiveau(0);
     
-        panelPlateau.add(paneBas, BorderLayout.SOUTH);
+        panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
         
-        paneBas.add(panelBoutons,BorderLayout.EAST);
-        paneBas.add(vueNiveau,BorderLayout.CENTER);
+        panelCentre.add(panelBoutons, BorderLayout.SOUTH);
 
         btnBouger.setVisible(true);
         btnBouger.addActionListener((ActionEvent e) -> {
@@ -163,26 +165,37 @@ public class VuePrincipale extends Observable {
         //===================pour chaque aventurier different=================
         panelAventuriers = vuesAventuriers;
         
-        JPanel paneSuperGauche=new JPanel(new BorderLayout());
-        JPanel paneSuperDroite=new JPanel(new BorderLayout());
 
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
         paneGauche.add(listeVuesAv.get(0).getPanelGeneral(),BorderLayout.NORTH);
-        paneSuperGauche.add(labelNbPA,BorderLayout.SOUTH);
+        paneGauche.add(labelNbPA,BorderLayout.SOUTH);
         paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
         paneGauche.setPreferredSize(new Dimension(330,200));
-        paneSuperGauche.add(paneGauche,BorderLayout.CENTER);
+        paneGauche.add(vueNiveau,BorderLayout.CENTER);
+        
+        JPanel paneSuperDroite=new JPanel(new GridLayout(2,1));
+        paneSuperDroite.add(labelNbPA);
+        paneSuperDroite.add(btnTerminerTour);
         
         paneDroite.add(listeVuesAv.get(1).getPanelGeneral(),BorderLayout.NORTH);
         paneSuperDroite.add(btnTerminerTour,BorderLayout.SOUTH);
         paneDroite.add(listeVuesAv.get(2).getPanelGeneral(),BorderLayout.SOUTH);
         paneDroite.setPreferredSize(new Dimension(330, 200));
-        paneSuperDroite.add(paneDroite,BorderLayout.CENTER);
+        paneDroite.add(paneSuperDroite,BorderLayout.CENTER);
         
         
         
-        panelPrincipal.add(paneSuperGauche, BorderLayout.WEST);
-        panelPrincipal.add(paneSuperDroite, BorderLayout.EAST);
+        panelPrincipal.add(paneGauche, BorderLayout.WEST);
+        panelPrincipal.add(paneDroite, BorderLayout.EAST);
+        paneDroite.setBackground(myNewBlue);
+        paneGauche.setBackground(myNewBlue);
+        paneSuperDroite.setBackground(myNewBlue);
+        panelCentre.setBackground(myNewBlue);
+        panelGrille.setBackground(myNewBlue);
+        vueNiveau.setBackground(myNewBlue);
+        panelBoutons.setBackground(myNewBlue);
+        panelPrincipal.setBackground(myNewBlue);
+        
     }
     
     public void setNiveau(int niveau) {
@@ -194,7 +207,7 @@ public class VuePrincipale extends Observable {
         
         for (Role r: panelAventuriers.keySet()){
             if (r!=classe){
-                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.white, 10));
+                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.WHITE, 10));
             }
             else{
                 panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(couleur,10));
