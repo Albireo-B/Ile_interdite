@@ -204,15 +204,15 @@ public class Controleur implements Observer {
      * @param av
      */
     public void gererDeplacement(Aventurier av) {
-            if (av.getRole() == Role.Navigateur) {
-                for (Role role : listeRoles) {
-                    if (role != Role.Navigateur) {
-                        vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
-                        vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
-                    }
+        if (av.getRole() == Role.Navigateur) {
+            for (Role role : listeRoles) {
+                if (role != Role.Navigateur) {
+                    vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
+                    vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
                 }
             }
-            proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
+        }
+        proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
     }
 
     public boolean victoireJoueur() {
@@ -339,14 +339,15 @@ public class Controleur implements Observer {
         if (tuile.getEtat() == EtatTuile.INONDEE) {
             tuile.setEtat(EtatTuile.COULEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
-            
-            for (Tuile t : grille.getTuilesTresor().keySet()){
-                if (grille.getTuilesTresor().get(t)!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
+            for (Tuile t : grille.getTuilesTresor().keySet()) {
+                if (grille.getTuilesTresor().get(tuile) != null
+                        && t.getNom() != tuile.getNom()
+                        && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
+                        && t.getEtat() == EtatTuile.COULEE) {
                     terminerPartie(false);
                 }
             }
-            
-            
+
         } else if (tuile.getEtat() == EtatTuile.SECHE) {
             grille.getTuile(p).setEtat(EtatTuile.INONDEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.INONDEE);
