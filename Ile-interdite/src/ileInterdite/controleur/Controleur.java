@@ -631,7 +631,7 @@ public class Controleur implements Observer {
                 attenteMouvementUrgence.remove(0);
 
             for (VueAventurier vueAv : vuesAventuriers.values())
-                vueAv.actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
+                vueAv.actualiserVueAventurier(joueurs.get(vueAv.getRoleAventurier()).cartesToString());
                 
             MessagePos messagepos = (MessagePos) arg;
             vueGrille.tousBoutonsInertes();

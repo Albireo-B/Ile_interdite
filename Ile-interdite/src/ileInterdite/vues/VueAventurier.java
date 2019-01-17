@@ -96,7 +96,6 @@ public class VueAventurier extends Observable {
     
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
-
         while ( j < listeCarte.size() && j<5) {
             getButtonCartes().get(j).setImage(listeCarte.get(j));
             getButtonCartes().get(j).removeActionListener();                
@@ -117,9 +116,8 @@ public class VueAventurier extends Observable {
             }
             j++;
         }
-        for (int i = j + 1; i < 5; i++) {
+        for (int i = j; i < 5; i++) {
             getButtonCartes().get(i).setImage(null);
-
             getButtonCartes().get(i).removeActionListener();
         }
 
