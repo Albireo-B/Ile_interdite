@@ -56,7 +56,7 @@ public class VuePrincipale extends Observable {
     private JPanel paneNiveau;
     private JPanel paneBas;
     private JPanel paneCursor=new JPanel(new GridLayout(1,7));
-    private Color myNewBlue = new Color (72,209,204);
+    private Color myNewBlue = new Color (30,144,255);
     
     private int width = 1600;
     private int height = 1000;
