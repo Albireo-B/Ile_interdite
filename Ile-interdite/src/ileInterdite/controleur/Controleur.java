@@ -435,7 +435,6 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().getBoutonAventurier().setBackground(null);
             }
         }
-        System.out.println(((Message)arg).getAction());
         //regarde si les cartes tresors sont encore utiles
         if(((Message)arg).getAction()!=Action.DONNER){
             for(Aventurier av : joueurs.values()){
