@@ -129,6 +129,10 @@ public class BoutonTuile extends JPanel {
         bouton.removeActionListener(a);
     }
 
+    
+    //Getters et Setter :
+    
+    
     /**
      * @return the bouton
      */

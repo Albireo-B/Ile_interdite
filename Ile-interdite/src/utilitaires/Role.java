@@ -23,6 +23,9 @@ public enum Role {
         this.caseDepart = caseDepart;
     }
 
+    //Getters et Setter :
+    
+    
     /**
      * @return the caseDépart
      */

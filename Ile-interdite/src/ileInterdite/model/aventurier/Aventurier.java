@@ -99,6 +99,8 @@ public abstract class Aventurier {
         
         
     }
+    
+    
 
     /**
      * On remet le nombre d'actions à 3
@@ -150,7 +152,11 @@ public abstract class Aventurier {
     public ArrayList<String> cartesToString() {
         ArrayList<String> listeCarte = new ArrayList<>();
         for (CarteTirage carte : this.getCartes()) {
-            listeCarte.add(carte.getNom());
+            if (carte != null){
+            listeCarte.add(carte.getNom());}
+            else{
+                System.out.println("Une carte vide  -->  WTF");
+            }
         }
         return listeCarte;
 
@@ -191,7 +197,11 @@ public abstract class Aventurier {
         cartes = new ArrayList(nouveauDeck);
     }
     
-   
+   //Getters et Setters :
+    
+    /**
+     * @return position de la tuile
+     */
     public Position getPosition() {
         return tuile.getPosition();
     }

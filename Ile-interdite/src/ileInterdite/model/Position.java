@@ -48,6 +48,8 @@ public class Position {
     }
 
     //Getters et Setters :
+    
+    
     /**
      * @return the x
      */
@@ -55,12 +57,6 @@ public class Position {
         return x;
     }
 
-    /**
-     * @param x the x to set
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
 
     /**
      * @return the y
@@ -69,10 +65,4 @@ public class Position {
         return y;
     }
 
-    /**
-     * @param y the y to set
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
 }

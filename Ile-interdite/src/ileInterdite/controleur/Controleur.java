@@ -15,6 +15,7 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -33,7 +34,6 @@ public class Controleur implements Observer {
     private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
     private HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
-    
     private HashMap<Role, Aventurier> joueurs = new HashMap<>();
     private Grille grille;
     private Aventurier aventurierCourant;
@@ -60,7 +60,6 @@ public class Controleur implements Observer {
     public Controleur(ArrayList<String> nomsjoueurs, ArrayList<Role> roles, ArrayList<String> nomTuiles, HashMap<String, Tresor> tuilesTresor, ArrayList<CarteTirage> pioche, int niveauEau) {
         //Initialisation du niveau d'eau
         this.niveauEau = niveauEau;
-
         //Initialisation de la Grille
         grille = new Grille(nomTuiles, tuilesTresor);
 
@@ -74,8 +73,6 @@ public class Controleur implements Observer {
         for (String nom : nomsTuiles) {
             piocheInondation.add(new CarteInondation(nom));
         }
-
-        Collections.shuffle(piocheInondation);
 
         piocheTirage = pioche;
 
@@ -121,10 +118,11 @@ public class Controleur implements Observer {
     }
 
     public void initInondation() {
+        Collections.shuffle(piocheInondation);
         ArrayList<CarteInondation> cartesAInonder = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            piocheInondation.remove(piocheInondation.size() - 1);
             cartesAInonder.add(piocheInondation.get(piocheInondation.size() - 1));
+            piocheInondation.remove(piocheInondation.size() - 1);
         }
         for (CarteInondation carte : cartesAInonder) {
             for (Tuile tuile : grille.getToutesTuiles()) {
@@ -138,7 +136,6 @@ public class Controleur implements Observer {
                 }
             }
         }
-
     }
 
     /**
@@ -207,24 +204,23 @@ public class Controleur implements Observer {
      * @param av
      */
     public void gererDeplacement(Aventurier av) {
-        if (av.getNbAction() > 0) {
-            if (av.getRole() == Role.Navigateur) {
-                for (Role role : listeRoles) {
-                    if (role != Role.Navigateur) {
-                        vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
-                        vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
-                    }
+        if (av.getRole() == Role.Navigateur) {
+            for (Role role : listeRoles) {
+                if (role != Role.Navigateur) {
+                    vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
+                    vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
                 }
             }
-            proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
         }
+        proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
     }
 
     public boolean victoireJoueur() {
         boolean victoire = true;
         for (Aventurier joueur : joueurs.values()) {
-            if (!joueur.getTuile().getNom().equals("Heliport"))
+            if (!joueur.getTuile().getNom().equals("Heliport")) {
                 victoire = false;
+            }
         }
 
         for (Tresor t : Tresor.values()) {
@@ -319,8 +315,8 @@ public class Controleur implements Observer {
     }
 
     public void bougerJoueurUrgence(Aventurier av) {
-        JOptionPane.showMessageDialog(null, "Attention! La case sur laquelle se trouvait " + 
-                av.getNomJoueur() + " vient de sombrer! Sélectionnez une case pour le déplacer.",
+        JOptionPane.showMessageDialog(null, "Attention! La case sur laquelle se trouvait "
+                + av.getNomJoueur() + " vient de sombrer! Sélectionnez une case pour le déplacer.",
                 "Déplacement d'urgence !", JOptionPane.OK_OPTION);
         gererDeplacement(av);
         bloquerBoutons();
@@ -343,6 +339,15 @@ public class Controleur implements Observer {
         if (tuile.getEtat() == EtatTuile.INONDEE) {
             tuile.setEtat(EtatTuile.COULEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
+            for (Tuile t : grille.getTuilesTresor().keySet()) {
+                if (grille.getTuilesTresor().get(tuile) != null
+                        && t.getNom() != tuile.getNom()
+                        && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
+                        && t.getEtat() == EtatTuile.COULEE) {
+                    terminerPartie(false);
+                }
+            }
+
         } else if (tuile.getEtat() == EtatTuile.SECHE) {
             grille.getTuile(p).setEtat(EtatTuile.INONDEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.INONDEE);
@@ -383,7 +388,7 @@ public class Controleur implements Observer {
         vueGrille.actualiserBoutonsCliquables(posTuiles, act, role);
     }
 
-    public void proposerTuilesHelicoptere(Action act, Role role,ArrayList<Role> roles) {
+    public void proposerTuilesHelicoptere(Action act, Role role, ArrayList<Role> roles) {
 
         ArrayList<Position> posTuiles = new ArrayList();
         for (Tuile t : grille.tuilesNonCoulees(joueurs.get(roles.get(0)).getTuile())) {
@@ -456,10 +461,7 @@ public class Controleur implements Observer {
         tirerCartes();
         gererInondation();
         aventurierSuivant();
-        for (Role role : joueurs.keySet()) {
-            Border border = BorderFactory.createLineBorder(joueurs.get(role).getPion().getCouleur(), 10);
-            vuePrincipale.getPanelAventuriers().get(role).getPanelGeneral().setBorder(border);
-        }
+
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -551,7 +553,7 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().proposerHelico(possesseurCarte, roles, false);
             } else {
                 if (!roles.isEmpty()) {
-                    if (joueurs.get(roles.get(0)).getTuile().getRoleAventuriers().contains(r)) {
+                    if (joueurs.get(roles.get(0)).getTuile().rolesAventuriers().contains(r)) {
                         vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().proposerHelico(possesseurCarte, roles, true);
                     } else {
                         vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().removeActionListener();
@@ -562,7 +564,7 @@ public class Controleur implements Observer {
                 }
             }
         }
-        if (!roles.isEmpty()){
+        if (!roles.isEmpty()) {
             proposerTuilesHelicoptere(Action.GROUPEHELICO, possesseurCarte, roles);
 
         }
@@ -575,6 +577,7 @@ public class Controleur implements Observer {
         } else {
             JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
         }
+        enableGame(false);
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
@@ -627,12 +630,14 @@ public class Controleur implements Observer {
             }
         } else //Si arg est de type MessagePos
         if (arg instanceof MessagePos) {
-            if (!attenteMouvementUrgence.isEmpty())
+            if (!attenteMouvementUrgence.isEmpty()) {
                 attenteMouvementUrgence.remove(0);
+            }
 
-            for (VueAventurier vueAv : vuesAventuriers.values())
-                vueAv.actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
-                
+            for (VueAventurier vueAv : vuesAventuriers.values()) {
+                vueAv.actualiserVueAventurier(joueurs.get(vueAv.getRoleAventurier()).cartesToString());
+            }
+
             MessagePos messagepos = (MessagePos) arg;
             vueGrille.tousBoutonsInertes();
             switch (messagepos.getAction()) {
@@ -751,16 +756,15 @@ public class Controleur implements Observer {
         }
         //Pour chauqe niveau d'eau
         for (int i = 0; i < j; i++) {
-            //Si la pioche inondation n'est pas vide
-            if (!piocheInondation.isEmpty()) {
-                cartesTirees.add(piocheInondation.get(piocheInondation.size() - 1));
-                piocheInondation.remove(piocheInondation.size() - 1);
-                //Si la pioche inondation est vide
-            } else {
+            //Si la pioche inondation est vide
+            if (piocheInondation.isEmpty()) {
                 Collections.shuffle(defausseInondation);
                 piocheInondation.addAll(defausseInondation);
                 defausseInondation.clear();
             }
+            cartesTirees.add(piocheInondation.get(piocheInondation.size() - 1));
+            piocheInondation.remove(piocheInondation.size() - 1);
+
         }
         return cartesTirees;
     }
@@ -775,25 +779,21 @@ public class Controleur implements Observer {
         for (int i = 0; i < 2; i++) {
             //Si la pioche n'est pas vide
             if (!piocheTirage.isEmpty()) {
-                //Si la prochaine carte est une carte montée des eaux
-                if (piocheTirage.get(piocheTirage.size() - 1) instanceof CarteMonteeDesEaux) {
-                    trigger = true;
-                    niveauEau += 1;
-                    if (niveauEau >= 10) {
-                        terminerPartie(false);
-                    }
-                    defausseTirage.add(piocheTirage.get(piocheTirage.size() - 1));
-                    //Si la prochaine carte n'est pas une carte montée des eaux    
-                } else {
-                    cartes.add(piocheTirage.get(piocheTirage.size() - 1));
-                }
-                piocheTirage.remove(piocheTirage.get(piocheTirage.size() - 1));
-                // Si la pioche est vide    
-            } else {
                 Collections.shuffle(defausseTirage);
                 piocheTirage.addAll(defausseTirage);
                 defausseTirage.clear();
             }
+            //Si la prochaine carte est une carte montée des eaux
+            if (piocheTirage.get(piocheTirage.size() - 1) instanceof CarteMonteeDesEaux) {
+                trigger = true;
+                niveauEau += 1;
+                if (niveauEau >= 10) {
+                    terminerPartie(false);
+                }
+            } else {
+                cartes.add(piocheTirage.get(piocheTirage.size() - 1));
+            }
+            piocheTirage.remove(piocheTirage.get(piocheTirage.size() - 1));
         }
         if (trigger) {
             Collections.shuffle(defausseInondation);
@@ -894,7 +894,5 @@ public class Controleur implements Observer {
             vuePrincipale.activerBouton(Bouton.RECUPERER, aventurierCourant.tresorRecuperable() != null);
         }
     }
-
-
 
 }

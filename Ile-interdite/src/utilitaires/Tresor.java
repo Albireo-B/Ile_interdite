@@ -23,6 +23,9 @@ public enum Tresor {
         nomTresor = nom;
     }
     
+    
+    //Getters et Setter :
+    
     public String getName() {
         return nomTresor;
     }

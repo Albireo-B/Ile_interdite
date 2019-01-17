@@ -22,6 +22,7 @@ public class MessageGroupe extends Message {
      *
      * @param action
      * @param role
+     * @param roles
      */
     public MessageGroupe(Action action,Role role, ArrayList<Role> roles) {
         super(action,role);
@@ -29,6 +30,7 @@ public class MessageGroupe extends Message {
     }
 
     //Getters et Setters :
+    
     /**
      * @return the role
      */
