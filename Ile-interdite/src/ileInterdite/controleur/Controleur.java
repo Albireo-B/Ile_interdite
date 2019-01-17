@@ -87,7 +87,7 @@ public class Controleur implements Observer {
         int cptr = 0;
         for (Role role : joueurs.keySet()) {
             vueGrille.actualiserPositionJoueur(joueurs.get(role).getPosition(), null, joueurs.get(role).getPion());
-            VueAventurier newVueAv = new VueAventurier(role, cptr == 0 || cptr == 3);
+            VueAventurier newVueAv = new VueAventurier(role,joueurs.get(role).getNomJoueur(), cptr == 0 || cptr == 3);
             vuesAventuriers.put(role, newVueAv);
             newVueAv.addObserver(this);
             cptr++;

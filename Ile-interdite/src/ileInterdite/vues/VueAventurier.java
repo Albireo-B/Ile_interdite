@@ -5,8 +5,11 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.controleur.Controleur;
+import ileInterdite.controleur.ControleurInit;
 import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import utilitaires.Action;
 import utilitaires.Role;
@@ -29,16 +33,19 @@ public class VueAventurier extends Observable {
     private JPanel panelGeneral;
     private ArrayList<ICarte> buttonCartes;
     private Role roleAventurier;
+    private String nomJoueur;
     private String pathPerso = "src/images/personnages/";
     private String pathCartes = "src/images/cartes/";
-    private int width=120;
-    private int height=168;
+    private JPanel paneNom=new JPanel();
+    private int width=100;
+    private int height=140;
 
-    public VueAventurier(Role roleAventurier, boolean gauche) {
+    public VueAventurier(Role roleAventurier,String nomJoueur, boolean gauche) {
 
         panelGeneral = new JPanel(new BorderLayout());
 
         this.roleAventurier = roleAventurier;
+        this.nomJoueur=nomJoueur;
 
         //====================== principal========================
         JPanel panelPrincipal = new JPanel(new GridLayout(2, 3));
@@ -52,7 +59,13 @@ public class VueAventurier extends Observable {
         buttonCartes = new ArrayList<>();
 
         //=============================================
-        paneClass.add(carteJoueur.getBoutonAventurier());
+        
+        
+        paneNom.add(new JLabel(nomJoueur));
+        paneNom.setPreferredSize(new Dimension(20,30));
+        paneClass.add(paneNom,BorderLayout.NORTH);
+        paneClass.add(carteJoueur.getBoutonAventurier(),BorderLayout.CENTER);
+ 
 
         for (int i = 0; i < 5; i++) {
             if ((i == 0 && !gauche) || (i == 2 && gauche)) {
