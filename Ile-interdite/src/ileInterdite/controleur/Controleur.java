@@ -240,9 +240,10 @@ public class Controleur implements Observer {
         vueGrille.actualiserPositionJoueur(messagePos.getPos(), av.getPosition(), av.getPion());
 
         av.setTuile(grille, grille.getTuile(messagePos.getPos()));
-        if (!attenteMouvementUrgence.isEmpty()) {
-            av.decrementeNbActions();
+        if (!attenteMouvementUrgence.isEmpty()) {      
             attenteMouvementUrgence.remove(0);
+        }else{
+            av.decrementeNbActions();
         }
 
         if (victoireJoueur()) {
