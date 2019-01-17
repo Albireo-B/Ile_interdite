@@ -175,7 +175,7 @@ public class Controleur implements Observer {
             case Pilote:
                 a = new Pilote(n, t);
                 break;
-            case Ingénieur:
+            case Ingenieur:
                 a = new Ingenieur(n, t);
                 break;
         }
@@ -401,7 +401,7 @@ public class Controleur implements Observer {
 
     public void actualiserVue(Object arg) {
         //Si l'ingénieur fait une autre action au lieu d'assecher une seconde fois
-        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingénieur) {
+        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingenieur) {
             aventurierCourant.setPouvoir(true);
         }
         //regarde si les carte des aventuriers sont encore utiles

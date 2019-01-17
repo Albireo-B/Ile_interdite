@@ -11,7 +11,7 @@ package utilitaires;
  */
 public enum Role {
     Explorateur("LaPorteDeCuivre"),
-    Ingénieur("LaPorteDeBronze"),
+    Ingenieur("LaPorteDeBronze"),
     Messager("LaPortedArgent"),
     Pilote("Heliport"),
     Navigateur("LaPortedOr"),

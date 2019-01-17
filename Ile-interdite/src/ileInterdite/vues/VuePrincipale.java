@@ -56,7 +56,7 @@ public class VuePrincipale extends Observable {
     private JPanel paneBas;
     private JPanel paneCursor=new JPanel(new GridLayout(1,7));
     
-    private int width = 1500;
+    private int width = 1600;
     private int height = 1000;
 
     private String path = "src/images/";
