@@ -150,11 +150,11 @@ public class Controleur implements Observer {
      * @param nomsJoueurs
      * @param Rôles
      */
-    public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> Rôles) {
+    public void setRoles(ArrayList<String> nomsJoueurs, ArrayList<Role> roles) {
         for (Tuile t : grille.getTuiles().values()) {
             for (int i = 0; i < nomsJoueurs.size(); i++) {
-                if (t.getNom().equals(Rôles.get(i).getCaseDepart())) {
-                    joueurs.put(Rôles.get(i), créerAventurier(t, nomsJoueurs.get(i), Rôles.get(i)));
+                if (t.getNom().equals(roles.get(i).getCaseDepart())) {
+                    joueurs.put(roles.get(i), créerAventurier(t, nomsJoueurs.get(i), roles.get(i)));
                 }
             }
         }
@@ -252,7 +252,7 @@ public class Controleur implements Observer {
             terminerPartie(true);
     }
 
-    public void gererNaviguation(Role r) {
+    public void gererNavigation(Role r) {
         proposerTuiles(joueurs.get(r).calculGuide(grille), Action.SUIVRE, r);
     }
 
@@ -270,7 +270,7 @@ public class Controleur implements Observer {
     }
 
     public void appliquerAssechement(MessagePos messagepos) {
-        getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
+        grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
 
         //Si l'aventurier n'est pas un ingénieur qui as pas son pouvoir
@@ -304,7 +304,7 @@ public class Controleur implements Observer {
             }
         }
         attenteMouvementUrgence = new ArrayList();
-        for (Entry<Aventurier, Boolean> av : getAventuriersPieges().entrySet()) {
+        for (Entry<Aventurier, Boolean> av : aventuriersPieges().entrySet()) {
             if (av.getValue()) {
                 terminerPartie(false);
             }
@@ -345,7 +345,7 @@ public class Controleur implements Observer {
         }
     }
     
-    public HashMap<Aventurier, Boolean> getAventuriersPieges() {
+    public HashMap<Aventurier, Boolean> aventuriersPieges() {
         HashMap<Aventurier, Boolean> aventuriersFichus = new HashMap();
 
         for (Aventurier joueur : joueurs.values()) {
@@ -381,9 +381,9 @@ public class Controleur implements Observer {
         }
         vueGrille.actualiserBoutonsCliquables(posTuiles, act, role);
     }
-    public void proposerTuilesHelicopthère(Action act, Role role,ArrayList<Role> roles) {
+    public void proposerTuilesHelicoptere(Action act, Role role,ArrayList<Role> roles) {
         ArrayList<Position> posTuiles = new ArrayList();
-        for (Tuile t : getGrille().tuilesNonCoulees(joueurs.get(roles.get(0)).getTuile())) {
+        for (Tuile t : grille.tuilesNonCoulees(joueurs.get(roles.get(0)).getTuile())) {
             posTuiles.add(t.getPosition());
         }
         vueGrille.actualiserBoutonsCliquables(posTuiles, act, role,roles);
@@ -433,7 +433,7 @@ public class Controleur implements Observer {
     }
 
     public void actualiserModele(Object arg) {
-        ArrayList<Tuile> casesAssechables = aventurierCourant.calculAssechement(getGrille());
+        ArrayList<Tuile> casesAssechables = aventurierCourant.calculAssechement(grille);
 
         // Si l'aventurier a moins de 1 action et qu'il n'est pas un ingénieur qui utilise son pouvoir et qui a encore des cases possibles a assécher
         if (aventurierCourant.getNbAction() < 1
@@ -513,14 +513,14 @@ public class Controleur implements Observer {
         if (messageCarte.getNomCarte().equals("SacDeSable")) {
             gererSacDeSable(messageCarte.getRole());
         } else {
-            gererGroupeHelicoptere(messageCarte.getRole());
+            creerGroupeHelicoptere(messageCarte.getRole());
 
         }
     }
 
     public void gererSacDeSable(Role role) {
         ArrayList<Tuile> liste = new ArrayList();
-        for (Tuile t : getGrille().tuilesNonCoulees(null)) {
+        for (Tuile t : grille.tuilesNonCoulees(null)) {
             if (t.getEtat() == EtatTuile.INONDEE) {
                 liste.add(t);
             }
@@ -529,7 +529,7 @@ public class Controleur implements Observer {
     }
 
     private void appliquerAssechementSacDeSable(MessagePos messagepos) {
-        getGrille().getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
+        grille.getTuile(messagepos.getPos()).setEtat(EtatTuile.SECHE);
         vueGrille.actualiserEtatTuile(messagepos.getPos(), EtatTuile.SECHE);
         
         //retire la carte
@@ -538,7 +538,7 @@ public class Controleur implements Observer {
         vuePrincipale.getPanelAventuriers().get(messagepos.getRole()).actualiserVueAventurier(joueurs.get(messagepos.getRole()).cartesToString());
     }
 
-    public void gererGroupeHelicoptere(Role possesseurCarte) {
+    public void creerGroupeHelicoptere(Role possesseurCarte) {
         for (Role roleAventurier : joueurs.keySet()) {
             vuePrincipale.getPanelAventuriers().get(roleAventurier).getCarteJoueur().proposerHelico(possesseurCarte, new ArrayList<>(), true);
         }
@@ -564,7 +564,7 @@ public class Controleur implements Observer {
             }
         }
         if (!roles.isEmpty()){
-            proposerTuilesHelicopthère(Action.GROUPEHELICO,possesseurCarte,roles);
+            proposerTuilesHelicoptere(Action.GROUPEHELICO,possesseurCarte,roles);
         }
         
 
@@ -582,7 +582,7 @@ public class Controleur implements Observer {
 
         for(Role r:messageGroupePos.getRoles()){
             vueGrille.actualiserPositionJoueur(messageGroupePos.getPos(), joueurs.get(r).getPosition(), joueurs.get(r).getPion());
-            joueurs.get(r).setTuile(getGrille(), getGrille().getTuile(messageGroupePos.getPos()));
+            joueurs.get(r).setTuile(grille, grille.getTuile(messageGroupePos.getPos()));
         }
         
         //retire la carte
@@ -704,7 +704,7 @@ public class Controleur implements Observer {
                         break;
                     //Si le message possède l'action SUIVRE
                     case SUIVRE:
-                        gererNaviguation(message.getRole());
+                        gererNavigation(message.getRole());
                         break;
                     //Si le message possède l'action RECUPERER
                     case RECUPERER_TRESOR:
@@ -753,12 +753,12 @@ public class Controleur implements Observer {
         for (int i = 0; i < j; i++) {
             //Si la pioche inondation n'est pas vide
             if (!piocheInondation.isEmpty()) {
-                cartesTirees.add(getPiocheInondation().get(getPiocheInondation().size() - 1));
-                getPiocheInondation().remove(getPiocheInondation().size() - 1);
+                cartesTirees.add(piocheInondation.get(piocheInondation.size() - 1));
+                piocheInondation.remove(piocheInondation.size() - 1);
                 //Si la pioche inondation est vide
             } else {
                 Collections.shuffle(defausseInondation);
-                getPiocheInondation().addAll(defausseInondation);
+                piocheInondation.addAll(defausseInondation);
                 defausseInondation.clear();
             }
         }
@@ -888,18 +888,6 @@ public class Controleur implements Observer {
         }
     }
 
-    /**
-     * @return the piocheInondation
-     */
-    public ArrayList<CarteInondation> getPiocheInondation() {
-        return piocheInondation;
-    }
 
-    /**
-     * @return the grille
-     */
-    public Grille getGrille() {
-        return grille;
-    }
 
 }
