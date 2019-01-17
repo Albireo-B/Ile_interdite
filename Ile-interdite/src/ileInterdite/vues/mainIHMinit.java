@@ -5,6 +5,8 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.controleur.ControleurIHMinit;
+
 /**
  *
  * @author genevoic

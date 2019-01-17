@@ -118,6 +118,8 @@ public class IAventurier extends Observable {
         }
     }
     
+    //Getters et Setters :
+    
     /**
      * @return the boutonAventurier
      */
@@ -125,11 +127,5 @@ public class IAventurier extends Observable {
         return boutonAventurier;
     }
 
-    /**
-     * @return the role
-     */
-    public Role getRole() {
-        return role;
-    }
 
 }

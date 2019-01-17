@@ -53,7 +53,7 @@ public class VueDefausse extends Observable {
     }
 
     public void actualiser(ArrayList<String> listeCartes, Role role) {
-        getPanelPrincipal().remove(getPanelCarte());
+        panelPrincipal.remove(panelCarte);
 
         panelCarte = new JPanel(new GridLayout(1, listeCartes.size()));
         for (String nomCarte : listeCartes) {
@@ -66,40 +66,30 @@ public class VueDefausse extends Observable {
                     clearChanged();
                 }
             });
-            getPanelCarte().add(buttonCarte);
+            panelCarte.add(buttonCarte);
         }
         JButton b= new JButton();
-        getPanelPrincipal().add(getPanelCarte(), BorderLayout.CENTER);
+        panelPrincipal.add(panelCarte, BorderLayout.CENTER);
         afficher();
     }
 
     public void afficher() {
-        this.getFenetre().setVisible(true);
+        getFenetre().setVisible(true);
     }
 
     public void close() {
-        this.getFenetre().dispose();
+        getFenetre().dispose();
     }
+
+    //Getters et Setters : 
+
+
 
     /**
      * @return the fenetre
      */
     public JFrame getFenetre() {
         return fenetre;
-    }
-
-    /**
-     * @return the panelCarte
-     */
-    public JPanel getPanelCarte() {
-        return panelCarte;
-    }
-
-    /**
-     * @return the panelPrincipal
-     */
-    public JPanel getPanelPrincipal() {
-        return panelPrincipal;
     }
 
 }

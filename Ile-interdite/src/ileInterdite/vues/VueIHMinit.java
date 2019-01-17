@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +30,6 @@ public class VueIHMinit extends Observable{
      private JFrame window ;
      private boolean apres;
     /**
-     * @param args the command line arguments
      */
     public VueIHMinit () {
         window = new JFrame();
@@ -63,7 +61,7 @@ public class VueIHMinit extends Observable{
                     mainPanel2.removeAll();
                     mainPanel3.removeAll();
                     mainPanel4.removeAll();
-                    getWindow().add(mainPanel4);
+                    window.add(mainPanel4);
                     window.setSize(500, 350);
                     
                     mainPanel4.add(new JLabel(""));
@@ -132,7 +130,7 @@ public class VueIHMinit extends Observable{
                     mainPanel2.removeAll();
                     mainPanel3.removeAll();
                     mainPanel4.removeAll();
-                    getWindow().add(mainPanel3);
+                    window.add(mainPanel3);
                     window.setSize(500, 250);
                     
                     mainPanel3.add(new JLabel(""));
@@ -188,7 +186,7 @@ public class VueIHMinit extends Observable{
                     mainPanel2.removeAll();
                     mainPanel3.removeAll();
                     mainPanel4.removeAll();
-                    getWindow().add(mainPanel2);
+                    window.add(mainPanel2);
                     window.setSize(500, 200);
                         
                     mainPanel2.add(new JLabel(""));
@@ -255,29 +253,12 @@ public class VueIHMinit extends Observable{
         }
 
         public void afficher() {
-        this.getWindow().setVisible(true);
+        window.setVisible(true);
     }
-     /**
-     * @return the window
-     */ 
-        public JFrame getWindow() {
-        return window;
-    }
+        
+    //Getters et Setters :
 
-    /**
-     * @param window the window to set
-     */
-    public void setWindow(JFrame window) {
-        this.window = window;
-    }
-
-    /**
-     * @return the apres
-     */
-    public boolean isApres() {
-        return apres;
-    }
-
+  
     /**
      * @param apres the apres to set
      */

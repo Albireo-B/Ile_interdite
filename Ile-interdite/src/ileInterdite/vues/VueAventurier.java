@@ -96,8 +96,8 @@ public class VueAventurier extends Observable {
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
         while ( j < listeCarte.size() && j<5) {
-            getButtonCartes().get(j).setImage(listeCarte.get(j));
-            getButtonCartes().get(j).removeActionListener();                
+            buttonCartes.get(j).setImage(listeCarte.get(j));
+            buttonCartes.get(j).removeActionListener();                
             if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
                 buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
                     setChanged();
@@ -116,8 +116,8 @@ public class VueAventurier extends Observable {
             j++;
         }
         for (int i = j; i < 5; i++) {
-            getButtonCartes().get(i).setImage(null);
-            getButtonCartes().get(i).removeActionListener();
+            buttonCartes.get(i).setImage(null);
+            buttonCartes.get(i).removeActionListener();
         }
 
     }
@@ -161,33 +161,12 @@ public class VueAventurier extends Observable {
         return roleAventurier;
     }
 
-    /**
-     * @param roleAventurier
-     */
-    public void setRoleAventurier(Role roleAventurier) {
-        this.roleAventurier = roleAventurier;
-    }
-
-    public ArrayList<ICarte> getButtonCartes() {
-        return buttonCartes;
-    }
-
+ 
     /**
      * @param paneClass the paneClass to set
      */
     public void setPaneClass(JPanel paneClass) {
         this.paneClass = paneClass;
-    }
-
-    public void setButtonCartes(ArrayList<ICarte> buttonCartes) {
-        this.buttonCartes = buttonCartes;
-    }
-
-    /**
-     * @return the paneClass
-     */
-    public JPanel getPaneClass() {
-        return paneClass;
     }
 
     /**
@@ -202,20 +181,6 @@ public class VueAventurier extends Observable {
      */
     public JPanel getPanelGeneral() {
         return panelGeneral;
-    }
-
-    /**
-     * @param width the width to set
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
-     * @param height the height to set
-     */
-    public void setHeight(int height) {
-        this.height = height;
     }
 
 }
