@@ -51,10 +51,15 @@ public class VuePrincipale extends Observable {
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
+    private JPanel paneNiveau;
+    private JPanel paneBas;
+    
+    private int width = 1500;
+    private int height = 1000;
 
     private String path = "src/images/";
 
-    private ImageIcon imgNiveau = new ImageIcon(new ImageIcon(path + "Niveau.png").getImage().getScaledInstance(130, 400, Image.SCALE_DEFAULT));
+    private ImageIcon imgNiveau = new ImageIcon(new ImageIcon(path + "Niveau.png").getImage().getScaledInstance(400, 130, Image.SCALE_SMOOTH));
 
     /**
      * On définit un constructeur de VueAventurier avec une VueGrille v
@@ -73,15 +78,19 @@ public class VuePrincipale extends Observable {
         btnBouger.setText("Se déplacer sur une case");
         
         window = new JFrame();
-        window.setSize(1600, 800);
+        window.setSize(width, height);
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setTitle("Ile interdite");
         window.add(panelPrincipal);
+        window.setResizable(true);
 
         JPanel panelCentre = new JPanel(new BorderLayout());
-        panelPlateau.add(v.getPanelGrille(), BorderLayout.CENTER);
        
-
+        JPanel panelGrille = new JPanel();
+        panelGrille.add(v.getPanelGrille());
+        
+        
+        panelPlateau.add(panelGrille, BorderLayout.CENTER);
         labelNomJoueur.setForeground(Color.WHITE);
 
         JPanel paneGauche = new JPanel(new BorderLayout());
@@ -96,22 +105,25 @@ public class VuePrincipale extends Observable {
 
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
-        panelBoutons = new JPanel(new GridLayout(2, 3));
+        paneBas=new JPanel(new BorderLayout());
+        
+        
+        panelBoutons = new JPanel(new GridLayout(2, 2));
         panelBoutons.add(btnBouger);
-        panelBoutons.add(labelNbPA);
         panelBoutons.add(btnDonner);
         panelBoutons.add(btnAssecher);
-        
-        panelBoutons.add(btnTerminerTour);
         panelBoutons.add(btnRecuperer);
         
         
-       
+        paneNiveau=new JPanel();
+        JLabel labImage=new JLabel(imgNiveau);
+        paneNiveau.add(labImage);
+
+
+        panelPlateau.add(paneBas, BorderLayout.SOUTH);
         
-
-        panelPlateau.add(new JLabel(imgNiveau), BorderLayout.EAST);
-
-        panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
+        paneBas.add(panelBoutons,BorderLayout.EAST);
+        paneBas.add(paneNiveau,BorderLayout.CENTER);
 
         btnBouger.setVisible(true);
         btnBouger.addActionListener((ActionEvent e) -> {
@@ -132,6 +144,7 @@ public class VuePrincipale extends Observable {
             notifyObservers(new Message(Action.TERMINER, null));
             clearChanged();
         });
+        
 
         btnDonner.setVisible(true);
         btnDonner.addActionListener((ActionEvent arg0) -> {
@@ -152,10 +165,12 @@ public class VuePrincipale extends Observable {
 
         ArrayList<VueAventurier> listeVuesAv = new ArrayList(vuesAventuriers.values());
         paneGauche.add(listeVuesAv.get(0).getPanelGeneral(),BorderLayout.NORTH);
+        paneGauche.add(labelNbPA,BorderLayout.CENTER);
         paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
         paneGauche.setPreferredSize(new Dimension(330,200));
 
         paneDroite.add(listeVuesAv.get(1).getPanelGeneral(),BorderLayout.NORTH);
+        paneDroite.add(btnTerminerTour,BorderLayout.CENTER);
         paneDroite.add(listeVuesAv.get(2).getPanelGeneral(),BorderLayout.SOUTH);
         paneDroite.setPreferredSize(new Dimension(330, 200));
     }

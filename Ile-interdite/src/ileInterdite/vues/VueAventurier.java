@@ -49,28 +49,28 @@ public class VueAventurier extends Observable {
        
         switch (roleAventurier){
             case Explorateur:
-                ImageIcon iconeAv = new ImageIcon(new ImageIcon(pathPerso+ "explorateur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                ImageIcon iconeAv = new ImageIcon(new ImageIcon(pathPerso+ "explorateur.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeAv), roleAventurier);
                 break;
             case Ingénieur:
-                ImageIcon iconeIng = new ImageIcon(new ImageIcon(pathPerso+ "ingenieur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                ImageIcon iconeIng = new ImageIcon(new ImageIcon(pathPerso+ "ingenieur.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeIng), roleAventurier);
                 break;
                  
             case Messager:
-                ImageIcon iconeMess = new ImageIcon(new ImageIcon(pathPerso+ "messager.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                ImageIcon iconeMess = new ImageIcon(new ImageIcon(pathPerso+ "messager.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeMess), roleAventurier);
                 break;
             case Navigateur:
-                ImageIcon iconeNav = new ImageIcon(new ImageIcon(pathPerso+ "navigateur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                ImageIcon iconeNav = new ImageIcon(new ImageIcon(pathPerso+ "navigateur.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeNav), roleAventurier);
                 break;
             case Pilote:
-                ImageIcon iconePil = new ImageIcon(new ImageIcon(pathPerso+ "pilote.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                ImageIcon iconePil = new ImageIcon(new ImageIcon(pathPerso+ "pilote.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconePil), roleAventurier);
                 break;
             case Plongeur:
-                ImageIcon iconePlong = new ImageIcon(new ImageIcon(pathPerso+ "plongeur.png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                ImageIcon iconePlong = new ImageIcon(new ImageIcon(pathPerso+ "plongeur.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconePlong), roleAventurier);
                 break;
         }
@@ -147,6 +147,13 @@ public class VueAventurier extends Observable {
     public void devenirSuiveur(boolean suivre) {
         carteJoueur.devenirSuiveur(suivre);
     }
+    
+    public void desactiverCartes() {
+        for (ICarte carte : buttonCartes) {
+            carte.removeActionListener();
+        }
+    }
+    
 
     //Getters et Setters :
     

@@ -22,7 +22,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import utilitaires.Role;
 import utilitaires.Tresor;
@@ -33,11 +36,15 @@ import utilitaires.Tresor;
  */
 public class VueGrille extends Observable {
 
+    private Box panelGeneral;
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
     private Color myBackgroundColor = new Color(12, 143, 181);
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
+    
+    private int grilleWidth = 790;
+    private int grilleHeight = 800;
 
     private HashMap<Tresor, ITresor> tresors = new HashMap();
 
@@ -48,7 +55,12 @@ public class VueGrille extends Observable {
      * @param noms
      */
     public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
+        panelGeneral = new Box(BoxLayout.Y_AXIS);
+        panelGeneral.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        
         panelGrille = new JPanel(new GridLayout(6, 6));
+        panelGrille.setPreferredSize(new Dimension(grilleWidth, grilleHeight));
+        panelGeneral.add(panelGrille);
         panelGrille.setBackground(myBackgroundColor);
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
 
@@ -167,7 +179,7 @@ public class VueGrille extends Observable {
                 break;
             case INONDEE:
                 ImageIcon tuileSInonde = new ImageIcon(new ImageIcon(path+bouton.getNom()+"_Inonde.png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT));
-                System.out.println(bouton.getNom());
+
                 bouton.getBouton().setIcon(tuileSInonde);
                 bouton.setButtonEnabled(true);
                 break;

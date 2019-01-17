@@ -166,7 +166,7 @@ public abstract class Aventurier {
             if (!tresor.isRecupere()) {
                 int nbTresor = 0;
                 for (CarteTirage carte : getCartes()) {
-                    if (carte.getNom().equals(tresor.toString())) {
+                    if (carte.getNom().equals(tresor.getName())) {
                         nbTresor += 1;
                     }
                 }
