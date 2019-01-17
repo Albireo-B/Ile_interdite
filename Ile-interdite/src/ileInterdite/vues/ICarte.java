@@ -27,7 +27,7 @@ public class ICarte extends JButton {
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";
     private int imgWidth = 120;
-    private int imgHeigh = 200;
+    private int imgHeigh = 168;
     private ImageIcon image = null;
     private Border bordureNoire;
     private Border bordureRouge;

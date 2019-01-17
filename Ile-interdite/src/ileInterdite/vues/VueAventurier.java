@@ -32,7 +32,7 @@ public class VueAventurier extends Observable {
     private String pathPerso = "src/images/personnages/";
     private String pathCartes = "src/images/cartes/";
     private int width=120;
-    private int height=200;
+    private int height=168;
 
     public VueAventurier(Role roleAventurier, boolean gauche) {
 
