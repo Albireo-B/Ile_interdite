@@ -60,23 +60,14 @@ public class ICarte extends JButton {
     }
 
     public MessageCarte getMessage(Role role) {
-        return new MessageCarte(getNom(), action, role);
+        return new MessageCarte(nomCarte, action, role);
     }
-
-    /**
-     * @return the nom
-     */
-    public String getNom() {
-        return nomCarte;
-    }
-
     
         
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
         image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);    
     }
-    
-    
+
     /**
      * @param nom the nom to set
      */
@@ -93,12 +84,14 @@ public class ICarte extends JButton {
             setIcon(image);
         }
     }
-
-    /**
-     * @param action the action to set
+    //Getters et Setters :
+    
+     /**
+     * @return the nomCarte
      */
-    public void setAction(Action action) {
-        this.action = action;
+    public String getNom() {
+        return nomCarte;
     }
+
 
 }

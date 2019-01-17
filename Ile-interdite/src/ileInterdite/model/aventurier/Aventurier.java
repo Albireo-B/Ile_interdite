@@ -63,7 +63,7 @@ public abstract class Aventurier {
                 if (!(tuiles.contains(t))){
                 tuiles.add(t);}
                 for (Tuile tt : g.tuilesAdjacentesCroix(t)) {
-                    if (tt != getTuile() && !tuiles.contains(tt)) {
+                    if (tt != tuile && !tuiles.contains(tt)) {
                         tuiles.add(tt);
                     }
                 }
@@ -80,10 +80,10 @@ public abstract class Aventurier {
      */
     public ArrayList<Tuile> calculAssechement(Grille g) {
         ArrayList<Tuile> liste = new ArrayList();
-        if (getTuile().getEtat() == EtatTuile.INONDEE) {
-            liste.add(getTuile());
+        if (tuile.getEtat() == EtatTuile.INONDEE) {
+            liste.add(tuile);
         }
-        for (Tuile t : g.tuilesAdjacentesCroix(getTuile())) {
+        for (Tuile t : g.tuilesAdjacentesCroix(tuile)) {
             if (t.getEtat() == EtatTuile.INONDEE) {
                 liste.add(t);
             }
@@ -92,9 +92,9 @@ public abstract class Aventurier {
     }
 
     public void defausseCartes() {
-        getVueDefausse().actualiser(cartesToString(), getRole());
-        getVueDefausse().getFenetre().setAlwaysOnTop(true);
-        getVueDefausse().getFenetre().setCursor(Cursor.HAND_CURSOR);
+        vueDefausse.actualiser(cartesToString(), getRole());
+        vueDefausse.getFenetre().setAlwaysOnTop(true);
+        vueDefausse.getFenetre().setCursor(Cursor.HAND_CURSOR);
         
         
         
@@ -112,7 +112,7 @@ public abstract class Aventurier {
 
     public ArrayList<Integer> cartesTresor() {
         ArrayList<Integer> cartesTresor = new ArrayList<>();
-        for (CarteTirage carte : getCartes()) {
+        for (CarteTirage carte : cartes) {
             if (!carte.getUtilisable()) {
                 cartesTresor.add(getCartes().indexOf(carte));
             }
@@ -142,32 +142,33 @@ public abstract class Aventurier {
 
     public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier {
         for (CarteTirage c : listeCartes) {
-            getCartes().add(c);
+            if (c != null){
+            getCartes().add(c);}
+            else{
+                System.out.println("Problème à gérer ultérieurement, on ne dois pas pouvoir ajouter une carte vide");
+            }
         }
-        if (getCartes().size() > 5) {
+        if (cartes.size() > 5) {
             throw new ExceptionAventurier(this);
         }
     }
 
     public ArrayList<String> cartesToString() {
         ArrayList<String> listeCarte = new ArrayList<>();
-        for (CarteTirage carte : this.getCartes()) {
-            if (carte != null){
-            listeCarte.add(carte.getNom());}
-            else{
-                System.out.println("Une carte vide  -->  WTF");
-            }
+
+        for (CarteTirage carte : cartes) {
+            listeCarte.add(carte.getNom());
         }
         return listeCarte;
 
     }
     
     public void removeCarte(CarteTirage carte) {
-        getCartes().remove(carte);
+        cartes.remove(carte);
     }
 
     public Tresor tresorRecuperable() {
-        Tresor tresor = getTuile().getTresor();
+        Tresor tresor = tuile.getTresor();
         if (tresor != null) {
             if (!tresor.isRecupere()) {
                 int nbTresor = 0;

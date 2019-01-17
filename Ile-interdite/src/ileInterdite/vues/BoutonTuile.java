@@ -5,11 +5,9 @@
  */
 package ileInterdite.vues;
 
-import ileInterdite.model.aventurier.Aventurier;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import utilitaires.Pion;
-import utilitaires.Role;
 
 /**
  *
@@ -30,13 +27,11 @@ import utilitaires.Role;
 public class BoutonTuile extends JPanel {
     private JButton bouton;
     private ArrayList<JLabel> labels = new ArrayList();
-    
     private String path = "src/images/tuiles/";
     private int width=130;
     private int height=130;
     private String nom;
-    
-    private HashMap<Pion, JLabel> labelsAventuriers = new HashMap();
+    private HashMap<Pion,JLabel> labelsAventuriers = new HashMap();
     
 
     public BoutonTuile(String nom) {
@@ -131,24 +126,9 @@ public class BoutonTuile extends JPanel {
     /**
      * @return the bouton
      */
+    
     public JButton getBouton() {
         return bouton;
-    }
-
-    /**
-     * @return the width
-     */
-    @Override
-    public int getWidth() {
-        return this.width;
-    }
-
-    /**
-     * @return the height
-     */
-    @Override
-    public int getHeight() {
-        return this.height;
     }
 
     /**
