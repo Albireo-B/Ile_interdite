@@ -9,12 +9,14 @@ import ileInterdite.controleur.Controleur;
 import ileInterdite.controleur.ControleurInit;
 import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -61,8 +63,10 @@ public class VueAventurier extends Observable {
         //=============================================
         paneNom.add(new JLabel(nomJoueur));
         paneNom.setPreferredSize(new Dimension(20, 30));
+        paneNom.setBorder(BorderFactory.createLineBorder(Color.black,3));
         paneClass.add(paneNom, BorderLayout.NORTH);
         paneClass.add(carteJoueur.getBoutonAventurier(), BorderLayout.CENTER);
+        paneClass.setBorder(BorderFactory.createLineBorder(Color.black,3));
 
         for (int i = 0; i < 5; i++) {
             if ((i == 0 && !gauche) || (i == 2 && gauche)) {
