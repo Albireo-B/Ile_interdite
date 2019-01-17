@@ -61,6 +61,7 @@ public class Controleur implements Observer {
     public Controleur(ArrayList<String> nomsjoueurs, ArrayList<Role> roles, ArrayList<String> nomTuiles, HashMap<String, Tresor> tuilesTresor, ArrayList<CarteTirage> pioche, int niveauEau) {
         //Initialisation du niveau d'eau
         this.niveauEau = niveauEau;
+        
         //Initialisation de la Grille
         grille = new Grille(nomTuiles, tuilesTresor);
 
@@ -94,6 +95,7 @@ public class Controleur implements Observer {
 
         // Création des vues
         vuePrincipale = new VuePrincipale(vueGrille, vuesAventuriers);
+        vuePrincipale.setNiveau(niveauEau);
         vuePrincipale.addObserver(this);
 
         //Ecoute des IAventurier
@@ -817,6 +819,7 @@ public class Controleur implements Observer {
             if (piocheTirage.get(piocheTirage.size() - 1) instanceof CarteMonteeDesEaux) {
                 trigger = true;
                 niveauEau += 1;
+                vuePrincipale.setNiveau(niveauEau);
                 if (niveauEau >= 10) {
                     terminerPartie(false,ListeFin.NIVEAUDEAU);
                 }
@@ -927,5 +930,4 @@ public class Controleur implements Observer {
             vuePrincipale.activerBouton(Bouton.RECUPERER, aventurierCourant.tresorRecuperable() != null && !(aventurierCourant.getNbAction()<1));
         }
     }
-
 }

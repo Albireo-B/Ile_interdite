@@ -28,8 +28,8 @@ public class BoutonTuile extends JPanel {
     private JButton bouton;
     private ArrayList<JLabel> labels = new ArrayList();
     private String path = "src/images/tuiles/";
-    private int width=130;
-    private int height=130;
+    private int width=141;
+    private int height=width;
     private String nom;
     private HashMap<Pion,JLabel> labelsAventuriers = new HashMap();
     
@@ -73,7 +73,7 @@ public class BoutonTuile extends JPanel {
         panelAventuriers.add(panelHaut, BorderLayout.NORTH);
         panelAventuriers.add(panelBas, BorderLayout.SOUTH);
         
-        panelAventuriers.setBounds(0,0,width,height);
+        panelAventuriers.setBounds(8, 0, width, height-20);
         panelAventuriers.setOpaque(false);
         
         panelHaut.setOpaque(false);
@@ -100,7 +100,7 @@ public class BoutonTuile extends JPanel {
     
     
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);
     }
 
     public void setButtonBorder(Color c) {

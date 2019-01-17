@@ -53,8 +53,7 @@ public class VuePrincipale extends Observable {
     private JLabel labelNbPA = new JLabel();
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
-    private JPanel paneNiveau;
-    private JPanel paneBas;
+    private VueNiveau vueNiveau;
     private Color myNewBlue = new Color (30,144,255);
     
     private int width = 1600;
@@ -122,16 +121,11 @@ public class VuePrincipale extends Observable {
         panelBoutons.add(btnAssecher);
         panelBoutons.add(btnRecuperer);
         
-        
-        paneNiveau=new JPanel();
-        JLabel labImage=new JLabel(imgNiveau);
-        paneNiveau.add(labImage);
-
-        
+        vueNiveau=new VueNiveau(0);
     
         panelPlateau.add(panelBoutons, BorderLayout.SOUTH);
         
-
+        panelCentre.add(panelBoutons, BorderLayout.SOUTH);
 
         btnBouger.setVisible(true);
         btnBouger.addActionListener((ActionEvent e) -> {
@@ -177,7 +171,7 @@ public class VuePrincipale extends Observable {
         paneGauche.add(labelNbPA,BorderLayout.SOUTH);
         paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
         paneGauche.setPreferredSize(new Dimension(330,200));
-        paneGauche.add(paneNiveau,BorderLayout.CENTER);
+        paneGauche.add(vueNiveau,BorderLayout.CENTER);
         
         JPanel paneSuperDroite=new JPanel(new GridLayout(2,1));
         paneSuperDroite.add(labelNbPA);
@@ -198,10 +192,14 @@ public class VuePrincipale extends Observable {
         paneSuperDroite.setBackground(myNewBlue);
         panelCentre.setBackground(myNewBlue);
         panelGrille.setBackground(myNewBlue);
-        paneNiveau.setBackground(myNewBlue);
+        vueNiveau.setBackground(myNewBlue);
         panelBoutons.setBackground(myNewBlue);
         panelPrincipal.setBackground(myNewBlue);
         
+    }
+    
+    public void setNiveau(int niveau) {
+        vueNiveau.setNiveau(niveau);
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {

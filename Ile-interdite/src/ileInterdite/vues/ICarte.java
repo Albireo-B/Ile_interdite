@@ -65,7 +65,7 @@ public class ICarte extends JButton {
     
         
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);    
+        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);    
     }
 
     /**
