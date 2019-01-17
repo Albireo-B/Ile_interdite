@@ -572,11 +572,22 @@ public class Controleur implements Observer {
     }
 
     public void terminerPartie(boolean gagne,ListeFin fin) {
-        
-        if (gagne) {
-            JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
-        } else {
-            JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
+        switch (fin){
+            case VICTOIRE:
+                JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case TEMPLECOULE:
+                JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case HELIPORTCOULE:
+                JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case JOUEURCOULE:
+                JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case NIVEAUDEAU:
+                JOptionPane.showMessageDialog(null, "!", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
         }
         enableGame(false);
         
