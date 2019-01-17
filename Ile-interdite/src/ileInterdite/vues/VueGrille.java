@@ -43,7 +43,7 @@ public class VueGrille extends Observable {
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
     
-    private int grilleWidth = 795;
+    private int grilleWidth = 780;
     private int grilleHeight = 784;
 
     private HashMap<Tresor, ITresor> tresors = new HashMap();
