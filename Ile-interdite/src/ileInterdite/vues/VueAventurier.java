@@ -113,10 +113,6 @@ public class VueAventurier extends Observable {
 
     }
 
-    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);
-        
-    }
     public void rendreCartesCliquables(ArrayList<Integer> listePos) {
         for (Integer carteCliquable : listePos) {
             ICarte carte = buttonCartes.get(carteCliquable);
@@ -150,14 +146,6 @@ public class VueAventurier extends Observable {
      */
     public Role getRoleAventurier() {
         return roleAventurier;
-    }
-
- 
-    /**
-     * @param paneClass the paneClass to set
-     */
-    public void setPaneClass(JPanel paneClass) {
-        this.paneClass = paneClass;
     }
 
     /**

@@ -14,7 +14,7 @@ public class CarteTirage {
     private String nom;
     private Boolean utilisable;
 
-    public CarteTirage(Boolean utilisable) {
+    protected CarteTirage(Boolean utilisable) {
         this.utilisable = utilisable;
     }
 
@@ -31,7 +31,7 @@ public class CarteTirage {
     /**
      * @param nom the nom to set
      */
-    public void setNom(String nom) {
+    protected void setNom(String nom) {
         this.nom = nom;
     }
 

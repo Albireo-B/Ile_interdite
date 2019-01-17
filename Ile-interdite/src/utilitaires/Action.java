@@ -20,5 +20,4 @@ public enum Action {
     CARTESPECIALE,
     SUIVRE,
     GROUPEHELICO;
-
 }

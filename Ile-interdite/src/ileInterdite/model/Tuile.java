@@ -30,7 +30,7 @@ public class Tuile {
      * @param nom
      * @param pos
      */
-    public Tuile(String nom, Position pos) {
+    protected Tuile(String nom, Position pos) {
         this.nom = nom;
         this.position = pos;
         etat = EtatTuile.SECHE;
@@ -43,7 +43,7 @@ public class Tuile {
      * @param nom
      * @param pos
      */
-    public Tuile(String nom, Position pos, Tresor tresor) {
+    protected Tuile(String nom, Position pos, Tresor tresor) {
         this.nom = nom;
         this.position = pos;
         etat = EtatTuile.SECHE;
@@ -69,7 +69,7 @@ public class Tuile {
     }
 
     
-        public ArrayList<Role> rolesAventuriers() {
+    public ArrayList<Role> rolesAventuriers() {
         ArrayList<Role> roles = new ArrayList();
         for (Aventurier a:aventuriers){
             roles.add(a.getRole());

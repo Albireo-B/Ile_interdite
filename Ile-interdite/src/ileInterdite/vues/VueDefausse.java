@@ -73,7 +73,7 @@ public class VueDefausse extends Observable {
         afficher();
     }
 
-    public void afficher() {
+    private void afficher() {
         getFenetre().setVisible(true);
     }
 
