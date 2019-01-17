@@ -56,6 +56,7 @@ public class VuePrincipale extends Observable {
     private JPanel paneNiveau;
     private JPanel paneBas;
     private JPanel paneCursor=new JPanel(new GridLayout(1,7));
+    private Color myNewBlue = new Color (72,209,204);
     
     private int width = 1500;
     private int height = 1000;
@@ -106,12 +107,14 @@ public class VuePrincipale extends Observable {
 
  
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
+        
 
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
         paneBas=new JPanel(new BorderLayout());
         
         
+      
         panelBoutons = new JPanel(new GridLayout(2, 2));
         panelBoutons.add(btnBouger);
         panelBoutons.add(btnDonner);
@@ -188,6 +191,16 @@ public class VuePrincipale extends Observable {
         
         panelPrincipal.add(paneSuperGauche, BorderLayout.WEST);
         panelPrincipal.add(paneSuperDroite, BorderLayout.EAST);
+        paneDroite.setBackground(myNewBlue);
+        paneGauche.setBackground(myNewBlue);
+        paneSuperDroite.setBackground(myNewBlue);
+        paneSuperGauche.setBackground(myNewBlue);
+        panelCentre.setBackground(myNewBlue);
+        panelGrille.setBackground(myNewBlue);
+        paneNiveau.setBackground(myNewBlue);
+        panelBoutons.setBackground(myNewBlue);
+        panelPrincipal.setBackground(myNewBlue);
+        
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
