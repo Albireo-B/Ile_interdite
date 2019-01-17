@@ -572,7 +572,7 @@ public class Controleur implements Observer {
     }
 
     public void terminerPartie(boolean gagne,ListeFin fin) {
-        
+               
         if (gagne) {
             JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
         } else {
