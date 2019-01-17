@@ -577,7 +577,7 @@ public class Controleur implements Observer {
                 JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
                 break;
             case TEMPLECOULE:
-                JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Dommage, les deux lieux vous permettant d'obtenir un trésor ont coulé avant que vous ne puissiez le récupérer !", "Fin du Jeu!", JOptionPane.OK_OPTION);
                 break;
             case HELIPORTCOULE:
                 JOptionPane.showMessageDialog(null, "Dommage, l'héliport vient de couler vous ne pouvez plus vous enfuir !", "Fin du Jeu!", JOptionPane.OK_OPTION);
