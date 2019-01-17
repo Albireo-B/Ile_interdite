@@ -580,13 +580,13 @@ public class Controleur implements Observer {
                 JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
                 break;
             case HELIPORTCOULE:
-                JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Dommage, l'héliport vient de couler vous ne pouvez plus vous enfuir !", "Fin du Jeu!", JOptionPane.OK_OPTION);
                 break;
             case JOUEURCOULE:
-                JOptionPane.showMessageDialog(null, "", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Dommage, un de vos compagnons s'est noyé !", "Fin du Jeu!", JOptionPane.OK_OPTION);
                 break;
             case NIVEAUDEAU:
-                JOptionPane.showMessageDialog(null, "!", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Dommage, le niveau d'eau est trop élevé et a englouti l'ile et vous avec !", "Fin du Jeu!", JOptionPane.OK_OPTION);
                 break;
         }
         enableGame(false);
