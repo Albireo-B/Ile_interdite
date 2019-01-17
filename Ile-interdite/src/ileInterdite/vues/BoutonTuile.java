@@ -28,8 +28,8 @@ public class BoutonTuile extends JPanel {
     private JButton bouton;
     private ArrayList<JLabel> labels = new ArrayList();
     private String path = "src/images/tuiles/";
-    private int width=130;
-    private int height=130;
+    private int width=141;
+    private int height=width;
     private String nom;
     private HashMap<Pion,JLabel> labelsAventuriers = new HashMap();
     

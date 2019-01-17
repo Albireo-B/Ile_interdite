@@ -22,7 +22,7 @@ public class VueNiveau extends JPanel {
     private ImageIcon imgCurseur = new ImageIcon(new ImageIcon(path + "stick.png").getImage().getScaledInstance(10, 30, Image.SCALE_SMOOTH));
     private int niveau = 0;
     
-    private int offsetDepart = 10;
+    private int offsetDepart = 20;
     
     private JLabel curseur ;
 
@@ -48,6 +48,6 @@ public class VueNiveau extends JPanel {
     public void setNiveau(int niveau) {
         this.niveau = niveau;
         System.out.println(this.niveau);
-        curseur.setBounds(offsetDepart + niveau * 15, 0, imgCurseur.getIconWidth(), imgCurseur.getIconHeight());
+        curseur.setBounds(offsetDepart + niveau * 20, 0, imgCurseur.getIconWidth(), imgCurseur.getIconHeight());
     }
 }
