@@ -5,79 +5,107 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.model.aventurier.Aventurier;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import utilitaires.Pion;
+import utilitaires.Role;
 
 /**
  *
  * @author grosa
  */
 public class BoutonTuile extends JPanel {
-
     private JButton bouton;
-    private Color myWhite = new Color(241, 241, 241);
-    private Color couleurTexte = Color.BLACK;
-    private ArrayList<Color> couleursJoueurs = new ArrayList();
-    private ArrayList<JPanel> couleurs = new ArrayList();
+    private ArrayList<JLabel> labels = new ArrayList();
+    
     private String path = "src/images/tuiles/";
     private int width=130;
     private int height=130;
     private String nom;
     
+    private HashMap<Pion, JLabel> labelsAventuriers = new HashMap();
+    
 
     public BoutonTuile(String nom) {
         super(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
-        bouton = new JButton(imgTuile);
-        add(bouton, BorderLayout.CENTER);
         
         this.nom=nom;
         
-        JPanel panelCouleurs = new JPanel(new GridLayout(1, 4));
-        for (int c = 0; c < 4; c++) {
-            JPanel p = new JPanel();
-            panelCouleurs.add(p);
-            couleurs.add(p);
-        }
-
-        add(panelCouleurs, BorderLayout.SOUTH);
-
+        JLayeredPane layeredPane = new JLayeredPane();
+        
+        setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+        ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+        
+        bouton = new JButton(imgTuile);
+        bouton.setBounds(1, 1, width-4, height-4);
+        
+        layeredPane.setPreferredSize(new Dimension(width-4, height-4));
+        
+        JPanel panelAventuriers = new JPanel(new BorderLayout());
+        
+        JPanel panelHaut = new JPanel(new BorderLayout());
+        JLabel p1 = new JLabel();
+        panelHaut.add(p1, BorderLayout.WEST);
+        labels.add(p1);
+        
+        JLabel p2 = new JLabel();
+        panelHaut.add(p2, BorderLayout.EAST);
+        labels.add(p2);
+        
+        
+        JPanel panelBas = new JPanel(new BorderLayout());
+        JLabel p3 = new JLabel();
+        panelBas.add(p3, BorderLayout.WEST);
+        labels.add(p3);
+        
+        JLabel p4 = new JLabel();
+        panelBas.add(p4, BorderLayout.EAST);
+        labels.add(p4);
+        
+        panelAventuriers.add(panelHaut, BorderLayout.NORTH);
+        panelAventuriers.add(panelBas, BorderLayout.SOUTH);
+        
+        panelAventuriers.setBounds(0,0,width,height);
+        panelAventuriers.setOpaque(false);
+        
+        panelHaut.setOpaque(false);
+        panelBas.setOpaque(false);
+        
+        layeredPane.add(bouton, new Integer(0));
+        layeredPane.add(panelAventuriers, new Integer(1));
+        
+        add(layeredPane, BorderLayout.CENTER);
     }
 
-    public void removeAventurier(Color j) {
-        if (couleursJoueurs.contains(j)) {
-            for (int i = couleursJoueurs.indexOf(j); i < couleursJoueurs.size() - 1; i++) {
-                couleurs.get(i).setBackground(couleursJoueurs.get(i + 1));
-            }
-            couleurs.get(couleursJoueurs.size() - 1).setBackground(myWhite);
-            couleursJoueurs.remove(j);
-        }
+    public void removeAventurier(Pion pJoueur) {
+        labelsAventuriers.get(pJoueur).setIcon(null);
+        labelsAventuriers.remove(pJoueur);
     }
 
-    public void addAventurier(Color j) {
-        if (couleursJoueurs.size() < 4) {
-            couleurs.get(couleursJoueurs.size()).setBackground(j);
-            couleursJoueurs.add(new Color(j.getRGB()));
+    public void addAventurier(Pion pJoueur) {
+        if (labelsAventuriers.size() < 4) {
+            JLabel label = labels.get(labelsAventuriers.size());
+            label.setIcon(pJoueur.getImage());
+            labelsAventuriers.put(pJoueur, label);
         }
     }
     
     
     public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
         image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
-        
-    }
-
-    public void setButtonForeground(Color c) {
-        bouton.setForeground(c);
     }
 
     public void setButtonBorder(Color c) {
@@ -129,6 +157,4 @@ public class BoutonTuile extends JPanel {
     public String getNom() {
         return nom;
     }
-
-  
 }

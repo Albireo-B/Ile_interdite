@@ -43,8 +43,8 @@ public class VueGrille extends Observable {
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
     
-    private int grilleWidth = 790;
-    private int grilleHeight = 800;
+    private int grilleWidth = 780;
+    private int grilleHeight = 784;
 
     private HashMap<Tresor, ITresor> tresors = new HashMap();
 
@@ -104,7 +104,6 @@ public class VueGrille extends Observable {
                 }
             }
         }
-    
     }
 
     /**
@@ -193,9 +192,9 @@ public class VueGrille extends Observable {
      */
     public void actualiserPositionJoueur(Position position, Position posAv, Pion p) {
         if (bTuiles.keySet().contains(posAv)) {
-            bTuiles.get(posAv).removeAventurier(p.getCouleur());
+            bTuiles.get(posAv).removeAventurier(p);
         }
-        bTuiles.get(position).addAventurier(p.getCouleur());
+        bTuiles.get(position).addAventurier(p);
     }
 
     //Getters et Setters :

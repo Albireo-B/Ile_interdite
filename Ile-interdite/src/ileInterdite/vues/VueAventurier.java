@@ -52,11 +52,10 @@ public class VueAventurier extends Observable {
                 ImageIcon iconeAv = new ImageIcon(new ImageIcon(pathPerso+ "explorateur.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeAv), roleAventurier);
                 break;
-            case Ingénieur:
+            case Ingenieur:
                 ImageIcon iconeIng = new ImageIcon(new ImageIcon(pathPerso+ "ingenieur.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeIng), roleAventurier);
                 break;
-                 
             case Messager:
                 ImageIcon iconeMess = new ImageIcon(new ImageIcon(pathPerso+ "messager.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
                 carteJoueur = new IAventurier(new JButton(iconeMess), roleAventurier);

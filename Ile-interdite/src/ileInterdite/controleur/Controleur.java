@@ -172,7 +172,7 @@ public class Controleur implements Observer {
             case Pilote:
                 a = new Pilote(n, t);
                 break;
-            case Ingénieur:
+            case Ingenieur:
                 a = new Ingenieur(n, t);
                 break;
         }
@@ -204,15 +204,15 @@ public class Controleur implements Observer {
      * @param av
      */
     public void gererDeplacement(Aventurier av) {
-            if (av.getRole() == Role.Navigateur) {
-                for (Role role : listeRoles) {
-                    if (role != Role.Navigateur) {
-                        vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
-                        vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
-                    }
+        if (av.getRole() == Role.Navigateur) {
+            for (Role role : listeRoles) {
+                if (role != Role.Navigateur) {
+                    vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
+                    vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
                 }
             }
-            proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
+        }
+        proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
     }
 
     public boolean victoireJoueur() {
@@ -241,7 +241,7 @@ public class Controleur implements Observer {
         av.decrementeNbActions();
 
         if (victoireJoueur()) {
-            terminerPartie(true);
+            terminerPartie(true,ListeFin.VICTOIRE);
         }
     }
 
@@ -299,7 +299,7 @@ public class Controleur implements Observer {
         attenteMouvementUrgence = new ArrayList();
         for (Entry<Aventurier, Boolean> av : aventuriersPieges().entrySet()) {
             if (av.getValue()) {
-                terminerPartie(false);
+                terminerPartie(false,ListeFin.JOUEURCOULE);
             } else {
                 attenteMouvementUrgence.add(av.getKey());
             }
@@ -310,7 +310,7 @@ public class Controleur implements Observer {
         }
 
         if (grille.getTuileHeliport().getEtat() == EtatTuile.COULEE) {
-            terminerPartie(false);
+            terminerPartie(false,ListeFin.HELIPORTCOULE);
         }
     }
 
@@ -339,14 +339,15 @@ public class Controleur implements Observer {
         if (tuile.getEtat() == EtatTuile.INONDEE) {
             tuile.setEtat(EtatTuile.COULEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
-            
-            for (Tuile t : grille.getTuilesTresor().keySet()){
-                if (grille.getTuilesTresor().get(t)!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
-                    terminerPartie(false);
+            for (Tuile t : grille.getTuilesTresor().keySet()) {
+                if (grille.getTuilesTresor().get(tuile) != null
+                        && t.getNom() != tuile.getNom()
+                        && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
+                        && t.getEtat() == EtatTuile.COULEE) {
+                    terminerPartie(false,ListeFin.TEMPLECOULE);
                 }
             }
-            
-            
+
         } else if (tuile.getEtat() == EtatTuile.SECHE) {
             grille.getTuile(p).setEtat(EtatTuile.INONDEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.INONDEE);
@@ -405,7 +406,7 @@ public class Controleur implements Observer {
 
     public void actualiserVue(Object arg) {
         //Si l'ingénieur fait une autre action au lieu d'assecher une seconde fois
-        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingénieur) {
+        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingenieur) {
             aventurierCourant.setPouvoir(true);
         }
         //regarde si les carte des aventuriers sont encore utiles
@@ -570,13 +571,15 @@ public class Controleur implements Observer {
 
     }
 
-    public void terminerPartie(boolean gagne) {
+    public void terminerPartie(boolean gagne,ListeFin fin) {
+        
         if (gagne) {
             JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
         } else {
             JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
         }
         enableGame(false);
+        
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
@@ -787,7 +790,7 @@ public class Controleur implements Observer {
                 trigger = true;
                 niveauEau += 1;
                 if (niveauEau >= 10) {
-                    terminerPartie(false);
+                    terminerPartie(false,ListeFin.NIVEAUDEAU);
                 }
             } else {
                 cartes.add(piocheTirage.get(piocheTirage.size() - 1));
