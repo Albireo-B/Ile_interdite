@@ -19,6 +19,7 @@ public class Grille {
     private final int longueurTerrain = 6;
     private HashMap<Position, Tuile> tuiles = new HashMap();
     protected Tuile tuileHeliport = null;
+    
 
     /**
      * Voici l'organisation de la grille (x = tuile): x -----> 0 1 2 3 4 5 y 0 x
@@ -208,9 +209,12 @@ public class Grille {
     }
 
     public ArrayList<Tuile> getToutesTuiles() {
-        return new ArrayList<>(getTuiles().values());
+        return new ArrayList<>(tuiles.values());
     }
 
+    //Getters et Setters :
+    
+    
     /**
      * @return the tuiles
      */

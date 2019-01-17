@@ -26,6 +26,9 @@ public enum Pion {
         this.couleur = couleur;
     }
 
+    
+    //Getters et Setter :
+    
     public Color getCouleur() {
         return this.couleur;
     }

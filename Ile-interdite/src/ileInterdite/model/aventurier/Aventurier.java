@@ -191,7 +191,11 @@ public abstract class Aventurier {
         cartes = new ArrayList(nouveauDeck);
     }
     
-   
+   //Getters et Setters :
+    
+    /**
+     * @return position de la tuile
+     */
     public Position getPosition() {
         return tuile.getPosition();
     }

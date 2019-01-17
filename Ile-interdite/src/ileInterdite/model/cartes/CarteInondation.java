@@ -17,6 +17,8 @@ public class CarteInondation {
         this.nom = nom;
     }
 
+    //Getters et Setter :
+    
     /**
      * @return the nom
      */
@@ -24,10 +26,4 @@ public class CarteInondation {
         return nom;
     }
 
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
 }

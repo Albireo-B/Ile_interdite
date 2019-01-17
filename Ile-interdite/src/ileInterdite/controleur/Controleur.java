@@ -33,7 +33,6 @@ public class Controleur implements Observer {
     private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
     private HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
-    
     private HashMap<Role, Aventurier> joueurs = new HashMap<>();
     private Grille grille;
     private Aventurier aventurierCourant;
@@ -551,7 +550,7 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().proposerHelico(possesseurCarte, roles, false);
             } else {
                 if (!roles.isEmpty()) {
-                    if (joueurs.get(roles.get(0)).getTuile().getRoleAventuriers().contains(r)) {
+                    if (joueurs.get(roles.get(0)).getTuile().rolesAventuriers().contains(r)) {
                         vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().proposerHelico(possesseurCarte, roles, true);
                     } else {
                         vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().removeActionListener();

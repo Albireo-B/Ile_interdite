@@ -18,6 +18,9 @@ public class CarteTirage {
         this.utilisable = utilisable;
     }
 
+    
+    //Getters et Setter :
+    
     /**
      * @return the nom
      */
@@ -37,12 +40,5 @@ public class CarteTirage {
      */
     public Boolean getUtilisable() {
         return utilisable;
-    }
-
-    /**
-     * @param utilisable the utilisable to set
-     */
-    public void setUtilisable(Boolean utilisable) {
-        this.utilisable = utilisable;
     }
 }
