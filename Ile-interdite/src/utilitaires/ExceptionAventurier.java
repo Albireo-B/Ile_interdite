@@ -11,18 +11,22 @@ import ileInterdite.model.aventurier.Aventurier;
  *
  * @author vinetg
  */
-public class ExceptionAventurier extends Exception {
-
+public class ExceptionAventurier extends Exception{
+    
     private Aventurier aventurier;
-
-    public ExceptionAventurier(Aventurier aventurier) {
-        this.aventurier = aventurier;
+    
+    public ExceptionAventurier(Aventurier aventurier){
+        this.aventurier=aventurier;
     }
 
+    
+    //Getters et Setter :
+    
     /**
      * @return the aventurier
      */
     public Aventurier getAventurier() {
         return aventurier;
     }
+    
 }

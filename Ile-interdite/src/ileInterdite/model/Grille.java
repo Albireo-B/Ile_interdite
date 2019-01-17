@@ -20,6 +20,7 @@ public class Grille {
     private HashMap<Position, Tuile> tuiles = new HashMap();
     protected Tuile tuileHeliport = null;
     private HashMap<Tuile, Tresor> tuilesTresor = new HashMap();
+
     /**
      * Voici l'organisation de la grille (x = tuile): x -----> 0 1 2 3 4 5 y 0 x
      * x | 1 x x x x | 2 x x x x x x | 3 x x x x x x \/4 x x x x 5 x x
@@ -208,9 +209,12 @@ public class Grille {
     }
 
     public ArrayList<Tuile> getToutesTuiles() {
-        return new ArrayList<>(getTuiles().values());
+        return new ArrayList<>(tuiles.values());
     }
 
+    //Getters et Setters :
+    
+    
     /**
      * @return the tuiles
      */

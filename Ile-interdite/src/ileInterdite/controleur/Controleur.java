@@ -34,7 +34,6 @@ public class Controleur implements Observer {
     private VuePrincipale vuePrincipale;
     private VueGrille vueGrille;
     private HashMap<Role, VueAventurier> vuesAventuriers = new HashMap();
-
     private HashMap<Role, Aventurier> joueurs = new HashMap<>();
     private Grille grille;
     private Aventurier aventurierCourant;
@@ -342,7 +341,7 @@ public class Controleur implements Observer {
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
             
             for (Tuile t : grille.getTuilesTresor().keySet()){
-                if (grille.getTuilesTresor()!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
+                if (grille.getTuilesTresor().get(t)!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
                     terminerPartie(false);
                 }
             }
@@ -553,7 +552,7 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().proposerHelico(possesseurCarte, roles, false);
             } else {
                 if (!roles.isEmpty()) {
-                    if (joueurs.get(roles.get(0)).getTuile().getRoleAventuriers().contains(r)) {
+                    if (joueurs.get(roles.get(0)).getTuile().rolesAventuriers().contains(r)) {
                         vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().proposerHelico(possesseurCarte, roles, true);
                     } else {
                         vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().removeActionListener();

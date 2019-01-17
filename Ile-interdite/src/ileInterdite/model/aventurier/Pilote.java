@@ -34,7 +34,7 @@ public class Pilote extends Aventurier {
      * On passe le pouvoir du Pilote à utilisé et on change sa position
      *
      * @param g
-     * @param t
+     * @param tuile
      */
     @Override
     public void setTuile(Grille g, Tuile tuile) {

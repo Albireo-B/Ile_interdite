@@ -24,6 +24,8 @@ public class MessageGroupePos extends MessageGroupe {
      *
      * @param action
      * @param pos
+     * @param role
+     * @param roles
      */
     public MessageGroupePos(Action action, Position pos,Role role, ArrayList<Role> roles) {
         super(action,role, roles);

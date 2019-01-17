@@ -17,7 +17,7 @@ import utilitaires.Tresor;
  */
 public class Tuile {
 
-    private EtatTuile etat = EtatTuile.SECHE;
+    private EtatTuile etat;
     private ArrayList<Aventurier> aventuriers = new ArrayList();
     private Position position;
     private String nom;
@@ -68,26 +68,23 @@ public class Tuile {
         aventuriers.remove(av);
     }
 
-    //Getters et Setters :
-    /**
-     * @return the aventuriers
-     */
-    public ArrayList<Aventurier> getAventuriers() {
-        return aventuriers;
-    }
-    public ArrayList<Role> getRoleAventuriers() {
+    
+        public ArrayList<Role> rolesAventuriers() {
         ArrayList<Role> roles = new ArrayList();
         for (Aventurier a:aventuriers){
             roles.add(a.getRole());
         }
                 return roles;
     }
-
-    /**
-     * @param aventuriers the aventuriers to set
+        
+    //Getters et Setters :
+    
+        
+     /**
+     * @return the aventuriers
      */
-    public void setAventuriers(ArrayList<Aventurier> aventuriers) {
-        this.aventuriers = aventuriers;
+    public ArrayList<Aventurier> getAventuriers() {
+        return aventuriers;
     }
 
     /**
@@ -95,13 +92,6 @@ public class Tuile {
      */
     public String getNom() {
         return nom;
-    }
-
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
     }
 
     /**
@@ -125,13 +115,7 @@ public class Tuile {
         return position;
     }
 
-    /**
-     * @param position the position to set
-     */
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
+ 
     /**
      * @return the tresor
      */

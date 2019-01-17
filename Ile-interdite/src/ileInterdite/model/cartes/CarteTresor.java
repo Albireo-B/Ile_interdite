@@ -21,6 +21,9 @@ public class CarteTresor extends CarteTirage {
         setNom(tresor.getName());
     }
 
+    
+    //Getters et Setter :
+    
     /**
      * @return the tresor
      */
