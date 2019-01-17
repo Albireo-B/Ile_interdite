@@ -241,7 +241,7 @@ public class Controleur implements Observer {
         av.decrementeNbActions();
 
         if (victoireJoueur()) {
-            terminerPartie(true);
+            terminerPartie(true,ListeFin.VICTOIRE);
         }
     }
 
@@ -299,7 +299,7 @@ public class Controleur implements Observer {
         attenteMouvementUrgence = new ArrayList();
         for (Entry<Aventurier, Boolean> av : aventuriersPieges().entrySet()) {
             if (av.getValue()) {
-                terminerPartie(false);
+                terminerPartie(false,ListeFin.JOUEURCOULE);
             } else {
                 attenteMouvementUrgence.add(av.getKey());
             }
@@ -310,7 +310,7 @@ public class Controleur implements Observer {
         }
 
         if (grille.getTuileHeliport().getEtat() == EtatTuile.COULEE) {
-            terminerPartie(false);
+            terminerPartie(false,ListeFin.HELIPORTCOULE);
         }
     }
 
@@ -344,7 +344,7 @@ public class Controleur implements Observer {
                         && t.getNom() != tuile.getNom()
                         && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
                         && t.getEtat() == EtatTuile.COULEE) {
-                    terminerPartie(false);
+                    terminerPartie(false,ListeFin.TEMPLECOULE);
                 }
             }
 
@@ -571,13 +571,15 @@ public class Controleur implements Observer {
 
     }
 
-    public void terminerPartie(boolean gagne) {
+    public void terminerPartie(boolean gagne,ListeFin fin) {
+        
         if (gagne) {
             JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
         } else {
             JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
         }
         enableGame(false);
+        
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
@@ -788,7 +790,7 @@ public class Controleur implements Observer {
                 trigger = true;
                 niveauEau += 1;
                 if (niveauEau >= 10) {
-                    terminerPartie(false);
+                    terminerPartie(false,ListeFin.NIVEAUDEAU);
                 }
             } else {
                 cartes.add(piocheTirage.get(piocheTirage.size() - 1));

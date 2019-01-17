@@ -115,7 +115,6 @@ public class Tuile {
         return position;
     }
 
- 
     /**
      * @return the tresor
      */
