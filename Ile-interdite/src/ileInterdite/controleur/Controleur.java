@@ -60,7 +60,6 @@ public class Controleur implements Observer {
     public Controleur(ArrayList<String> nomsjoueurs, ArrayList<Role> roles, ArrayList<String> nomTuiles, HashMap<String, Tresor> tuilesTresor, ArrayList<CarteTirage> pioche, int niveauEau) {
         //Initialisation du niveau d'eau
         this.niveauEau = niveauEau;
-
         //Initialisation de la Grille
         grille = new Grille(nomTuiles, tuilesTresor);
 
@@ -342,6 +341,14 @@ public class Controleur implements Observer {
         if (tuile.getEtat() == EtatTuile.INONDEE) {
             tuile.setEtat(EtatTuile.COULEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
+            
+            for (Tuile t : grille.getTuilesTresor().keySet()){
+                if (t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
+                    terminerPartie(false);
+                }
+            }
+            
+            
         } else if (tuile.getEtat() == EtatTuile.SECHE) {
             grille.getTuile(p).setEtat(EtatTuile.INONDEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.INONDEE);

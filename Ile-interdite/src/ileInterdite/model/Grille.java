@@ -19,7 +19,7 @@ public class Grille {
     private final int longueurTerrain = 6;
     private HashMap<Position, Tuile> tuiles = new HashMap();
     protected Tuile tuileHeliport = null;
-
+    private HashMap<Tuile, Tresor> tuilesTresor = new HashMap();
     /**
      * Voici l'organisation de la grille (x = tuile): x -----> 0 1 2 3 4 5 y 0 x
      * x | 1 x x x x | 2 x x x x x x | 3 x x x x x x \/4 x x x x 5 x x
@@ -37,12 +37,12 @@ public class Grille {
             
             if (listeTresors.contains(nomTuile)){
                 t.setTresor(tuilesTresor.get(nomTuile));}
-            
+                this.tuilesTresor.put(t,tuilesTresor.get(nomTuile));
             tuiles.put(positionTuiles.get(0), t);
             positionTuiles.remove(0);
         }
     }
-
+    
     /**
      * Retourne la position de tous les emplacements valides pour des tuiles
      *
@@ -223,5 +223,12 @@ public class Grille {
      */
     public Tuile getTuileHeliport() {
         return tuileHeliport;
+    }
+
+    /**
+     * @return the tuilesTresor
+     */
+    public HashMap<Tuile, Tresor> getTuilesTresor() {
+        return tuilesTresor;
     }
 }
