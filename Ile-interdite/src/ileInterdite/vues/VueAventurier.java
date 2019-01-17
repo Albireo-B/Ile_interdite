@@ -96,7 +96,6 @@ public class VueAventurier extends Observable {
     
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
-
         while ( j < listeCarte.size() && j<5) {
             getButtonCartes().get(j).setImage(listeCarte.get(j));
             getButtonCartes().get(j).removeActionListener();                
@@ -107,19 +106,18 @@ public class VueAventurier extends Observable {
                     clearChanged();
                 });
 
-            }else if (buttonCartes.get(j).getNom().equals("SacsDeSable")){
+            }else if (buttonCartes.get(j).getNom().equals("SacDeSable")){
                 buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
 
                     setChanged();
-                    notifyObservers(new MessageCarte("SacsDeSable",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
                     clearChanged();
                 });
             }
             j++;
         }
-        for (int i = j + 1; i < 5; i++) {
+        for (int i = j; i < 5; i++) {
             getButtonCartes().get(i).setImage(null);
-
             getButtonCartes().get(i).removeActionListener();
         }
 
