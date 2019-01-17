@@ -22,7 +22,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import utilitaires.Role;
 import utilitaires.Tresor;
@@ -33,11 +36,15 @@ import utilitaires.Tresor;
  */
 public class VueGrille extends Observable {
 
+    private Box panelGeneral;
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
     private Color myBackgroundColor = new Color(12, 143, 181);
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
+    
+    private int grilleWidth = 620;
+    private int grilleHeigh = 730;
 
     private HashMap<Tresor, ITresor> tresors = new HashMap();
 
@@ -48,7 +55,12 @@ public class VueGrille extends Observable {
      * @param noms
      */
     public VueGrille(ArrayList<Position> positions, ArrayList<String> noms) {
+        panelGeneral = new Box(BoxLayout.Y_AXIS);
+        panelGeneral.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        
         panelGrille = new JPanel(new GridLayout(6, 6));
+        panelGrille.setPreferredSize(new Dimension(grilleWidth, grilleHeigh));
+        panelGeneral.add(panelGrille);
         panelGrille.setBackground(myBackgroundColor);
         ArrayList<Position> positionTuiles = Grille.getAllTilesPositions();
 

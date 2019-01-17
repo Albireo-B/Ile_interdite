@@ -75,9 +75,12 @@ public class VuePrincipale extends Observable {
         window.add(panelPrincipal);
 
         JPanel panelCentre = new JPanel(new BorderLayout());
-        panelPlateau.add(v.getPanelGrille(), BorderLayout.CENTER);
        
-
+        JPanel panelGrille = new JPanel();
+        panelGrille.add(v.getPanelGrille());
+        
+        
+        panelPlateau.add(panelGrille, BorderLayout.CENTER);
         labelNomJoueur.setForeground(Color.WHITE);
 
         JPanel paneGauche = new JPanel(new BorderLayout());

@@ -294,6 +294,9 @@ public class Controleur implements Observer {
     }
     
     public void bougerJoueurUrgence(Aventurier av) {
+        JOptionPane.showMessageDialog(null, "Attention! La case sur laquelle se trouvait " + 
+                av.getNomJoueur() + " vient de sombrer! Sélectionnez une case pour le déplacer.",
+                "Déplacement d'urgence !", JOptionPane.OK_OPTION);
         gererDeplacement(av);
         bloquerBoutons();
         for (VueAventurier vueav : vuesAventuriers.values()) {
