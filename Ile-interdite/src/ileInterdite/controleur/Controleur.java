@@ -15,6 +15,7 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -460,10 +461,7 @@ public class Controleur implements Observer {
         tirerCartes();
         gererInondation();
         aventurierSuivant();
-        for (Role role : joueurs.keySet()) {
-            Border border = BorderFactory.createLineBorder(joueurs.get(role).getPion().getCouleur(), 10);
-            vuePrincipale.getPanelAventuriers().get(role).getPanelGeneral().setBorder(border);
-        }
+
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),

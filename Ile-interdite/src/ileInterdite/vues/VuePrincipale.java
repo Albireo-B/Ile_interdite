@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import utilitaires.Action;
 
@@ -190,7 +191,16 @@ public class VuePrincipale extends Observable {
     }
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
-
+        
+        for (Role r: panelAventuriers.keySet()){
+            if (r!=classe){
+                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.white, 10));
+            }
+            else{
+                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(couleur,10));
+            }
+        }
+        
         getPanelPrincipal().setBorder(BorderFactory.createLineBorder(couleur, 2));
 
         getPanelAventuriers().get(classe).getPanelGeneral().setBackground(couleur);
@@ -199,11 +209,6 @@ public class VuePrincipale extends Observable {
         panelPlateau.setBorder(new MatteBorder(0,0,2,0,couleur));
 
         getLabelNbPA().setText("Nombre d'actions restantes : " + nombrePA);
-
-        
-        panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA,10));
-        
-        
         
         getWindow().setVisible(true);
     }
