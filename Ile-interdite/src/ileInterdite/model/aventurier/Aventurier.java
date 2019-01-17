@@ -135,7 +135,7 @@ public abstract class Aventurier {
      * @param tuile
      */
     public void setTuile(Grille grille, Tuile tuile) {
-        tuile.removeAventurier(this);
+        this.tuile.removeAventurier(this);
         tuile.addAventurier(this);
         this.tuile = tuile;
     }
