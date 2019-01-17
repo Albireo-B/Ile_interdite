@@ -13,5 +13,6 @@ public enum ListeFin {
     VICTOIRE,
     TEMPLECOULE,
     HELIPORTCOULE,
-    JOUEURCOULE;
+    JOUEURCOULE,
+    NIVEAUDEAU;
 }

@@ -45,6 +45,7 @@ public class Controleur implements Observer {
     private ArrayList<Role> listeRoles;
     private ArrayList<Aventurier> attenteMouvementUrgence = new ArrayList();
     private boolean bloquerBoutons = false;
+    private boolean fin = false;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -241,7 +242,7 @@ public class Controleur implements Observer {
         av.decrementeNbActions();
 
         if (victoireJoueur()) {
-            terminerPartie(true);
+            terminerPartie(true,ListeFin.VICTOIRE);
         }
     }
 
@@ -299,7 +300,7 @@ public class Controleur implements Observer {
         attenteMouvementUrgence = new ArrayList();
         for (Entry<Aventurier, Boolean> av : aventuriersPieges().entrySet()) {
             if (av.getValue()) {
-                terminerPartie(false);
+                terminerPartie(false,ListeFin.JOUEURCOULE);
             } else {
                 attenteMouvementUrgence.add(av.getKey());
             }
@@ -310,7 +311,7 @@ public class Controleur implements Observer {
         }
 
         if (grille.getTuileHeliport().getEtat() == EtatTuile.COULEE) {
-            terminerPartie(false);
+            terminerPartie(false,ListeFin.HELIPORTCOULE);
         }
     }
 
@@ -344,7 +345,7 @@ public class Controleur implements Observer {
                         && t.getNom() != tuile.getNom()
                         && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
                         && t.getEtat() == EtatTuile.COULEE) {
-                    terminerPartie(false);
+                    terminerPartie(false,ListeFin.TEMPLECOULE);
                 }
             }
 
@@ -571,13 +572,29 @@ public class Controleur implements Observer {
 
     }
 
-    public void terminerPartie(boolean gagne) {
-        if (gagne) {
-            JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
-        } else {
-            JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
+    public void terminerPartie(boolean gagne,ListeFin fin) {
+        if (this.fin){
+        switch (fin){
+            case VICTOIRE:
+                JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case TEMPLECOULE:
+                JOptionPane.showMessageDialog(null, "Dommage, les deux lieux vous permettant d'obtenir un trésor ont coulé avant que vous ne puissiez le récupérer !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case HELIPORTCOULE:
+                JOptionPane.showMessageDialog(null, "Dommage, l'héliport vient de couler vous ne pouvez plus vous enfuir !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case JOUEURCOULE:
+                JOptionPane.showMessageDialog(null, "Dommage, un de vos compagnons s'est noyé !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
+            case NIVEAUDEAU:
+                JOptionPane.showMessageDialog(null, "Dommage, le niveau d'eau est trop élevé et a englouti l'ile et vous avec !", "Fin du Jeu!", JOptionPane.OK_OPTION);
+                break;
         }
         enableGame(false);
+        for (Aventurier av : joueurs.values()){
+        av.getVueDefausse().close();}}
+        this.fin = true;
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
@@ -788,7 +805,7 @@ public class Controleur implements Observer {
                 trigger = true;
                 niveauEau += 1;
                 if (niveauEau >= 10) {
-                    terminerPartie(false);
+                    terminerPartie(false,ListeFin.NIVEAUDEAU);
                 }
             } else {
                 cartes.add(piocheTirage.get(piocheTirage.size() - 1));
