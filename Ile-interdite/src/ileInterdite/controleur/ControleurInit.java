@@ -34,14 +34,14 @@ public class ControleurInit{
     roles.add(Role.Ingénieur);
     
     HashMap<String, Tresor> tuilesTresor = new HashMap();
-    tuilesTresor.put("Le Temple de La Lune", Tresor.PIERRE);
-    tuilesTresor.put("Le Temple du Soleil", Tresor.PIERRE);
-    tuilesTresor.put("Le Palais des Marees", Tresor.CALICE);
-    tuilesTresor.put("Le Palais de Corail", Tresor.CALICE);
-    tuilesTresor.put("La Caverne des Ombres", Tresor.CRISTAL);
-    tuilesTresor.put("La Caverne du Brasier", Tresor.CRISTAL);
-    tuilesTresor.put("Le Jardin des Hurlements", Tresor.ZEPHYR);
-    tuilesTresor.put("Le Jardin des Murmures", Tresor.ZEPHYR);
+    tuilesTresor.put("LeTempleDeLaLune", Tresor.PIERRE);
+    tuilesTresor.put("LeTempleDuSoleil", Tresor.PIERRE);
+    tuilesTresor.put("LePalaisDesMarees", Tresor.CALICE);
+    tuilesTresor.put("LePalaisDeCorail", Tresor.CALICE);
+    tuilesTresor.put("LaCaverneDesOmbres", Tresor.CRISTAL);
+    tuilesTresor.put("LaCaverneDuBrasier", Tresor.CRISTAL);
+    tuilesTresor.put("LeJardinDesHurlements", Tresor.ZEPHYR);
+    tuilesTresor.put("LeJardinDesMurmures", Tresor.ZEPHYR);
 
 
     

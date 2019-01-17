@@ -121,6 +121,15 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+        ArrayList<CarteTirage> give = new ArrayList();
+        give.add(new CarteTresor(Tresor.CALICE));
+        give.add(new CarteTresor(Tresor.CALICE));
+        give.add(new CarteTresor(Tresor.CALICE));
+        give.add(new CarteTresor(Tresor.CALICE));
+        try {
+                joueurs.get(Role.Messager).addCartes(give);
+            } catch (ExceptionAventurier ex) {
+            };
     }
 
     public void initInondation() {
@@ -197,8 +206,6 @@ public class Controleur implements Observer {
                 piocheTirage.remove(piocheTirage.size() - 1);
             }
             try {
-                System.out.println(role);
-                System.out.println(cartes);
                 joueurs.get(role).addCartes(cartes);
             } catch (ExceptionAventurier ex) {
             };
@@ -350,14 +357,10 @@ public class Controleur implements Observer {
 
         for (Aventurier joueur : joueurs.values()) {
             if (joueur.getTuile().getEtat() == EtatTuile.COULEE) {
-                System.out.println("Dans la merde: " + joueur.getRole().name());
                 ArrayList<Tuile> tuilesDeplacement = joueur.calculDeplacement(grille);
-                for (Tuile tuile : tuilesDeplacement)
-                    System.out.println("Case " + tuile.getNom());
                 boolean vraimentFichu = false;
                 if (joueur.calculDeplacement(grille).isEmpty()) {
                     vraimentFichu = true;
-                    System.out.println("Dans la merde au carré: " + joueur.getRole().name());
                 }
                 
                 aventuriersFichus.put(joueur, vraimentFichu);
