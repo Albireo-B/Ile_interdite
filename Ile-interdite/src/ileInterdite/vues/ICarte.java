@@ -63,6 +63,7 @@ public class ICarte extends JButton {
         return new MessageCarte(nomCarte, action, role);
     }
 
+
     /**
      * @param nom the nom to set
      */

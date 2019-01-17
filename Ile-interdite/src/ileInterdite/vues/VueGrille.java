@@ -170,12 +170,12 @@ public class VueGrille extends Observable {
                 break;
             case SECHE:
                 
-                ImageIcon tuileSeche = new ImageIcon(new ImageIcon(path+bouton.getNom()+".png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT));
+                ImageIcon tuileSeche = new ImageIcon(new ImageIcon(path+bouton.getNom()+".png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_SMOOTH));
                 bouton.getBouton().setIcon(tuileSeche);
                 bouton.setButtonEnabled(true);
                 break;
             case INONDEE:
-                ImageIcon tuileSInonde = new ImageIcon(new ImageIcon(path+bouton.getNom()+"_Inonde.png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_DEFAULT));
+                ImageIcon tuileSInonde = new ImageIcon(new ImageIcon(path+bouton.getNom()+"_Inonde.png").getImage().getScaledInstance(bouton.getWidth(),bouton.getHeight() , Image.SCALE_SMOOTH));
 
                 bouton.getBouton().setIcon(tuileSInonde);
                 bouton.setButtonEnabled(true);
