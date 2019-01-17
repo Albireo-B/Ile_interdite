@@ -142,7 +142,11 @@ public abstract class Aventurier {
 
     public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier {
         for (CarteTirage c : listeCartes) {
-            getCartes().add(c);
+            if (c != null){
+            getCartes().add(c);}
+            else{
+                System.out.println("Problème à gérer ultérieurement, on ne dois pas pouvoir ajouter une carte vide");
+            }
         }
         if (getCartes().size() > 5) {
             throw new ExceptionAventurier(this);
@@ -151,19 +155,16 @@ public abstract class Aventurier {
 
     public ArrayList<String> cartesToString() {
         ArrayList<String> listeCarte = new ArrayList<>();
-        for (CarteTirage carte : this.getCartes()) {
-            if (carte != null){
-            listeCarte.add(carte.getNom());}
-            else{
-                System.out.println("Une carte vide  -->  WTF");
-            }
+
+        for (CarteTirage carte : cartes) {
+            listeCarte.add(carte.getNom());
         }
         return listeCarte;
 
     }
     
     public void removeCarte(CarteTirage carte) {
-        getCartes().remove(carte);
+        cartes.remove(carte);
     }
 
     public Tresor tresorRecuperable() {

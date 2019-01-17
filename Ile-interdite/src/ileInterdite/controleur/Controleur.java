@@ -45,6 +45,7 @@ public class Controleur implements Observer {
     private ArrayList<Role> listeRoles;
     private ArrayList<Aventurier> attenteMouvementUrgence = new ArrayList();
     private boolean bloquerBoutons = false;
+    private boolean fin = false;
 
     /**
      * On définit le constructeur du controleur avec une liste d'aventuriers
@@ -572,6 +573,7 @@ public class Controleur implements Observer {
     }
 
     public void terminerPartie(boolean gagne,ListeFin fin) {
+        if (this.fin){
         switch (fin){
             case VICTOIRE:
                 JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
@@ -590,7 +592,9 @@ public class Controleur implements Observer {
                 break;
         }
         enableGame(false);
-        
+        for (Aventurier av : joueurs.values()){
+        av.getVueDefausse().close();}}
+        this.fin = true;
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
