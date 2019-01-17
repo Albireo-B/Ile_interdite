@@ -93,7 +93,7 @@ public abstract class Aventurier {
 
     public void defausseCartes() {
         vueDefausse.actualiser(cartesToString(), getRole());
-        vueDefausse.getFenetre().setAlwaysOnTop(true);
+        vueDefausse.getFenetre().setAutoRequestFocus(true);
         vueDefausse.getFenetre().setCursor(Cursor.HAND_CURSOR);
         
         
