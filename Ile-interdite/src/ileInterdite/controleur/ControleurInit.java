@@ -31,7 +31,7 @@ public class ControleurInit{
     roles.add(Role.Navigateur);
     roles.add(Role.Pilote);
     roles.add(Role.Messager);
-    roles.add(Role.Ingénieur);
+    roles.add(Role.Ingenieur);
     
     HashMap<String, Tresor> tuilesTresor = new HashMap();
     tuilesTresor.put("LeTempleDeLaLune", Tresor.PIERRE);

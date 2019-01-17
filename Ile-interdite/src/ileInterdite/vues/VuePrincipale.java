@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import utilitaires.Action;
 
@@ -56,7 +57,7 @@ public class VuePrincipale extends Observable {
     private JPanel paneBas;
     private JPanel paneCursor=new JPanel(new GridLayout(1,7));
     
-    private int width = 1500;
+    private int width = 1600;
     private int height = 1000;
 
     private String path = "src/images/";
@@ -191,7 +192,18 @@ public class VuePrincipale extends Observable {
 
     public void actualiserVue(String nomJoueur, Role classe, Color couleur, int nombrePA) {
 
+        
+        for (Role r: panelAventuriers.keySet()){
+            if (r!=classe){
+                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.white, 10));
+            }
+            else{
+                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(couleur,10));
+            }
+        }
+        
         panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
+
 
         panelAventuriers.get(classe).getPanelGeneral().setBackground(couleur);
         labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
@@ -200,10 +212,6 @@ public class VuePrincipale extends Observable {
 
         labelNbPA.setText("Nombre d'actions restantes : " + nombrePA);
 
-        
-        panelAventuriers.get(classe).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.MAGENTA,10));
-        
-        
         
         window.setVisible(true);
     }

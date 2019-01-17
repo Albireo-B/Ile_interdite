@@ -24,7 +24,7 @@ public class Ingenieur extends Aventurier {
      */
     public Ingenieur(String nom, Tuile tuile) {
         super(nom, tuile);
-        setRole(Role.Ingénieur);
+        setRole(Role.Ingenieur);
         setPion(Pion.ROUGE);
     }
 

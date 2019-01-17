@@ -99,6 +99,8 @@ public abstract class Aventurier {
         
         
     }
+    
+    
 
     /**
      * On remet le nombre d'actions à 3

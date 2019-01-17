@@ -15,6 +15,7 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -171,7 +172,7 @@ public class Controleur implements Observer {
             case Pilote:
                 a = new Pilote(n, t);
                 break;
-            case Ingénieur:
+            case Ingenieur:
                 a = new Ingenieur(n, t);
                 break;
         }
@@ -203,15 +204,15 @@ public class Controleur implements Observer {
      * @param av
      */
     public void gererDeplacement(Aventurier av) {
-            if (av.getRole() == Role.Navigateur) {
-                for (Role role : listeRoles) {
-                    if (role != Role.Navigateur) {
-                        vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
-                        vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
-                    }
+        if (av.getRole() == Role.Navigateur) {
+            for (Role role : listeRoles) {
+                if (role != Role.Navigateur) {
+                    vuePrincipale.getPanelAventuriers().get(role).getCarteJoueur().removeActionListener();
+                    vuePrincipale.getPanelAventuriers().get(role).devenirSuiveur(true);
                 }
             }
-            proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
+        }
+        proposerTuiles(av.calculDeplacement(grille), Action.DEPLACER, av.getRole());
     }
 
     public boolean victoireJoueur() {
@@ -338,14 +339,15 @@ public class Controleur implements Observer {
         if (tuile.getEtat() == EtatTuile.INONDEE) {
             tuile.setEtat(EtatTuile.COULEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
-            
-            for (Tuile t : grille.getTuilesTresor().keySet()){
-                if (grille.getTuilesTresor().get(t)!=null && t.getNom()!=tuile.getNom() && grille.getTuilesTresor().get(t)==grille.getTuilesTresor().get(tuile.getNom()) && t.getEtat()==EtatTuile.COULEE){
+            for (Tuile t : grille.getTuilesTresor().keySet()) {
+                if (grille.getTuilesTresor().get(tuile) != null
+                        && t.getNom() != tuile.getNom()
+                        && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
+                        && t.getEtat() == EtatTuile.COULEE) {
                     terminerPartie(false);
                 }
             }
-            
-            
+
         } else if (tuile.getEtat() == EtatTuile.SECHE) {
             grille.getTuile(p).setEtat(EtatTuile.INONDEE);
             vueGrille.actualiserEtatTuile(p, EtatTuile.INONDEE);
@@ -404,7 +406,7 @@ public class Controleur implements Observer {
 
     public void actualiserVue(Object arg) {
         //Si l'ingénieur fait une autre action au lieu d'assecher une seconde fois
-        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingénieur) {
+        if (arg instanceof MessagePos && ((MessagePos) arg).getAction() != Action.ASSECHER && ((MessagePos) arg).getRole() == Role.Ingenieur) {
             aventurierCourant.setPouvoir(true);
         }
         //regarde si les carte des aventuriers sont encore utiles
@@ -459,10 +461,7 @@ public class Controleur implements Observer {
         tirerCartes();
         gererInondation();
         aventurierSuivant();
-        for (Role role : joueurs.keySet()) {
-            Border border = BorderFactory.createLineBorder(joueurs.get(role).getPion().getCouleur(), 10);
-            vuePrincipale.getPanelAventuriers().get(role).getPanelGeneral().setBorder(border);
-        }
+
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
