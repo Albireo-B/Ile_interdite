@@ -34,7 +34,7 @@ public class BoutonTuile extends JPanel {
     private HashMap<Pion,JLabel> labelsAventuriers = new HashMap();
     
 
-    public BoutonTuile(String nom) {
+    protected BoutonTuile(String nom) {
         super(new BorderLayout());
         
         this.nom=nom;
@@ -85,12 +85,12 @@ public class BoutonTuile extends JPanel {
         add(layeredPane, BorderLayout.CENTER);
     }
 
-    public void removeAventurier(Pion pJoueur) {
+    protected void removeAventurier(Pion pJoueur) {
         labelsAventuriers.get(pJoueur).setIcon(null);
         labelsAventuriers.remove(pJoueur);
     }
 
-    public void addAventurier(Pion pJoueur) {
+    protected void addAventurier(Pion pJoueur) {
         if (labelsAventuriers.size() < 4) {
             JLabel label = labels.get(labelsAventuriers.size());
             label.setIcon(pJoueur.getImage());
@@ -98,24 +98,19 @@ public class BoutonTuile extends JPanel {
         }
     }
     
-    
-    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_DEFAULT);
-    }
-
-    public void setButtonBorder(Color c) {
+    protected void setButtonBorder(Color c) {
         bouton.setBorder(BorderFactory.createLineBorder(c,3));
     }
 
-    public void setButtonEnabled(boolean e) {
+    protected void setButtonEnabled(boolean e) {
         bouton.setEnabled(e);
     }
 
-    public void addActionListener(ActionListener a) {
+    protected void addActionListener(ActionListener a) {
         bouton.addActionListener(a);
     }
 
-    public void removeActionListener(ActionListener a) {
+    protected void removeActionListener(ActionListener a) {
         bouton.removeActionListener(a);
     }
 
@@ -127,7 +122,7 @@ public class BoutonTuile extends JPanel {
      * @return the bouton
      */
     
-    public JButton getBouton() {
+    protected JButton getBouton() {
         return bouton;
     }
 

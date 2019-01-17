@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import utilitaires.Action;
 
@@ -252,7 +251,7 @@ public class VuePrincipale extends Observable {
      /**
      * Ferme la fenêtre
      */
-    public void close() {
+    private void close() {
         getWindow().dispose();
     }
 

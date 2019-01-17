@@ -37,10 +37,4 @@ public class MessagePos extends Message {
         return pos;
     }
 
-    /**
-     * @param pos the pos to set
-     */
-    public void setPos(Position pos) {
-        this.pos = pos;
-    }
 }

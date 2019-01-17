@@ -35,7 +35,7 @@ public class IAventurier extends Observable {
     
     
 
-    public IAventurier(JButton boutonAventurier, Role role) {
+    protected IAventurier(JButton boutonAventurier, Role role) {
         bordureNoire = BorderFactory.createLineBorder(Color.black,3);
         bordureRouge = BorderFactory.createLineBorder(Color.red,3);
         bordureViolette = BorderFactory.createLineBorder(Color.PINK,3);
@@ -43,7 +43,7 @@ public class IAventurier extends Observable {
         this.role = role;
     }
 
-    public void devenirReceveur(String carte) {
+    protected void devenirReceveur(String carte) {
         if (carte != null) {
             addActionListener(new ActionListener() {
                 @Override
@@ -58,7 +58,7 @@ public class IAventurier extends Observable {
         }
     }
 
-    public void devenirSuiveur(Boolean suivre) {
+    protected void devenirSuiveur(Boolean suivre) {
         if (suivre){
         addActionListener(new ActionListener() {
             @Override
@@ -108,7 +108,7 @@ public class IAventurier extends Observable {
     }
 
 
-    public void addActionListener(ActionListener act) {
+    protected void addActionListener(ActionListener act) {
         if (actionListener == null) {
             actionListener = act;
             boutonAventurier.addActionListener(act);

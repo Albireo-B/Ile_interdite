@@ -30,7 +30,7 @@ public abstract class Aventurier {
     private ArrayList<CarteTirage> cartes = new ArrayList<>();
     private VueDefausse vueDefausse = new VueDefausse();
 
-    public Aventurier(String nomJoueur, Tuile tuile) {
+    protected Aventurier(String nomJoueur, Tuile tuile) {
         this.tuile = tuile;
         this.nomJoueur = nomJoueur;
         tuile.addAventurier(this);
