@@ -118,14 +118,12 @@ public class Controleur implements Observer {
         );
     }
 
-
-
     public void initInondation() {
         Collections.shuffle(piocheInondation);
         ArrayList<CarteInondation> cartesAInonder = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             cartesAInonder.add(piocheInondation.get(piocheInondation.size() - 1));
-            piocheInondation.remove(piocheInondation.size() - 1); 
+            piocheInondation.remove(piocheInondation.size() - 1);
         }
         for (CarteInondation carte : cartesAInonder) {
             for (Tuile tuile : grille.getToutesTuiles()) {
@@ -576,6 +574,7 @@ public class Controleur implements Observer {
         } else {
             JOptionPane.showMessageDialog(null, "Dommage, vous êtes entrainés avec l'île dans les profondeurs...", "Fin du Jeu!", JOptionPane.OK_OPTION);
         }
+        vuePrincipale.getWindow().setEnabled(false);
     }
 
     public void appliquerDeplacementhelicoptere(MessageGroupePos messageGroupePos) {
