@@ -96,14 +96,18 @@ public class VuePrincipale extends Observable {
 
         panelCentre.add(panelPlateau, BorderLayout.CENTER);
         //=====================================================================
-        panelBoutons = new JPanel(new GridLayout(3, 2));
-
-        panelBoutons.add(btnDonner);
-        panelBoutons.add(btnRecuperer);
+        panelBoutons = new JPanel(new GridLayout(2, 3));
         panelBoutons.add(btnBouger);
-        panelBoutons.add(btnAssecher);
-        panelBoutons.add(btnTerminerTour);
         panelBoutons.add(labelNbPA);
+        panelBoutons.add(btnDonner);
+        panelBoutons.add(btnAssecher);
+        
+        panelBoutons.add(btnTerminerTour);
+        panelBoutons.add(btnRecuperer);
+        
+        
+       
+        
 
         panelPlateau.add(new JLabel(imgNiveau), BorderLayout.EAST);
 
