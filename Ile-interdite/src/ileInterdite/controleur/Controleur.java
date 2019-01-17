@@ -274,6 +274,7 @@ public class Controleur implements Observer {
             if (aventurierCourant instanceof Ingenieur) {
                 aventurierCourant.setPouvoir(false);
                 gererAssechement();
+
             }
             aventurierCourant.decrementeNbActions();
         }
@@ -432,6 +433,11 @@ public class Controleur implements Observer {
                 vuePrincipale.getPanelAventuriers().get(r).getCarteJoueur().getBoutonAventurier().setBackground(null);
             }
         }
+        
+        //regarde si les cartes tresors sont encore utiles
+        
+        
+        
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
                 aventurierCourant.getPion().getCouleur(),
@@ -468,6 +474,12 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+        int i=piocheTirage.size()+defausseTirage.size();
+        for(Aventurier av : joueurs.values()){
+            i+=av.getCartes().size();
+        }
+        System.out.println(i);
+        updateBoutons();
     }
 
     public void appliquerDefausse(MessageCarte messageCarte) {
@@ -744,6 +756,7 @@ public class Controleur implements Observer {
 
     public CarteTirage stringToCarte(String nomCarte, Role role) {
         CarteTirage carteSelection = null;
+        System.out.println(nomCarte);
         for (CarteTirage carte : joueurs.get(role).getCartes()) {
             if (carte.getNom().equals(nomCarte)) {
                 carteSelection = carte;
@@ -876,8 +889,11 @@ public class Controleur implements Observer {
                     break;
 
             }
+            for (int i =0;i<4;i++){
+            defausseTirage.add(stringToCarte(tresor.getName(),aventurierCourant.getRole()));
+        }
             aventurierCourant.removeCartesTresor(tresor);
-
+            
             vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).actualiserVueAventurier(aventurierCourant.cartesToString());
             aventurierCourant.decrementeNbActions();
         }
@@ -897,18 +913,18 @@ public class Controleur implements Observer {
     private void updateBoutons() {
         if (attenteMouvementUrgence.isEmpty()) {
             vuePrincipale.activerBouton(Bouton.TERMINER_TOUR, true);
-            vuePrincipale.activerBouton(Bouton.DEPLACER, !aventurierCourant.calculDeplacement(grille).isEmpty());
+            vuePrincipale.activerBouton(Bouton.DEPLACER, !aventurierCourant.calculDeplacement(grille).isEmpty() && !(aventurierCourant.getNbAction()<1));
 
-            vuePrincipale.activerBouton(Bouton.ASSECHER, !aventurierCourant.calculAssechement(grille).isEmpty());
+            vuePrincipale.activerBouton(Bouton.ASSECHER, !aventurierCourant.calculAssechement(grille).isEmpty() && !(aventurierCourant.getNbAction()<1));
 
             Boolean peutDonner = true;
             ArrayList<Aventurier> avSurCase = aventurierCourant.getTuile().getAventuriers();
             if ((avSurCase.size() <= 1 || aventurierCourant.getCartes().isEmpty()) && aventurierCourant.getRole() != Role.Messager) {
                 peutDonner = false;
             }
-            vuePrincipale.activerBouton(Bouton.DONNER, peutDonner);
+            vuePrincipale.activerBouton(Bouton.DONNER, peutDonner && !(aventurierCourant.getNbAction()<1));
 
-            vuePrincipale.activerBouton(Bouton.RECUPERER, aventurierCourant.tresorRecuperable() != null);
+            vuePrincipale.activerBouton(Bouton.RECUPERER, aventurierCourant.tresorRecuperable() != null && !(aventurierCourant.getNbAction()<1));
         }
     }
 
