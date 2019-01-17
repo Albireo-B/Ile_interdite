@@ -715,7 +715,6 @@ public class Controleur implements Observer {
         }
         actualiserVue(arg);
         actualiserModele(arg);
-        
     }
 
     public CarteTirage stringToCarte(String nomCarte, Role role) {
