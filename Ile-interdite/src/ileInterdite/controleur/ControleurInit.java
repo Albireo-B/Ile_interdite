@@ -5,13 +5,11 @@
 */
 package ileInterdite.controleur;
 
-import ileInterdite.model.Position;
 import utilitaires.Role;
 import ileInterdite.model.cartes.*;
 import java.util.ArrayList;
 import static java.util.Collections.reverse;
 import java.util.HashMap;
-import utilitaires.ExceptionAventurier;
 import utilitaires.Tresor;
         
 
@@ -46,9 +44,11 @@ public class ControleurInit{
     tuilesTresor.put("Le Jardin des Murmures", Tresor.ZEPHYR);
 
 
+    
     Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
-
+    ctrl.initInondation();
     ctrl.initCartes();
+
     }
 
     public ArrayList<String> nomsDesTuiles(){

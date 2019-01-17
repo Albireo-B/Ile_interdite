@@ -28,15 +28,15 @@ public class BoutonTuile extends JPanel {
     private ArrayList<Color> couleursJoueurs = new ArrayList();
     private ArrayList<JPanel> couleurs = new ArrayList();
     private String path = "src/images/tuiles/";
-    private int width=100;
-    private int height=120;
+    private int width=130;
+    private int height=130;
     private String nom;
     
 
     public BoutonTuile(String nom) {
         super(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        ImageIcon imgTuile = new ImageIcon(new ImageIcon(path+nom+".png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
         bouton = new JButton(imgTuile);
         add(bouton, BorderLayout.CENTER);
         
