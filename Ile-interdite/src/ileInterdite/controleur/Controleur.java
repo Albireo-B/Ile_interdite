@@ -15,6 +15,7 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -117,6 +118,20 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+    }
+    
+    public void testTresor() {
+        for (Tresor t : Tresor.values()) {
+            t.setRecuperé(true);
+            vueGrille.getTresors().get(t).setTrouve(true);
+        }
+    }
+    
+    public void testCartesTresor() {
+        
+        for (Tresor t : Tresor.values()) {
+            t.setRecuperé(true);
+        }
     }
 
     protected void initInondation() {

@@ -216,7 +216,6 @@ public class VuePrincipale extends Observable {
         
         panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
 
-
         panelAventuriers.get(classe).getPanelGeneral().setBackground(couleur);
         labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");
 
