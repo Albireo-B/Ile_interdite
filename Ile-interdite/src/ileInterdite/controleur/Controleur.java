@@ -219,18 +219,25 @@ public class Controleur implements Observer {
 
     private boolean victoireJoueur() {
         boolean victoire = true;
+        boolean helicarte = false;
         for (Aventurier joueur : joueurs.values()) {
-            if (!joueur.getTuile().getNom().equals("Heliport")) {
+            if (!joueur.getTuile().getNom().equals("Heliport"))
                 victoire = false;
+            for (CarteTirage carte : joueur.getCartes()) {
+                if (carte instanceof CarteHelicoptere)
+                    helicarte = true;
             }
         }
+        
+        if (helicarte == false)
+            victoire = false;
 
         for (Tresor t : Tresor.values()) {
             if (!t.isRecupere()) {
                 victoire = false;
             }
         }
-
+        
         return victoire;
     }
 
