@@ -5,12 +5,14 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.message.Message;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,17 +23,23 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import utilitaires.Role;
 
 /**
  *
  * @author genevoic
  */
-public class VueIHMinit extends Observable{
+public class VueInit extends Observable{
      private JFrame window ;
      private boolean apres;
+     private JTextField nom1=new JTextField(10);
+     private JTextField nom2=new JTextField(10);
+     private JTextField nom3=new JTextField(10);
+     private JTextField nom4=new JTextField(10);
+     private JSlider liste = new JSlider(JSlider.HORIZONTAL,2,4,3);
     /**
      */
-    public VueIHMinit () {
+    public VueInit () {
         window = new JFrame();
         window.setSize(500, 350);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,7 +52,6 @@ public class VueIHMinit extends Observable{
         window.add(NJ, BorderLayout.NORTH);
         JLabel label0 = new JLabel("Nombre de joueurs");
         NJ.add(label0);
-        JSlider liste = new JSlider(JSlider.HORIZONTAL,2,4,3);
         NJ.add(liste);
         liste.setMajorTickSpacing(1);
         liste.setPaintTicks(true);
@@ -74,8 +81,8 @@ public class VueIHMinit extends Observable{
                     mainPanel4.add(new JLabel("1",SwingConstants.CENTER));
                     JLabel label1 = new JLabel("Pseudo",SwingConstants.CENTER);
                     mainPanel4.add(label1);
-                    JTextField N1 = new JTextField(20);
-                    mainPanel4.add(N1);
+                   
+                    mainPanel4.add(nom1);
                     mainPanel4.add(new JLabel(""));
                     
                     mainPanel4.add(new JLabel(""));
@@ -88,8 +95,8 @@ public class VueIHMinit extends Observable{
                     mainPanel4.add(new JLabel("2",SwingConstants.CENTER));
                     JLabel label3 = new JLabel("Pseudo",SwingConstants.CENTER);
                     mainPanel4.add(label3);
-                    JTextField N2 = new JTextField(20);
-                    mainPanel4.add(N2);
+                    
+                    mainPanel4.add(nom2);
                     mainPanel4.add(new JLabel(""));
                     
                     mainPanel4.add(new JLabel(""));
@@ -102,8 +109,8 @@ public class VueIHMinit extends Observable{
                     mainPanel4.add(new JLabel("3",SwingConstants.CENTER));
                     JLabel label5 = new JLabel("Pseudo",SwingConstants.CENTER);
                     mainPanel4.add(label5);
-                    JTextField N3 = new JTextField(20);
-                    mainPanel4.add(N3);
+                    
+                    mainPanel4.add(nom3);
                     mainPanel4.add(new JLabel(""));
 
                     mainPanel4.add(new JLabel(""));
@@ -116,8 +123,8 @@ public class VueIHMinit extends Observable{
                     mainPanel4.add(new JLabel("4",SwingConstants.CENTER));
                     JLabel label7 = new JLabel("Pseudo",SwingConstants.CENTER);
                     mainPanel4.add(label7);
-                    JTextField N4 = new JTextField(20);
-                    mainPanel4.add(N4);
+                    
+                    mainPanel4.add(nom4);
                     mainPanel4.add(new JLabel(""));
                     
                     mainPanel4.add(new JLabel(""));
@@ -225,7 +232,7 @@ public class VueIHMinit extends Observable{
 
                 }
                     setChanged();
-                    notifyObservers("changement de style");
+                    notifyObservers(null);
                     clearChanged();
             }  
         });
@@ -234,26 +241,45 @@ public class VueIHMinit extends Observable{
         window.add(bas, BorderLayout.SOUTH);
         JButton Next = new JButton("Suivant");
         bas.add(Next);
+        
         Next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setApres(true);
                     setChanged();
-                    notifyObservers("on passe à la suite");
+                    ArrayList<String> noms=new ArrayList<>();
+                if (!(nom1.getText().equals(""))){
+                    noms.add(nom1.getText());
+                }else{
+                    noms.add("joueur1");
+                }
+                if (!(nom2.getText().equals(""))){
+                    noms.add(nom2.getText());
+                }else{
+                    noms.add("joueur2");
+                }
+                if (!(nom3.getText().equals("")) && liste.getValue()>2){
+                    noms.add(nom3.getText());
+                }else if (liste.getValue()>2){
+                    noms.add("joueur3");
+                }
+                if (!(nom4.getText().equals("")) && liste.getValue()>3){
+                    noms.add(nom4.getText());
+                }else if (liste.getValue()>3){
+                    noms.add("joueur4");
+                }
+                    notifyObservers(noms);
                     clearChanged();
                 }  
         });
                 bas.add(Next);
     }
-    
-        public void suivant() {
-            if (apres==true){
-                System.exit(0);
-            }
-        }
 
         public void afficher() {
         window.setVisible(true);
+    }
+        public void close() {
+        window.setVisible(false);
     }
         
     //Getters et Setters :
