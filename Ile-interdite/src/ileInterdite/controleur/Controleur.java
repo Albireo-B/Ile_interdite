@@ -725,14 +725,6 @@ public class Controleur implements Observer {
                     gererGroupeHelicoptere(messageGroupe.getRole(), messageGroupe.getRoles());
                     break;
             }
-        } else if (arg instanceof MessageGroupe) {
-            MessageGroupe messageGroupe = (MessageGroupe) arg;
-            vueGrille.tousBoutonsInertes();
-            switch (messageGroupe.getAction()) {
-                case GROUPEHELICO:
-                    gererGroupeHelicoptere(messageGroupe.getRole(), messageGroupe.getRoles());
-                    break;
-            }
         } else if (arg instanceof Message) {
             Message message = (Message) arg;
             //Si le message contient une Action
