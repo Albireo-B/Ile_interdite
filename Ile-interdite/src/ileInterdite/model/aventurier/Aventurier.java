@@ -143,7 +143,8 @@ public abstract class Aventurier {
     public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier {
         for (CarteTirage c : listeCartes) {
             if (c != null){
-            getCartes().add(c);}
+                getCartes().add(c);
+            }
             else{
                 System.out.println("Problème à gérer ultérieurement, on ne dois pas pouvoir ajouter une carte vide");
             }
