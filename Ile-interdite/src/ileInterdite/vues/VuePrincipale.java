@@ -207,9 +207,9 @@ public class VuePrincipale extends Observable {
         
         for (Role r: panelAventuriers.keySet()){
             if (r!=classe){
-                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(Color.WHITE, 10));
+                panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(new Color(40, 26, 13), 10));
             }
-            else{
+            else {
                 panelAventuriers.get(r).getPanelGeneral().setBorder(BorderFactory.createLineBorder(couleur,10));
             }
         }

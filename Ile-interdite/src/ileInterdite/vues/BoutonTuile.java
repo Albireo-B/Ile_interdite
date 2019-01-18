@@ -12,6 +12,8 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Objects;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,12 +28,13 @@ import utilitaires.Pion;
  */
 public class BoutonTuile extends JPanel {
     private JButton bouton;
-    private ArrayList<JLabel> labels = new ArrayList();
+    private HashMap<JLabel, Boolean> labels = new HashMap();
     private String path = "src/images/tuiles/";
     private int width=141;
     private int height=width;
     private String nom;
-    private HashMap<Pion,JLabel> labelsAventuriers = new HashMap();
+    private HashMap<Pion, JLabel> labelsAventuriers = new HashMap();
+    private int nbAventuriers = 0;
     
 
     protected BoutonTuile(String nom) {
@@ -54,21 +57,21 @@ public class BoutonTuile extends JPanel {
         JPanel panelHaut = new JPanel(new BorderLayout());
         JLabel p1 = new JLabel();
         panelHaut.add(p1, BorderLayout.WEST);
-        labels.add(p1);
+        labels.put(p1, Boolean.FALSE);
         
         JLabel p2 = new JLabel();
         panelHaut.add(p2, BorderLayout.EAST);
-        labels.add(p2);
+        labels.put(p2, Boolean.FALSE);
         
         
         JPanel panelBas = new JPanel(new BorderLayout());
         JLabel p3 = new JLabel();
         panelBas.add(p3, BorderLayout.WEST);
-        labels.add(p3);
+        labels.put(p3, Boolean.FALSE);
         
         JLabel p4 = new JLabel();
         panelBas.add(p4, BorderLayout.EAST);
-        labels.add(p4);
+        labels.put(p4, Boolean.FALSE);
         
         panelAventuriers.add(panelHaut, BorderLayout.NORTH);
         panelAventuriers.add(panelBas, BorderLayout.SOUTH);
@@ -87,14 +90,27 @@ public class BoutonTuile extends JPanel {
 
     protected void removeAventurier(Pion pJoueur) {
         labelsAventuriers.get(pJoueur).setIcon(null);
-        labelsAventuriers.remove(pJoueur);
+        labels.replace(labelsAventuriers.get(pJoueur), Boolean.FALSE);
+        nbAventuriers --;
     }
 
     protected void addAventurier(Pion pJoueur) {
-        if (labelsAventuriers.size() < 4) {
-            JLabel label = labels.get(labelsAventuriers.size());
-            label.setIcon(pJoueur.getImage());
-            labelsAventuriers.put(pJoueur, label);
+        if (nbAventuriers < 4) {
+            JLabel label = null;
+            for (Entry<JLabel, Boolean> entry : labels.entrySet()) {
+                if (Objects.equals(Boolean.FALSE, entry.getValue())) {
+                    nbAventuriers ++;
+                    label = entry.getKey();
+                    label.setIcon(pJoueur.getImage());
+                    if (labelsAventuriers.containsKey(pJoueur))
+                        labelsAventuriers.replace(pJoueur, label);
+                    else
+                        labelsAventuriers.put(pJoueur, label);
+                    break;
+                }
+            }
+            if (label != null)
+                labels.replace(label, Boolean.TRUE);
         }
     }
     
