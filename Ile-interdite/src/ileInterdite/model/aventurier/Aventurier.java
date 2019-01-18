@@ -29,12 +29,13 @@ public abstract class Aventurier {
     private String nomJoueur;
     private Pion pion;
     private ArrayList<CarteTirage> cartes = new ArrayList<>();
-    private VueDefausse vueDefausse = new VueDefausse();
+    private VueDefausse vueDefausse;
 
     protected Aventurier(String nomJoueur, Tuile tuile) {
         this.tuile = tuile;
         this.nomJoueur = nomJoueur;
         tuile.addAventurier(this);
+        vueDefausse = new VueDefausse(nomJoueur);
         reset();
     }
 

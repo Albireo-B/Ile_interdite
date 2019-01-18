@@ -53,7 +53,7 @@ public class VuePrincipale extends Observable {
     private JLabel labelNomJoueur = new JLabel("", SwingConstants.CENTER);
     private JPanel panelBoutons;
     private VueNiveau vueNiveau;
-    private Color myNewBlue = new Color (30,144,255);
+    private Color myNewBlue = new Color (245,245,220);
     
     private int width = 1600;
     private int height = 1000;
@@ -86,7 +86,7 @@ public class VuePrincipale extends Observable {
         window.setResizable(true);
         
         labelNbPA.setFont(new Font("Arial", Font.BOLD, 20));
-        labelNbPA.setForeground(Color.yellow);
+        labelNbPA.setForeground(Color.BLACK);
         btnTerminerTour.setFont(new Font("Arial", Font.BOLD, 25));
 
         JPanel panelCentre = new JPanel(new BorderLayout());
@@ -215,7 +215,6 @@ public class VuePrincipale extends Observable {
         }
         
         panelPrincipal.setBorder(BorderFactory.createLineBorder(couleur, 2));
-
 
         panelAventuriers.get(classe).getPanelGeneral().setBackground(couleur);
         labelNomJoueur.setText(classe + " ( " + nomJoueur + " ) ");

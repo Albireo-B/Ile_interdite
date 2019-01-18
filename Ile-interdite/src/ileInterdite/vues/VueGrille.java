@@ -39,7 +39,7 @@ public class VueGrille extends Observable {
     private Box panelGeneral;
     private JPanel panelGrille;
     private HashMap<Position, BoutonTuile> bTuiles = new HashMap();
-    private Color myBackgroundColor = new Color(30,144,255);
+    private Color myBackgroundColor = new Color(245,245,220);
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
     private int grilleWidth = 780;

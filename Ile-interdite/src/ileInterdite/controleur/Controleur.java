@@ -15,6 +15,7 @@ import ileInterdite.vues.*;
 import java.util.ArrayList;
 import ileInterdite.vues.VuePrincipale;
 import ileInterdite.vues.VuePrincipale.Bouton;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -117,6 +118,20 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+    }
+    
+    public void testTresor() {
+        for (Tresor t : Tresor.values()) {
+            t.setRecuperé(true);
+            vueGrille.getTresors().get(t).setTrouve(true);
+        }
+    }
+    
+    public void testCartesTresor() {
+        
+        for (Tresor t : Tresor.values()) {
+            t.setRecuperé(true);
+        }
     }
 
     protected void initInondation() {
@@ -491,7 +506,9 @@ public class Controleur implements Observer {
         
         tirerCartes();
         gererInondation();
+        String nomJPrecedent = aventurierCourant.getNomJoueur();
         aventurierSuivant();
+        JOptionPane.showMessageDialog(null, "Tour de "+aventurierCourant.getNomJoueur()+", "+nomJPrecedent+" pioche deux cartes, des tuiles s'inondent...", "Niveau monte!", JOptionPane.OK_OPTION);
 
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
@@ -833,7 +850,7 @@ public class Controleur implements Observer {
             
             //Si la prochaine carte est une carte montée des eaux
             if (carte instanceof CarteMonteeDesEaux) {
-                System.out.println("MontéedesEaux");
+                JOptionPane.showMessageDialog(null, "Une carte montée des eaux a été tirée, le niveau monte...", "Niveau monte!", JOptionPane.OK_OPTION);
                 trigger = true;
                 niveauEau += 1;
                 vuePrincipale.setNiveau(niveauEau);

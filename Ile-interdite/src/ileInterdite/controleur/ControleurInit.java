@@ -96,6 +96,7 @@ public class ControleurInit implements Observer {
             vueInit.close();
             avens = (ArrayList<String>) (arg1);
             Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
+            //ctrl.testTresor();
             ctrl.initInondation();
             ctrl.initCartes();
         }
