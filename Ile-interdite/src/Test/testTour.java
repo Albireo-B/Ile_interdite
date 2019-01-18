@@ -15,7 +15,7 @@ public class testTour {
     
     public static void main(String[] args) {
         
-        ControleurInit ctrl = new ControleurInit();
+        ControleurInit ctrl = new ControleurInit(true);
         
    }
         

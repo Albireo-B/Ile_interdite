@@ -13,7 +13,7 @@ import ileInterdite.controleur.ControleurInit;
  */
 public class Main {
     public static void main(String[] args) {
-        ControleurInit c=new ControleurInit();
+        ControleurInit c=new ControleurInit(false);
             
         
         

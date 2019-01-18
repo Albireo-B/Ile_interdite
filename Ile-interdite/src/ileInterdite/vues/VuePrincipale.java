@@ -168,8 +168,10 @@ public class VuePrincipale extends Observable {
         paneGauche.add(listeVuesAv.get(0).getPanelGeneral(),BorderLayout.NORTH);
         paneGauche.add(labelNbPA,BorderLayout.SOUTH);
         if (listeVuesAv.size()>3){
-        paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
-        paneGauche.setPreferredSize(new Dimension(330,200));}
+            paneGauche.add(listeVuesAv.get(3).getPanelGeneral(),BorderLayout.SOUTH);
+        }
+        paneGauche.setPreferredSize(new Dimension(330,200));
+        
         paneGauche.add(vueNiveau,BorderLayout.CENTER);
         
         JPanel paneSuperDroite=new JPanel(new GridLayout(2,1));
@@ -178,9 +180,10 @@ public class VuePrincipale extends Observable {
         
         paneDroite.add(listeVuesAv.get(1).getPanelGeneral(),BorderLayout.NORTH);
         paneSuperDroite.add(btnTerminerTour,BorderLayout.SOUTH);
-        if (listeVuesAv.size()>2){
-        paneDroite.add(listeVuesAv.get(2).getPanelGeneral(),BorderLayout.SOUTH);
-        paneDroite.setPreferredSize(new Dimension(330, 200));}
+        if (listeVuesAv.size()>2)
+            paneDroite.add(listeVuesAv.get(2).getPanelGeneral(),BorderLayout.SOUTH);
+        
+        paneDroite.setPreferredSize(new Dimension(330, 200));
         paneDroite.add(paneSuperDroite,BorderLayout.CENTER);
         
         

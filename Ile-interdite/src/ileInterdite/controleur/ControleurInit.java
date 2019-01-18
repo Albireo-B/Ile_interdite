@@ -26,8 +26,11 @@ public class ControleurInit implements Observer {
     private ArrayList<String> avens;
     private ArrayList<Role> roles;
     private HashMap<String, Tresor> tuilesTresor;
+    
+    private boolean test = false;
 
-    public ControleurInit() {
+    public ControleurInit(boolean test) {
+        this.test = test;
 
         vueInit = new VueInit();
         vueInit.afficher();
@@ -35,14 +38,15 @@ public class ControleurInit implements Observer {
 
         //initialisationjoueurs
         roles = new ArrayList<>();
+        roles.add(Role.Ingenieur);
+        roles.add(Role.Explorateur);
         roles.add(Role.Navigateur);
         roles.add(Role.Pilote);
         roles.add(Role.Messager);
-        roles.add(Role.Ingenieur);
-        roles.add(Role.Explorateur);
         roles.add(Role.Plongeur);
         //========ajouter que 4 joueurs aléatoire======
-        Collections.shuffle(roles);
+        if (!test)
+            Collections.shuffle(roles);
         roles.remove(0);
         roles.remove(0);
 
@@ -96,7 +100,8 @@ public class ControleurInit implements Observer {
             vueInit.close();
             avens = (ArrayList<String>) (arg1);
             Controleur ctrl = new Controleur(avens, roles, nomsDesTuiles(), tuilesTresor, cartesPioche(), 2);
-            //ctrl.testTresor();
+            if (test)
+                ctrl.testTresor();
             ctrl.initInondation();
             ctrl.initCartes();
         }
