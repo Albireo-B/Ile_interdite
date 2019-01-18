@@ -13,6 +13,7 @@ import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
 import java.awt.Cursor;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 
 /**
@@ -93,11 +94,10 @@ public abstract class Aventurier {
 
     public void defausseCartes() {
         vueDefausse.actualiser(cartesToString(), getRole());
-        vueDefausse.getFenetre().setAlwaysOnTop(true);
+        JFrame fene = vueDefausse.getFenetre();
+        fene.setVisible(true);
+        fene.setAlwaysOnTop(true);
         vueDefausse.getFenetre().setCursor(Cursor.HAND_CURSOR);
-        
-        
-        
     }
     
     
@@ -143,7 +143,8 @@ public abstract class Aventurier {
     public void addCartes(ArrayList<CarteTirage> listeCartes) throws ExceptionAventurier {
         for (CarteTirage c : listeCartes) {
             if (c != null){
-            getCartes().add(c);}
+                getCartes().add(c);
+            }
             else{
                 System.out.println("Problème à gérer ultérieurement, on ne dois pas pouvoir ajouter une carte vide");
             }
