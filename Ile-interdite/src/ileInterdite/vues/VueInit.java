@@ -36,6 +36,11 @@ public class VueInit extends Observable{
      private JTextField nom2=new JTextField(10);
      private JTextField nom3=new JTextField(10);
      private JTextField nom4=new JTextField(10);
+     private JLabel label0;
+     private JLabel label1;
+     private JLabel label2;
+     private JLabel label3;
+     
      private JSlider liste = new JSlider(JSlider.HORIZONTAL,2,4,3);
     /**
      */
