@@ -234,25 +234,30 @@ public class Controleur implements Observer {
 
     private boolean victoireJoueur() {
         boolean victoire = true;
+        System.out.println("GGGGG");
         boolean helicarte = false;
         for (Aventurier joueur : joueurs.values()) {
-            if (!joueur.getTuile().getNom().equals("Heliport"))
+            if (!joueur.getTuile().getNom().equals("Heliport")) {
                 victoire = false;
+                System.out.println("??????");
+            }
             for (CarteTirage carte : joueur.getCartes()) {
                 if (carte instanceof CarteHelicoptere)
                     helicarte = true;
             }
         }
         
-        if (helicarte == false)
-            victoire = false;
+        //if (!helicarte)
+        //    victoire = false;
 
         for (Tresor t : Tresor.values()) {
             if (!t.isRecupere()) {
                 victoire = false;
+                System.out.println("!!!!!!");
             }
+            
         }
-        
+        System.out.println(victoire);
         return victoire;
     }
 
@@ -269,7 +274,8 @@ public class Controleur implements Observer {
         }
 
         if (victoireJoueur()) {
-            terminerPartie(true, ListeFin.VICTOIRE);
+            System.out.println("VICTOIIIIIIIIIIIIIIIIIIIIIIIIIRE");
+            terminerPartie(ListeFin.VICTOIRE);
         }
     }
 
@@ -328,7 +334,7 @@ public class Controleur implements Observer {
         attenteMouvementUrgence = new ArrayList();
         for (Entry<Aventurier, Boolean> av : aventuriersPieges().entrySet()) {
             if (av.getValue()) {
-                terminerPartie(false, ListeFin.JOUEURCOULE);
+                terminerPartie(ListeFin.JOUEURCOULE);
             } else {
                 attenteMouvementUrgence.add(av.getKey());
             }
@@ -339,7 +345,7 @@ public class Controleur implements Observer {
         }
 
         if (grille.getTuileHeliport().getEtat() == EtatTuile.COULEE) {
-            terminerPartie(false, ListeFin.HELIPORTCOULE);
+            terminerPartie(ListeFin.HELIPORTCOULE);
         }
     }
 
@@ -374,7 +380,7 @@ public class Controleur implements Observer {
                         && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
                         && t.getEtat() == EtatTuile.COULEE
                         && !t.getTresor().isRecupere()) {
-                    terminerPartie(false,ListeFin.TEMPLECOULE);
+                    terminerPartie(ListeFin.TEMPLECOULE);
                 }
             }
 
@@ -486,14 +492,6 @@ public class Controleur implements Observer {
                 && !casesAssechables.isEmpty())) {
             nextTurn();
         }
-    }
-    
-    private void afficherNbCartes() {
-        int i=piocheTirage.size()+defausseTirage.size();
-        for(Aventurier av : joueurs.values()){
-            i+=av.getCartes().size();
-        }
-        System.out.println("Nombre de cartes totales: "+i);
     }
 
     /**
@@ -620,9 +618,9 @@ public class Controleur implements Observer {
 
     }
 
-    public void terminerPartie(boolean gagne, ListeFin fin) {
-        if (this.fin) {
-            switch (fin) {
+    public void terminerPartie(ListeFin efin) {
+        if (!this.fin) {
+            switch (efin) {
                 case VICTOIRE:
                     JOptionPane.showMessageDialog(null, "Félicitation, vous avez ramené les trésors!", "Fin du Jeu!", JOptionPane.OK_OPTION);
                     break;
@@ -790,7 +788,7 @@ public class Controleur implements Observer {
             }
         }
         if (carteSelection == null) {
-            System.out.println("NANI?!");
+            //System.out.println("NANI?!");
         }
         return carteSelection;
     }
@@ -836,7 +834,6 @@ public class Controleur implements Observer {
         System.out.println("---- Début calcul");
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         Boolean trigger = false;
-        afficherNbCartes();
         
         //Pour le nombre de cartes qu'on veut prendre
         for (int i = 0; i < 2; i++) {
@@ -856,7 +853,7 @@ public class Controleur implements Observer {
                 vuePrincipale.setNiveau(niveauEau);
                 defausseTirage.add(carte);
                 if (niveauEau >= 10) {
-                    terminerPartie(false, ListeFin.NIVEAUDEAU);
+                    terminerPartie(ListeFin.NIVEAUDEAU);
                 }
             } else {
                 cartes.add(carte);
@@ -876,7 +873,6 @@ public class Controleur implements Observer {
             aventurierCourant.defausseCartes();
             enableGame(false);
         }
-        afficherNbCartes();
         vuesAventuriers.get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
 
