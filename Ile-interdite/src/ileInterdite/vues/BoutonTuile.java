@@ -95,16 +95,12 @@ public class BoutonTuile extends JPanel {
     }
 
     protected void addAventurier(Pion pJoueur) {
-        System.out.println(labelsAventuriers.size());
         if (nbAventuriers < 4) {
             JLabel label = null;
-            
             for (Entry<JLabel, Boolean> entry : labels.entrySet()) {
-                
                 if (Objects.equals(Boolean.FALSE, entry.getValue())) {
                     nbAventuriers ++;
                     label = entry.getKey();
-                    System.out.println("Okay");
                     label.setIcon(pJoueur.getImage());
                     if (labelsAventuriers.containsKey(pJoueur))
                         labelsAventuriers.replace(pJoueur, label);
@@ -113,10 +109,8 @@ public class BoutonTuile extends JPanel {
                     break;
                 }
             }
-            if (label != null) {
+            if (label != null)
                 labels.replace(label, Boolean.TRUE);
-                
-            }
         }
     }
     
