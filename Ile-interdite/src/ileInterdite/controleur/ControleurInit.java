@@ -25,7 +25,7 @@ public class ControleurInit{
     avens.add("Lois");
     avens.add("Alexis");
     avens.add("Guillaume");
-    avens.add("Clement");
+    avens.add("Haozhou");
 
     ArrayList<Role> roles=new ArrayList<>();
     roles.add(Role.Navigateur);

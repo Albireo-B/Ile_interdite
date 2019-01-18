@@ -13,6 +13,7 @@ import ileInterdite.model.cartes.*;
 import ileInterdite.vues.*;
 import java.awt.Cursor;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 
 /**
@@ -30,7 +31,7 @@ public abstract class Aventurier {
     private ArrayList<CarteTirage> cartes = new ArrayList<>();
     private VueDefausse vueDefausse = new VueDefausse();
 
-    public Aventurier(String nomJoueur, Tuile tuile) {
+    protected Aventurier(String nomJoueur, Tuile tuile) {
         this.tuile = tuile;
         this.nomJoueur = nomJoueur;
         tuile.addAventurier(this);
@@ -69,7 +70,7 @@ public abstract class Aventurier {
                 }
             }
         }
-        return tuiles;
+        return enleverTuilesCoulees(tuiles);
     }
 
     /**
@@ -93,11 +94,10 @@ public abstract class Aventurier {
 
     public void defausseCartes() {
         vueDefausse.actualiser(cartesToString(), getRole());
-        vueDefausse.getFenetre().setAlwaysOnTop(true);
+        JFrame fene = vueDefausse.getFenetre();
+        fene.setVisible(true);
+        fene.setAlwaysOnTop(true);
         vueDefausse.getFenetre().setCursor(Cursor.HAND_CURSOR);
-        
-        
-        
     }
     
     
@@ -135,7 +135,7 @@ public abstract class Aventurier {
      * @param tuile
      */
     public void setTuile(Grille grille, Tuile tuile) {
-        tuile.removeAventurier(this);
+        this.tuile.removeAventurier(this);
         tuile.addAventurier(this);
         this.tuile = tuile;
     }

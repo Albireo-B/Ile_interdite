@@ -17,11 +17,9 @@ import utilitaires.Tresor;
 public class ITresor extends JLabel {
 
     private Tresor tresor;
-
     private String path = "src/images/tresors/";
     private int imgWidth = 50;
     private int imgHeight = 70;
-
     private ImageIcon pierreGrisee = new ImageIcon(new ImageIcon(path + "pierreGrisee.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
     private ImageIcon pierre = new ImageIcon(new ImageIcon(path + "pierre.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
     private ImageIcon caliceGrisee = new ImageIcon(new ImageIcon(path + "caliceGrisee.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
@@ -31,7 +29,8 @@ public class ITresor extends JLabel {
     private ImageIcon cristal = new ImageIcon(new ImageIcon(path + "cristal.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
     private ImageIcon cristalGrisee = new ImageIcon(new ImageIcon(path + "cristalGrisee.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
 
-    public ITresor(Tresor tresor) {
+
+    protected ITresor(Tresor tresor) {
         super("", JLabel.CENTER);
         this.tresor = tresor;
         setTrouve(false);

@@ -25,7 +25,7 @@ public class ExceptionAventurier extends Exception{
     /**
      * @return the aventurier
      */
-    public Aventurier getAventurier() {
+    protected Aventurier getAventurier() {
         return aventurier;
     }
     

@@ -33,16 +33,16 @@ public class VueDefausse extends Observable {
     public VueDefausse() {
 
         fenetre = new JFrame();
-        fenetre.setTitle("cartes");
+        fenetre.setTitle("Trop de cartes");
 
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         fenetre.setSize(600, 300);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        fenetre.setLocation(dim.width / 2 - fenetre.getSize().width / 2, dim.height / 2 - fenetre.getSize().height / 2);
+        fenetre.setLocation(dim.width / 2 - fenetre.getSize().width / 2, dim.height / 2 - fenetre.getSize().height / 2 + 200);
         fenetre.setResizable(true);
 
         panelPrincipal = new JPanel(new BorderLayout());
-        JLabel explication = new JLabel("Vous avez plus de cinq cartes veuillez en défausser une :");
+        JLabel explication = new JLabel("Vous avez reçu des cartes! Cliquez sur une carte pour la défausser :");
 
         panelCarte = new JPanel(new GridLayout(1, 1));
 
@@ -73,7 +73,7 @@ public class VueDefausse extends Observable {
         afficher();
     }
 
-    public void afficher() {
+    private void afficher() {
         getFenetre().setVisible(true);
     }
 

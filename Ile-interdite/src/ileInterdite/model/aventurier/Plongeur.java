@@ -52,6 +52,6 @@ public class Plongeur extends Aventurier {
                 }
             }
         }
-        return tuiles;
+        return enleverTuilesCoulees(tuiles);
     }
 }

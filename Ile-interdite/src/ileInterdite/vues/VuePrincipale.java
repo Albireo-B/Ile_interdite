@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import utilitaires.Action;
 
@@ -86,8 +85,7 @@ public class VuePrincipale extends Observable {
         window.add(panelPrincipal);
         window.setResizable(true);
         
-        
-        labelNbPA.setFont(new Font("Arial", Font.BOLD, 14));
+        labelNbPA.setFont(new Font("Arial", Font.BOLD, 20));
         labelNbPA.setForeground(Color.yellow);
         btnTerminerTour.setFont(new Font("Arial", Font.BOLD, 25));
 
@@ -250,7 +248,7 @@ public class VuePrincipale extends Observable {
      /**
      * Ferme la fenêtre
      */
-    public void close() {
+    private void close() {
         getWindow().dispose();
     }
 

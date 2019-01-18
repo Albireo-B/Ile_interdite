@@ -42,10 +42,8 @@ public class VueGrille extends Observable {
     private Color myBackgroundColor = new Color(30,144,255);
     private Role joueurSelectionné;
     private String path = "src/images/tuiles/";
-    
     private int grilleWidth = 780;
     private int grilleHeight = 784;
-
     private HashMap<Tresor, ITresor> tresors = new HashMap();
 
     /**
@@ -202,7 +200,7 @@ public class VueGrille extends Observable {
     /**
      *@return the panelGrille
      */
-    public JPanel getPanelGrille() {
+    protected JPanel getPanelGrille() {
         return panelGrille;
     }
 
@@ -210,7 +208,7 @@ public class VueGrille extends Observable {
     /**
      * @param joueurSelectionné the joueurSelectionné to set
      */
-    public void setJoueurSelectionné(Role joueurSelectionné) {
+    private void setJoueurSelectionné(Role joueurSelectionné) {
         this.joueurSelectionné = joueurSelectionné;
     }
 

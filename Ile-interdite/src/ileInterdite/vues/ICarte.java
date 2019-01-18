@@ -22,7 +22,7 @@ import utilitaires.Role;
  */
 public class ICarte extends JButton {
 
-    private Action action;
+    Action action;
     private String nomCarte;
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";
@@ -34,7 +34,7 @@ public class ICarte extends JButton {
     
     
 
-    public ICarte(String nomImage, Action action) {
+    protected ICarte(String nomImage, Action action) {
         bordureNoire = BorderFactory.createLineBorder(Color.black,3);
         bordureRouge = BorderFactory.createLineBorder(Color.red,3);
         setImage(nomImage);
@@ -42,7 +42,7 @@ public class ICarte extends JButton {
         
     }
 
-    public void removeActionListener() {
+    protected void removeActionListener() {
         removeActionListener(actionListener);
         actionListener = null;
         setBorder(null);
@@ -59,19 +59,15 @@ public class ICarte extends JButton {
         }
     }
 
-    public MessageCarte getMessage(Role role) {
+    protected MessageCarte getMessage(Role role) {
         return new MessageCarte(nomCarte, action, role);
     }
-    
-        
-    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);    
-    }
+
 
     /**
      * @param nom the nom to set
      */
-    public void setImage(String nomImage) {
+    protected void setImage(String nomImage) {
         if (nomImage != null) {
             nomCarte = nomImage;
             image = new ImageIcon(new ImageIcon(path + nomImage + ".png").getImage().getScaledInstance(imgWidth, imgHeigh, Image.SCALE_SMOOTH));
@@ -89,8 +85,15 @@ public class ICarte extends JButton {
      /**
      * @return the nomCarte
      */
-    public String getNom() {
+    protected String getNom() {
         return nomCarte;
+    }
+
+    /**
+     * @param action the action to set
+     */
+    public void setAction(Action action) {
+        this.action = action;
     }
 
 

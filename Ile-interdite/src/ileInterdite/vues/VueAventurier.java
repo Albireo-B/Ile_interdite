@@ -5,15 +5,21 @@
  */
 package ileInterdite.vues;
 
+import ileInterdite.controleur.Controleur;
+import ileInterdite.controleur.ControleurInit;
 import ileInterdite.message.MessageCarte;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import utilitaires.Action;
 import utilitaires.Role;
@@ -29,30 +35,38 @@ public class VueAventurier extends Observable {
     private JPanel panelGeneral;
     private ArrayList<ICarte> buttonCartes;
     private Role roleAventurier;
+    private String nomJoueur;
     private String pathPerso = "src/images/personnages/";
     private String pathCartes = "src/images/cartes/";
-    private int width=120;
-    private int height=168;
+    private JPanel paneNom = new JPanel();
+    private int width = 100;
+    private int height = 140;
 
-    public VueAventurier(Role roleAventurier, boolean gauche) {
+    public VueAventurier(Role roleAventurier, String nomJoueur, boolean gauche) {
 
         panelGeneral = new JPanel(new BorderLayout());
 
         this.roleAventurier = roleAventurier;
+        this.nomJoueur = nomJoueur;
 
         //====================== principal========================
         JPanel panelPrincipal = new JPanel(new GridLayout(2, 3));
 
         //===================pannel en haut avec les button et la classe====
         paneClass = new JPanel(new BorderLayout());
-        
-        ImageIcon icone = new ImageIcon(new ImageIcon(pathPerso+ roleAventurier.toString().toLowerCase() + ".png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+
+        ImageIcon icone = new ImageIcon(new ImageIcon(pathPerso + roleAventurier.toString().toLowerCase() + ".png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
         carteJoueur = new IAventurier(new JButton(icone), roleAventurier);
 
         buttonCartes = new ArrayList<>();
 
         //=============================================
-        paneClass.add(carteJoueur.getBoutonAventurier());
+        paneNom.add(new JLabel(nomJoueur));
+        paneNom.setPreferredSize(new Dimension(20, 30));
+        paneNom.setBorder(BorderFactory.createLineBorder(Color.black,3));
+        paneClass.add(paneNom, BorderLayout.NORTH);
+        paneClass.add(carteJoueur.getBoutonAventurier(), BorderLayout.CENTER);
+        paneClass.setBorder(BorderFactory.createLineBorder(Color.black,3));
 
         for (int i = 0; i < 5; i++) {
             if ((i == 0 && !gauche) || (i == 2 && gauche)) {
@@ -62,30 +76,33 @@ public class VueAventurier extends Observable {
             panelPrincipal.add(buttonCartes.get(i));
 
         }
-        
+
         panelGeneral.add(panelPrincipal);
     }
 
-    
     public void actualiserVueAventurier(ArrayList<String> listeCarte) {
         int j = 0;
-        while ( j < listeCarte.size() && j<5) {
-            buttonCartes.get(j).setImage(listeCarte.get(j));
-            buttonCartes.get(j).removeActionListener();                
-            if (buttonCartes.get(j).getNom().equals("Helicoptere") ){
-                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
+        while (j < listeCarte.size() && j < 5) {
+            ICarte carte = buttonCartes.get(j);
+            carte.setImage(listeCarte.get(j));
+            carte.removeActionListener();
+            if (carte.getNom().equals("Helicoptere")) {
+                carte.setAction(Action.CARTESPECIALE);
+                carte.addActionListener((ActionEvent arg0) -> {
                     setChanged();
-                    notifyObservers(new MessageCarte("Helicoptere",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(carte.getMessage(roleAventurier));
                     clearChanged();
                 });
 
-            }else if (buttonCartes.get(j).getNom().equals("SacDeSable")){
-                buttonCartes.get(j).addActionListener((ActionEvent arg0) -> {
-
+            } else if (carte.getNom().equals("SacDeSable")) {
+                carte.setAction(Action.CARTESPECIALE);
+                carte.addActionListener((ActionEvent arg0) -> {
                     setChanged();
-                    notifyObservers(new MessageCarte("SacDeSable",Action.CARTESPECIALE,roleAventurier));
+                    notifyObservers(carte.getMessage(roleAventurier));
                     clearChanged();
                 });
+            } else {
+                carte.setAction(Action.DONNER);
             }
             j++;
         }
@@ -96,18 +113,19 @@ public class VueAventurier extends Observable {
 
     }
 
-    public void rescale(ImageIcon image,int resizedWidth,int resizedHeight){
-        image.getImage().getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);
-        
-    }
     public void rendreCartesCliquables(ArrayList<Integer> listePos) {
-        for (Integer carteCliquable : listePos) {
-            ICarte carte = buttonCartes.get(carteCliquable);
-            carte.addActionListener((ActionEvent e) -> {
-                setChanged();
-                notifyObservers(carte.getMessage(roleAventurier));
-                clearChanged();
-            });
+        for (int i = 0; i < buttonCartes.size(); i++) {
+            ICarte carte = buttonCartes.get(i);
+            if (listePos.contains(i)) {
+
+                carte.addActionListener((ActionEvent e) -> {
+                    setChanged();
+                    notifyObservers(carte.getMessage(roleAventurier));
+                    clearChanged();
+                });
+            } else {
+                carte.removeActionListener();
+            }
         }
     }
 
@@ -118,29 +136,19 @@ public class VueAventurier extends Observable {
     public void devenirSuiveur(boolean suivre) {
         carteJoueur.devenirSuiveur(suivre);
     }
-    
+
     public void desactiverCartes() {
         for (ICarte carte : buttonCartes) {
             carte.removeActionListener();
         }
     }
-    
 
     //Getters et Setters :
-    
     /**
      * @return the nomAventurier
      */
     public Role getRoleAventurier() {
         return roleAventurier;
-    }
-
- 
-    /**
-     * @param paneClass the paneClass to set
-     */
-    public void setPaneClass(JPanel paneClass) {
-        this.paneClass = paneClass;
     }
 
     /**
