@@ -22,7 +22,7 @@ import utilitaires.Role;
  */
 public class ICarte extends JButton {
 
-    Action action;
+    private Action action;
     private String nomCarte;
     private ActionListener actionListener = null;
     private String path = "src/images/cartes/";

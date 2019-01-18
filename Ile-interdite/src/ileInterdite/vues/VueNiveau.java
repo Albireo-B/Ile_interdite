@@ -26,7 +26,7 @@ public class VueNiveau extends JPanel {
     
     private JLabel curseur ;
 
-    public VueNiveau(int niveau) {
+    protected VueNiveau(int niveau) {
         super(new BorderLayout());
         
         JLayeredPane layeredPane = new JLayeredPane();
@@ -45,7 +45,7 @@ public class VueNiveau extends JPanel {
         setNiveau(niveau);
     }
     
-    public void setNiveau(int niveau) {
+    protected void setNiveau(int niveau) {
         this.niveau = niveau;
         curseur.setBounds(offsetDepart + (niveau-1) * 25, 0, imgCurseur.getIconWidth(), imgCurseur.getIconHeight());
     }
