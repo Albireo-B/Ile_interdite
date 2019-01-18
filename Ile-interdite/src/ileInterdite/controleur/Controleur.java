@@ -348,11 +348,11 @@ public class Controleur implements Observer {
             vueGrille.actualiserEtatTuile(p, EtatTuile.COULEE);
             for (Tuile t : grille.getTuilesTresor().keySet()) {
                 if (grille.getTuilesTresor().get(tuile) != null
-                        && t.getNom() != tuile.getNom()
+                        && !t.getNom().equals(tuile.getNom())
                         && grille.getTuilesTresor().get(t) == grille.getTuilesTresor().get(tuile)
                         && t.getEtat() == EtatTuile.COULEE
-                        /*&& le tresor n'est pas récupéré*/ ) {
-                    terminerPartie(false, ListeFin.TEMPLECOULE);
+                        && !t.getTresor().isRecupere()) {
+                    terminerPartie(false,ListeFin.TEMPLECOULE);
                 }
             }
 
@@ -465,6 +465,14 @@ public class Controleur implements Observer {
             nextTurn();
         }
     }
+    
+    private void afficherNbCartes() {
+        int i=piocheTirage.size()+defausseTirage.size();
+        for(Aventurier av : joueurs.values()){
+            i+=av.getCartes().size();
+        }
+        System.out.println("Nombre de cartes totales: "+i);
+    }
 
     /**
      * Change de tour : remet les points d'action a 3, remet le pouvoir en
@@ -473,6 +481,7 @@ public class Controleur implements Observer {
      */
     private void nextTurn() {
         aventurierCourant.reset();
+        
         tirerCartes();
         gererInondation();
         aventurierSuivant();
@@ -482,11 +491,6 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
-        int i = piocheTirage.size() + defausseTirage.size();
-        for (Aventurier av : joueurs.values()) {
-            i += av.getCartes().size();
-        }
-        System.out.println(i);
         updateBoutons();
     }
 
@@ -763,11 +767,14 @@ public class Controleur implements Observer {
 
     private CarteTirage stringToCarte(String nomCarte, Role role) {
         CarteTirage carteSelection = null;
-        System.out.println(nomCarte);
+        
         for (CarteTirage carte : joueurs.get(role).getCartes()) {
             if (carte.getNom().equals(nomCarte)) {
                 carteSelection = carte;
             }
+        }
+        if (carteSelection == null) {
+            System.out.println("NANI?!");
         }
         return carteSelection;
     }
@@ -809,30 +816,39 @@ public class Controleur implements Observer {
     /**
      * On tire 2 cartes qu'on donne a l'aventurier courant
      */
-    private void tirerCartes() {
+    public void tirerCartes() {
+        System.out.println("---- Début calcul");
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         Boolean trigger = false;
-        //Pour le nombre de cartes qu'on veut donner
+        afficherNbCartes();
+        
+        //Pour le nombre de cartes qu'on veut prendre
         for (int i = 0; i < 2; i++) {
-            //Si la pioche n'est pas vide
-            if (!piocheTirage.isEmpty()) {
+            //Si la pioche est vide
+            if (piocheTirage.isEmpty()) {
                 Collections.shuffle(defausseTirage);
                 piocheTirage.addAll(defausseTirage);
                 defausseTirage.clear();
             }
+            CarteTirage carte = piocheTirage.get(piocheTirage.size() - 1);
+            
             //Si la prochaine carte est une carte montée des eaux
-            if (piocheTirage.get(piocheTirage.size() - 1) instanceof CarteMonteeDesEaux) {
+            if (carte instanceof CarteMonteeDesEaux) {
+                System.out.println("MontéedesEaux");
                 trigger = true;
                 niveauEau += 1;
                 vuePrincipale.setNiveau(niveauEau);
+                defausseTirage.add(carte);
                 if (niveauEau >= 10) {
                     terminerPartie(false, ListeFin.NIVEAUDEAU);
                 }
             } else {
-                cartes.add(piocheTirage.get(piocheTirage.size() - 1));
+                cartes.add(carte);
             }
-            piocheTirage.remove(piocheTirage.get(piocheTirage.size() - 1));
+            piocheTirage.remove(piocheTirage.size() - 1);
         }
+        
+        
         if (trigger) {
             Collections.shuffle(defausseInondation);
             piocheInondation.addAll(defausseInondation);
@@ -844,6 +860,7 @@ public class Controleur implements Observer {
             aventurierCourant.defausseCartes();
             enableGame(false);
         }
+        afficherNbCartes();
         vuesAventuriers.get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
 
