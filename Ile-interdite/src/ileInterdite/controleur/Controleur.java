@@ -847,20 +847,8 @@ public class Controleur implements Observer {
         vuesAventuriers.get(aventurierCourant.getRole()).actualiserVueAventurier(joueurs.get(aventurierCourant.getRole()).cartesToString());
     }
 
-    private void gererDon() {
-        Boolean yes = false;
-        if (aventurierCourant.getRole() == Role.Messager) {
-            yes = true;
-        }
-
-        for (Role role : joueurs.keySet()) {
-            if (joueurs.get(role).getTuile().equals(aventurierCourant.getTuile()) && !joueurs.get(role).equals(aventurierCourant)) {
-                yes = true;
-            }
-        }
-        if (yes) {
+    private void gererDon() {      
             vuePrincipale.getPanelAventuriers().get(aventurierCourant.getRole()).rendreCartesCliquables(aventurierCourant.cartesTresor());
-        }
     }
 
     private void appliquerDon(MessageCarte messageCarte) {
