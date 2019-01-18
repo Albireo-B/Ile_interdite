@@ -38,7 +38,7 @@ public class Pilote extends Aventurier {
      */
     @Override
     public void setTuile(Grille g, Tuile tuile) {
-        if (!(g.tuilesAdjacentesCroix(getTuile()).contains(tuile))) {
+        if (!(g.tuilesAdjacentesCroix(getTuile()).contains(tuile)) && getTuile().getEtat()!=EtatTuile.COULEE) {
             setPouvoir(false);
         }
         super.setTuile(g, tuile);
@@ -53,7 +53,7 @@ public class Pilote extends Aventurier {
     @Override
     public ArrayList<Tuile> calculDeplacement(Grille g) {
         ArrayList<Tuile> liste;
-        if (getPouvoir() && getTuile().getEtat() != EtatTuile.COULEE) {
+        if (getPouvoir()) {
             liste = g.tuilesNonCoulees(getTuile());
         } else {
             liste = g.tuilesAdjacentesCroix(getTuile());
