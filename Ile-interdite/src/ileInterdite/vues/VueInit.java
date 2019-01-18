@@ -37,15 +37,15 @@ public class VueInit extends Observable{
      private JTextField nom3=new JTextField(10);
      private JTextField nom4=new JTextField(10);
      
-     private JLabel label1;
-     private JLabel label2;
-     private JLabel label3;
-     private JLabel label4;
-     private JLabel label5;
-     private JLabel label6;
-     private JLabel label7;
-     private JLabel label8;
-     private JLabel label9;
+     private JLabel label1 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label2 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label3 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label4 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label5 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label6 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label7 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label8 = new JLabel("Joueur",SwingConstants.CENTER);
+     private JLabel label9 = new JLabel("Joueur",SwingConstants.CENTER);
      
      
      
@@ -92,7 +92,6 @@ public class VueInit extends Observable{
                     
                     mainPanel4.add(new JLabel(""));
                     mainPanel4.add(new JLabel("1",SwingConstants.CENTER));
-                    label1 = new JLabel("Joueur",SwingConstants.CENTER);
                     mainPanel4.add(label1);
                    
                     mainPanel4.add(nom1);
@@ -106,8 +105,7 @@ public class VueInit extends Observable{
                     
                     mainPanel4.add(new JLabel(""));
                     mainPanel4.add(new JLabel("2",SwingConstants.CENTER));
-                    label3 = new JLabel("Joueur",SwingConstants.CENTER);
-                    mainPanel4.add(label3);
+                    mainPanel4.add(label2);
                     
                     mainPanel4.add(nom2);
                     mainPanel4.add(new JLabel(""));
@@ -120,8 +118,7 @@ public class VueInit extends Observable{
                     
                     mainPanel4.add(new JLabel(""));
                     mainPanel4.add(new JLabel("3",SwingConstants.CENTER));
-                    label5 = new JLabel("joueur",SwingConstants.CENTER);
-                    mainPanel4.add(label5);
+                    mainPanel4.add(label3);
                     
                     mainPanel4.add(nom3);
                     mainPanel4.add(new JLabel(""));
@@ -134,8 +131,7 @@ public class VueInit extends Observable{
                     
                     mainPanel4.add(new JLabel(""));
                     mainPanel4.add(new JLabel("4",SwingConstants.CENTER));
-                    label7 = new JLabel("joueur",SwingConstants.CENTER);
-                    mainPanel4.add(label7);
+                    mainPanel4.add(label4);
                     
                     mainPanel4.add(nom4);
                     mainPanel4.add(new JLabel(""));
@@ -161,8 +157,7 @@ public class VueInit extends Observable{
                     
                     mainPanel3.add(new JLabel(""));
                     mainPanel3.add(new JLabel("1",SwingConstants.CENTER));
-                    label1 = new JLabel("Joueur",SwingConstants.CENTER);
-                    mainPanel3.add(label1);
+                    mainPanel3.add(label5);
                     JTextField N1 = new JTextField(20);
                     mainPanel3.add(N1);
                     mainPanel3.add(new JLabel(""));
@@ -175,8 +170,7 @@ public class VueInit extends Observable{
                     
                     mainPanel3.add(new JLabel(""));
                     mainPanel3.add(new JLabel("2",SwingConstants.CENTER));
-                    label3 = new JLabel("Joueur",SwingConstants.CENTER);
-                    mainPanel3.add(label3);
+                    mainPanel3.add(label6);
                     JTextField N2 = new JTextField(20);
                     mainPanel3.add(N2);
                     mainPanel3.add(new JLabel(""));
@@ -189,8 +183,7 @@ public class VueInit extends Observable{
                     
                     mainPanel3.add(new JLabel(""));
                     mainPanel3.add(new JLabel("3",SwingConstants.CENTER));
-                    label5 = new JLabel("Joueur",SwingConstants.CENTER);
-                    mainPanel3.add(label5);
+                    mainPanel3.add(label7);
                     JTextField N3 = new JTextField(20);
                     mainPanel3.add(N3);
                     mainPanel3.add(new JLabel(""));
@@ -217,8 +210,7 @@ public class VueInit extends Observable{
                     
                     mainPanel2.add(new JLabel(""));
                     mainPanel2.add(new JLabel("1",SwingConstants.CENTER));
-                    label1 = new JLabel("Joueur",SwingConstants.CENTER);
-                    mainPanel2.add(label1);
+                    mainPanel2.add(label8);
                     JTextField N1 = new JTextField(20);
                     mainPanel2.add(N1);
                     mainPanel2.add(new JLabel(""));
@@ -231,8 +223,7 @@ public class VueInit extends Observable{
                     
                     mainPanel2.add(new JLabel(""));
                     mainPanel2.add(new JLabel("2",SwingConstants.CENTER));
-                    label3 = new JLabel("Joueur",SwingConstants.CENTER);
-                    mainPanel2.add(label3);
+                    mainPanel2.add(label9);
                     JTextField N2 = new JTextField(20);
                     mainPanel2.add(N2);
                     mainPanel2.add(new JLabel(""));
