@@ -30,7 +30,7 @@ public class VueDefausse extends Observable {
     private JPanel panelCarte;
     private JPanel panelPrincipal;
 
-    public VueDefausse() {
+    public VueDefausse(String nomJoueur) {
 
         fenetre = new JFrame();
         fenetre.setTitle("Trop de cartes");
@@ -42,7 +42,7 @@ public class VueDefausse extends Observable {
         fenetre.setResizable(true);
 
         panelPrincipal = new JPanel(new BorderLayout());
-        JLabel explication = new JLabel("Vous avez reçu des cartes! Cliquez sur une carte pour la défausser :");
+        JLabel explication = new JLabel(nomJoueur+",vous avez désormais plus de 5 cartes, cliquez sur une carte pour la défausser :");
 
         panelCarte = new JPanel(new GridLayout(1, 1));
 

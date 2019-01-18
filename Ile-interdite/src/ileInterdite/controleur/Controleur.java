@@ -491,7 +491,9 @@ public class Controleur implements Observer {
         
         tirerCartes();
         gererInondation();
+        String nomJPrecedent = aventurierCourant.getNomJoueur();
         aventurierSuivant();
+        JOptionPane.showMessageDialog(null, "Tour de "+aventurierCourant.getNomJoueur()+", "+nomJPrecedent+" pioche deux cartes, des tuiles s'inondent...", "Niveau monte!", JOptionPane.OK_OPTION);
 
         vuePrincipale.actualiserVue(aventurierCourant.getNomJoueur(),
                 aventurierCourant.getRole(),
@@ -841,7 +843,7 @@ public class Controleur implements Observer {
             
             //Si la prochaine carte est une carte montée des eaux
             if (carte instanceof CarteMonteeDesEaux) {
-                System.out.println("MontéedesEaux");
+                JOptionPane.showMessageDialog(null, "Une carte montée des eaux a été tirée, le niveau monte...", "Niveau monte!", JOptionPane.OK_OPTION);
                 trigger = true;
                 niveauEau += 1;
                 vuePrincipale.setNiveau(niveauEau);
