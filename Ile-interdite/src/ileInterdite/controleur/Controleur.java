@@ -234,12 +234,10 @@ public class Controleur implements Observer {
 
     private boolean victoireJoueur() {
         boolean victoire = true;
-        System.out.println("GGGGG");
         boolean helicarte = false;
         for (Aventurier joueur : joueurs.values()) {
             if (!joueur.getTuile().getNom().equals("Heliport")) {
                 victoire = false;
-                System.out.println("??????");
             }
             for (CarteTirage carte : joueur.getCartes()) {
                 if (carte instanceof CarteHelicoptere)
@@ -253,11 +251,9 @@ public class Controleur implements Observer {
         for (Tresor t : Tresor.values()) {
             if (!t.isRecupere()) {
                 victoire = false;
-                System.out.println("!!!!!!");
             }
             
         }
-        System.out.println(victoire);
         return victoire;
     }
 
@@ -274,7 +270,6 @@ public class Controleur implements Observer {
         }
 
         if (victoireJoueur()) {
-            System.out.println("VICTOIIIIIIIIIIIIIIIIIIIIIIIIIRE");
             terminerPartie(ListeFin.VICTOIRE);
         }
     }
@@ -452,6 +447,7 @@ public class Controleur implements Observer {
                 //Une carte à donner est séléctionée
                 && !(arg instanceof MessageCarte && ((Message) arg).getAction() == Action.DONNER)
                 //L'action de la carte hélicoptère est en cours 
+                && !(((Message) arg).getAction() == Action.DEFAUSSER && (arg instanceof MessageCarte && ((MessageCarte) arg).getNomCarte().equals("Helicoptere")))
                 && !(((Message) arg).getAction() == Action.CARTESPECIALE && (arg instanceof MessageCarte && ((MessageCarte) arg).getNomCarte().equals("Helicoptere")))
                 && !(((Message) arg).getAction() == Action.GROUPEHELICO && !(arg instanceof MessageGroupePos))) {
             for (Role r : listeRoles) {
@@ -479,6 +475,14 @@ public class Controleur implements Observer {
                 aventurierCourant.getPion().getCouleur(),
                 aventurierCourant.getNbAction()
         );
+        //si il reste des aventuriers en danger, il ne faut pas qu'il puissent utiliser de cartes spéciales
+        if (!attenteMouvementUrgence.isEmpty())
+        {
+            System.out.println("désactiver cartes");
+            for (Role r : listeRoles){
+                vuePrincipale.getPanelAventuriers().get(r).rendreCartesCliquables(new ArrayList());
+            }
+        }
         updateBoutons();
     }
 
@@ -788,7 +792,6 @@ public class Controleur implements Observer {
             }
         }
         if (carteSelection == null) {
-            //System.out.println("NANI?!");
         }
         return carteSelection;
     }
@@ -831,7 +834,6 @@ public class Controleur implements Observer {
      * On tire 2 cartes qu'on donne a l'aventurier courant
      */
     public void tirerCartes() {
-        System.out.println("---- Début calcul");
         ArrayList<CarteTirage> cartes = new ArrayList<>();
         Boolean trigger = false;
         
