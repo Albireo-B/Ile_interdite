@@ -1,2 +1,2 @@
 # Ile_interdite
-L'ile interdite en java moche ( trés trés moche )
+The table card game "L'île interdite" (forbidden island) coded in java
